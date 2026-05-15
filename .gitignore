@@ -1,0 +1,29 @@
+# Backend (vlastný .gitignore tam)
+backend/node_modules/
+backend/.env
+backend/orders.sqlite
+backend/orders.sqlite-*
+backend/logs/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Veelyn dev
+images/veelyn-backup-pre-norm/
+images/veelyn.backup/
+*.bak
+PHOTOS_TODO.md
+ORIGINALS_TODO.md
+
+# Local Claude config (heslá v settings, nezdielať)
+.claude/settings.local.json
+
+# Raw downloads (ak by boli v repo)
+veelyn-originals-raw/

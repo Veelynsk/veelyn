@@ -1,0 +1,1637 @@
+[
+  {
+    "id": "star",
+    "veelyn_name": "STAR",
+    "original_name": "Goddess",
+    "brand": "Burberry",
+    "gender": "Z",
+    "original_price": 145,
+    "veelyn_price": 24.99,
+    "top_notes": [
+      "levanduľa"
+    ],
+    "heart_notes": [
+      "vanilka"
+    ],
+    "base_notes": [
+      "kakao",
+      "ambra"
+    ]
+  },
+  {
+    "id": "the-one",
+    "veelyn_name": "THE ONE",
+    "original_name": "Burberry Hero",
+    "brand": "Burberry",
+    "gender": "M",
+    "original_price": 130,
+    "veelyn_price": 24.99,
+    "top_notes": [
+      "bergamot",
+      "čierne korenie"
+    ],
+    "heart_notes": [
+      "jedľa",
+      "borovica"
+    ],
+    "base_notes": [
+      "cédrové drevo",
+      "drevitý mošus"
+    ]
+  },
+  {
+    "id": "she-is",
+    "veelyn_name": "SHE IS",
+    "original_name": "Her",
+    "brand": "Burberry",
+    "gender": "Z",
+    "original_price": 135,
+    "veelyn_price": 24.99,
+    "top_notes": [
+      "lesné plody",
+      "čierne ríbezle",
+      "černice",
+      "jahody"
+    ],
+    "heart_notes": [
+      "fialka",
+      "jazmín"
+    ],
+    "base_notes": [
+      "mošus",
+      "ambra",
+      "vanilka"
+    ]
+  },
+  {
+    "id": "go-boy",
+    "veelyn_name": "GO BOY",
+    "original_name": "Bad Boy",
+    "brand": "Carolina Herrera",
+    "gender": "M",
+    "original_price": 120,
+    "veelyn_price": 24.99,
+    "top_notes": [
+      "bergamot",
+      "biele korenie"
+    ],
+    "heart_notes": [
+      "šalvia",
+      "cédrové drevo"
+    ],
+    "base_notes": [
+      "tonka bôb",
+      "kakao",
+      "ambra"
+    ]
+  },
+  {
+    "id": "go-girl",
+    "veelyn_name": "GO GIRL",
+    "original_name": "Good Girl",
+    "brand": "Carolina Herrera",
+    "gender": "Z",
+    "original_price": 130,
+    "veelyn_price": 24.99,
+    "top_notes": [
+      "mandle",
+      "káva"
+    ],
+    "heart_notes": [
+      "jazmín",
+      "tuberóza"
+    ],
+    "base_notes": [
+      "kakao",
+      "tonka bôb",
+      "santal"
+    ]
+  },
+  {
+    "id": "go-go-girl",
+    "veelyn_name": "GO GO GIRL",
+    "original_name": "Very Good Girl",
+    "brand": "Carolina Herrera",
+    "gender": "Z",
+    "original_price": 135,
+    "veelyn_price": 24.99,
+    "top_notes": [
+      "čerešňa",
+      "ríbezle"
+    ],
+    "heart_notes": [
+      "ruža",
+      "jazmín"
+    ],
+    "base_notes": [
+      "pačuli",
+      "tonka bôb"
+    ]
+  },
+  {
+    "id": "five",
+    "veelyn_name": "FIVE",
+    "original_name": "No. 5",
+    "brand": "Chanel",
+    "gender": "Z",
+    "original_price": 165,
+    "veelyn_price": 24.99,
+    "top_notes": [
+      "aldehydy",
+      "ylang-ylang",
+      "neroli"
+    ],
+    "heart_notes": [
+      "ruža",
+      "jazmín",
+      "konvalinka"
+    ],
+    "base_notes": [
+      "santal",
+      "vetiver",
+      "vanilka"
+    ]
+  },
+  {
+    "id": "i-am-blue",
+    "veelyn_name": "I AM BLUE",
+    "original_name": "Bleu de Chanel",
+    "brand": "Chanel",
+    "gender": "M",
+    "original_price": 155,
+    "veelyn_price": 24.99,
+    "top_notes": [
+      "citrón",
+      "grapefruit",
+      "mäta"
+    ],
+    "heart_notes": [
+      "zázvor",
+      "kadidlo",
+      "jazmín"
+    ],
+    "base_notes": [
+      "cédrové drevo",
+      "santal",
+      "labdanum"
+    ]
+  },
+  {
+    "id": "old-money",
+    "veelyn_name": "OLD MONEY",
+    "original_name": "Coco Mademoiselle",
+    "brand": "Chanel",
+    "gender": "Z",
+    "original_price": 160,
+    "veelyn_price": 24.99,
+    "top_notes": [
+      "pomaranč",
+      "bergamot",
+      "grapefruit"
+    ],
+    "heart_notes": [
+      "ruža",
+      "jazmín",
+      "mimoza"
+    ],
+    "base_notes": [
+      "pačuli",
+      "vetiver",
+      "biely mošus"
+    ]
+  },
+  {
+    "id": "hard-cash",
+    "veelyn_name": "HARD CASH",
+    "original_name": "Aventus",
+    "brand": "Creed",
+    "gender": "M",
+    "original_price": 380,
+    "veelyn_price": 24.99,
+    "top_notes": [
+      "ananás",
+      "bergamot",
+      "čierne ríbezle",
+      "jablko"
+    ],
+    "heart_notes": [
+      "breza",
+      "pačuli",
+      "ruža",
+      "jazmín"
+    ],
+    "base_notes": [
+      "dubový mach",
+      "ambra",
+      "vanilka",
+      "mošus"
+    ]
+  },
+  {
+    "id": "important",
+    "veelyn_name": "IMPORTANT",
+    "original_name": "Millésime Imperial",
+    "brand": "Creed",
+    "gender": "U",
+    "original_price": 360,
+    "veelyn_price": 24.99,
+    "top_notes": [
+      "citrón",
+      "bergamot",
+      "morská soľ"
+    ],
+    "heart_notes": [
+      "irisz",
+      "kvety pomarančovníka"
+    ],
+    "base_notes": [
+      "santal",
+      "mošus",
+      "ambra"
+    ]
+  },
+  {
+    "id": "weak-king",
+    "veelyn_name": "WEAK KING",
+    "original_name": "Viking",
+    "brand": "Creed",
+    "gender": "M",
+    "original_price": 370,
+    "veelyn_price": 24.99,
+    "top_notes": [
+      "bergamot",
+      "mäta",
+      "ružové korenie"
+    ],
+    "heart_notes": [
+      "levanduľa",
+      "ruža",
+      "muškátový oriešok"
+    ],
+    "base_notes": [
+      "santal",
+      "cédrové drevo",
+      "pačuli"
+    ]
+  },
+  {
+    "id": "og-river",
+    "veelyn_name": "OG RIVER",
+    "original_name": "Original Vetiver",
+    "brand": "Creed",
+    "gender": "M",
+    "original_price": 350,
+    "veelyn_price": 24.99,
+    "top_notes": [
+      "mandarínka",
+      "bergamot",
+      "zázvor"
+    ],
+    "heart_notes": [
+      "vetiver",
+      "irisz"
+    ],
+    "base_notes": [
+      "mošus",
+      "ambra"
+    ]
+  },
+  {
+    "id": "everest-gold",
+    "veelyn_name": "EVEREST GOLD",
+    "original_name": "Silver Mountain Water",
+    "brand": "Creed",
+    "gender": "U",
+    "original_price": 360,
+    "veelyn_price": 24.99,
+    "top_notes": [
+      "bergamot",
+      "mandarínka"
+    ],
+    "heart_notes": [
+      "zelený čaj",
+      "čierne ríbezle"
+    ],
+    "base_notes": [
+      "santal",
+      "mošus"
+    ]
+  },
+  {
+    "id": "holy-water",
+    "veelyn_name": "HOLY WATER",
+    "original_name": "Virgin Island Water",
+    "brand": "Creed",
+    "gender": "U",
+    "original_price": 360,
+    "veelyn_price": 24.99,
+    "top_notes": [
+      "limetka",
+      "kokos",
+      "biely rum"
+    ],
+    "heart_notes": [
+      "jazmín",
+      "ylang-ylang",
+      "hibiskus"
+    ],
+    "base_notes": [
+      "cukrová trstina",
+      "mošus"
+    ]
+  },
+  {
+    "id": "suited-irish",
+    "veelyn_name": "SUITED IRISH",
+    "original_name": "Green Irish Tweed",
+    "brand": "Creed",
+    "gender": "M",
+    "original_price": 360,
+    "veelyn_price": 24.99,
+    "top_notes": [
+      "citrón",
+      "verbéna"
+    ],
+    "heart_notes": [
+      "irisz",
+      "fialka"
+    ],
+    "base_notes": [
+      "santal",
+      "ambra"
+    ]
+  },
+  {
+    "id": "silk-road",
+    "veelyn_name": "SILK ROAD",
+    "original_name": "Queen of Silk",
+    "brand": "Creed",
+    "gender": "Z",
+    "original_price": 380,
+    "veelyn_price": 24.99,
+    "top_notes": [
+      "bergamot",
+      "čierne ríbezle"
+    ],
+    "heart_notes": [
+      "ruža",
+      "irisz",
+      "magnólia"
+    ],
+    "base_notes": [
+      "mošus",
+      "santal",
+      "ambra"
+    ]
+  },
+  {
+    "id": "adore-me",
+    "veelyn_name": "ADORE ME",
+    "original_name": "J'adore",
+    "brand": "Dior",
+    "gender": "Z",
+    "original_price": 165,
+    "veelyn_price": 24.99,
+    "top_notes": [
+      "mandarínka",
+      "bergamot",
+      "hruška"
+    ],
+    "heart_notes": [
+      "jazmín",
+      "ruža",
+      "ylang-ylang"
+    ],
+    "base_notes": [
+      "vanilka",
+      "santal",
+      "mošus"
+    ]
+  },
+  {
+    "id": "doria",
+    "veelyn_name": "DORIA",
+    "original_name": "Miss Dior",
+    "brand": "Dior",
+    "gender": "Z",
+    "original_price": 160,
+    "veelyn_price": 24.99,
+    "top_notes": [
+      "mandarínka",
+      "bergamot"
+    ],
+    "heart_notes": [
+      "centifolská ruža",
+      "pivónia"
+    ],
+    "base_notes": [
+      "mošus",
+      "drevité tóny"
+    ]
+  },
+  {
+    "id": "savage-queen",
+    "veelyn_name": "SAVAGE QUEEN",
+    "original_name": "Sauvage",
+    "brand": "Dior",
+    "gender": "M",
+    "original_price": 155,
+    "veelyn_price": 24.99,
+    "top_notes": [
+      "bergamot",
+      "kalábrijský bergamot"
+    ],
+    "heart_notes": [
+      "sečuánske korenie",
+      "levanduľa",
+      "geránium"
+    ],
+    "base_notes": [
+      "ambroxan",
+      "cédrové drevo",
+      "labdanum"
+    ]
+  },
+  {
+    "id": "you-and-me",
+    "veelyn_name": "YOU + ME",
+    "original_name": "Stronger With You Intensely",
+    "brand": "Armani",
+    "gender": "M",
+    "original_price": 130,
+    "veelyn_price": 24.99,
+    "top_notes": [
+      "kardamóm",
+      "ružové korenie",
+      "fialkové listy"
+    ],
+    "heart_notes": [
+      "šalvia",
+      "levanduľa",
+      "jazmín"
+    ],
+    "base_notes": [
+      "vanilka",
+      "kaštanový med",
+      "tonka bôb"
+    ]
+  },
+  {
+    "id": "marine",
+    "veelyn_name": "MARINE",
+    "original_name": "Acqua di Gio Profumo",
+    "brand": "Armani",
+    "gender": "M",
+    "original_price": 130,
+    "veelyn_price": 24.99,
+    "top_notes": [
+      "morská voda",
+      "bergamot"
+    ],
+    "heart_notes": [
+      "geránium",
+      "šalvia",
+      "rozmarín"
+    ],
+    "base_notes": [
+      "kadidlo",
+      "pačuli"
+    ]
+  },
+  {
+    "id": "purple-flower",
+    "veelyn_name": "PURPLE FLOWER",
+    "original_name": "Bloom",
+    "brand": "Gucci",
+    "gender": "Z",
+    "original_price": 145,
+    "veelyn_price": 24.99,
+    "top_notes": [
+      "jazmín",
+      "tuberóza"
+    ],
+    "heart_notes": [
+      "rangoonský popínavec"
+    ],
+    "base_notes": [
+      "iris koreň",
+      "mošus"
+    ]
+  },
+  {
+    "id": "ocean-wave",
+    "veelyn_name": "OCEAN WAVE",
+    "original_name": "Le Male",
+    "brand": "Jean Paul Gaultier",
+    "gender": "M",
+    "original_price": 110,
+    "veelyn_price": 24.99,
+    "top_notes": [
+      "mäta",
+      "levanduľa",
+      "kardamóm"
+    ],
+    "heart_notes": [
+      "kvet pomarančovníka",
+      "škorica",
+      "rasca"
+    ],
+    "base_notes": [
+      "vanilka",
+      "tonka bôb",
+      "santal",
+      "cédrové drevo"
+    ]
+  },
+  {
+    "id": "velvet-rush",
+    "veelyn_name": "VELVET RUSH",
+    "original_name": "Ultra Male",
+    "brand": "Jean Paul Gaultier",
+    "gender": "M",
+    "original_price": 115,
+    "veelyn_price": 24.99,
+    "top_notes": [
+      "levanduľa",
+      "hruška",
+      "čierne ríbezle"
+    ],
+    "heart_notes": [
+      "mäta",
+      "škorica",
+      "vavrín"
+    ],
+    "base_notes": [
+      "vanilka",
+      "ambra",
+      "drevité tóny"
+    ]
+  },
+  {
+    "id": "tropical-island",
+    "veelyn_name": "TROPICAL ISLAND",
+    "original_name": "Paradise Gardens",
+    "brand": "Jean Paul Gaultier",
+    "gender": "M",
+    "original_price": 115,
+    "veelyn_price": 24.99,
+    "top_notes": [
+      "kokos",
+      "ananás"
+    ],
+    "heart_notes": [
+      "jazmín",
+      "kvet pomarančovníka"
+    ],
+    "base_notes": [
+      "vanilka",
+      "tonka bôb",
+      "drevité tóny"
+    ]
+  },
+  {
+    "id": "sunset-elixir",
+    "veelyn_name": "SUNSET ELIXIR",
+    "original_name": "Le Beau",
+    "brand": "Jean Paul Gaultier",
+    "gender": "M",
+    "original_price": 115,
+    "veelyn_price": 24.99,
+    "top_notes": [
+      "bergamot",
+      "kokos"
+    ],
+    "heart_notes": [
+      "tonka bôb"
+    ],
+    "base_notes": [
+      "santal",
+      "drevité tóny"
+    ]
+  },
+  {
+    "id": "power-affair",
+    "veelyn_name": "POWER AFFAIR",
+    "original_name": "Scandal Pour Homme",
+    "brand": "Jean Paul Gaultier",
+    "gender": "M",
+    "original_price": 115,
+    "veelyn_price": 24.99,
+    "top_notes": [
+      "mandarínka",
+      "klinčeky"
+    ],
+    "heart_notes": [
+      "vetiver",
+      "tabak",
+      "biele kvety"
+    ],
+    "base_notes": [
+      "med",
+      "tonka bôb",
+      "karamel"
+    ]
+  },
+  {
+    "id": "candy-whip-81",
+    "veelyn_name": "CANDY WHIP 81",
+    "original_name": "Yum Boujee Marshmallow 81",
+    "brand": "Kayali",
+    "gender": "Z",
+    "original_price": 145,
+    "veelyn_price": 24.99,
+    "top_notes": [
+      "marshmallow",
+      "vanilka"
+    ],
+    "heart_notes": [
+      "mliečne tóny",
+      "šľahačka"
+    ],
+    "base_notes": [
+      "mošus",
+      "karamel"
+    ]
+  },
+  {
+    "id": "vanilla-supreme-64",
+    "veelyn_name": "VANILLA SUPREME 64",
+    "original_name": "Vanilla Royale Sugared Patchouli 64",
+    "brand": "Kayali",
+    "gender": "Z",
+    "original_price": 145,
+    "veelyn_price": 24.99,
+    "top_notes": [
+      "vanilka",
+      "ambra"
+    ],
+    "heart_notes": [
+      "pačuli"
+    ],
+    "base_notes": [
+      "cukor",
+      "mošus"
+    ]
+  },
+  {
+    "id": "dubai-dream-33",
+    "veelyn_name": "DUBAI DREAM 33",
+    "original_name": "Yum Pistachio Gelato 33",
+    "brand": "Kayali",
+    "gender": "Z",
+    "original_price": 145,
+    "veelyn_price": 24.99,
+    "top_notes": [
+      "pistácie",
+      "mandle"
+    ],
+    "heart_notes": [
+      "vanilka",
+      "smotana"
+    ],
+    "base_notes": [
+      "santal",
+      "mošus"
+    ]
+  },
+  {
+    "id": "illa-van-28",
+    "veelyn_name": "ILLA VAN 28",
+    "original_name": "Vanilla 28",
+    "brand": "Kayali",
+    "gender": "Z",
+    "original_price": 140,
+    "veelyn_price": 24.99,
+    "top_notes": [
+      "brandy",
+      "vanilka"
+    ],
+    "heart_notes": [
+      "jazmín"
+    ],
+    "base_notes": [
+      "amyris drevo",
+      "mošus",
+      "tonka bôb"
+    ]
+  },
+  {
+    "id": "apple-bliss-01",
+    "veelyn_name": "APPLE BLISS 01",
+    "original_name": "Eden Juicy Apple 01",
+    "brand": "Kayali",
+    "gender": "Z",
+    "original_price": 145,
+    "veelyn_price": 24.99,
+    "top_notes": [
+      "červené jablko",
+      "ríbezle"
+    ],
+    "heart_notes": [
+      "jazmín",
+      "fialka"
+    ],
+    "base_notes": [
+      "mošus",
+      "ambra"
+    ]
+  },
+  {
+    "id": "burning-desire-48",
+    "veelyn_name": "BURNING DESIRE 48",
+    "original_name": "Lovefest Burning Cherry 48",
+    "brand": "Kayali",
+    "gender": "Z",
+    "original_price": 145,
+    "veelyn_price": 24.99,
+    "top_notes": [
+      "čerešňa",
+      "rum"
+    ],
+    "heart_notes": [
+      "ruža",
+      "tabak"
+    ],
+    "base_notes": [
+      "benzoín",
+      "mošus"
+    ]
+  },
+  {
+    "id": "coco-dream-21",
+    "veelyn_name": "COCO DREAM 21",
+    "original_name": "Utopia Vanilla Coco 21",
+    "brand": "Kayali",
+    "gender": "Z",
+    "original_price": 145,
+    "veelyn_price": 24.99,
+    "top_notes": [
+      "kokos",
+      "vanilka"
+    ],
+    "heart_notes": [
+      "frangipani",
+      "tuberóza"
+    ],
+    "base_notes": [
+      "mošus",
+      "ambra"
+    ]
+  },
+  {
+    "id": "imagine-this",
+    "veelyn_name": "IMAGINE THIS",
+    "original_name": "Imagination",
+    "brand": "Louis Vuitton",
+    "gender": "U",
+    "original_price": 380,
+    "veelyn_price": 24.99,
+    "top_notes": [
+      "mandarínka",
+      "bergamot"
+    ],
+    "heart_notes": [
+      "čierny čaj",
+      "kadidlo"
+    ],
+    "base_notes": [
+      "santal",
+      "ambra"
+    ]
+  },
+  {
+    "id": "harmony",
+    "veelyn_name": "HARMONY",
+    "original_name": "Symphony",
+    "brand": "Louis Vuitton",
+    "gender": "U",
+    "original_price": 400,
+    "veelyn_price": 24.99,
+    "top_notes": [
+      "bergamot",
+      "ruža"
+    ],
+    "heart_notes": [
+      "jazmín",
+      "irisz"
+    ],
+    "base_notes": [
+      "pačuli",
+      "santal"
+    ]
+  },
+  {
+    "id": "the-horizon",
+    "veelyn_name": "THE HORIZON",
+    "original_name": "Pacific Chill",
+    "brand": "Louis Vuitton",
+    "gender": "U",
+    "original_price": 380,
+    "veelyn_price": 24.99,
+    "top_notes": [
+      "citrusy",
+      "mäta"
+    ],
+    "heart_notes": [
+      "šalvia",
+      "zázvor"
+    ],
+    "base_notes": [
+      "cédrové drevo",
+      "mošus"
+    ]
+  },
+  {
+    "id": "deep-dive",
+    "veelyn_name": "DEEP DIVE",
+    "original_name": "Afternoon Swim",
+    "brand": "Louis Vuitton",
+    "gender": "U",
+    "original_price": 380,
+    "veelyn_price": 24.99,
+    "top_notes": [
+      "pomaranč",
+      "limetka",
+      "mandarínka"
+    ],
+    "heart_notes": [
+      "bergamot",
+      "petitgrain"
+    ],
+    "base_notes": [
+      "santal",
+      "mošus"
+    ]
+  },
+  {
+    "id": "desert-storm",
+    "veelyn_name": "DESERT STORM",
+    "original_name": "Ombre Nomade",
+    "brand": "Louis Vuitton",
+    "gender": "U",
+    "original_price": 400,
+    "veelyn_price": 24.99,
+    "top_notes": [
+      "maliny",
+      "ruža"
+    ],
+    "heart_notes": [
+      "oud",
+      "kadidlo"
+    ],
+    "base_notes": [
+      "benzoín",
+      "labdanum",
+      "ambra"
+    ]
+  },
+  {
+    "id": "sun-coast",
+    "veelyn_name": "SUN COAST",
+    "original_name": "On The Beach",
+    "brand": "Louis Vuitton",
+    "gender": "U",
+    "original_price": 380,
+    "veelyn_price": 24.99,
+    "top_notes": [
+      "bergamot",
+      "neroli"
+    ],
+    "heart_notes": [
+      "pomarančový kvet"
+    ],
+    "base_notes": [
+      "santal",
+      "biely mošus"
+    ]
+  },
+  {
+    "id": "dream-big",
+    "veelyn_name": "DREAM BIG",
+    "original_name": "California Dream",
+    "brand": "Louis Vuitton",
+    "gender": "U",
+    "original_price": 380,
+    "veelyn_price": 24.99,
+    "top_notes": [
+      "mandarínka",
+      "bergamot"
+    ],
+    "heart_notes": [
+      "citrón",
+      "kvety pomarančovníka"
+    ],
+    "base_notes": [
+      "mošus",
+      "ambra"
+    ]
+  },
+  {
+    "id": "limitless",
+    "veelyn_name": "LIMITLESS",
+    "original_name": "L'Immensité",
+    "brand": "Louis Vuitton",
+    "gender": "M",
+    "original_price": 380,
+    "veelyn_price": 24.99,
+    "top_notes": [
+      "grapefruit",
+      "zázvor"
+    ],
+    "heart_notes": [
+      "rozmarín",
+      "škorica"
+    ],
+    "base_notes": [
+      "ambra",
+      "drevité tóny"
+    ]
+  },
+  {
+    "id": "cosmic-flame",
+    "veelyn_name": "COSMIC FLAME",
+    "original_name": "Météore",
+    "brand": "Louis Vuitton",
+    "gender": "M",
+    "original_price": 380,
+    "veelyn_price": 24.99,
+    "top_notes": [
+      "bergamot",
+      "mandarínka",
+      "neroli"
+    ],
+    "heart_notes": [
+      "čierne korenie",
+      "muškátový oriešok",
+      "kardamóm"
+    ],
+    "base_notes": [
+      "vetiver",
+      "santal"
+    ]
+  },
+  {
+    "id": "midnight-wish",
+    "veelyn_name": "MIDNIGHT WISH",
+    "original_name": "Attrape-Rêves",
+    "brand": "Louis Vuitton",
+    "gender": "Z",
+    "original_price": 380,
+    "veelyn_price": 24.99,
+    "top_notes": [
+      "červené ovocie",
+      "broskyňa"
+    ],
+    "heart_notes": [
+      "jazmín",
+      "magnólia"
+    ],
+    "base_notes": [
+      "pačuli",
+      "ambra"
+    ]
+  },
+  {
+    "id": "moulin-rouge",
+    "veelyn_name": "MOULIN ROUGE",
+    "original_name": "Baccarat Rouge 540",
+    "brand": "Maison Francis Kurkdjian",
+    "gender": "U",
+    "original_price": 350,
+    "veelyn_price": 24.99,
+    "top_notes": [
+      "šafrán",
+      "jazmín"
+    ],
+    "heart_notes": [
+      "ambra drevitá",
+      "cédrové drevo"
+    ],
+    "base_notes": [
+      "fir balzam",
+      "mošus"
+    ]
+  },
+  {
+    "id": "evening-elixir",
+    "veelyn_name": "EVENING ELIXIR",
+    "original_name": "Grand Soir",
+    "brand": "Maison Francis Kurkdjian",
+    "gender": "U",
+    "original_price": 320,
+    "veelyn_price": 24.99,
+    "top_notes": [
+      "benzoín",
+      "vanilka"
+    ],
+    "heart_notes": [
+      "levanduľa",
+      "tonka bôb"
+    ],
+    "base_notes": [
+      "ambra",
+      "labdanum"
+    ]
+  },
+  {
+    "id": "satin",
+    "veelyn_name": "SATIN",
+    "original_name": "Oud Satin Mood",
+    "brand": "Maison Francis Kurkdjian",
+    "gender": "U",
+    "original_price": 320,
+    "veelyn_price": 24.99,
+    "top_notes": [
+      "fialka",
+      "ruža"
+    ],
+    "heart_notes": [
+      "oud",
+      "vanilka"
+    ],
+    "base_notes": [
+      "benzoín",
+      "ambra"
+    ]
+  },
+  {
+    "id": "liquid-gold",
+    "veelyn_name": "LIQUID GOLD",
+    "original_name": "1 Million",
+    "brand": "Paco Rabanne",
+    "gender": "M",
+    "original_price": 105,
+    "veelyn_price": 24.99,
+    "top_notes": [
+      "grapefruit",
+      "mäta",
+      "škorica"
+    ],
+    "heart_notes": [
+      "ruža",
+      "ambra"
+    ],
+    "base_notes": [
+      "koža",
+      "drevité tóny"
+    ]
+  },
+  {
+    "id": "dark-tobacco",
+    "veelyn_name": "DARK TOBACCO",
+    "original_name": "Herod",
+    "brand": "Parfums de Marly",
+    "gender": "M",
+    "original_price": 290,
+    "veelyn_price": 24.99,
+    "top_notes": [
+      "čierne korenie",
+      "kassia",
+      "škorica"
+    ],
+    "heart_notes": [
+      "tabakový list"
+    ],
+    "base_notes": [
+      "vanilka",
+      "cédrové drevo",
+      "labdanum"
+    ]
+  },
+  {
+    "id": "trojan-horse",
+    "veelyn_name": "TROJAN HORSE",
+    "original_name": "Pegasus",
+    "brand": "Parfums de Marly",
+    "gender": "M",
+    "original_price": 290,
+    "veelyn_price": 24.99,
+    "top_notes": [
+      "bergamot",
+      "horké mandle"
+    ],
+    "heart_notes": [
+      "heliotropium",
+      "jazmín"
+    ],
+    "base_notes": [
+      "vanilka",
+      "santal"
+    ]
+  },
+  {
+    "id": "blaze",
+    "veelyn_name": "BLAZE",
+    "original_name": "Althaïr",
+    "brand": "Parfums de Marly",
+    "gender": "M",
+    "original_price": 290,
+    "veelyn_price": 24.99,
+    "top_notes": [
+      "mandle",
+      "kardamóm"
+    ],
+    "heart_notes": [
+      "vanilka",
+      "tonka bôb"
+    ],
+    "base_notes": [
+      "ambra",
+      "santal"
+    ]
+  },
+  {
+    "id": "pink-desire",
+    "veelyn_name": "PINK DESIRE",
+    "original_name": "Delina",
+    "brand": "Parfums de Marly",
+    "gender": "Z",
+    "original_price": 290,
+    "veelyn_price": 24.99,
+    "top_notes": [
+      "litchi",
+      "rebarbora",
+      "bergamot"
+    ],
+    "heart_notes": [
+      "turecká ruža",
+      "pivónia"
+    ],
+    "base_notes": [
+      "cédrové drevo",
+      "mošus",
+      "vanilka"
+    ]
+  },
+  {
+    "id": "pure-green",
+    "veelyn_name": "PURE GREEN",
+    "original_name": "Greenley",
+    "brand": "Parfums de Marly",
+    "gender": "M",
+    "original_price": 290,
+    "veelyn_price": 24.99,
+    "top_notes": [
+      "bergamot",
+      "limetka",
+      "ananás"
+    ],
+    "heart_notes": [
+      "vetiver",
+      "geránium"
+    ],
+    "base_notes": [
+      "pačuli",
+      "vanilka"
+    ]
+  },
+  {
+    "id": "blue-motion",
+    "veelyn_name": "BLUE MOTION",
+    "original_name": "Sedley",
+    "brand": "Parfums de Marly",
+    "gender": "M",
+    "original_price": 290,
+    "veelyn_price": 24.99,
+    "top_notes": [
+      "mäta",
+      "bergamot",
+      "broskyňa"
+    ],
+    "heart_notes": [
+      "levanduľa",
+      "fialka"
+    ],
+    "base_notes": [
+      "mošus",
+      "drevité tóny"
+    ]
+  },
+  {
+    "id": "spice",
+    "veelyn_name": "SPICE",
+    "original_name": "Layton",
+    "brand": "Parfums de Marly",
+    "gender": "M",
+    "original_price": 290,
+    "veelyn_price": 24.99,
+    "top_notes": [
+      "jablko",
+      "kardamóm",
+      "muškátový oriešok"
+    ],
+    "heart_notes": [
+      "geránium",
+      "levanduľa",
+      "jazmín"
+    ],
+    "base_notes": [
+      "vanilka",
+      "santal",
+      "vetiver"
+    ]
+  },
+  {
+    "id": "mystery",
+    "veelyn_name": "MYSTERY",
+    "original_name": "Paradoxe",
+    "brand": "Prada",
+    "gender": "Z",
+    "original_price": 145,
+    "veelyn_price": 24.99,
+    "top_notes": [
+      "bergamot",
+      "neroli"
+    ],
+    "heart_notes": [
+      "jazmín"
+    ],
+    "base_notes": [
+      "biely mošus",
+      "ambra"
+    ]
+  },
+  {
+    "id": "noble-wood",
+    "veelyn_name": "NOBLE WOOD",
+    "original_name": "Oud Wood",
+    "brand": "Tom Ford",
+    "gender": "U",
+    "original_price": 320,
+    "veelyn_price": 24.99,
+    "top_notes": [
+      "oud",
+      "ružové drevo",
+      "kardamóm"
+    ],
+    "heart_notes": [
+      "sečuánske korenie"
+    ],
+    "base_notes": [
+      "santal",
+      "vanilka",
+      "ambra"
+    ]
+  },
+  {
+    "id": "cherry-pulse",
+    "veelyn_name": "CHERRY PULSE",
+    "original_name": "Electric Cherry",
+    "brand": "Tom Ford",
+    "gender": "U",
+    "original_price": 280,
+    "veelyn_price": 24.99,
+    "top_notes": [
+      "čerešňa",
+      "ríbezle"
+    ],
+    "heart_notes": [
+      "sliva",
+      "ruža"
+    ],
+    "base_notes": [
+      "pačuli",
+      "vanilka"
+    ]
+  },
+  {
+    "id": "just-leather",
+    "veelyn_name": "JUST LEATHER",
+    "original_name": "Ombré Leather",
+    "brand": "Tom Ford",
+    "gender": "U",
+    "original_price": 220,
+    "veelyn_price": 24.99,
+    "top_notes": [
+      "kardamóm",
+      "ružové korenie"
+    ],
+    "heart_notes": [
+      "koža",
+      "jazmín"
+    ],
+    "base_notes": [
+      "pačuli",
+      "ambra",
+      "mošus"
+    ]
+  },
+  {
+    "id": "absolute",
+    "veelyn_name": "ABSOLUTE",
+    "original_name": "Fucking Fabulous",
+    "brand": "Tom Ford",
+    "gender": "U",
+    "original_price": 380,
+    "veelyn_price": 24.99,
+    "top_notes": [
+      "mandle",
+      "klary šalvia",
+      "levanduľa"
+    ],
+    "heart_notes": [
+      "irisz",
+      "tonka bôb"
+    ],
+    "base_notes": [
+      "koža",
+      "vanilka",
+      "drevité tóny"
+    ]
+  },
+  {
+    "id": "forbidden-cherries",
+    "veelyn_name": "FORBIDDEN CHERRIES",
+    "original_name": "Lost Cherry",
+    "brand": "Tom Ford",
+    "gender": "U",
+    "original_price": 380,
+    "veelyn_price": 24.99,
+    "top_notes": [
+      "čerešňa",
+      "horké mandle",
+      "likér"
+    ],
+    "heart_notes": [
+      "ruža",
+      "jazmín",
+      "turecký gríf"
+    ],
+    "base_notes": [
+      "pačuli",
+      "santal",
+      "tonka bôb",
+      "vanilka"
+    ]
+  },
+  {
+    "id": "sweet-cig",
+    "veelyn_name": "SWEET CIG",
+    "original_name": "Tobacco Vanille",
+    "brand": "Tom Ford",
+    "gender": "U",
+    "original_price": 320,
+    "veelyn_price": 24.99,
+    "top_notes": [
+      "tabakový list",
+      "korenie"
+    ],
+    "heart_notes": [
+      "vanilka",
+      "kakao",
+      "tonka bôb"
+    ],
+    "base_notes": [
+      "sušené ovocie",
+      "drevité tóny"
+    ]
+  },
+  {
+    "id": "dark-flower",
+    "veelyn_name": "DARK FLOWER",
+    "original_name": "Black Orchid",
+    "brand": "Tom Ford",
+    "gender": "U",
+    "original_price": 220,
+    "veelyn_price": 24.99,
+    "top_notes": [
+      "čierna ríbezľa",
+      "ylang-ylang",
+      "bergamot"
+    ],
+    "heart_notes": [
+      "čierna orchidea",
+      "jazmín",
+      "korenie"
+    ],
+    "base_notes": [
+      "pačuli",
+      "vanilka",
+      "santal",
+      "tmavá čokoláda"
+    ]
+  },
+  {
+    "id": "oud-fire",
+    "veelyn_name": "OUD FIRE",
+    "original_name": "Tobacco Oud",
+    "brand": "Tom Ford",
+    "gender": "U",
+    "original_price": 320,
+    "veelyn_price": 24.99,
+    "top_notes": [
+      "korenie",
+      "tabak"
+    ],
+    "heart_notes": [
+      "oud",
+      "kadidlo"
+    ],
+    "base_notes": [
+      "santal",
+      "ambra"
+    ]
+  },
+  {
+    "id": "saint-rome",
+    "veelyn_name": "SAINT ROME",
+    "original_name": "Donna Born In Roma",
+    "brand": "Valentino",
+    "gender": "Z",
+    "original_price": 140,
+    "veelyn_price": 24.99,
+    "top_notes": [
+      "bergamot",
+      "ružové korenie"
+    ],
+    "heart_notes": [
+      "jazmín"
+    ],
+    "base_notes": [
+      "vanilka",
+      "cédrové drevo",
+      "mošus"
+    ]
+  },
+  {
+    "id": "roman-man",
+    "veelyn_name": "ROMAN MAN",
+    "original_name": "Uomo Born In Roma",
+    "brand": "Valentino",
+    "gender": "M",
+    "original_price": 130,
+    "veelyn_price": 24.99,
+    "top_notes": [
+      "zázvor",
+      "minerálne tóny"
+    ],
+    "heart_notes": [
+      "levanduľa",
+      "fialka"
+    ],
+    "base_notes": [
+      "vetiver",
+      "drevité tóny"
+    ]
+  },
+  {
+    "id": "nemo",
+    "veelyn_name": "NEMO",
+    "original_name": "Donna Born In Roma Coral Fantasy",
+    "brand": "Valentino",
+    "gender": "Z",
+    "original_price": 140,
+    "veelyn_price": 24.99,
+    "top_notes": [
+      "mandarínka",
+      "ananás"
+    ],
+    "heart_notes": [
+      "jazmín sambac"
+    ],
+    "base_notes": [
+      "vanilka",
+      "cédrové drevo"
+    ]
+  },
+  {
+    "id": "free-spirit",
+    "veelyn_name": "FREE SPIRIT",
+    "original_name": "Libre",
+    "brand": "Yves Saint Laurent",
+    "gender": "Z",
+    "original_price": 145,
+    "veelyn_price": 24.99,
+    "top_notes": [
+      "mandarínka",
+      "kassia",
+      "lavandín"
+    ],
+    "heart_notes": [
+      "levanduľa",
+      "kvet pomarančovníka",
+      "jazmín"
+    ],
+    "base_notes": [
+      "vanilka",
+      "ambra",
+      "mošus",
+      "cédrové drevo"
+    ]
+  },
+  {
+    "id": "poppy-shot",
+    "veelyn_name": "POPPY SHOT",
+    "original_name": "Black Opium",
+    "brand": "Yves Saint Laurent",
+    "gender": "Z",
+    "original_price": 145,
+    "veelyn_price": 24.99,
+    "top_notes": [
+      "hruška",
+      "ružové korenie",
+      "pomarančový kvet"
+    ],
+    "heart_notes": [
+      "káva",
+      "jazmín",
+      "horké mandle"
+    ],
+    "base_notes": [
+      "vanilka",
+      "pačuli",
+      "kakao",
+      "cédrové drevo"
+    ]
+  },
+  {
+    "id": "my-identity",
+    "veelyn_name": "MY IDENTITY",
+    "original_name": "MYSLF",
+    "brand": "Yves Saint Laurent",
+    "gender": "M",
+    "original_price": 140,
+    "veelyn_price": 24.99,
+    "top_notes": [
+      "bergamot",
+      "kvety pomarančovníka"
+    ],
+    "heart_notes": [
+      "jazmín"
+    ],
+    "base_notes": [
+      "pačuli",
+      "ambra"
+    ]
+  },
+  {
+    "id": "xyz",
+    "veelyn_name": "XYZ",
+    "original_name": "Y Eau de Parfum",
+    "brand": "Yves Saint Laurent",
+    "gender": "M",
+    "original_price": 140,
+    "veelyn_price": 24.99,
+    "top_notes": [
+      "jablko",
+      "zázvor",
+      "bergamot"
+    ],
+    "heart_notes": [
+      "šalvia",
+      "geránium",
+      "jazmín"
+    ],
+    "base_notes": [
+      "cédrové drevo",
+      "tonka bôb",
+      "vetiver"
+    ]
+  },
+  {
+    "id": "zap-zap",
+    "veelyn_name": "ZAP ZAP",
+    "original_name": "Bleu Électrique",
+    "brand": "Yves Saint Laurent",
+    "gender": "M",
+    "original_price": 145,
+    "veelyn_price": 24.99,
+    "top_notes": [
+      "levanduľa",
+      "bergamot"
+    ],
+    "heart_notes": [
+      "šalvia",
+      "geránium"
+    ],
+    "base_notes": [
+      "cédrové drevo",
+      "mošus",
+      "ambra"
+    ]
+  },
+  {
+    "id": "el-paso",
+    "veelyn_name": "EL PASO",
+    "original_name": "Boss Bottled",
+    "brand": "Hugo Boss",
+    "gender": "M",
+    "original_price": 95,
+    "veelyn_price": 24.99,
+    "top_notes": [
+      "jablko",
+      "bergamot",
+      "citrón"
+    ],
+    "heart_notes": [
+      "geránium",
+      "škorica",
+      "muškátový oriešok"
+    ],
+    "base_notes": [
+      "santal",
+      "cédrové drevo",
+      "vetiver"
+    ]
+  }
+]

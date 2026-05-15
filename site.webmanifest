@@ -1,0 +1,14 @@
+{
+  "name": "Veelyn — Luxusné inšpirované vône",
+  "short_name": "Veelyn",
+  "description": "Slovenský parfumársky brand. Luxusné inšpirované vône za zlomok ceny.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0510",
+  "theme_color": "#7c3aed",
+  "lang": "sk-SK",
+  "icons": [
+    { "src": "favicon.svg", "type": "image/svg+xml", "sizes": "any" },
+    { "src": "apple-touch-icon.png", "type": "image/png", "sizes": "180x180" }
+  ]
+}

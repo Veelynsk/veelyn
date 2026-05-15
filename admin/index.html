@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VEELYN Admin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300..800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="admin.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+</head>
+<body>
+
+<!-- LOGIN GATE -->
+<div class="login" id="loginGate" hidden>
+  <form class="login__form" id="loginForm">
+    <div class="login__brand">VEELYN <span>admin</span></div>
+    <label>
+      <span>Používateľské meno</span>
+      <input type="text" id="loginUsername" autocomplete="username" autofocus required>
+    </label>
+    <label>
+      <span>Heslo</span>
+      <input type="password" id="loginPassword" autocomplete="current-password" required>
+    </label>
+    <button type="submit" class="btn btn--primary">Prihlásiť</button>
+    <p class="login__hint">Default <strong>admin</strong>: heslo z <code>ADMIN_PASSWORD</code> (default <code>change-me</code>)<br>Default <strong>sklad</strong>: heslo <code>sklad123</code></p>
+  </form>
+</div>
+
+<!-- ADMIN LAYOUT -->
+<div class="admin" id="adminApp" hidden>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar__brand">
+      VEELYN <span>admin</span>
+    </div>
+    <nav class="sidebar__nav">
+      <a href="#dashboard" class="sidebar__link is-active" data-tab="dashboard">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+        Dashboard
+      </a>
+      <a href="#orders" class="sidebar__link" data-tab="orders">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        Objednávky
+        <span class="sidebar__badge" id="ordersBadge">0</span>
+      </a>
+      <a href="#products" class="sidebar__link" data-tab="products">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+        Produkty
+      </a>
+      <a href="#customers" class="sidebar__link" data-tab="customers">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        Zákazníci
+      </a>
+      <a href="#discounts" class="sidebar__link" data-tab="discounts">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 12V8H6a2 2 0 0 1-2-2c0-1.1.9-2 2-2h12v4"/><path d="M4 6v12c0 1.1.9 2 2 2h14v-4"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/></svg>
+        Zľavové kódy
+      </a>
+      <a href="#analytics" class="sidebar__link" data-tab="analytics">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        Štatistiky
+      </a>
+      <a href="#users" class="sidebar__link" data-tab="users">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 11h-6m3-3v6"/></svg>
+        Používatelia
+      </a>
+      <a href="#settings" class="sidebar__link" data-tab="settings">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        Nastavenia
+      </a>
+    </nav>
+    <div class="sidebar__footer">
+      <a class="sidebar__link" href="../index.html" target="_blank">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        Zobraziť stránku
+      </a>
+      <button class="sidebar__link sidebar__link--logout" id="logoutBtn">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        Odhlásiť
+      </button>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+    <header class="topbar">
+      <h1 class="topbar__title" id="pageTitle">Dashboard</h1>
+      <div class="topbar__actions">
+        <span class="topbar__date" id="topbarDate"></span>
+        <span class="topbar__user">👤 Admin</span>
+      </div>
+    </header>
+
+    <!-- DASHBOARD -->
+    <section class="tab" id="tab-dashboard">
+      <div class="stats">
+        <div class="stat-card">
+          <div class="stat-card__label">Predaj dnes</div>
+          <div class="stat-card__value" id="statTodayRevenue">0 €</div>
+          <div class="stat-card__sub" id="statTodayOrders">0 objednávok</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card__label">Tento týždeň</div>
+          <div class="stat-card__value" id="statWeekRevenue">0 €</div>
+          <div class="stat-card__sub" id="statWeekOrders">0 objednávok</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card__label">Tento mesiac</div>
+          <div class="stat-card__value" id="statMonthRevenue">0 €</div>
+          <div class="stat-card__sub" id="statMonthOrders">0 objednávok</div>
+        </div>
+        <div class="stat-card stat-card--accent">
+          <div class="stat-card__label">Celkom</div>
+          <div class="stat-card__value" id="statTotalRevenue">0 €</div>
+          <div class="stat-card__sub" id="statTotalOrders">0 objednávok</div>
+        </div>
+      </div>
+
+      <!-- CHARTS row -->
+      <div class="charts-grid" data-admin-only>
+        <div class="panel">
+          <div class="panel__header"><h2 class="panel__title">Predaje — posledných 30 dní</h2></div>
+          <div class="panel__body" style="height:280px"><canvas id="chartDaily30"></canvas></div>
+        </div>
+        <div class="panel">
+          <div class="panel__header"><h2 class="panel__title">Stav objednávok (posledné 3 mesiace)</h2></div>
+          <div class="panel__body" style="height:280px"><canvas id="chartStatusPie"></canvas></div>
+        </div>
+      </div>
+
+      <div class="dashboard-grid">
+        <div class="panel">
+          <div class="panel__header">
+            <h2 class="panel__title">Najnovšie objednávky</h2>
+            <a href="#orders" class="panel__more" data-tab="orders">Všetky →</a>
+          </div>
+          <div class="panel__body">
+            <table class="data-table" id="recentOrdersTable">
+              <thead><tr><th>#</th><th>Zákazník</th><th>Stav</th><th>Suma</th></tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+        <div class="panel" data-admin-only>
+          <div class="panel__header">
+            <h2 class="panel__title">Top produkty</h2>
+            <a href="#products" class="panel__more" data-tab="products">Všetky →</a>
+          </div>
+          <div class="panel__body">
+            <ul class="top-products" id="topProductsList"></ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ORDERS -->
+    <section class="tab" id="tab-orders" hidden>
+      <div class="toolbar">
+        <div class="toolbar__filters">
+          <select id="orderStatusFilter" class="select">
+            <option value="">Všetky stavy</option>
+            <option value="pending">Nezaplatené</option>
+            <option value="paid">Zaplatené</option>
+            <option value="shipped">Odoslané</option>
+            <option value="delivered">Doručené</option>
+            <option value="cancelled">Zrušené</option>
+          </select>
+          <input type="search" id="orderSearch" class="input" placeholder="Hľadaj #ID, meno, e-mail…">
+        </div>
+        <div class="toolbar__actions">
+          <button class="btn btn--ghost" id="seedOrdersBtn">+ Pridať demo dáta</button>
+          <button class="btn btn--ghost" id="newOrderBtn">+ Nová objednávka</button>
+          <button class="btn btn--ghost" id="exportOrdersBtn">⇣ Export CSV</button>
+        </div>
+      </div>
+      <div class="panel">
+        <table class="data-table" id="ordersTable">
+          <thead>
+            <tr>
+              <th>#ID</th>
+              <th>Dátum</th>
+              <th>Zákazník</th>
+              <th>Položky</th>
+              <th>Suma</th>
+              <th>Stav</th>
+              <th>Akcia</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+        <div class="empty" id="ordersEmpty" hidden>
+          <p>Žiadne objednávky.</p>
+          <button class="btn btn--ghost" id="seedOrdersBtnEmpty">+ Vygeneruj demo dáta</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRODUCTS -->
+    <section class="tab" id="tab-products" hidden>
+      <div class="toolbar">
+        <div class="toolbar__filters">
+          <input type="search" id="productSearch" class="input" placeholder="Hľadaj…">
+          <select id="productBrandFilter" class="select"><option value="">Všetky značky</option></select>
+        </div>
+        <div class="toolbar__actions">
+          <span class="toolbar__counter" id="productCount">0 produktov</span>
+        </div>
+      </div>
+      <div class="panel">
+        <table class="data-table data-table--editable" id="productsTable">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Názov</th>
+              <th>Inšpirovaná</th>
+              <th>Značka</th>
+              <th>Predané</th>
+              <th>Cena (€)</th>
+              <th>Sklad (ks)</th>
+              <th>Skryť</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- CUSTOMERS -->
+    <section class="tab" id="tab-customers" hidden>
+      <div class="panel">
+        <table class="data-table" id="customersTable">
+          <thead>
+            <tr>
+              <th>E-mail</th>
+              <th>Meno</th>
+              <th>Telefón</th>
+              <th>Objednávky</th>
+              <th>Celkom minul</th>
+              <th>Posledná</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+        <div class="empty" id="customersEmpty" hidden>
+          <p>Žiadni zákazníci.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- DISCOUNTS -->
+    <section class="tab" id="tab-discounts" hidden>
+      <div class="panel" style="margin-bottom:1rem">
+        <div class="panel__header"><h2 class="panel__title">Vytvoriť zľavový kód</h2></div>
+        <div class="panel__body">
+          <form id="discountForm" class="discount-form">
+            <label class="field"><span>Kód</span><input type="text" name="code" placeholder="JESEN20" required></label>
+            <label class="field"><span>Typ</span>
+              <select name="type">
+                <option value="percent">Percento (%)</option>
+                <option value="fixed">Pevná suma (€)</option>
+              </select>
+            </label>
+            <label class="field"><span>Hodnota</span><input type="number" name="value" min="0" step="0.01" placeholder="20" required></label>
+            <label class="field"><span>Platí (dní)</span><input type="number" name="validDays" min="1" placeholder="30"></label>
+            <label class="field"><span>Max použití (0 = ∞)</span><input type="number" name="max_uses" min="0" placeholder="100"></label>
+            <label class="field"><span>Min. nákup (€)</span><input type="number" name="min_subtotal" min="0" step="0.01" placeholder="0"></label>
+            <button type="submit" class="btn btn--primary">+ Vytvoriť kód</button>
+          </form>
+        </div>
+      </div>
+      <div class="panel">
+        <table class="data-table" id="discountsTable">
+          <thead>
+            <tr>
+              <th>Kód</th>
+              <th>Typ</th>
+              <th>Hodnota</th>
+              <th>Platí do</th>
+              <th>Použité / max</th>
+              <th>Min. nákup</th>
+              <th>Stav</th>
+              <th>Akcia</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+        <div class="empty" id="discountsEmpty" hidden>
+          <p>Žiadne zľavové kódy. Vytvor prvý hore.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- USERS (admin only) -->
+    <section class="tab" id="tab-users" hidden>
+      <div class="panel" style="margin-bottom:1rem">
+        <div class="panel__header"><h2 class="panel__title">Pridať používateľa</h2></div>
+        <div class="panel__body">
+          <form id="userForm" class="user-form">
+            <label class="field"><span>Používateľské meno</span><input type="text" name="username" required></label>
+            <label class="field"><span>Heslo</span><input type="text" name="password" required></label>
+            <label class="field"><span>Rola</span>
+              <select name="role">
+                <option value="warehouse">Sklad (len objednávky)</option>
+                <option value="admin">Admin (všetko)</option>
+              </select>
+            </label>
+            <label class="field"><span>Meno (pre zobrazenie)</span><input type="text" name="name"></label>
+            <button type="submit" class="btn btn--primary">+ Vytvoriť</button>
+          </form>
+        </div>
+      </div>
+      <div class="panel">
+        <table class="data-table" id="usersTable">
+          <thead>
+            <tr>
+              <th>Používateľ</th>
+              <th>Meno</th>
+              <th>Rola</th>
+              <th>Vytvorený</th>
+              <th>Akcia</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ANALYTICS -->
+    <section class="tab" id="tab-analytics" hidden>
+      <div class="stats">
+        <div class="stat-card"><div class="stat-card__label">Priemerná objednávka</div><div class="stat-card__value" id="statAvgOrder">0 €</div></div>
+        <div class="stat-card"><div class="stat-card__label">Konverzia</div><div class="stat-card__value">— %</div><div class="stat-card__sub">napoj GA4</div></div>
+        <div class="stat-card"><div class="stat-card__label">Návratoví zákazníci</div><div class="stat-card__value" id="statReturning">0</div></div>
+        <div class="stat-card"><div class="stat-card__label">Newsletter odberateľov</div><div class="stat-card__value">—</div><div class="stat-card__sub">napoj Brevo/MC</div></div>
+      </div>
+
+      <div class="panel">
+        <div class="panel__header">
+          <h2 class="panel__title">Predaj za posledných 30 dní</h2>
+          <span id="salesChartTotal" class="panel__more"></span>
+        </div>
+        <div class="panel__body">
+          <div class="chart-bars" id="salesChart"></div>
+        </div>
+      </div>
+
+      <div class="charts-grid">
+        <div class="panel">
+          <div class="panel__header">
+            <h2 class="panel__title">Stavy objednávok</h2>
+          </div>
+          <div class="panel__body">
+            <div class="chart-donut-wrap">
+              <svg id="statusDonut" class="chart-donut" viewBox="0 0 200 200"></svg>
+              <ul class="chart-legend" id="statusLegend"></ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel__header">
+            <h2 class="panel__title">Top 10 produktov</h2>
+          </div>
+          <div class="panel__body">
+            <ul class="chart-hbars" id="topProductsBars"></ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel__header">
+          <h2 class="panel__title">Spôsoby platby a doručenia</h2>
+        </div>
+        <div class="panel__body" style="display:grid; grid-template-columns:1fr 1fr; gap:1.5rem;">
+          <ul class="chart-hbars" id="paymentBars"></ul>
+          <ul class="chart-hbars" id="shippingBars"></ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- SETTINGS -->
+    <section class="tab" id="tab-settings" hidden>
+      <div class="settings">
+        <div class="panel">
+          <div class="panel__header"><h2 class="panel__title">Integrácie</h2></div>
+          <div class="panel__body">
+            <div class="setting-row">
+              <div>
+                <strong>Stripe</strong>
+                <p>Platobná brána pre kartu</p>
+              </div>
+              <span class="badge badge--off">Nepripojené</span>
+            </div>
+            <div class="setting-row">
+              <div>
+                <strong>Packeta</strong>
+                <p>Slovenská kuriérska služba + Z-Boxy</p>
+              </div>
+              <span class="badge badge--off">Nepripojené</span>
+            </div>
+            <div class="setting-row">
+              <div>
+                <strong>SuperFaktúra</strong>
+                <p>Automatické faktúry s DPH</p>
+              </div>
+              <span class="badge badge--off">Nepripojené</span>
+            </div>
+            <div class="setting-row">
+              <div>
+                <strong>Web3Forms</strong>
+                <p>Kontaktný formulár</p>
+              </div>
+              <span class="badge badge--off">Chýba access key</span>
+            </div>
+            <div class="setting-row">
+              <div>
+                <strong>Brevo / Mailchimp</strong>
+                <p>Newsletter</p>
+              </div>
+              <span class="badge badge--off">Nepripojené</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel__header"><h2 class="panel__title">Heslo admina</h2></div>
+          <div class="panel__body">
+            <p style="color:#787c82; font-size:0.9rem; margin: 0 0 1rem;">Zmeň si demo heslo (aktuálne <code>veelyn123</code>). Uložené v localStorage.</p>
+            <form id="changePasswordForm" style="display:flex; gap:0.5rem;">
+              <input type="password" class="input" id="newPassword" placeholder="Nové heslo" style="flex:1;">
+              <button class="btn btn--primary" type="submit">Zmeniť</button>
+            </form>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel__header"><h2 class="panel__title">Reset dát</h2></div>
+          <div class="panel__body">
+            <p style="color:#787c82; font-size:0.9rem; margin: 0 0 1rem;">Vymaže demo objednávky/zákazníkov/zľavy z localStorage.</p>
+            <button class="btn btn--danger" id="resetDataBtn">Vymazať všetky dáta</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<!-- ORDER DETAIL MODAL -->
+<div class="dialog" id="orderDialog" hidden>
+  <div class="dialog__backdrop" data-close></div>
+  <div class="dialog__panel" id="orderDialogContent"></div>
+</div>
+
+<script src="../data.js"></script>
+<script src="admin.js"></script>
+</body>
+</html>

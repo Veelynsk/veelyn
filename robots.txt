@@ -1,0 +1,22 @@
+# Veelyn — robots.txt
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /scripts/
+Disallow: /*?cart=*
+Disallow: /*?checkout=*
+
+# AI training opt-out (volitelne — odstrante ak chcete povolit AI tréning)
+User-agent: GPTBot
+Disallow: /
+
+User-agent: ClaudeBot
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: anthropic-ai
+Disallow: /
+
+Sitemap: https://veelyn.sk/sitemap.xml

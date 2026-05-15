@@ -1,0 +1,29 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "veelyn",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["-y", "serve", "-l", "8765", "."],
+      "port": 8765
+    },
+    {
+      "name": "halovo-dev",
+      "runtimeExecutable": "sh",
+      "runtimeArgs": [
+        "-c",
+        "cd /Users/puska/Downloads/halovo-sk && npm run dev"
+      ],
+      "port": 3000
+    },
+    {
+      "name": "epoxidovo",
+      "runtimeExecutable": "sh",
+      "runtimeArgs": [
+        "-c",
+        "cd /Users/puska/epoxidovo && DATABASE_URL='postgresql://placeholder:placeholder@localhost:5432/placeholder' npm run dev"
+      ],
+      "port": 3000
+    }
+  ]
+}
