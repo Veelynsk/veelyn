@@ -15,11 +15,11 @@ const state = {
 };
 
 // --- Backend API ---
-// Dev: localhost:3001. Production: zmeň na napr. https://api.veelyn.sk
+// Dev: localhost:3001. Production: Railway.
 const VEELYN_API = (typeof window !== 'undefined' && window.VEELYN_API) ||
   (location.hostname === 'localhost' || location.hostname === '127.0.0.1'
     ? 'http://localhost:3001'
-    : '');
+    : 'https://veelyn-production.up.railway.app');
 
 // --- Helpers ---
 const $ = (s, p=document) => p.querySelector(s);
