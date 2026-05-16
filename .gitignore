@@ -27,3 +27,7 @@ ORIGINALS_TODO.md
 
 # Raw downloads (ak by boli v repo)
 veelyn-originals-raw/
+
+# Build output (Cloudflare Pages generates this)
+public/
+node_modules/
