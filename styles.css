@@ -6448,12 +6448,24 @@ body.has-promo-popup .proof-toast { display: none !important; }
     min-height: calc(1.1em * 2);
     letter-spacing: 0;
   }
-  .prod-card__inspired,
   .prod-card__rating,
   .prod-card__compare,
   .prod-card__cheaper,
   .prod-card__price-orig { display: none; }
-  .prod-card__price-row { gap: 0.2rem; justify-content: center; }
+  /* Reorder so name shows first, then the "Inšpirované..." pill below it */
+  .prod-card__info { gap: 0.3rem; }
+  .prod-card__name     { order: 1; }
+  .prod-card__inspired { order: 2; }
+  .prod-card__price-row { order: 3; gap: 0.2rem; justify-content: center; }
+  .prod-card__cta       { order: 4; }
+  /* Compact inspired pill so it fits 3-per-row cards */
+  .prod-card__inspired-quote {
+    font-size: 0.5rem;
+    padding: 0.22rem 0.45rem;
+    line-height: 1.15;
+    letter-spacing: 0.02em;
+    word-break: break-word;
+  }
   .prod-card__price { font-size: 0.95rem; font-weight: 800; }
   .prod-card__cta {
     padding: 0.45rem 0.6rem;
