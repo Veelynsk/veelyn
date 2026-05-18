@@ -2016,6 +2016,36 @@ function init() {
   setupEvents();
   setupSocialProofToast();
   setupPromoPopup();
+  setupMobileMenu();
+}
+
+// --- MOBILE DRAWER MENU (visible only via CSS under 700px) ---
+function setupMobileMenu() {
+  const burger = document.getElementById('navBurger');
+  const menu = document.getElementById('mobileMenu');
+  if (!burger || !menu) return;
+  const open = () => {
+    menu.hidden = false;
+    void menu.offsetWidth;
+    menu.classList.add('mobile-menu--open');
+    burger.setAttribute('aria-expanded', 'true');
+    document.body.classList.add('menu-open');
+  };
+  const close = () => {
+    menu.classList.remove('mobile-menu--open');
+    burger.setAttribute('aria-expanded', 'false');
+    document.body.classList.remove('menu-open');
+    setTimeout(() => { menu.hidden = true; }, 300);
+  };
+  burger.addEventListener('click', () => {
+    if (menu.hidden) open(); else close();
+  });
+  menu.addEventListener('click', (e) => {
+    if (e.target.closest('[data-close-menu]')) close();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !menu.hidden) close();
+  });
 }
 
 // --- PROMO POPUP — scratch ticket (everything ON the ticket, 1× per day) ---

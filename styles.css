@@ -6155,3 +6155,301 @@ body.has-promo-popup .proof-toast { display: none !important; }
   overflow: hidden;
   clip: rect(0,0,0,0);
 }
+
+/* =============================================================
+   MOBILE OPTIMIZATION PASS  (everything @ max-width: 699px)
+   Desktop is locked — these rules only apply on mobile widths.
+   ============================================================= */
+@media (max-width: 699px) {
+
+  /* --- Global safety: no overflow, accessible tap targets --- */
+  html, body { max-width: 100vw; }
+  img, video { max-width: 100%; height: auto; }
+
+  /* --- Header: hamburger replaces left link stack, logo stays prominent --- */
+  .header {
+    /* Slightly thinner header on mobile */
+    border-bottom: 1px solid var(--line);
+  }
+  .nav {
+    grid-template-columns: auto 1fr auto;
+    gap: 0.5rem;
+    padding: 0.35rem 0.75rem;
+    min-height: 56px;
+  }
+  /* Hide the 4-link vertical stack — replaced by drawer */
+  .nav__left { display: none; }
+  /* Burger button — first grid column */
+  .nav__burger {
+    display: inline-flex !important;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    background: transparent;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    cursor: pointer;
+    color: var(--text);
+    -webkit-tap-highlight-color: transparent;
+  }
+  .nav__burger-bar {
+    display: block;
+    width: 18px;
+    height: 2px;
+    background: currentColor;
+    border-radius: 1px;
+    transition: transform 0.2s var(--ease), opacity 0.2s var(--ease);
+  }
+  .nav__burger[aria-expanded="true"] .nav__burger-bar:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+  .nav__burger[aria-expanded="true"] .nav__burger-bar:nth-child(2) { opacity: 0; }
+  .nav__burger[aria-expanded="true"] .nav__burger-bar:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+  /* Logo gets the middle column, sized down for mobile */
+  .nav__center { justify-content: center; }
+  .logo { font-size: 1.5rem; }
+  /* Right side icons */
+  .nav__right { gap: 0.35rem; }
+  .nav__search-bar { min-width: 0; min-height: 44px; padding: 0.5rem; border-radius: 10px; }
+  .nav__search-text { display: none; }
+  .nav__icon { width: 44px; height: 44px; }
+
+  /* --- Mobile drawer menu (slides from left) --- */
+  .mobile-menu {
+    display: block !important;
+    position: fixed;
+    inset: 0;
+    z-index: 950;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.25s var(--ease);
+  }
+  .mobile-menu[hidden] { display: none !important; }
+  .mobile-menu--open { opacity: 1; pointer-events: auto; }
+  .mobile-menu__backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+  }
+  .mobile-menu__panel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: min(80vw, 320px);
+    background: linear-gradient(170deg, #0a0414 0%, #15091e 100%);
+    border-right: 1px solid var(--line);
+    box-shadow: 14px 0 60px rgba(0,0,0,0.5);
+    transform: translateX(-100%);
+    transition: transform 0.3s var(--ease);
+    padding: 4.5rem 1.25rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    overflow-y: auto;
+  }
+  .mobile-menu--open .mobile-menu__panel { transform: translateX(0); }
+  .mobile-menu__close {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    color: var(--text);
+    font-size: 1.6rem;
+    line-height: 1;
+    cursor: pointer;
+  }
+  .mobile-menu__nav { display: flex; flex-direction: column; gap: 0.3rem; }
+  .mobile-menu__link {
+    display: block;
+    text-align: left;
+    padding: 0.95rem 0.9rem;
+    background: transparent;
+    border: none;
+    border-radius: 10px;
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    cursor: pointer;
+    min-height: 44px;
+    transition: background 0.18s ease, color 0.18s ease;
+  }
+  .mobile-menu__link:hover,
+  .mobile-menu__link:focus-visible {
+    background: var(--surface);
+    color: var(--accent-2);
+  }
+  .mobile-menu__link--accent {
+    color: var(--accent-2);
+    background: rgba(124,58,237,0.08);
+    border: 1px solid rgba(124,58,237,0.3);
+  }
+  body.menu-open { overflow: hidden; }
+
+  /* --- Modals: full responsive width, comfortable padding --- */
+  .modal { padding: 0.5rem; }
+  .modal__panel,
+  .modal__panel--wide,
+  .modal__panel--full {
+    width: 100%;
+    max-width: 100%;
+    max-height: 92vh;
+    border-radius: 14px;
+  }
+  #modal-product .modal__panel,
+  #modal-origin .modal__panel {
+    width: 100% !important;
+    max-width: 100% !important;
+    max-height: 92vh !important;
+  }
+  .modal__close {
+    top: 0.75rem;
+    right: 0.75rem;
+    width: 40px;
+    height: 40px;
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  /* --- Catalog modal: filters stacked column, smaller header --- */
+  .catalog__header { padding: 1rem 1rem 0.75rem; }
+  .catalog__title { font-size: 1.4rem; }
+  .catalog__filters {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
+  }
+  .catalog__filters .select {
+    width: 100%;
+    padding: 0.9rem 2.4rem 0.9rem 1.1rem;
+    font-size: 0.95rem;
+    min-height: 44px;
+  }
+  .catalog__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+    padding: 0.85rem;
+  }
+
+  /* --- Bundle modal: stacked layout, 1-col picker on small phones --- */
+  .bundle { grid-template-columns: 1fr; }
+  .bundle__visual { min-height: 140px; padding: 0.85rem; }
+  .bundle__content { padding: 1rem 0.95rem 1.1rem; }
+  .bundle__slots {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+  }
+  .bundle__slot {
+    padding: 0.7rem 0.75rem;
+    min-height: 60px;
+    font-size: 0.78rem;
+    gap: 0.4rem;
+  }
+  .bundle__slot-num { font-size: 1.4rem; }
+  .bundle__slot-label { font-size: 0.62rem; letter-spacing: 0.06em; }
+  .bundle__slot--free::after {
+    font-size: 0.5rem;
+    padding: 0.18rem 0.35rem;
+    top: 0.3rem;
+    right: 0.3rem;
+    letter-spacing: 0.08em;
+  }
+  .bundle__price {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 0.85rem 0.95rem;
+  }
+  @media (max-width: 479px) {
+    /* Below ~iPhone SE width: collapse picker to single column for full readability */
+    .bundle__slots { grid-template-columns: 1fr; }
+    .bundle__slot { min-height: 56px; }
+  }
+
+  /* --- Product detail: smaller bottle that stays inside its frame --- */
+  .product { padding: 1rem 0.9rem 1.1rem; }
+  /* Restore natural block-flow inside the grid columns on mobile.
+     The base CSS uses min-height: 0 to enable overflow:hidden on desktop side-by-side
+     layout — on mobile both columns just need to stack at content height. */
+  .product .product__col-left,
+  .product .product__col-right {
+    min-height: auto;
+    height: auto;
+    overflow: visible;
+  }
+  .product .product__col-left { padding: 0.75rem; }
+  /* Shrink the bottle stage container so the bottle photo (object-fit: contain) scales down too */
+  .product .product__bottles-wrap {
+    height: 260px;
+    flex: 0 0 260px;
+    overflow: hidden;
+  }
+  /* Dual variant (Veelyn + original): position bottles more tightly within the smaller stage */
+  .product .product__bottles-wrap .bottle-veelyn {
+    width: 130px;
+    height: 200px;
+    transform: translate(-20%, -50%);
+  }
+  .product .product__bottles-wrap .bottle-original {
+    width: 100px;
+    height: 165px;
+    transform: translate(-115%, -45%);
+  }
+  /* Breathing room between bottle stage and the "INŠPIROVANÉ..." pill below */
+  .product .product__inspired { margin-top: 1.25rem; font-size: 0.7rem; }
+
+  /* --- Product cards (homepage carousel/list): allow 2-line name, no truncation --- */
+  .prod-card { padding: 0.85rem 0.85rem 1rem; }
+  .prod-card__name {
+    white-space: normal;
+    overflow: visible;
+    text-overflow: clip;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    font-size: 1.15rem;
+    line-height: 1.15;
+    min-height: calc(1.15em * 2);
+    width: 100%;
+    word-break: break-word;
+  }
+  .bestsellers__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.7rem;
+  }
+  .product-card__name {
+    font-size: 0.82rem;
+    line-height: 1.2;
+    word-break: break-word;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* --- Scenery: a touch more space between the orange tray and the white card --- */
+  .scenery__card { margin-top: 0.5rem; }
+
+  /* --- Universal tap-target safety for in-modal CTAs --- */
+  .modal__panel button,
+  .modal__panel a {
+    min-height: 44px;
+  }
+
+}
+

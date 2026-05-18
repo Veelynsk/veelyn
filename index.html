@@ -2,7 +2,7 @@
 <html lang="sk">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
 
 <!-- SEO -->
 <title>VEELYN — Luxusné inšpirované vône za zlomok ceny | Made in Slovakia</title>
@@ -44,7 +44,7 @@
 <link rel="preconnect" href="https://widget.packeta.com">
 <link rel="dns-prefetch" href="https://widget.packeta.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..900;1,9..144,400..900&family=Manrope:wght@300..800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=20260518-001">
+<link rel="stylesheet" href="styles.css?v=20260518-002">
 
 <!-- JSON-LD Structured Data -->
 <script type="application/ld+json">
@@ -122,6 +122,12 @@
 <!-- HEADER -->
 <header class="header">
   <nav class="nav">
+    <button class="nav__burger" id="navBurger" aria-label="Otvoriť menu" aria-expanded="false" aria-controls="mobileMenu" type="button">
+      <span class="nav__burger-bar"></span>
+      <span class="nav__burger-bar"></span>
+      <span class="nav__burger-bar"></span>
+    </button>
+
     <div class="nav__left">
       <button class="nav__link nav__link--accent" data-open="bundle">3+1 ZADARMO</button>
       <button class="nav__link" data-open="catalog">Všetky vonavky</button>
@@ -154,6 +160,20 @@
     </div>
   </nav>
 </header>
+
+<!-- MOBILE DRAWER MENU (slides in from left under 700px only) -->
+<div class="mobile-menu" id="mobileMenu" hidden role="dialog" aria-modal="true" aria-label="Hlavné menu">
+  <div class="mobile-menu__backdrop" data-close-menu></div>
+  <aside class="mobile-menu__panel">
+    <button class="mobile-menu__close" data-close-menu aria-label="Zatvoriť menu" type="button">×</button>
+    <nav class="mobile-menu__nav">
+      <button class="mobile-menu__link mobile-menu__link--accent" data-open="bundle" data-close-menu>★ 3+1 ZADARMO</button>
+      <button class="mobile-menu__link" data-open="catalog" data-close-menu>Všetky vonavky</button>
+      <button class="mobile-menu__link" data-open="wholesale" data-close-menu>Veľkoobchod / Whitelabel značka</button>
+      <button class="mobile-menu__link" data-open="contact" data-close-menu>Kontakt</button>
+    </nav>
+  </aside>
+</div>
 
 <!-- HERO -->
 <section class="hero">
@@ -1028,7 +1048,7 @@
 <!-- Packeta widget v6 (https://docs.packetery.com/03-creating-shipments/05-widget-v6.html) -->
 <script src="https://widget.packeta.com/v6/www/js/library.js" async></script>
 
-<script src="data.js?v=20260518-001"></script>
-<script src="script.js?v=20260518-001"></script>
+<script src="data.js?v=20260518-002"></script>
+<script src="script.js?v=20260518-002"></script>
 </body>
 </html>
