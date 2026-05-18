@@ -6592,13 +6592,13 @@ body.has-promo-popup .proof-toast { display: none !important; }
   .carousel__slide {
     width: 235px;
     height: 420px;
-    padding: 0 0.6rem 0.6rem;
+    padding: 1rem 0.6rem 0.6rem;
   }
   .carousel__slide.is-prev { transform: translate(calc(-50% - 175px), -50%) scale(0.78); }
   .carousel__slide.is-next { transform: translate(calc(-50% + 175px), -50%) scale(0.78); }
   .carousel__slide.is-out-left { transform: translate(calc(-50% - 360px), -50%) scale(0.7); }
   .carousel__slide.is-out-right { transform: translate(calc(-50% + 360px), -50%) scale(0.7); }
-  .carousel__bottles { height: 200px; }
+  .carousel__bottles { height: 160px; margin-bottom: 0.5rem; }
   .carousel__name { font-size: 1.1rem; }
   .carousel__inspired-quote { font-size: 0.62rem; padding: 0.3rem 0.6rem; }
   .carousel__price-box { padding: 0.4rem 0.6rem; gap: 0.25rem; }
