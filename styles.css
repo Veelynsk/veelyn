@@ -6340,9 +6340,9 @@ body.has-promo-popup .proof-toast { display: none !important; }
     min-height: 44px;
   }
   .catalog__grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.75rem;
-    padding: 0.85rem;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.55rem;
+    padding: 0.75rem;
   }
 
   /* --- Bundle modal: stacked layout, 1-col picker on small phones --- */
@@ -6427,13 +6427,41 @@ body.has-promo-popup .proof-toast { display: none !important; }
     width: 100%;
     word-break: break-word;
   }
-  .bestsellers__grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.7rem;
+  .bestsellers__grid,
+  .all-fragrances__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.5rem;
+  }
+  /* At 3-per-row each card is ~105px wide — slim down internals so a bottle + name + price fits */
+  .prod-card { padding: 0.5rem 0.5rem 0.7rem; gap: 0.45rem; }
+  .prod-card__name {
+    font-size: 0.78rem !important;
+    line-height: 1.1;
+    min-height: calc(1.1em * 2);
+    letter-spacing: 0;
+  }
+  .prod-card__inspired,
+  .prod-card__rating,
+  .prod-card__compare,
+  .prod-card__cheaper,
+  .prod-card__price-orig { display: none; }
+  .prod-card__price-row { gap: 0.2rem; justify-content: center; }
+  .prod-card__price { font-size: 0.95rem; font-weight: 800; }
+  .prod-card__cta {
+    padding: 0.45rem 0.6rem;
+    font-size: 0.65rem;
+    letter-spacing: 0.04em;
+    min-height: 36px;
+  }
+  .prod-card__badge {
+    font-size: 0.5rem;
+    padding: 0.18rem 0.4rem;
+    top: 0.35rem;
+    left: 0.35rem;
   }
   .product-card__name {
-    font-size: 0.82rem;
-    line-height: 1.2;
+    font-size: 0.72rem;
+    line-height: 1.15;
     word-break: break-word;
     display: -webkit-box;
     -webkit-line-clamp: 2;
@@ -6441,6 +6469,104 @@ body.has-promo-popup .proof-toast { display: none !important; }
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
+  .product-card { padding: 0.5rem; }
+  .product-card__inspired,
+  .product-card__compare-text,
+  .product-card__rating,
+  .product-card__old-price { display: none; }
+  .product-card__price { font-size: 0.78rem; }
+  .product-card__new-price { font-size: 0.85rem; }
+
+  /* --- Cart drawer: 3 fragrances per row, compact cards so multiple rows are visible --- */
+  .cart-drawer__items {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.45rem;
+    padding: 0.6rem 0.6rem;
+    align-content: start;
+  }
+  .cart-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.2rem;
+    padding: 0.4rem 0.35rem 0.5rem;
+    border: 1px solid var(--line);
+    border-radius: 9px;
+    background: var(--surface);
+    text-align: center;
+    position: relative;
+  }
+  .cart-item__thumb {
+    width: 72%;
+    aspect-ratio: 3 / 4;
+    height: auto;
+    border-radius: 5px;
+  }
+  .cart-item__info {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.1rem;
+  }
+  .cart-item__name {
+    font-size: 0.65rem;
+    line-height: 1.1;
+    letter-spacing: 0.02em;
+    text-align: center;
+    word-break: break-word;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .cart-item__inspired { display: none; }
+  .cart-item__qty {
+    margin-top: 0.1rem;
+    border-radius: 5px;
+  }
+  .cart-item__qty button { width: 20px; height: 22px; font-size: 0.8rem; }
+  .cart-item__qty span { width: 20px; font-size: 0.7rem; }
+  .cart-item__price {
+    font-size: 0.78rem;
+    margin-top: 0.1rem;
+  }
+  .cart-item__remove {
+    position: absolute;
+    top: 0.15rem;
+    right: 0.15rem;
+    margin: 0;
+    width: 18px;
+    height: 18px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0;
+    line-height: 1;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.4);
+    color: rgba(255,255,255,0.85);
+    z-index: 2;
+  }
+  .cart-item__remove::before {
+    content: "×";
+    font-size: 0.95rem;
+    line-height: 1;
+  }
+  /* Slim down chrome around the items so 2+ rows can be visible at once on mobile */
+  .cart-drawer__header { padding: 0.85rem 1rem 0.7rem; }
+  .cart-shipping { padding: 0.55rem 0.85rem 0.65rem; }
+  .cart-trust {
+    padding: 0.4rem 0.85rem;
+    font-size: 0.62rem;
+    gap: 0.5rem;
+  }
+  .cart-upsell { padding: 0.6rem 0.85rem; }
+  .cart-upsell__cta { padding: 0.55rem 0.85rem; font-size: 0.72rem; min-height: 38px; }
+  .cart-drawer__footer { padding: 0.85rem 1rem; }
 
   /* --- Scenery: a touch more space between the orange tray and the white card --- */
   .scenery__card { margin-top: 0.5rem; }
