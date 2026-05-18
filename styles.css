@@ -6345,59 +6345,46 @@ body.has-promo-popup .proof-toast { display: none !important; }
     padding: 0.75rem;
   }
 
-  /* --- Bundle modal: deal header on top, photo below, no scroll --- */
+  /* --- Bundle modal: heading on top, bottle photo directly below, then the rest --- */
   .bundle {
     display: flex;
     flex-direction: column;
     height: auto;
     max-height: none;
     overflow: visible;
+    padding: 0.55rem 0.95rem 0.7rem;
+    gap: 0.3rem;
   }
-  /* Swap source order so the "★ Exkluzívny deal" content is up top, bottle photo below */
-  .bundle__content { order: 1; padding: 0.75rem 0.85rem 0.6rem; gap: 0.4rem; }
-  .bundle__visual { order: 2; min-height: 110px; padding: 0.4rem 0.85rem 0.65rem; }
-  .bundle__visual-img { max-height: 110px; width: auto; }
-  /* Header lines: tight + readable */
-  .bundle__eyebrow { font-size: 0.62rem; letter-spacing: 0.3em; margin: 0 0 0.15rem; }
-  .bundle__title { font-size: 1.6rem; margin: 0 0 0.15rem; line-height: 1; }
-  .bundle__title span { font-size: 0.65rem; letter-spacing: 0.18em; }
-  .bundle__lead { font-size: 0.78rem; line-height: 1.25; margin: 0 0 0.4rem; }
-  /* Hide the secondary "how it works" strip and feature row on mobile so the
-     whole deal fits in one screen — the slot cards already communicate the flow */
-  .bundle__how, .bundle__features { display: none; }
-  /* Picker grid stays 2x2 even on small mobile (no more 1-column fallback) */
-  .bundle__slots {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0.45rem;
-    margin: 0.1rem 0 0.5rem;
-  }
-  .bundle__slot {
-    padding: 0.55rem 0.6rem;
-    min-height: 54px;
-    font-size: 0.74rem;
-    gap: 0.35rem;
-  }
-  .bundle__slot-num { font-size: 1.25rem; }
-  .bundle__slot-label { font-size: 0.6rem; letter-spacing: 0.05em; }
-  .bundle__slot--free::after {
-    font-size: 0.48rem;
-    padding: 0.15rem 0.3rem;
-    top: 0.25rem;
-    right: 0.25rem;
-    letter-spacing: 0.08em;
-  }
-  /* Compact price row + inline CTA */
-  .bundle__price {
-    flex-wrap: nowrap;
-    align-items: baseline;
-    gap: 0.4rem;
-    padding: 0.5rem 0.7rem;
-    margin: 0 0 0.5rem;
-  }
-  .bundle__price-label { font-size: 0.62rem; letter-spacing: 0.16em; }
-  .bundle__price-orig { font-size: 0.85rem; }
-  .bundle__price-val { font-size: 1.15rem; }
-  .bundle .btn--block { padding: 0.7rem; font-size: 0.85rem; min-height: 44px; }
+  /* Flatten .bundle__content so its children become siblings of .bundle__visual,
+     then reorder so: eyebrow + title, then photo, then lead/how/features/slots/price/CTA */
+  .bundle__content { display: contents; }
+  .bundle__eyebrow      { order: 1; padding: 0; margin: 0; font-size: 0.62rem; letter-spacing: 0.3em; text-align: center; }
+  .bundle__title        { order: 2; padding: 0; margin: 0; font-size: 1.55rem; line-height: 1; text-align: center; }
+  .bundle__title span   { font-size: 0.62rem; letter-spacing: 0.18em; }
+  .bundle__visual       { order: 3; min-height: 110px; padding: 0.4rem 0.5rem; border-radius: 10px; }
+  .bundle__visual-overlay { padding: 2.5rem 0.85rem 0.6rem; }
+  .bundle__visual-eq    { font-size: 0.9rem; }
+  .bundle__visual-eq em { font-size: 1.6rem; }
+  .bundle__lead         { order: 4; padding: 0; margin: 0; font-size: 0.75rem; line-height: 1.25; text-align: center; }
+  .bundle__how          { order: 5; margin: 0; padding: 0.4rem 0.5rem; gap: 0.25rem; }
+  .bundle__how-step     { padding: 0.25rem 0.35rem; }
+  .bundle__how-num      { width: 22px; height: 22px; font-size: 0.7rem; }
+  .bundle__how-label    { font-size: 0.55rem; line-height: 1.15; }
+  .bundle__how-arrow svg { width: 18px; }
+  .bundle__features     { order: 6; margin: 0; gap: 0.35rem; }
+  .bundle__feature      { padding: 0.4rem 0.3rem; gap: 0.2rem; }
+  .bundle__feature-icon { font-size: 0.95rem; width: 26px; height: 26px; }
+  .bundle__feature span:last-child { font-size: 0.55rem; line-height: 1.15; }
+  .bundle__slots        { order: 7; margin: 0; grid-template-columns: repeat(2, 1fr); gap: 0.4rem; }
+  .bundle__slot         { padding: 0.5rem 0.55rem; min-height: 50px; font-size: 0.72rem; gap: 0.3rem; }
+  .bundle__slot-num     { font-size: 1.15rem; }
+  .bundle__slot-label   { font-size: 0.58rem; letter-spacing: 0.05em; }
+  .bundle__slot--free::after { font-size: 0.46rem; padding: 0.12rem 0.28rem; top: 0.22rem; right: 0.22rem; letter-spacing: 0.06em; }
+  .bundle__price        { order: 8; margin: 0; padding: 0.45rem 0.7rem; gap: 0.4rem; flex-wrap: nowrap; align-items: baseline; }
+  .bundle__price-label  { font-size: 0.58rem; letter-spacing: 0.14em; }
+  .bundle__price-orig   { font-size: 0.78rem; }
+  .bundle__price-val    { font-size: 1.05rem; }
+  .bundle .btn--block   { order: 9; margin: 0; padding: 0.65rem; font-size: 0.82rem; min-height: 44px; }
 
   /* --- Product detail: smaller bottle that stays inside its frame --- */
   .product { padding: 1rem 0.9rem 1.1rem; }
