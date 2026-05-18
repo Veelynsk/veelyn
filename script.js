@@ -1381,6 +1381,33 @@ function setupEvents() {
   carousel.addEventListener('mouseenter', stopCarousel);
   carousel.addEventListener('mouseleave', startCarousel);
 
+  // Touch swipe — horizontal drag on the stage moves between slides
+  const stage = $('#carouselStage');
+  if (stage) {
+    let startX = 0, startY = 0, dragging = false;
+    stage.addEventListener('touchstart', (e) => {
+      if (!e.touches || e.touches.length === 0) return;
+      startX = e.touches[0].clientX;
+      startY = e.touches[0].clientY;
+      dragging = true;
+      stopCarousel();
+    }, { passive: true });
+    stage.addEventListener('touchend', (e) => {
+      if (!dragging) return;
+      dragging = false;
+      const t = e.changedTouches && e.changedTouches[0];
+      if (!t) { startCarousel(); return; }
+      const dx = t.clientX - startX;
+      const dy = t.clientY - startY;
+      // Only treat as a swipe if predominantly horizontal and far enough
+      if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.2) {
+        goToSlide(state.carouselIdx + (dx < 0 ? 1 : -1));
+      }
+      startCarousel();
+    });
+    stage.addEventListener('touchcancel', () => { dragging = false; startCarousel(); });
+  }
+
   // checkout button
   $('#checkoutBtn').addEventListener('click', () => {
     if (state.cart.length === 0) {

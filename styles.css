@@ -6579,6 +6579,47 @@ body.has-promo-popup .proof-toast { display: none !important; }
   /* --- Scenery: a touch more space between the orange tray and the white card --- */
   .scenery__card { margin-top: 0.5rem; }
 
+  /* --- Hero carousel: smaller stage so the active slide doesn't cover the title,
+         dots stay visible, swipeable with finger --- */
+  .hero { padding: 0.1rem 0.75rem 0.5rem; }
+  .hero__title { margin-bottom: 0.4rem; }
+  .carousel { padding: 0 0.25rem; margin: 0 auto 0.6rem; }
+  .carousel__stage {
+    height: 400px;
+    overflow: hidden;
+    touch-action: pan-y pinch-zoom;
+  }
+  .carousel__slide {
+    width: 235px;
+    height: 420px;
+    padding: 0 0.6rem 0.6rem;
+  }
+  .carousel__slide.is-prev { transform: translate(calc(-50% - 175px), -50%) scale(0.78); }
+  .carousel__slide.is-next { transform: translate(calc(-50% + 175px), -50%) scale(0.78); }
+  .carousel__slide.is-out-left { transform: translate(calc(-50% - 360px), -50%) scale(0.7); }
+  .carousel__slide.is-out-right { transform: translate(calc(-50% + 360px), -50%) scale(0.7); }
+  .carousel__bottles { height: 200px; }
+  .carousel__name { font-size: 1.1rem; }
+  .carousel__inspired-quote { font-size: 0.62rem; padding: 0.3rem 0.6rem; }
+  .carousel__price-box { padding: 0.4rem 0.6rem; gap: 0.25rem; }
+  .carousel__price-row .label { font-size: 0.55rem; }
+  .carousel__price-row--orig .price { font-size: 0.95rem; }
+  .carousel__price-row--ours .price { font-size: 1.15rem; }
+  .carousel__price-row--saving .price { font-size: 0.9rem; }
+  .carousel__cheaper-line { display: none; }
+  .carousel__arrow {
+    width: 38px;
+    height: 38px;
+    font-size: 1.3rem;
+    background: rgba(20,12,28,0.85);
+    border: 1px solid rgba(167,139,250,0.35);
+  }
+  .carousel__arrow--prev { left: 4px; }
+  .carousel__arrow--next { right: 4px; }
+  .carousel__dots { margin-top: 0.6rem; gap: 8px; }
+  .carousel__dot { width: 9px; height: 9px; }
+  .carousel__dot.is-active { width: 26px; }
+
   /* --- Universal tap-target safety for in-modal CTAs --- */
   .modal__panel button,
   .modal__panel a {
