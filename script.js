@@ -2035,7 +2035,13 @@ function setupPromoPopup() {
 
   const persist = () => { try { localStorage.setItem(KEY, today); } catch (e) {} };
 
+  let autoHideTimer = null;
+  const cancelAutoHide = () => {
+    if (autoHideTimer) { clearTimeout(autoHideTimer); autoHideTimer = null; }
+  };
+
   const hide = (saveDismiss) => {
+    cancelAutoHide();
     popup.classList.remove('promo-popup--visible');
     document.body.classList.remove('has-promo-popup');
     setTimeout(() => { popup.hidden = true; }, 500);
@@ -2050,7 +2056,15 @@ function setupPromoPopup() {
     // Trigger init both via rAF and a setTimeout fallback (preview iframe sometimes throttles rAF)
     requestAnimationFrame(() => requestAnimationFrame(initScratch));
     setTimeout(initScratch, 80);
+    // Mobile: if the user doesn't tap the ticket within 4s, dismiss it for the day
+    if (window.matchMedia('(max-width: 699px)').matches) {
+      autoHideTimer = setTimeout(() => hide(true), 4000);
+    }
   };
+
+  // First interaction with the popup cancels the auto-hide
+  popup.addEventListener('pointerdown', cancelAutoHide, true);
+  popup.addEventListener('touchstart', cancelAutoHide, { capture: true, passive: true });
 
   setTimeout(show, 3000);
   closeBtn && closeBtn.addEventListener('click', () => hide(true));
@@ -2214,14 +2228,19 @@ function setupPromoPopup() {
       ctx.beginPath(); ctx.arc(sx, sy, sr, 0, Math.PI * 2); ctx.fill();
     }
 
+    // Scale headline + eyes to canvas width (mobile compact popup is much narrower)
+    const isCompact = w < 220;
+    const headFontPx = isCompact ? 15 : 23;
+    const eyesSizePx = isCompact ? 26 : 43;
+    const eyesGap = isCompact ? 5 : 8;
+    const subFontPx = isCompact ? 9 : 14;
+
     // Main headline + eyes — centered as one unit
     ctx.textAlign = 'left';
     ctx.textBaseline = 'middle';
-    ctx.font = '800 23px Manrope, system-ui, sans-serif';
+    ctx.font = `800 ${headFontPx}px Manrope, system-ui, sans-serif`;
     const HEADLINE = 'VYBRALI SME TEBA';
     const headY = h * 0.42;
-    const eyesSizePx = 43;       // matches CSS 2.7rem at root 16px
-    const eyesGap = 8;
     const headWidth = ctx.measureText(HEADLINE).width;
     const totalWidth = headWidth + eyesGap + eyesSizePx;
     const startX = (w - totalWidth) / 2;
@@ -2231,6 +2250,7 @@ function setupPromoPopup() {
     // Position HTML eyes overlay right after the headline
     const eyesEl = document.getElementById('promoPopupEyes');
     if (eyesEl) {
+      eyesEl.style.fontSize = eyesSizePx + 'px';
       eyesEl.style.left = (startX + headWidth + eyesGap) + 'px';
       eyesEl.style.top = (headY - eyesSizePx * 0.55) + 'px';
       eyesEl.classList.add('is-positioned');
@@ -2241,7 +2261,7 @@ function setupPromoPopup() {
     ctx.save();
     const subText = 'Zotri a uvidíš čo si vyhral';
     const subY = h * 0.74;
-    ctx.font = '800 14px Manrope, system-ui, sans-serif';
+    ctx.font = `800 ${subFontPx}px Manrope, system-ui, sans-serif`;
     ctx.lineJoin = 'round';
     ctx.miterLimit = 2;
     ctx.strokeStyle = '#5b2e0f';

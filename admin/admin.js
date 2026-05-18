@@ -16,7 +16,7 @@ const dateTimeFmt = (d) => {
 const VEELYN_API = (typeof window !== 'undefined' && window.VEELYN_API) ||
   (location.hostname === 'localhost' || location.hostname === '127.0.0.1'
     ? 'http://localhost:3001'
-    : '');
+    : 'https://veelyn-production.up.railway.app');
 
 function authToken() { return localStorage.getItem('veelyn_admin_token') || ''; }
 function authHeaders() {
