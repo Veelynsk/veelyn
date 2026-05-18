@@ -6640,3 +6640,69 @@ body.has-promo-popup .proof-toast { display: none !important; }
 
 }
 
+/* =============================================================
+   PHONES (≤639px) — Variant A: solo active carousel slide.
+   Side cards are completely hidden so the hero looks as clean
+   as the desktop carousel. Swipe + dots are the only controls.
+   ============================================================= */
+@media (max-width: 639px) {
+  /* Hide every non-active slide on phones */
+  .carousel__slide.is-prev,
+  .carousel__slide.is-next,
+  .carousel__slide.is-out-left,
+  .carousel__slide.is-out-right {
+    opacity: 0 !important;
+    pointer-events: none !important;
+    transform: translate(-50%, -50%) scale(0.92) !important;
+    filter: none !important;
+  }
+  /* Active slide takes the full viewport width minus a 16px padding each side */
+  .carousel { padding: 0 16px; margin: 0 auto 0; }
+  .carousel__stage { overflow: hidden; }
+  .carousel__slide.is-active {
+    width: calc(100vw - 32px);
+    max-width: 380px;
+    height: 420px;
+    padding: 1rem 0.8rem 0.8rem;
+  }
+  /* No need for arrows on phones — swipe + dots is the gesture set */
+  .carousel__arrow { display: none; }
+  /* Dot row: bigger tap targets (24×24) with visible 10px pill inside */
+  .carousel__dots {
+    margin-top: 14px;
+    gap: 4px;
+  }
+  .carousel__dot {
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+  }
+  .carousel__dot::after {
+    content: '';
+    display: block;
+    width: 10px;
+    height: 10px;
+    background: var(--line-2);
+    border-radius: 50%;
+    transition: width var(--t-fast) var(--ease), background var(--t-fast) var(--ease), border-radius var(--t-fast) var(--ease);
+  }
+  .carousel__dot.is-active {
+    width: 36px;
+    background: transparent;
+  }
+  .carousel__dot.is-active::after {
+    width: 24px;
+    height: 10px;
+    border-radius: 5px;
+    background: var(--accent-2);
+  }
+  /* Generous 32px space between carousel dots and the VŠETKY VONAVKY CTA */
+  .hero__ctas { margin-top: 32px; }
+}
+
