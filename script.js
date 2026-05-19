@@ -427,10 +427,16 @@ function closeAllModals() {
 function renderBestsellers() {
   const grid = $('#bestsellersGrid');
   if (!grid) return;
-  // Show 6 top sellers in two clean rows of 3, with the "Pozri si vsetky vone"
-  // CTA below acting as the call to the full catalog. Pass showMatch=true so each
-  // card renders the "Perfektná zhoda vôňových nôt" original-fragrance reference.
-  const sellers = TOP_SELLERS.map(id => FRAGRANCES.find(f => f.id === id)).filter(Boolean).slice(0, 6);
+  // 15 top sellers — fills 3 rows of 5 on desktop (≥5-col grid), 5 rows of
+  // 3 on mobile (3-col grid). Pass showMatch=true so each card renders the
+  // "Perfektná zhoda" original-fragrance reference.
+  const topIds = TOP_SELLERS.slice();
+  // TOP_SELLERS may have fewer than 15 — pad from the rest of FRAGRANCES
+  for (const f of FRAGRANCES) {
+    if (topIds.length >= 15) break;
+    if (!topIds.includes(f.id)) topIds.push(f.id);
+  }
+  const sellers = topIds.map(id => FRAGRANCES.find(f => f.id === id)).filter(Boolean).slice(0, 15);
   grid.innerHTML = sellers.map(f => productCardHTML(f, true, true)).join('');
   wireProductCards(grid);
 }
