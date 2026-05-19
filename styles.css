@@ -6569,11 +6569,41 @@ body.has-promo-popup .proof-toast { display: none !important; }
   .bundle .btn--block   { order: 9; margin: 0; padding: 0.95rem; font-size: 0.95rem; min-height: 48px; }
 
   /* --- Product detail: compact mobile layout — smaller everything so the
-     "Perfektná zhoda" match-card and original-fragrance reference fit visibly. --- */
-  .product { padding: 0.75rem 0.7rem 0.9rem; gap: 0.7rem; }
-  /* Restore natural block-flow inside the grid columns on mobile.
-     The base CSS uses min-height: 0 to enable overflow:hidden on desktop side-by-side
-     layout — on mobile both columns just need to stack at content height. */
+     "Perfektná zhoda" match-card and original-fragrance reference fit visibly.
+     Also flatten the two-column layout via display:contents so we can reorder
+     individual sections (image -> name -> rating -> pill -> CTAs -> icons ->
+     price box -> match-card -> pyramid -> compare-table) per user's hierarchy. */
+  .product {
+    padding: 0.75rem 0.7rem 0.9rem;
+    gap: 0.7rem;
+    display: flex !important;
+    flex-direction: column;
+  }
+  /* Flatten the column wrappers AND the .product__header so every leaf
+     section becomes a direct flex child of .product, then assign explicit
+     order to each one per user's hierarchy */
+  .product .product__col-left,
+  .product .product__col-right,
+  .product .product__col-right .product__header {
+    display: contents !important;
+  }
+  .product .product__bottles-wrap { order: 1; }
+  .product .product__col-right .product__header .product__name-veelyn { order: 2; margin: 0; }
+  .product .product__col-right .product__header .product__rating { order: 3; }
+  .product .product__inspired { order: 4; }
+  /* Hide the duplicate inspired pill in col-right header (col-left already has it) */
+  .product .product__col-right .product__header .product__inspired-label { display: none !important; }
+  .product .product__buttons { order: 5; display: flex; flex-direction: column; gap: 0.6rem; }
+  .product .product__col-right .product__header .product__icons { order: 6; }
+  /* Then the price comparison + cheaper line */
+  .product .product__price-box { order: 7; }
+  .product .product__cheaper-line { order: 8; }
+  /* Perfektná zhoda match card */
+  .product .product__col-left > .match-card { order: 9; }
+  /* Pyramid + compare-table at the bottom */
+  .product .product__notes { order: 10; }
+  .product .product__compare { order: 11; }
+  /* Restore natural block-flow inside the (now contents-flattened) columns */
   .product .product__col-left,
   .product .product__col-right {
     min-height: auto;
