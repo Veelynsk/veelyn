@@ -418,9 +418,10 @@ function renderBestsellers() {
   const grid = $('#bestsellersGrid');
   if (!grid) return;
   // Show 6 top sellers in two clean rows of 3, with the "Pozri si vsetky vone"
-  // CTA below acting as the call to the full catalog.
+  // CTA below acting as the call to the full catalog. Pass showMatch=true so each
+  // card renders the "Perfektná zhoda vôňových nôt" original-fragrance reference.
   const sellers = TOP_SELLERS.map(id => FRAGRANCES.find(f => f.id === id)).filter(Boolean).slice(0, 6);
-  grid.innerHTML = sellers.map(f => productCardHTML(f, true)).join('');
+  grid.innerHTML = sellers.map(f => productCardHTML(f, true, true)).join('');
   wireProductCards(grid);
 }
 
@@ -458,9 +459,9 @@ function productCardHTML(f, isBest, showMatch) {
   const cheaper = eur(f.original_price - f.veelyn_price);
   const origSlug = slugifyOriginal(f.original_name);
   const matchHTML = showMatch ? `
-        <article class="match-card prod-card__match" data-orig="${f.id}">
+        <article class="match-card prod-card__match" data-orig="${f.id}" data-orig-id="${f.id}">
           <p class="match-card__title">
-            <svg viewBox="0 0 24 24" aria-hidden="true" width="16" height="16">
+            <svg viewBox="0 0 24 24" aria-hidden="true" width="14" height="14">
               <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
               <path d="M7 12l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
@@ -483,6 +484,7 @@ function productCardHTML(f, isBest, showMatch) {
               </p>
             </div>
           </div>
+          <a class="match-card__link" href="#" data-orig-link="${f.id}">Zobraziť produkt <span aria-hidden="true">→</span></a>
         </article>` : '';
   return `
     <article class="prod-card${isBest ? ' prod-card--best' : ''}" data-id="${f.id}">
@@ -504,12 +506,12 @@ function productCardHTML(f, isBest, showMatch) {
           <span class="prod-card__count">${r.avg.toString().replace('.', ',')}/5 (${r.count})</span>
         </button>
         <div class="prod-card__cheaper">Lacnejšia o <strong>${cheaper}</strong></div>
+        ${matchHTML}
         <div class="prod-card__price-row">
           <span class="prod-card__price-orig">${eur(f.original_price)}</span>
           <span class="prod-card__price">${eur(f.veelyn_price)}</span>
         </div>
         <button class="prod-card__cta" data-add="${f.id}">Pridaj do košíka</button>
-        ${matchHTML}
       </div>
     </article>
   `;
@@ -527,6 +529,16 @@ function wireProductCards(scope) {
       if (reviewsBtn) {
         e.stopPropagation();
         openReviews(reviewsBtn.dataset.reviews);
+        return;
+      }
+      // "Perfektná zhoda" match-card → open the original-fragrance modal
+      const matchLink = e.target.closest('[data-orig-link]');
+      const matchCard = e.target.closest('.prod-card__match');
+      if (matchLink || matchCard) {
+        e.preventDefault();
+        e.stopPropagation();
+        const origId = (matchLink && matchLink.dataset.origLink) || (matchCard && matchCard.dataset.orig);
+        if (origId && typeof openMatchOrigin === 'function') openMatchOrigin(origId);
         return;
       }
       openProduct(card.dataset.id);
