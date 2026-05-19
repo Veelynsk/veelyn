@@ -8011,12 +8011,12 @@ input, select, textarea, label {
     margin-top: 0 !important;
     margin-bottom: 0 !important;
   }
-  /* Reorder children so the gold-bordered Perfektná zhoda block sits
-     IMMEDIATELY below the gold "Inšpirované …" pill (no name/rating gap
-     between two bordered blocks). Name + rating slot in below the match. */
-  .prod-card__info > .prod-card__inspired { order: 1; }
-  .prod-card__info > .prod-card__match    { order: 2; }
-  .prod-card__info > .prod-card__name     { order: 3; }
+  /* Card order (matches mobile + user spec):
+     bottle image → bottle name → inspired pill → Perfektná zhoda → rating
+     → price-row → CTA */
+  .prod-card__info > .prod-card__name     { order: 1; }
+  .prod-card__info > .prod-card__inspired { order: 2; }
+  .prod-card__info > .prod-card__match    { order: 3; }
   .prod-card__info > .prod-card__rating   { order: 4; }
   .prod-card__info > .prod-card__price-row { order: 5; }
   .prod-card__info > .prod-card__cta      { order: 6; }
