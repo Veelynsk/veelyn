@@ -7923,3 +7923,19 @@ body.has-promo-popup .proof-toast { display: none !important; }
   font-size: 0.88rem !important;
   padding: 0.2rem 0 !important;
 }
+
+/* ============================================================
+   No double-tap-zoom on tappable elements (still allows pinch-zoom
+   for accessibility — only kills the 300ms double-tap-to-zoom).
+   ============================================================ */
+button, a, [role="button"], [data-open], [data-close],
+.prod-card, .seller-card, .carousel__slide,
+.scenery__cta, .scenery__cta--big,
+.btn, .nav__link, .footer__link, .footer__bottom-link,
+.modal__close, .cart-drawer__close, .nav__burger,
+.proof-toast, .proof-toast__main, .proof-toast__close,
+.promo-popup, .promo-popup__close, .promo-popup__copy,
+.mobile-menu__link, .mobile-menu__close,
+input, select, textarea, label {
+  touch-action: manipulation;
+}
