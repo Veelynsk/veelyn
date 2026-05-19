@@ -955,7 +955,11 @@ body.lock { overflow: hidden; }
 }
 
 .carousel__price-box {
-  margin: 0.5rem 0 0;
+  /* margin-top: auto anchors the price box (and everything after it) to the
+     bottom of the slide flex column, so every carousel card ends at exactly
+     the same y position regardless of how many lines the inspired-by pill
+     wraps to. The variable height is absorbed by the gap above. */
+  margin: auto 0 0;
   width: 100%;
   border: 1px solid rgba(167,139,250,0.25);
   background: linear-gradient(180deg, rgba(124,58,237,0.08), rgba(0,0,0,0.55));
@@ -1160,7 +1164,10 @@ body.lock { overflow: hidden; }
   .carousel__slide.is-next { transform: translate(calc(-50% + 280px), -50%) scale(0.8); }
   .carousel__slide.is-far-prev { transform: translate(calc(-50% - 480px), -50%) scale(0.62); }
   .carousel__slide.is-far-next { transform: translate(calc(-50% + 480px), -50%) scale(0.62); }
-  .carousel__bottles { height: 380px; }
+  /* Bottles use min/max so the slide can flex-absorb the variable
+     inspired-quote height. Combined with margin-top:auto on .carousel__price-box,
+     this guarantees every slide's price block ends at exactly the same y. */
+  .carousel__bottles { height: auto; min-height: 280px; max-height: 380px; }
   .bottle-original {
     width: 190px;
     height: 240px;
@@ -1995,7 +2002,17 @@ body.lock { overflow: hidden; }
   box-sizing: border-box;
 }
 @media (min-width: 700px) {
-  .prod-card__inspired-quote { font-size: 0.78rem; padding: 0.42rem 0.9rem; }
+  /* Reserve a fixed vertical slot for the inspired pill so the bottle-name
+     titles below it always sit on the same baseline across cards in a row,
+     even when one card's "inspired by …" wraps to 3 lines and others to 2. */
+  .prod-card__inspired {
+    min-height: 64px;
+    align-items: center;
+  }
+  .prod-card__inspired-quote {
+    font-size: 0.78rem;
+    padding: 0.42rem 0.9rem;
+  }
 }
 .prod-card__inspired-quote strong,
 .prod-card__inspired-quote em {
@@ -7946,39 +7963,42 @@ input, select, textarea, label {
    ============================================================ */
 @media (min-width: 700px) {
   .prod-card__match {
-    padding: 14px 16px;
-    margin-top: 12px;
-    background: rgba(0, 0, 0, 0.35);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 12px;
-    gap: 10px;
+    padding: 18px 18px;
+    margin-top: 14px;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(212, 162, 71, 0.28);
+    border-radius: 14px;
+    gap: 12px;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.02) inset,
+                0 6px 18px rgba(0, 0, 0, 0.35);
   }
   .prod-card__match .match-card__title {
-    font-size: 13px !important;
-    font-weight: 600;
-    letter-spacing: 0;
+    font-size: 14px !important;
+    font-weight: 700;
+    letter-spacing: 0.02em;
     line-height: 1.3;
     gap: 8px;
-    padding-bottom: 8px;
-    margin-bottom: 8px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     white-space: normal;
+    color: #4ade80;
   }
   .prod-card__match .match-card__title svg {
-    width: 16px;
-    height: 16px;
+    width: 18px;
+    height: 18px;
   }
   .prod-card__match .match-card__row {
     display: grid;
-    grid-template-columns: 56px 1fr;
-    gap: 12px;
+    grid-template-columns: 64px 1fr;
+    gap: 14px;
     align-items: center;
     text-align: left;
   }
   .prod-card__match .match-card__thumb {
-    width: 56px;
-    height: 56px;
-    border-radius: 8px;
+    width: 64px;
+    height: 64px;
+    border-radius: 10px;
   }
   .prod-card__match .match-card__body {
     width: auto;
@@ -7987,19 +8007,21 @@ input, select, textarea, label {
     gap: 4px;
   }
   .prod-card__match .match-card__brand {
-    font-size: 13px !important;
-    font-weight: 600;
+    font-size: 14px !important;
+    font-weight: 700;
     line-height: 1.3;
     text-align: left;
     min-height: 0;
+    color: #fff;
   }
   .prod-card__match .match-card__price {
-    margin-top: 2px;
+    margin-top: 3px;
     justify-content: flex-start;
     gap: 6px;
   }
   .prod-card__match .match-card__price strong {
-    font-size: 15px !important;
+    font-size: 17px !important;
+    color: #fff;
   }
   .prod-card__match .match-card__price small {
     display: inline !important;
