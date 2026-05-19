@@ -7372,9 +7372,15 @@ body.has-promo-popup .proof-toast { display: none !important; }
   height: 10px;
 }
 .prod-card__match .match-card__title-text {
-  overflow: hidden;
-  text-overflow: ellipsis;
   min-width: 0;
+}
+/* Show full "Perfektná zhoda" — let it bleed gracefully if narrow */
+@media (max-width: 699px) {
+  .prod-card__match .match-card__title-text {
+    overflow: visible !important;
+    text-overflow: clip !important;
+    white-space: nowrap !important;
+  }
 }
 /* Inside a compact prod-card, use the short variant ("Perfektná zhoda") so
    icon + text fit on a single line. The full text remains in the DOM for
@@ -7800,21 +7806,27 @@ body.has-promo-popup .proof-toast { display: none !important; }
     min-height: 160px !important;
     flex-shrink: 0 !important;
   }
-  /* Title text — never ellipsis, wrap to 2 lines if needed */
+  /* "Perfektná zhoda" — single line next to ✓ icon, font tight enough
+     to fit the ~70px content width on a 3-per-row 105px card */
   .prod-card__match .match-card__title {
-    white-space: normal !important;
+    white-space: nowrap !important;
     overflow: visible !important;
     text-overflow: clip !important;
-    word-break: keep-all !important;
     -webkit-line-clamp: unset !important;
     line-clamp: unset !important;
     display: flex !important;
     align-items: center !important;
     gap: 4px !important;
-    font-size: 10px !important;
-    line-height: 1.25 !important;
+    font-size: 9px !important;
+    font-weight: 500 !important;
+    line-height: 1.2 !important;
     text-transform: none !important;
-    letter-spacing: 0 !important;
+    letter-spacing: -0.01em !important;
+  }
+  .prod-card__match .match-card__title svg {
+    width: 11px !important;
+    height: 11px !important;
+    flex-shrink: 0 !important;
   }
   /* Hide compact title swap — show the full version now that we
      allow wrapping */
