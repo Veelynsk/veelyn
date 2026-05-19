@@ -169,11 +169,13 @@ body.lock { overflow: hidden; }
   text-transform: uppercase;
   /* inline-flex with the SVG flag inline so the parent's bounding rect
      includes the flag — prevents the next separator (✦) from visually
-     overlapping the flag tail. flex-shrink: 0 on the flag keeps its size. */
+     overlapping the flag tail. flex-shrink: 0 on the flag keeps its size.
+     Extra padding-right adds visual breathing room before the ✦. */
   display: inline-flex;
   align-items: center;
   gap: 0.55em;
   white-space: nowrap;
+  padding-right: 1.2rem;
 }
 .marquee__item .sk-flag,
 .marquee__item .fr-flag {
@@ -183,6 +185,10 @@ body.lock { overflow: hidden; }
 .marquee__item .sk-flag {
   width: 2.1em !important;
   height: 1.4em !important;
+}
+.marquee__sep {
+  padding-left: 0.4rem;
+  padding-right: 0.4rem;
 }
 .marquee--mid .marquee__item--big {
   font-family: var(--font-display);
