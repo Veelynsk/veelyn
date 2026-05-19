@@ -1553,13 +1553,16 @@ body.lock { overflow: hidden; }
   font-weight: 500;
 }
 .scenery__lead .scenery__caption-hot {
-  color: #fff;
-  background: linear-gradient(135deg, #ef4444, #b91c1c);
+  display: inline-block;
+  color: #1a1208;
+  background: linear-gradient(135deg, #e4b85a, #c39a44);
+  border: 1px solid rgba(212, 162, 71, 0.4);
   padding: 0.12em 0.5em;
   border-radius: 6px;
   font-weight: 800;
   letter-spacing: 0.01em;
-  box-shadow: 0 2px 6px rgba(185,28,28,0.35);
+  box-shadow: none;
+  text-shadow: none;
   white-space: nowrap;
 }
 .scenery__cta {
