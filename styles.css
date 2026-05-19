@@ -6795,8 +6795,16 @@ body.has-promo-popup .proof-toast { display: none !important; }
   }
   .prod-card__rating,
   .prod-card__compare,
-  .prod-card__cheaper,
-  .prod-card__price-orig { display: none; }
+  .prod-card__cheaper { display: none; }
+  /* Mobile price-orig is shown (struck-through, inline before .prod-card__price)
+     so the price row matches the desktop "400,00 €  24,99 €" pattern. */
+  .prod-card__price-orig {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--text-mute);
+    text-decoration: line-through;
+  }
   /* Reorder + compact spacing per user audit. Card was 555px tall, target
      is ~30-40% shorter via tighter gaps + smaller match-card. */
   .prod-card {
@@ -7983,10 +7991,15 @@ input, select, textarea, label {
   /* Tight spacing on desktop — no dead vertical gaps in the card.
      Applies to bestsellers, catalog modal, and any other prod-card grid. */
   .prod-card {
-    gap: 0.35rem !important;
+    gap: 0.25rem !important;
   }
   .prod-card__info {
-    gap: 4px !important;
+    gap: 2px !important;
+  }
+  /* Strip any element-level top margin that adds to the flex gap */
+  .prod-card__info > * {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
   }
   .prod-card__match {
     padding: 18px 18px;
