@@ -7760,3 +7760,80 @@ body.has-promo-popup .proof-toast { display: none !important; }
   .prod-card__cta-short { display: none; }
   .prod-card__cta-long { display: inline; }
 }
+
+/* ============================================================
+   PROD-CARD ROW ALIGNMENT — fixed min-heights per section so cards
+   in the same row line up element-by-element regardless of how many
+   lines the INSPIROVANE pill or the brand name wrap to.
+   ============================================================ */
+@media (max-width: 699px) {
+  .prod-card {
+    display: flex !important;
+    flex-direction: column !important;
+    min-height: 0 !important;
+    height: 100% !important;
+  }
+  .prod-card__image {
+    flex-shrink: 0 !important;
+  }
+  /* Name reserves space for 2 lines so titles "MOULIN ROUGE" and
+     "THE HORIZON" sit at the same y across the row */
+  .prod-card__name {
+    min-height: 34px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-shrink: 0 !important;
+  }
+  /* Inspired pill cell reserves room for the longest variant (3-4 line
+     "MAISON FRANCIS KURKDJIAN BACCARAT ROUGE 540") */
+  .prod-card__inspired {
+    min-height: 86px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-shrink: 0 !important;
+  }
+  /* Match block reserves enough room for ✓ title + 44px thumb + 2-line
+     brand + price */
+  .prod-card__match {
+    min-height: 160px !important;
+    flex-shrink: 0 !important;
+  }
+  /* Title text — never ellipsis, wrap to 2 lines if needed */
+  .prod-card__match .match-card__title {
+    white-space: normal !important;
+    overflow: visible !important;
+    text-overflow: clip !important;
+    word-break: keep-all !important;
+    -webkit-line-clamp: unset !important;
+    line-clamp: unset !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 4px !important;
+    font-size: 10px !important;
+    line-height: 1.25 !important;
+    text-transform: none !important;
+    letter-spacing: 0 !important;
+  }
+  /* Hide compact title swap — show the full version now that we
+     allow wrapping */
+  .prod-card__match .match-card__title-short { display: none !important; }
+  .prod-card__match .match-card__title-long { display: inline !important; }
+  /* Use the actual long text "Perfektná zhoda vôňových nôt" (wraps to
+     2 lines instead of being truncated) */
+  /* Match-card title text — never ellipsis. */
+  /* Match-card brand min-height for 2-line brand string */
+  .prod-card__match .match-card__brand {
+    min-height: 32px !important;
+  }
+  /* Push price + CTA to the bottom regardless of card height */
+  .prod-card__price-row {
+    margin-top: auto !important;
+    flex-shrink: 0 !important;
+  }
+  .prod-card__cta {
+    flex-shrink: 0 !important;
+    margin-top: 8px !important;
+  }
+}
