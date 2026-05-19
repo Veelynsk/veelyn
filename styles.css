@@ -6953,6 +6953,39 @@ body.has-promo-popup .proof-toast { display: none !important; }
   .carousel__dot { width: 9px; height: 9px; }
   .carousel__dot.is-active { width: 26px; }
 
+  /* --- Search modal: compact placeholder, 2-col Top Sellers grid, subtle × --- */
+  #modal-search .modal__close {
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    min-height: 36px;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    color: rgba(255, 255, 255, 0.85);
+    box-shadow: none;
+    font-size: 1.25rem;
+    text-shadow: none;
+  }
+  #modal-search .modal__close:hover {
+    background: rgba(255, 255, 255, 0.06);
+    box-shadow: none;
+    transform: none;
+  }
+  .search__input {
+    padding: 0.85rem 1rem 0.85rem 2.75rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    border-radius: 12px;
+  }
+  .search__icon { width: 18px; height: 18px; left: 0.9rem; }
+  .search__sellers { margin-top: 1.25rem; padding-top: 1.25rem; }
+  .search__sellers-title { font-size: 0.7rem; letter-spacing: 0.18em; margin-bottom: 0.75rem; }
+  /* Top Sellers: 2-col grid (not 1-col stretch) so 4+ products fit above the fold */
+  .search__sellers-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 0.6rem;
+  }
+
   /* --- Trust badges row (Doprava / 14 dní / Bezpečná platba / 4.8/5) ---
      The icons rendered at different visual x-positions because each cell
      used justify-content: center over content of varying width. Replaced
