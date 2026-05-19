@@ -44,7 +44,7 @@
 <link rel="preconnect" href="https://widget.packeta.com">
 <link rel="dns-prefetch" href="https://widget.packeta.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..900;1,9..144,400..900&family=Manrope:wght@300..800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=20260519-002">
+<link rel="stylesheet" href="styles.css?v=20260519-003">
 
 <!-- JSON-LD Structured Data -->
 <script type="application/ld+json">
@@ -1059,17 +1059,22 @@
 
 <!-- Social proof toast -->
 <div class="proof-toast" id="proofToast" hidden role="status" aria-live="polite">
-  <span class="proof-toast__dot"></span>
-  <div class="proof-toast__body">
-    <strong id="proofToastName"></strong>
-    <small id="proofToastTime"></small>
-  </div>
+  <button class="proof-toast__main" id="proofToastMain" type="button" aria-label="Posledný overený nákup — otvoriť produkt">
+    <span class="proof-toast__thumb" id="proofToastThumb" aria-hidden="true"></span>
+    <span class="proof-toast__body">
+      <strong id="proofToastName"></strong>
+      <small id="proofToastTime"></small>
+    </span>
+  </button>
+  <button class="proof-toast__close" id="proofToastClose" type="button" aria-label="Zatvoriť notifikáciu">
+    <svg viewBox="0 0 24 24" aria-hidden="true" width="14" height="14"><path d="M18 6L6 18M6 6l12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+  </button>
 </div>
 
 <!-- Packeta widget v6 (https://docs.packetery.com/03-creating-shipments/05-widget-v6.html) -->
 <script src="https://widget.packeta.com/v6/www/js/library.js" async></script>
 
-<script src="data.js?v=20260519-002"></script>
-<script src="script.js?v=20260519-002"></script>
+<script src="data.js?v=20260519-003"></script>
+<script src="script.js?v=20260519-003"></script>
 </body>
 </html>

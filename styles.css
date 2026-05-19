@@ -3059,95 +3059,154 @@ body.lock { overflow: hidden; }
   border-radius: 6px;
 }
 
-/* Social proof toast (bottom-left, auto rotates) */
+/* Social proof toast — bottom-left, compact, dismissable, premium look */
 .proof-toast {
   position: fixed;
-  bottom: 1.5rem;
-  left: 1.5rem;
-  z-index: 800;
+  bottom: 1.25rem;
+  left: 1.25rem;
+  z-index: 70;
   display: flex;
   align-items: center;
-  gap: 1.1rem;
-  padding: 1.15rem 1.5rem;
-  background: rgba(20, 12, 28, 0.92);
-  backdrop-filter: blur(14px);
-  border: 1px solid rgba(167,139,250,0.32);
-  border-radius: 16px;
-  box-shadow: 0 18px 60px rgba(0,0,0,0.55), 0 0 36px rgba(124,58,237,0.22);
+  gap: 0.6rem;
+  padding: 0.55rem 0.55rem 0.55rem 0.55rem;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
   color: var(--text);
-  max-width: calc(100vw - 3rem);
-  animation: proofIn 0.4s ease;
-  transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+  max-width: calc(100vw - 2.5rem);
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.28s ease, transform 0.28s ease;
+  pointer-events: none;
 }
-.proof-toast:hover {
-  transform: translateY(-2px);
-  border-color: rgba(167,139,250,0.55);
-  box-shadow: 0 16px 50px rgba(0,0,0,0.55), 0 0 32px rgba(124,58,237,0.32);
-}
-.proof-toast:focus-visible {
-  outline: 2px solid var(--accent-2);
-  outline-offset: 2px;
+.proof-toast--in {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
 }
 .proof-toast[hidden] { display: none; }
-.proof-toast__dot {
-  width: 12px; height: 12px;
-  background: #4ade80;
-  border-radius: 50%;
-  flex-shrink: 0;
-  box-shadow: 0 0 16px rgba(74,222,128,0.8);
-  animation: proofPulse 2s ease-in-out infinite;
+/* Main clickable area (thumb + body) */
+.proof-toast__main {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  color: inherit;
+  cursor: pointer;
+  text-align: left;
+  border-radius: 8px;
+  transition: transform 0.15s ease;
 }
-.proof-toast__body { display: flex; flex-direction: column; gap: 0.2rem; }
+.proof-toast__main:hover { transform: scale(1.02); }
+.proof-toast__main:focus-visible { outline: 2px solid var(--accent-2); outline-offset: 2px; }
+/* Product thumbnail */
+.proof-toast__thumb {
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.04) center / contain no-repeat;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  position: relative;
+}
+.proof-toast__thumb::after {
+  /* tiny ✓ corner badge in champagne gold — matches "INSPIROVANE" pill */
+  content: "✓";
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  width: 14px;
+  height: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  font-weight: 800;
+  color: #1a1208;
+  background: #d4a247;
+  border-radius: 50%;
+  box-shadow: 0 1px 4px rgba(212, 162, 71, 0.4);
+  line-height: 1;
+}
+.proof-toast__body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.05rem;
+  min-width: 0;
+}
 .proof-toast__body strong {
-  font-size: 1.25rem;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
   font-weight: 700;
   color: #fff;
-  line-height: 1.3;
+  line-height: 1.25;
+  letter-spacing: 0.005em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+.proof-toast__body strong em {
+  color: var(--accent-2);
+  font-style: normal;
+  font-weight: 700;
 }
 .proof-toast__body small {
-  font-size: 1rem;
-  color: rgba(244,241,238,0.65);
-  letter-spacing: 0.02em;
+  font-size: 0.66rem;
+  color: rgba(244, 241, 238, 0.6);
+  letter-spacing: 0.01em;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
-@keyframes proofIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+/* Close × button */
+.proof-toast__close {
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  border-radius: 8px;
+  color: rgba(255, 255, 255, 0.55);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: color 0.15s ease, background 0.15s ease;
+  -webkit-tap-highlight-color: transparent;
 }
-@keyframes proofPulse {
-  0%, 100% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.4); opacity: 0.7; }
+.proof-toast__close:hover,
+.proof-toast__close:focus-visible {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.06);
+  outline: none;
 }
 @media (max-width: 699px) {
-  /* Mobile: even smaller pill in the bottom-left corner */
   .proof-toast {
-    bottom: 0.5rem;
-    left: 0.5rem;
+    bottom: calc(0.85rem + env(safe-area-inset-bottom, 0px));
+    left: 0.85rem;
     right: auto;
-    max-width: 168px;
-    padding: 0.35rem 0.5rem;
-    gap: 0.4rem;
+    max-width: min(280px, calc(100vw - 1.7rem));
+    padding: 0.5rem 0.45rem 0.5rem 0.5rem;
+    gap: 0.5rem;
     border-radius: 10px;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.55), 0 0 14px rgba(124,58,237,0.18);
   }
-  .proof-toast__dot {
-    width: 6px;
-    height: 6px;
-    box-shadow: 0 0 8px rgba(74,222,128,0.7);
-  }
-  .proof-toast__body { gap: 0.05rem; }
-  .proof-toast__body strong {
-    font-size: 0.62rem;
-    line-height: 1.15;
-    letter-spacing: -0.005em;
-  }
-  .proof-toast__body small {
-    font-size: 0.5rem;
-    letter-spacing: 0.01em;
-    line-height: 1.2;
-  }
-  /* When cookie banner is up, lift the toast above it so it stays visible */
+  .proof-toast__thumb { width: 32px; height: 32px; }
+  .proof-toast__body strong { font-size: 0.74rem; }
+  .proof-toast__body small { font-size: 0.62rem; }
+  .proof-toast__close { width: 28px; height: 28px; }
+  /* If the cookie banner is up, lift the toast above it */
   body:has(.cookie-banner:not([hidden])) .proof-toast {
-    bottom: 5rem;
+    bottom: calc(5rem + env(safe-area-inset-bottom, 0px));
   }
 }
 

@@ -2370,15 +2370,21 @@ function isInStock(frag) {
 // Social proof rotating toast — "X just bought Y" (no city, clickable, in-stock only)
 function setupSocialProofToast() {
   const toast = document.getElementById('proofToast');
+  const mainBtn = document.getElementById('proofToastMain');
+  const thumbEl = document.getElementById('proofToastThumb');
+  const closeBtn = document.getElementById('proofToastClose');
   const nameEl = document.getElementById('proofToastName');
   const timeEl = document.getElementById('proofToastTime');
   if (!toast || !nameEl) return;
+  // Names — first letter ending in 'a' → female form "kúpila"; otherwise "kúpil"
   const firstNames = ['Lucia', 'Martina', 'Peter', 'Tomáš', 'Andrea', 'Katarína', 'Miroslav', 'Zuzana', 'Jakub', 'Veronika', 'Patrik', 'Simona', 'Filip', 'Natália', 'Daniel', 'Michal', 'Barbora', 'Marek', 'Petra', 'Adam'];
 
-  // Make toast clickable
-  toast.style.cursor = 'pointer';
-  toast.setAttribute('role', 'button');
-  toast.setAttribute('tabindex', '0');
+  // Respect a dismissal from the current session (close button)
+  const DISMISS_KEY = 'veelyn_proof_dismissed_until';
+  const isDismissed = () => {
+    try { return parseInt(sessionStorage.getItem(DISMISS_KEY) || '0', 10) > Date.now(); } catch(e){ return false; }
+  };
+
   toast.dataset.fragId = '';
 
   function openCurrent() {
@@ -2386,8 +2392,20 @@ function setupSocialProofToast() {
     if (!id) return;
     if (typeof openProduct === 'function') openProduct(id);
   }
-  toast.onclick = openCurrent;
-  toast.onkeydown = (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openCurrent(); } };
+  mainBtn && mainBtn.addEventListener('click', openCurrent);
+
+  function hide() {
+    toast.classList.remove('proof-toast--in');
+    setTimeout(() => { toast.hidden = true; }, 280);
+  }
+
+  closeBtn && closeBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    try { sessionStorage.setItem(DISMISS_KEY, String(Date.now() + 30 * 60 * 1000)); } catch(e){}
+    hide();
+    clearTimeout(autoHideTimer);
+    clearTimeout(nextTimer);
+  });
 
   function pickFragrance() {
     const all = (typeof FRAGRANCES !== 'undefined' && FRAGRANCES.length) ? FRAGRANCES : [];
@@ -2396,21 +2414,36 @@ function setupSocialProofToast() {
     return inStock[Math.floor(Math.random() * inStock.length)];
   }
 
-  let timer = null;
+  let autoHideTimer = null;
+  let nextTimer = null;
+
   function show() {
+    if (isDismissed()) return;
     const f = pickFragrance();
     if (!f) { toast.hidden = true; return; }
     const name = firstNames[Math.floor(Math.random() * firstNames.length)];
+    const verb = name.endsWith('a') ? 'kúpila' : 'kúpil';
     const minutes = Math.floor(Math.random() * 18) + 2;
     toast.dataset.fragId = f.id;
-    nameEl.innerHTML = `${name} práve kúpil(a) <em style="color:#a78bfa;font-style:normal;">${f.veelyn_name}</em>`;
-    timeEl.textContent = `pred ${minutes} min · overený nákup · klikni a pozri →`;
+    // Thumbnail of the product (uses the same /images/veelyn asset as the rest of the site)
+    if (thumbEl) {
+      const slug = f.id;
+      thumbEl.style.backgroundImage = `url("images/veelyn/${slug}.png?v=2")`;
+    }
+    nameEl.innerHTML = `${name} ${verb} <em>${f.veelyn_name}</em>`;
+    timeEl.textContent = `pred ${minutes} min · overený nákup ✓`;
     toast.hidden = false;
-    clearTimeout(timer);
-    timer = setTimeout(() => { toast.hidden = true; setTimeout(loop, 8000 + Math.random()*6000); }, 7000);
+    void toast.offsetWidth;
+    toast.classList.add('proof-toast--in');
+    clearTimeout(autoHideTimer);
+    autoHideTimer = setTimeout(() => {
+      hide();
+      // Next toast after 22-32 seconds — long enough not to feel spammy
+      nextTimer = setTimeout(show, 22000 + Math.random() * 10000);
+    }, 7000);
   }
-  function loop() { show(); }
-  setTimeout(loop, 3500); // first toast appears sooner
+  // First toast a few seconds after page load
+  nextTimer = setTimeout(show, 4500);
 }
 
 init();
