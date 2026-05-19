@@ -7578,7 +7578,7 @@ body.has-promo-popup .proof-toast { display: none !important; }
   flex-direction: row !important;
   align-items: center !important;
   justify-content: flex-start !important;
-  gap: 12px !important;
+  gap: 14px !important;
   min-height: 56px;
   width: 100%;
   box-sizing: border-box;
@@ -7602,7 +7602,9 @@ body.has-promo-popup .proof-toast { display: none !important; }
   flex-direction: column !important;
   gap: 2px !important;
   min-width: 0 !important;
-  flex: 1 !important;
+  /* No flex: 1 — text shouldn't stretch into the empty cell width,
+     so the icon-to-text gap reads identically across cells regardless
+     of how much extra room is left to the right */
 }
 .trust-title {
   font-size: 14px !important;
