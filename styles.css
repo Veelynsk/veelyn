@@ -7597,3 +7597,91 @@ body.has-promo-popup .proof-toast { display: none !important; }
     max-width: 1000px;
   }
 }
+
+/* ============================================================
+   PROD-CARD DEFINITIVE SPACING (user literal spec, translated)
+   Class-name map:
+     .product-card          → .prod-card
+     .product-card__image-* → .prod-card__image
+     .product-card__title   → .prod-card__name
+     .product-card__inspired-pill → .prod-card__inspired-quote
+     .product-card__perfect-match → .prod-card__match
+     .product-card__perfect-match-header → .prod-card__match .match-card__title
+     .product-card__perfect-match-thumb → .prod-card__match .match-card__thumb
+     .product-card__perfect-match-name → .prod-card__match .match-card__brand
+     .product-card__perfect-match-price → .prod-card__match .match-card__price
+     .product-card__price   → .prod-card__price
+     .product-card__cta     → .prod-card__cta
+   Applied with !important so no earlier rule wins.
+   ============================================================ */
+@media (max-width: 699px) {
+  .prod-card {
+    padding: 10px !important;
+    gap: 0 !important;
+    min-height: 0 !important;
+  }
+  .prod-card__image {
+    padding-bottom: 100% !important;
+    height: 0 !important;
+    margin-bottom: 6px !important;
+  }
+  .prod-card__name {
+    font-size: 14px !important;
+    margin: 0 0 6px 0 !important;
+    padding: 0 !important;
+    line-height: 1.2 !important;
+  }
+  .prod-card__inspired {
+    margin: 0 0 6px 0 !important;
+    min-height: 0 !important;
+    align-items: flex-start !important;
+  }
+  .prod-card__inspired-quote {
+    margin: 0 !important;
+    padding: 5px 8px !important;
+    font-size: 9px !important;
+    line-height: 1.2 !important;
+  }
+  .prod-card__match {
+    margin: 0 0 6px 0 !important;
+    padding: 6px 8px !important;
+  }
+  .prod-card__match .match-card__title {
+    margin: 0 0 4px 0 !important;
+    padding: 0 0 4px 0 !important;
+    font-size: 10px !important;
+    line-height: 1.2 !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 4px !important;
+  }
+  .prod-card__match .match-card__thumb {
+    width: 28px !important;
+    height: 28px !important;
+  }
+  .prod-card__match .match-card__brand {
+    font-size: 10px !important;
+    line-height: 1.2 !important;
+  }
+  .prod-card__match .match-card__price {
+    margin: 2px 0 0 0 !important;
+  }
+  .prod-card__match .match-card__price strong {
+    font-size: 11px !important;
+  }
+  .prod-card__price-row {
+    margin: 0 0 6px 0 !important;
+    padding: 0 !important;
+  }
+  .prod-card__price {
+    font-size: 16px !important;
+    line-height: 1.2 !important;
+  }
+  .prod-card__cta {
+    height: 36px !important;
+    min-height: 36px !important;
+    padding: 8px !important;
+    font-size: 12px !important;
+    margin: 0 !important;
+  }
+}
