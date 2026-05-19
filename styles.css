@@ -7879,9 +7879,34 @@ body.has-promo-popup .proof-toast { display: none !important; }
 }
 
 /* ============================================================
-   FOOTER NAV — Info smaller, Kontakt slightly bigger than Info
-   (Obchod section removed from HTML)
+   FOOTER NAV — Info + Kontakt side-by-side (2 columns) on mobile,
+   Kontakt slightly bigger than Info.
+   Obchod section removed from HTML.
    ============================================================ */
+@media (max-width: 699px) {
+  .footer__nav {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 1rem !important;
+    flex-direction: row !important;
+    align-items: start !important;
+  }
+  .footer__nav-group {
+    border-bottom: 0 !important;
+  }
+  .footer__nav-summary {
+    cursor: default !important;
+    pointer-events: none !important;
+    padding: 0 0 0.4rem 0 !important;
+  }
+  .footer__nav-chevron {
+    display: none !important;
+  }
+  .footer__nav-links {
+    display: flex !important;
+    padding: 0 !important;
+  }
+}
 .footer__nav-group--info .footer__nav-summary {
   font-size: 0.6rem !important;
   letter-spacing: 0.14em !important;
