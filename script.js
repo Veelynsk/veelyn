@@ -475,7 +475,7 @@ function productCardHTML(f, isBest, showMatch) {
               <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
               <path d="M7 12l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
-            Perfektná zhoda vôňových nôt
+            <span class="match-card__title-text"><span class="match-card__title-long">Perfektná zhoda vôňových nôt</span><span class="match-card__title-short" aria-hidden="true">Perfektná zhoda</span></span>
           </p>
           <div class="match-card__row">
             <div class="match-card__thumb">
