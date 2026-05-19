@@ -1644,7 +1644,7 @@ body.lock { overflow: hidden; }
      so the tray ("obrázok") sits centered with clear breathing room from
      viewport edges, the marquee above, and the white card below. */
   .scenery__stage {
-    padding: 24px 16px 24px;
+    padding: 48px 16px 24px;
     gap: 1.1rem;
   }
   /* Hide the giant rotating background text on mobile — pure clutter at this width */
@@ -1658,8 +1658,11 @@ body.lock { overflow: hidden; }
     height: 196px !important;
     transform: rotate(-0.5deg) !important;
     border-radius: 16px !important;
-    overflow: hidden !important;
-    margin: 16px auto !important;
+    /* overflow visible so the bottle caps + hero "95%" label can rise above
+       the tray edge against the orange section background — clipping was
+       chopping the cap of every bottle, which read as "orezané z hora" */
+    overflow: visible !important;
+    margin: 28px auto 16px !important;
   }
   .scenery .scenery__tray-inner {
     padding: 14px 14px 22px !important;
