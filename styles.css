@@ -7645,10 +7645,13 @@ body.has-promo-popup .proof-toast { display: none !important; }
     gap: 24px !important;
     padding: 24px 28px !important;
   }
-  /* Bigger text + larger icons so each cell fills its 4-col slot evenly */
+  /* Bigger text + larger icons so each cell fills its 4-col slot evenly.
+     justify-content: center so the icon+text pair sits centered in each
+     cell — no awkward empty right-side gap when the text is short. */
   .trust-cell {
     gap: 16px !important;
     min-height: 72px;
+    justify-content: center !important;
   }
   .trust-icon {
     width: 44px !important;
