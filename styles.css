@@ -7877,3 +7877,24 @@ body.has-promo-popup .proof-toast { display: none !important; }
     margin: 0 !important;
   }
 }
+
+/* ============================================================
+   FOOTER NAV — Info smaller, Kontakt slightly bigger than Info
+   (Obchod section removed from HTML)
+   ============================================================ */
+.footer__nav-group--info .footer__nav-summary {
+  font-size: 0.6rem !important;
+  letter-spacing: 0.14em !important;
+}
+.footer__nav-group--info .footer__link {
+  font-size: 0.78rem !important;
+  padding: 0.15rem 0 !important;
+}
+.footer__nav-group--kontakt .footer__nav-summary {
+  font-size: 0.7rem !important;
+  letter-spacing: 0.16em !important;
+}
+.footer__nav-group--kontakt .footer__link {
+  font-size: 0.88rem !important;
+  padding: 0.2rem 0 !important;
+}
