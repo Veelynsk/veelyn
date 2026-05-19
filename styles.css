@@ -2002,13 +2002,6 @@ body.lock { overflow: hidden; }
   box-sizing: border-box;
 }
 @media (min-width: 700px) {
-  /* Reserve a fixed vertical slot for the inspired pill so the bottle-name
-     titles below it always sit on the same baseline across cards in a row,
-     even when one card's "inspired by …" wraps to 3 lines and others to 2. */
-  .prod-card__inspired {
-    min-height: 64px;
-    align-items: center;
-  }
   .prod-card__inspired-quote {
     font-size: 0.78rem;
     padding: 0.42rem 0.9rem;
