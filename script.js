@@ -521,7 +521,7 @@ function productCardHTML(f, isBest, showMatch) {
           <span class="prod-card__price-orig">${eur(f.original_price)}</span>
           <span class="prod-card__price">${eur(f.veelyn_price)}</span>
         </div>
-        <button class="prod-card__cta" data-add="${f.id}">Pridaj do košíka</button>
+        <button class="prod-card__cta" data-add="${f.id}" aria-label="Pridaj ${f.veelyn_name} do košíka"><span class="prod-card__cta-long">Pridaj do košíka</span><span class="prod-card__cta-short" aria-hidden="true">Do košíka</span></button>
       </div>
     </article>
   `;

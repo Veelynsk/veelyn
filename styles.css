@@ -7685,3 +7685,72 @@ body.has-promo-popup .proof-toast { display: none !important; }
     margin: 0 !important;
   }
 }
+
+/* ============================================================
+   PROD-CARD TWEAKS — bigger match thumb/text + CTA single line
+   ============================================================ */
+@media (max-width: 699px) {
+  /* Bigger thumb + text inside "Perfektná zhoda". Stack vertically on narrow
+     cards (105px wide at 3-per-row) so a 44px thumb doesn't eat the brand text. */
+  .prod-card__match .match-card__thumb {
+    width: 44px !important;
+    height: 44px !important;
+    border-radius: 6px !important;
+  }
+  .prod-card__match .match-card__row {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    grid-template-columns: 1fr !important;
+    gap: 0.35rem !important;
+    text-align: center !important;
+  }
+  .prod-card__match .match-card__body {
+    width: 100% !important;
+    align-items: center !important;
+    text-align: center !important;
+  }
+  .prod-card__match .match-card__brand {
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    line-height: 1.3 !important;
+    -webkit-line-clamp: 2 !important;
+    line-clamp: 2 !important;
+    text-align: center !important;
+  }
+  .prod-card__match .match-card__price {
+    margin-top: 3px !important;
+    justify-content: center !important;
+  }
+  .prod-card__match .match-card__price strong {
+    font-size: 13px !important;
+    font-weight: 700 !important;
+  }
+
+  /* CTA: full width, 40px tall, single line, swap long text → "Do košíka" */
+  .prod-card__cta {
+    width: 100% !important;
+    height: 40px !important;
+    min-height: 40px !important;
+    padding: 0 10px !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    line-height: 1 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    border-radius: 8px !important;
+    margin: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    letter-spacing: 0.01em !important;
+  }
+  .prod-card__cta-long { display: none !important; }
+  .prod-card__cta-short { display: inline !important; }
+}
+@media (min-width: 700px) {
+  /* Desktop keeps the full "Pridaj do košíka" label */
+  .prod-card__cta-short { display: none; }
+  .prod-card__cta-long { display: inline; }
+}
