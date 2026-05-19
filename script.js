@@ -2115,7 +2115,7 @@ function setupPromoPopup() {
     setTimeout(initScratch, 80);
     // Mobile: if the user doesn't tap the ticket within 4s, dismiss it for the day
     if (window.matchMedia('(max-width: 699px)').matches) {
-      autoHideTimer = setTimeout(() => hide(true), 4000);
+      autoHideTimer = setTimeout(() => hide(true), 10000);
     }
   };
 
