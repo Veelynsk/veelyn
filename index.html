@@ -44,7 +44,7 @@
 <link rel="preconnect" href="https://widget.packeta.com">
 <link rel="dns-prefetch" href="https://widget.packeta.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..900;1,9..144,400..900&family=Manrope:wght@300..800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=20260518-020">
+<link rel="stylesheet" href="styles.css?v=20260519-001">
 
 <!-- JSON-LD Structured Data -->
 <script type="application/ld+json">
@@ -450,12 +450,23 @@
 </div>
 
 <!-- CART -->
-<div class="cart-drawer" id="modal-cart" hidden>
+<div class="cart-drawer" id="modal-cart" hidden data-empty="true">
   <div class="modal__backdrop" data-close></div>
   <aside class="cart-drawer__panel">
     <header class="cart-drawer__header">
-      <h2>★ Košík</h2>
-      <button class="modal__close" data-close aria-label="Zavrieť" style="position:static; transform:none;">×</button>
+      <h2>
+        <svg class="cart-drawer__icon" viewBox="0 0 24 24" aria-hidden="true" width="20" height="20">
+          <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M3 6h18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M16 10a4 4 0 0 1-8 0" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Košík
+      </h2>
+      <button class="cart-drawer__close" data-close aria-label="Zavrieť">
+        <svg viewBox="0 0 24 24" aria-hidden="true" width="20" height="20">
+          <path d="M18 6L6 18M6 6l12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+      </button>
     </header>
     <!-- Free shipping progress -->
     <div class="cart-shipping" id="cartShipping" hidden>
@@ -465,9 +476,18 @@
     <div class="cart-drawer__items" id="cartItems"></div>
     <!-- Trust strip -->
     <ul class="cart-trust">
-      <li>🔒 SSL</li>
-      <li>🚚 Doprava ZDARMA nad 40 €</li>
-      <li>↩ 14 dní na vrátenie</li>
+      <li>
+        <svg viewBox="0 0 24 24" aria-hidden="true" width="14" height="14"><path d="M5 11h14v10H5z M8 11V7a4 4 0 0 1 8 0v4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>SSL</span>
+      </li>
+      <li>
+        <svg viewBox="0 0 24 24" aria-hidden="true" width="14" height="14"><path d="M1 8h13v9H1z M14 12h5l3 3v2h-8z M6 20a2 2 0 1 1-4 0 2 2 0 0 1 4 0Z M20 20a2 2 0 1 1-4 0 2 2 0 0 1 4 0Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>Doprava ZDARMA nad 40 €</span>
+      </li>
+      <li>
+        <svg viewBox="0 0 24 24" aria-hidden="true" width="14" height="14"><path d="M3 12a9 9 0 0 1 15-6.7L21 8 M21 4v4h-4 M21 12a9 9 0 0 1-15 6.7L3 16 M3 20v-4h4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>14 dní na vrátenie</span>
+      </li>
     </ul>
     <div class="cart-upsell" id="cartUpsell" hidden>
       <div class="cart-upsell__head">
@@ -478,7 +498,7 @@
       <div class="cart-upsell__bar"><span id="cartUpsellFill"></span></div>
       <button class="cart-upsell__cta" data-open="bundle">Vyber si 3+1 →</button>
     </div>
-    <footer class="cart-drawer__footer">
+    <footer class="cart-drawer__footer" id="cartFooter">
       <div class="cart-drawer__total">
         <span>Spolu</span>
         <strong id="cartTotal">0,00 €</strong>
@@ -1049,7 +1069,7 @@
 <!-- Packeta widget v6 (https://docs.packetery.com/03-creating-shipments/05-widget-v6.html) -->
 <script src="https://widget.packeta.com/v6/www/js/library.js" async></script>
 
-<script src="data.js?v=20260518-020"></script>
-<script src="script.js?v=20260518-020"></script>
+<script src="data.js?v=20260519-001"></script>
+<script src="script.js?v=20260519-001"></script>
 </body>
 </html>

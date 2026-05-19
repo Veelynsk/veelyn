@@ -1011,9 +1011,21 @@ function renderCart() {
   const itemsEl = $('#cartItems');
   const totalEl = $('#cartTotal');
   const badge = $('#cartBadge');
+  const drawer = document.getElementById('modal-cart');
 
   if (state.cart.length === 0) {
-    itemsEl.innerHTML = `<p class="cart-drawer__empty">Tvoj košík je zatiaľ prázdny.</p>`;
+    if (drawer) drawer.dataset.empty = 'true';
+    itemsEl.innerHTML = `
+      <div class="cart-empty">
+        <svg class="cart-empty__icon" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M3 6h18" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+          <path d="M16 10a4 4 0 0 1-8 0" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <h3 class="cart-empty__title">Tvoj košík je prázdny</h3>
+        <p class="cart-empty__sub">Pridaj si nejakú vôňu a začni nakupovať.</p>
+        <button class="btn btn--primary cart-empty__cta" data-open="catalog" data-close>Pozri si všetky vône →</button>
+      </div>`;
     totalEl.textContent = '0,00 €';
     badge.dataset.empty = 'true';
     badge.textContent = '0';
@@ -1024,6 +1036,8 @@ function renderCart() {
     if (discRow) discRow.remove();
     return;
   }
+
+  if (drawer) drawer.dataset.empty = 'false';
 
   itemsEl.innerHTML = state.cart.map(item => {
     const f = FRAGRANCES.find(x => x.id === item.id);
@@ -2043,6 +2057,9 @@ function init() {
   renderBestsellers();
   renderAllFragrances();
   setupEvents();
+  // First-paint render of the cart so the empty-state UI is ready when the
+  // user opens the drawer (without this, cartItems is just blank HTML).
+  renderCart();
   setupSocialProofToast();
   setupPromoPopup();
   setupMobileMenu();

@@ -3906,6 +3906,36 @@ body.has-promo-popup .proof-toast { display: none !important; }
   font-size: 1rem;
   font-weight: 800;
   letter-spacing: 0.2em;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin: 0;
+}
+.cart-drawer__icon {
+  color: var(--accent-2);
+  flex-shrink: 0;
+}
+/* Subtle close button without the white-circle hit pad — just the X glyph */
+.cart-drawer__close {
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  min-height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 0;
+  border-radius: 8px;
+  color: var(--text-dim);
+  cursor: pointer;
+  transition: color 0.15s ease, background 0.15s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.cart-drawer__close:hover,
+.cart-drawer__close:focus-visible {
+  color: var(--text);
+  background: rgba(255,255,255,0.06);
 }
 .cart-drawer__items {
   flex: 1;
@@ -3917,6 +3947,56 @@ body.has-promo-popup .proof-toast { display: none !important; }
   color: var(--text-mute);
   padding: 3rem 1rem;
   font-size: 0.95rem;
+}
+/* Empty cart — proper centered state with icon, headline, subtext, CTA.
+   Span all grid columns when used inside the .cart-drawer__items 3-col grid. */
+.cart-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 0.85rem;
+  padding: 3rem 1.25rem;
+  min-height: 50vh;
+  grid-column: 1 / -1;
+  width: 100%;
+}
+.cart-empty__icon {
+  width: 80px;
+  height: 80px;
+  color: var(--accent-2);
+  opacity: 0.65;
+  margin-bottom: 0.25rem;
+}
+.cart-empty__title {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: var(--text);
+}
+.cart-empty__sub {
+  margin: 0;
+  font-size: 0.88rem;
+  color: var(--text-dim);
+  line-height: 1.4;
+  max-width: 28ch;
+}
+.cart-empty__cta {
+  margin-top: 0.85rem;
+  padding: 0.85rem 1.5rem;
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+}
+/* Empty-state toggling: hide upsell/footer/trust-strip when there are no items
+   in the cart (renderCart sets data-empty="true" on the drawer) */
+.cart-drawer[data-empty="true"] .cart-trust,
+.cart-drawer[data-empty="true"] .cart-upsell,
+.cart-drawer[data-empty="true"] .cart-drawer__footer,
+.cart-drawer[data-empty="true"] .cart-shipping {
+  display: none !important;
 }
 .cart-item {
   display: flex;
@@ -4012,19 +4092,29 @@ body.has-promo-popup .proof-toast { display: none !important; }
 .cart-trust {
   list-style: none;
   margin: 0.5rem 1rem 0.75rem;
-  padding: 0.55rem 0.4rem;
+  padding: 0.65rem 0.5rem;
   display: flex;
   justify-content: space-around;
   gap: 0.5rem;
   flex-wrap: wrap;
   border-top: 1px dashed rgba(255,255,255,0.1);
   border-bottom: 1px dashed rgba(255,255,255,0.1);
-  font-size: 0.7rem;
-  color: rgba(244,241,238,0.65);
+  font-size: 0.8rem;
+  color: rgba(244,241,238,0.7);
   font-weight: 600;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.01em;
 }
-.cart-trust li { white-space: nowrap; }
+.cart-trust li {
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+.cart-trust li svg {
+  color: var(--accent-2);
+  flex-shrink: 0;
+  opacity: 0.85;
+}
 
 .cart-upsell {
   margin: 0 1rem 0.75rem;
@@ -4111,9 +4201,11 @@ body.has-promo-popup .proof-toast { display: none !important; }
 }
 
 .cart-drawer__footer {
-  padding: 1.25rem;
+  padding: 1.25rem 1.25rem calc(1.25rem + env(safe-area-inset-bottom, 0px));
   border-top: 1px solid var(--line);
   background: var(--bg-3);
+  position: sticky;
+  bottom: 0;
 }
 /* Bundle pick mode — banner on top of catalog */
 .bundle-pick-hint {
@@ -6678,7 +6770,9 @@ body.has-promo-popup .proof-toast { display: none !important; }
   }
   .cart-upsell { padding: 0.6rem 0.85rem; }
   .cart-upsell__cta { padding: 0.55rem 0.85rem; font-size: 0.72rem; min-height: 38px; }
-  .cart-drawer__footer { padding: 0.85rem 1rem; }
+  .cart-drawer__footer {
+    padding: 0.85rem 1rem calc(0.85rem + env(safe-area-inset-bottom, 0px));
+  }
 
   /* --- Scenery: a touch more space between the orange tray and the white card --- */
   .scenery__card { margin-top: 0.5rem; }
