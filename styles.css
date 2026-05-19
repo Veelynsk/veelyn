@@ -6923,6 +6923,25 @@ body.has-promo-popup .proof-toast { display: none !important; }
   .carousel__dot { width: 9px; height: 9px; }
   .carousel__dot.is-active { width: 26px; }
 
+  /* --- Mid marquee ("VOŇAJ AKO MILIÓN EUR"): much smaller, thin accent strip ---
+     Was a hero-size banner on mobile (60px tall + 1.7rem italic text).
+     User wanted a decent ticker that doesn't dominate the screen. */
+  .marquee--mid {
+    height: 40px;
+  }
+  .marquee--mid .marquee__track {
+    gap: 1.1rem;
+    animation-duration: 22s;
+  }
+  .marquee--mid .marquee__item--big {
+    font-size: 0.9rem;
+    letter-spacing: 0.05em;
+    line-height: 1;
+  }
+  .marquee--mid .marquee__sep {
+    font-size: 0.85rem;
+  }
+
   /* --- Compare table ("VEELYN vs. Iná značka"): keep column headers fully
          inside the card so "Iná značka" doesn't get its last letter clipped --- */
   .compare { padding-left: 0; padding-right: 0; }
