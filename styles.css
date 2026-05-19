@@ -6753,25 +6753,27 @@ body.has-promo-popup .proof-toast { display: none !important; }
     display: none;
   }
   /* At 3-per-row each card is ~105px wide — slim down internals so a bottle + name + price fits */
-  .prod-card { padding: 0.5rem 0.5rem 0.7rem; gap: 0.45rem; }
+  .prod-card__image { padding-bottom: 120%; }
   .prod-card__name {
-    font-size: 0.78rem !important;
+    font-size: 0.82rem !important;
     line-height: 1.1;
-    min-height: calc(1.1em * 2);
+    min-height: 0;
     letter-spacing: 0;
   }
   .prod-card__rating,
   .prod-card__compare,
   .prod-card__cheaper,
   .prod-card__price-orig { display: none; }
-  /* Reorder so name shows first, then the "Inšpirované..." pill below it,
-     then the Perfektná zhoda match block, then price + CTA */
-  .prod-card__info { gap: 0.25rem; }
-  .prod-card__name     { order: 1; }
-  .prod-card__inspired { order: 2; min-height: 68px; align-items: center; }
+  /* Reorder + compact spacing per user audit. Card was 555px tall, target
+     is ~30-40% shorter via tighter gaps + smaller match-card. */
+  .prod-card { padding: 0.5rem 0.5rem 0.6rem; gap: 0.4rem; }
+  .prod-card__image { margin-bottom: 0; }
+  .prod-card__info { gap: 0; }
+  .prod-card__name     { order: 1; margin: 0.5rem 0 0.35rem; }
+  .prod-card__inspired { order: 2; align-items: center; margin: 0.35rem 0 0; min-height: 0; }
   .prod-card__match    { order: 3; }
-  .prod-card__price-row { order: 4; gap: 0.2rem; justify-content: center; margin-top: 0.1rem; }
-  .prod-card__cta       { order: 5; margin-top: 0.1rem; }
+  .prod-card__price-row { order: 4; gap: 0.2rem; justify-content: center; margin-top: 0.5rem; }
+  .prod-card__cta       { order: 5; margin-top: 0.35rem; }
   /* Compact inspired pill so it fits 3-per-row cards. The pill itself is centered
      inside a fixed 48px area so cards with 1-line vs 3-line "Inspirovane..."
      text still have the same overall height. */
@@ -6782,9 +6784,9 @@ body.has-promo-popup .proof-toast { display: none !important; }
     letter-spacing: 0.02em;
     word-break: break-word;
   }
-  .prod-card__price { font-size: 0.95rem; font-weight: 800; }
+  .prod-card__price { font-size: 1rem; font-weight: 800; }
   .prod-card__cta {
-    padding: 0.45rem 0.6rem;
+    padding: 0.5rem 0.6rem;
     font-size: 0.65rem;
     letter-spacing: 0.04em;
     min-height: 36px;
@@ -7008,9 +7010,11 @@ body.has-promo-popup .proof-toast { display: none !important; }
      with a fixed icon column so all 4 icons line up perfectly. */
   .trust-row {
     grid-template-columns: 1fr 1fr;
+    grid-auto-rows: 1fr;
     gap: 0.5rem 0.75rem;
     padding: 0.85rem 1rem;
     border-radius: 12px;
+    align-items: stretch;
   }
   .trust-row__item {
     display: grid;
@@ -7021,6 +7025,7 @@ body.has-promo-popup .proof-toast { display: none !important; }
     text-align: left;
     padding: 0.4rem 0;
     line-height: 1.3;
+    min-height: 56px;
   }
   .trust-row__item svg {
     width: 28px;
@@ -7316,14 +7321,14 @@ body.has-promo-popup .proof-toast { display: none !important; }
    (bestsellers + catalog grids — 3-per-row on mobile, more on desktop) */
 .prod-card__match {
   width: 100%;
-  margin: 0.5rem 0 0.75rem;
-  padding: 0.5rem 0.55rem 0.55rem;
+  margin: 0.5rem 0 0;
+  padding: 0.4rem 0.45rem;
   background: rgba(0, 0, 0, 0.3);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 10px;
+  border-radius: 8px;
   display: flex;
   flex-direction: column;
-  gap: 0.35rem;
+  gap: 0.25rem;
   text-align: left;
   cursor: pointer;
   transition: background 0.15s ease, border-color 0.15s ease;
@@ -7334,36 +7339,49 @@ body.has-promo-popup .proof-toast { display: none !important; }
 }
 .prod-card__match .match-card__title {
   margin: 0;
-  padding: 0 0 0.3rem;
+  padding: 0 0 0.2rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
   display: flex;
   align-items: center;
-  gap: 0.3rem;
+  gap: 0.22rem;
   font-family: var(--font-body);
-  font-size: 0.62rem;
+  font-size: 0.55rem;
   font-weight: 800;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.02em;
   color: #4ade80;
   line-height: 1.1;
   text-align: left;
   justify-content: flex-start;
 }
+/* Title may wrap to 2 lines if needed — better than ellipsis-truncation */
+.prod-card__match .match-card__title {
+  white-space: normal;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+/* "Zobraziť produkt →" link is redundant — the whole .prod-card__match block
+   is clickable and opens openMatchOrigin, so the link only adds vertical
+   bulk. Hide it on compact prod-card cards. */
+.prod-card__match .match-card__link { display: none; }
 .prod-card__match .match-card__title svg {
-  width: 12px;
-  height: 12px;
+  width: 11px;
+  height: 11px;
   color: #4ade80;
   flex-shrink: 0;
 }
 .prod-card__match .match-card__row {
   display: grid;
-  grid-template-columns: 36px 1fr;
-  gap: 0.4rem;
+  grid-template-columns: 30px 1fr;
+  gap: 0.35rem;
   align-items: center;
 }
 .prod-card__match .match-card__thumb {
-  width: 36px;
-  height: 36px;
-  border-radius: 8px;
+  width: 30px;
+  height: 30px;
+  border-radius: 6px;
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.08);
   overflow: hidden;
@@ -7377,7 +7395,7 @@ body.has-promo-popup .proof-toast { display: none !important; }
   width: 100%;
   height: 100%;
   object-fit: contain;
-  padding: 3px;
+  padding: 2px;
 }
 .prod-card__match .match-card__thumb-fallback {
   position: absolute;
@@ -7387,20 +7405,20 @@ body.has-promo-popup .proof-toast { display: none !important; }
   font-family: var(--font-display);
   font-style: italic;
   font-weight: 800;
-  font-size: 0.85rem;
+  font-size: 0.7rem;
   color: var(--accent-2);
 }
 .prod-card__match .match-card__body {
   display: flex;
   flex-direction: column;
-  gap: 0.1rem;
+  gap: 0.05rem;
   min-width: 0;
 }
 .prod-card__match .match-card__brand {
   margin: 0;
-  font-size: 0.6rem;
+  font-size: 0.56rem;
   font-weight: 700;
-  line-height: 1.2;
+  line-height: 1.15;
   color: #fff;
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -7414,42 +7432,34 @@ body.has-promo-popup .proof-toast { display: none !important; }
 .prod-card__match .match-card__brand span {
   font-weight: 500;
   color: var(--text-dim);
-  margin-right: 0.15rem;
+  margin-right: 0.1rem;
 }
 .prod-card__match .match-card__price {
-  margin: 0;
+  margin: 0.1rem 0 0;
   display: flex;
   align-items: baseline;
-  gap: 0.3rem;
+  gap: 0.25rem;
   flex-wrap: wrap;
 }
 .prod-card__match .match-card__price strong {
-  font-size: 0.72rem;
+  font-size: 0.66rem;
   font-weight: 900;
   color: #fff;
   letter-spacing: -0.005em;
   white-space: nowrap;
 }
 .prod-card__match .match-card__price small {
-  font-size: 0.55rem;
+  font-size: 0.5rem;
   font-weight: 600;
   color: var(--text-mute);
   white-space: nowrap;
+  opacity: 0.7;
+  display: none;
 }
-.prod-card__match .match-card__link {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.25rem;
-  font-size: 0.6rem;
-  font-weight: 700;
-  color: var(--accent-2);
-  text-decoration: none;
-  align-self: flex-start;
-  padding-top: 0.15rem;
-}
-.prod-card__match .match-card__link:hover {
-  color: #fff;
-}
+/* "Zobraziť produkt →" link is redundant — the whole .prod-card__match block
+   is clickable and opens openMatchOrigin. Hide on compact prod-card cards
+   so it doesn't add a row of vertical bulk. */
+.prod-card__match .match-card__link { display: none; }
 
 /* Social icons (always rendered, scaled per breakpoint) */
 .footer__social {
