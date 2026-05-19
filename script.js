@@ -417,7 +417,9 @@ function closeAllModals() {
 function renderBestsellers() {
   const grid = $('#bestsellersGrid');
   if (!grid) return;
-  const sellers = TOP_SELLERS.map(id => FRAGRANCES.find(f => f.id === id)).filter(Boolean);
+  // Show 6 top sellers in two clean rows of 3, with the "Pozri si vsetky vone"
+  // CTA below acting as the call to the full catalog.
+  const sellers = TOP_SELLERS.map(id => FRAGRANCES.find(f => f.id === id)).filter(Boolean).slice(0, 6);
   grid.innerHTML = sellers.map(f => productCardHTML(f, true)).join('');
   wireProductCards(grid);
 }
