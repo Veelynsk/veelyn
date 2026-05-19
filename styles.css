@@ -1635,33 +1635,41 @@ body.lock { overflow: hidden; }
   /* Hide the giant rotating background text on mobile — pure clutter at this width */
   .scenery__bg-text { display: none; }
 
-  /* Tray + bottles: shrink so the composition reads cleanly on 360–390px screens */
+  /* Tray + bottles: shrink so all 5 bottles + the orange podstavec are
+     visible inside the viewport (including 360px Samsung S23) with a
+     clear breathing margin on the sides instead of touching the edges. */
   .scenery__tray {
-    width: min(360px, 88vw);
-    height: 220px;
+    width: min(320px, 86vw);
+    height: 200px;
     transform: rotate(-0.5deg);
   }
+  .scenery__tray-inner {
+    padding: 16px 18px 24px;
+    gap: 6px;
+  }
   .scenery-bottle {
-    width: 54px;
-    height: 158px;
+    width: 38px;
+    height: 142px;
+    flex-shrink: 0;
   }
   .scenery-bottle::before {
-    top: -40px;
-    height: 36px;
+    top: -30px;
+    height: 28px;
   }
   .scenery-bottle::after {
-    top: -8px;
-    height: 6px;
+    top: -6px;
+    height: 5px;
   }
   .scenery-bottle--hero {
-    width: 96px;
-    height: 232px;
+    width: 72px;
+    height: 200px;
+    flex-shrink: 0;
     transform: translateY(-22px) scale(1.02);
   }
-  .bottle-pct--top strong { font-size: 2.1rem; }
-  .bottle-pct--top em { font-size: 0.48rem; letter-spacing: 0.12em; }
-  .bottle-pct--bottom strong { font-size: 0.78rem; }
-  .bottle-pct--bottom em { font-size: 0.36rem; }
+  .bottle-pct--top strong { font-size: 1.6rem; }
+  .bottle-pct--top em { font-size: 0.42rem; letter-spacing: 0.1em; }
+  .bottle-pct--bottom strong { font-size: 0.7rem; }
+  .bottle-pct--bottom em { font-size: 0.32rem; }
 
   /* White card: more vertical breathing room, less horizontal padding so CTA fits */
   .scenery__card {
