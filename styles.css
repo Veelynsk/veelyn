@@ -6936,11 +6936,190 @@ body.has-promo-popup .proof-toast { display: none !important; }
   .compare__icon-box { width: 36px; height: 36px; }
   .compare__icon-box svg { width: 18px; height: 18px; }
 
+  /* --- Footer redesign for mobile ---------------------------------------- */
+  /* Newsletter: tighter, no glow, cleaner form */
+  .footer__newsletter { padding: 1.5rem 1rem; margin-bottom: 1rem; }
+  .footer__newsletter-title { font-size: 1.4rem; margin-bottom: 0.25rem; text-shadow: none; }
+  .footer__newsletter-lead { font-size: 0.85rem; }
+  .footer__newsletter-form { gap: 0.6rem; }
+  .footer__newsletter-form input[type="email"] {
+    height: 48px;
+    padding: 14px 16px;
+    font-size: 0.95rem;
+    border-radius: 10px;
+  }
+  .footer__newsletter-form .btn {
+    height: 48px;
+    padding: 0 1.5rem;
+    border-radius: 10px;
+    background: var(--accent);
+    box-shadow: none;
+    border: 1px solid transparent;
+    font-size: 0.92rem;
+    letter-spacing: 0.06em;
+  }
+  .footer__newsletter-form .btn:hover {
+    transform: none;
+    box-shadow: 0 4px 14px rgba(124,58,237,0.35);
+    background: var(--accent-2);
+  }
+  .footer__newsletter-consent {
+    font-size: 0.78rem;
+    white-space: normal;
+    line-height: 1.4;
+    align-items: flex-start;
+    gap: 0.55rem;
+  }
+  .footer__newsletter-consent input[type="checkbox"] {
+    width: 18px; height: 18px;
+    margin-top: 1px;
+  }
+
+  /* Brand block: logo + tagline (now serious) + social icons */
+  .footer__top { gap: 1.5rem; padding: 0 0.5rem; }
+  .footer__brand {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+  .footer__brand .logo { font-size: 1.6rem; margin-bottom: 0; }
+  .footer__tagline { font-size: 0.85rem; font-style: normal; margin: 0; color: var(--text-dim); }
+
+  /* Footer nav: one column per group stacked vertically */
+  .footer__nav {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  .footer__nav-group { gap: 0.1rem; }
+  .footer__nav-group h4 {
+    font-size: 0.78rem;
+    letter-spacing: 0.16em;
+    margin: 0 0 0.4rem;
+  }
+  .footer__link { font-size: 1rem; padding: 0.5rem 0; min-height: 0; }
+
+  /* Trust badges: payment + shipping (this whole block is mobile-only) */
+  .footer__trust {
+    margin: 1.25rem 0 1rem;
+    padding: 1rem 0.5rem;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+  .footer__trust-row {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    flex-wrap: wrap;
+  }
+  .footer__trust-label {
+    font-size: 0.62rem;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-mute);
+    min-width: 56px;
+  }
+  .footer__trust-icons {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .footer__trust-icons li {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--text-dim);
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 6px;
+    padding: 0.3rem 0.55rem;
+    min-height: 24px;
+  }
+  .footer__trust-icons li svg {
+    display: block;
+    height: 22px;
+    width: auto;
+  }
+  .footer__trust-icons li:has(svg) {
+    padding: 0;
+    background: transparent;
+    border: 0;
+  }
+
+  /* Bottom legal row: copyright on top, links on a clean wrapped row below */
+  .footer__bottom {
+    padding-top: 1rem;
+    gap: 0.6rem;
+  }
+  .footer__bottom-copy {
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.5);
+  }
+  .footer__bottom-links {
+    gap: 0.35rem 0.6rem;
+    font-size: 0.78rem;
+  }
+  .footer__bottom-link {
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.5);
+    padding: 0.25rem 0;
+  }
+
   /* --- Universal tap-target safety for in-modal CTAs --- */
   .modal__panel button,
   .modal__panel a {
     min-height: 44px;
   }
 
+}
+
+/* Social icons (always rendered, scaled per breakpoint) */
+.footer__social {
+  list-style: none;
+  margin: 0.25rem 0 0;
+  padding: 0;
+  display: flex;
+  gap: 0.55rem;
+  align-items: center;
+}
+.footer__social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  color: var(--text-dim);
+  transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+}
+.footer__social-link:hover,
+.footer__social-link:focus-visible {
+  color: var(--accent-2);
+  border-color: rgba(167,139,250,0.5);
+  background: rgba(124,58,237,0.06);
+  outline: none;
+}
+.footer__bottom-sep {
+  color: rgba(255,255,255,0.25);
+  font-size: 0.7rem;
+  user-select: none;
+}
+/* Desktop: hide the mobile-only payment/shipping trust block (desktop already
+   has a separate `.footer__legal` block for that content) */
+@media (min-width: 700px) {
+  .footer__trust { display: none; }
+  .footer__social { gap: 0.4rem; }
+  .footer__social-link { width: 36px; height: 36px; }
 }
 
