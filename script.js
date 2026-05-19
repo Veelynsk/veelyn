@@ -2108,17 +2108,29 @@ function injectProductSchemas() {
     const slug = encodeURIComponent(f.id);
     const url = `${SITE}/?vona=${slug}`;
     const image = `${SITE}/images/veelyn/${f.id}.png`;
+    const genderLabel = f.gender === 'M' ? 'pánska' : f.gender === 'Z' ? 'dámska' : 'unisex';
     const node = {
       '@type': 'Product',
       '@id': `${SITE}/#product-${f.id}`,
-      name: `VEELYN ${f.veelyn_name}`,
-      description: `Inšpirované ${f.brand} ${f.original_name}. Eau de parfum 50 ml, ${
-        f.gender === 'M' ? 'pánska' : f.gender === 'Z' ? 'dámska' : 'unisex'
-      } vôňa za zlomok ceny originálu.`,
+      name: `Dupé ${f.brand} ${f.original_name} — VEELYN ${f.veelyn_name}`,
+      alternateName: [
+        `VEELYN ${f.veelyn_name}`,
+        `${f.brand} ${f.original_name} dupé`,
+        `${f.brand} ${f.original_name} alternatíva`,
+        `vôňa ako ${f.brand} ${f.original_name}`,
+      ],
+      description: `Dupé parfum inšpirovaný ${f.brand} ${f.original_name}. Eau de parfum 50 ml, ${genderLabel} vôňa s dlhou výdržou za 24,99 € namiesto ${Number(f.original_price).toFixed(0)} €. Lacnejšia alternatíva k originálu, made in Slovakia.`,
       sku: `veelyn-${f.id}`,
       mpn: `VEELYN-${(f.veelyn_name || '').replace(/\s+/g, '-')}`,
       brand: { '@type': 'Brand', name: 'Veelyn' },
       category: 'Beauty / Fragrance / Eau de Parfum',
+      keywords: [
+        `${f.brand} ${f.original_name} dupé`,
+        `dupé na ${f.original_name}`,
+        `vôňa ako ${f.brand} ${f.original_name}`,
+        'dupé parfumy',
+        'lacnejšia alternatíva parfumu',
+      ].join(', '),
       image,
       url,
       offers: {
@@ -2202,11 +2214,22 @@ function setupDeepLinks() {
     setTimeout(() => openProduct(id), 50);
   }
 
-  // When a product is opened via UI, reflect that in the URL + <title> so
-  // back/forward and social-sharing pick it up.
+  // When a product is opened via UI, reflect that in the URL + <title> +
+  // meta description so back/forward, social-sharing, and search engines
+  // see a dupé-targeted page per fragrance.
   const ORIG_TITLE = document.title;
   const canonical = document.querySelector('link[rel="canonical"]');
   const ORIG_CANONICAL = canonical?.href || 'https://veelyn.sk/';
+  const metaDesc = document.querySelector('meta[name="description"]');
+  const ORIG_DESC = metaDesc?.content || '';
+  const ogTitle = document.querySelector('meta[property="og:title"]');
+  const ogDesc = document.querySelector('meta[property="og:description"]');
+  const ogUrl = document.querySelector('meta[property="og:url"]');
+  const ogImg = document.querySelector('meta[property="og:image"]');
+  const ORIG_OG_TITLE = ogTitle?.content || '';
+  const ORIG_OG_DESC = ogDesc?.content || '';
+  const ORIG_OG_URL = ogUrl?.content || 'https://veelyn.sk/';
+  const ORIG_OG_IMG = ogImg?.content || 'https://veelyn.sk/og-image.jpg';
 
   const _open = openProduct;
   openProduct = function patchedOpenProduct(pid) {
@@ -2216,11 +2239,20 @@ function setupDeepLinks() {
     const url = new URL(location.href);
     url.searchParams.set('vona', pid);
     history.replaceState({ vona: pid }, '', url.toString());
-    document.title = `VEELYN ${f.veelyn_name} — inšpirované ${f.brand} ${f.original_name} | 24,99 €`;
-    if (canonical) canonical.href = `https://veelyn.sk/?vona=${encodeURIComponent(pid)}`;
+    const newTitle = `Dupé ${f.brand} ${f.original_name} — VEELYN ${f.veelyn_name} | 24,99 €`;
+    const newDesc = `Dupé na ${f.brand} ${f.original_name}. VEELYN ${f.veelyn_name} — eau de parfum 50 ml za 24,99 € namiesto ${Number(f.original_price).toFixed(0)} €. Slovenský parfumársky brand, doprava zdarma nad 40 €.`;
+    const productUrl = `https://veelyn.sk/?vona=${encodeURIComponent(pid)}`;
+    const productImg = `https://veelyn.sk/images/veelyn/${pid}.png`;
+    document.title = newTitle;
+    if (canonical) canonical.href = productUrl;
+    if (metaDesc) metaDesc.content = newDesc;
+    if (ogTitle) ogTitle.content = newTitle;
+    if (ogDesc) ogDesc.content = newDesc;
+    if (ogUrl) ogUrl.content = productUrl;
+    if (ogImg) ogImg.content = productImg;
   };
 
-  // Reset title + canonical when any modal closes
+  // Reset title / meta / OG when any modal closes
   document.addEventListener('modal:close', () => {
     const url = new URL(location.href);
     if (url.searchParams.has('vona')) {
@@ -2229,6 +2261,11 @@ function setupDeepLinks() {
     }
     document.title = ORIG_TITLE;
     if (canonical) canonical.href = ORIG_CANONICAL;
+    if (metaDesc) metaDesc.content = ORIG_DESC;
+    if (ogTitle) ogTitle.content = ORIG_OG_TITLE;
+    if (ogDesc) ogDesc.content = ORIG_OG_DESC;
+    if (ogUrl) ogUrl.content = ORIG_OG_URL;
+    if (ogImg) ogImg.content = ORIG_OG_IMG;
   });
 }
 
