@@ -541,16 +541,10 @@ function wireProductCards(scope) {
         openReviews(reviewsBtn.dataset.reviews);
         return;
       }
-      // "Perfektná zhoda" match-card → open the original-fragrance modal
-      const matchLink = e.target.closest('[data-orig-link]');
-      const matchCard = e.target.closest('.prod-card__match');
-      if (matchLink || matchCard) {
-        e.preventDefault();
-        e.stopPropagation();
-        const origId = (matchLink && matchLink.dataset.origLink) || (matchCard && matchCard.dataset.orig);
-        if (origId && typeof openMatchOrigin === 'function') openMatchOrigin(origId);
-        return;
-      }
+      // The whole prod-card (including the "Perfektná zhoda" block) opens
+      // the Veelyn product detail. From there the user can tap the match-card
+      // inside the modal to see the original fragrance. This keeps the card
+      // surface one big tap target instead of two competing handlers.
       openProduct(card.dataset.id);
     });
   });
