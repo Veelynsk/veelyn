@@ -6891,6 +6891,51 @@ body.has-promo-popup .proof-toast { display: none !important; }
   .carousel__dot { width: 9px; height: 9px; }
   .carousel__dot.is-active { width: 26px; }
 
+  /* --- Compare table ("VEELYN vs. Iná značka"): keep column headers fully
+         inside the card so "Iná značka" doesn't get its last letter clipped --- */
+  .compare { padding-left: 0; padding-right: 0; }
+  .compare__title { font-size: 1.4rem; padding: 0 1rem; }
+  .compare__sub { font-size: 0.85rem; padding: 0 1rem; }
+  .compare__table {
+    margin: 0 16px;
+    padding: 0.4rem 12px 1rem;
+    border-radius: 16px;
+    overflow: hidden;
+    max-width: calc(100vw - 32px);
+  }
+  .compare__table-head,
+  .compare__row {
+    grid-template-columns: 64px 1fr 64px;
+    padding: 0.85rem 0;
+  }
+  .compare__table-head {
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+  }
+  .compare__col-label {
+    text-align: center;
+    white-space: normal;
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+    line-height: 1.1;
+    padding: 0 4px;
+    hyphens: auto;
+  }
+  .compare__col-label--us,
+  .compare__col-label--them {
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+  }
+  .compare__row { padding: 0.7rem 0; min-height: 56px; }
+  .compare__row { border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .compare__feature-name {
+    font-size: 0.82rem;
+    padding: 0 0.6rem;
+    line-height: 1.25;
+  }
+  .compare__icon-box { width: 36px; height: 36px; }
+  .compare__icon-box svg { width: 18px; height: 18px; }
+
   /* --- Universal tap-target safety for in-modal CTAs --- */
   .modal__panel button,
   .modal__panel a {
