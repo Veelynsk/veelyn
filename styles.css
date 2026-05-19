@@ -7980,14 +7980,13 @@ input, select, textarea, label {
    PROD-CARD MATCH BLOCK — bigger on desktop so it reads cleanly
    ============================================================ */
 @media (min-width: 700px) {
-  /* Tight spacing on desktop — no dead vertical gaps in the card */
-  .bestsellers__grid .prod-card,
-  .all-grid .prod-card {
-    gap: 0.35rem;
+  /* Tight spacing on desktop — no dead vertical gaps in the card.
+     Applies to bestsellers, catalog modal, and any other prod-card grid. */
+  .prod-card {
+    gap: 0.35rem !important;
   }
-  .bestsellers__grid .prod-card__info,
-  .all-grid .prod-card__info {
-    gap: 4px;
+  .prod-card__info {
+    gap: 4px !important;
   }
   .prod-card__match {
     padding: 18px 18px;
