@@ -6766,11 +6766,21 @@ body.has-promo-popup .proof-toast { display: none !important; }
   .prod-card__price-orig { display: none; }
   /* Reorder + compact spacing per user audit. Card was 555px tall, target
      is ~30-40% shorter via tighter gaps + smaller match-card. */
-  .prod-card { padding: 0.5rem 0.5rem 0.6rem; gap: 0.4rem; }
+  .prod-card {
+    padding: 0.5rem 0.5rem 0.6rem;
+    gap: 0.4rem;
+    /* Grid-level grid-auto-rows: 1fr only stretches cards within a row.
+       Use a hard min-height so cards across DIFFERENT rows also align —
+       protects against the "Inspirovane ..." pill wrapping 1 vs 3 lines
+       and the match-card brand line-clamp varying by one line. */
+    min-height: 390px;
+  }
   .prod-card__image { margin-bottom: 0; }
   .prod-card__info { gap: 0; }
   .prod-card__name     { order: 1; margin: 0.5rem 0 0.35rem; }
-  .prod-card__inspired { order: 2; align-items: center; margin: 0.35rem 0 0; min-height: 0; }
+  /* min-height equalises card heights across rows even when the
+     "INŠPIROVANÉ..." text wraps to 1, 2, or 3 lines */
+  .prod-card__inspired { order: 2; align-items: center; margin: 0.35rem 0 0; min-height: 76px; }
   .prod-card__match    { order: 3; }
   .prod-card__price-row { order: 4; gap: 0.2rem; justify-content: center; margin-top: 0.5rem; }
   .prod-card__cta       { order: 5; margin-top: 0.35rem; }

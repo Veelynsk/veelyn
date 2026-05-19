@@ -449,7 +449,7 @@ function renderAllFragrances() {
       return 0;
     });
   }
-  grid.innerHTML = list.map(f => productCardHTML(f, false)).join('');
+  grid.innerHTML = list.map(f => productCardHTML(f, false, true)).join('');
   wireProductCards(grid);
 }
 
@@ -648,7 +648,7 @@ function renderCatalog() {
   }
 
   const grid = $('#catalogGrid');
-  grid.innerHTML = list.map(f => productCardHTML(f, false)).join('');
+  grid.innerHTML = list.map(f => productCardHTML(f, false, true)).join('');
   wireProductCards(grid);
 }
 
