@@ -421,6 +421,9 @@ function closeAllModals() {
     const hint = catalogModal.querySelector('.bundle-pick-hint');
     if (hint) hint.hidden = true;
   }
+  // Notify deep-link manager so it can clear ?vona= from the URL + reset
+  // <title> / canonical when the product modal was closed.
+  document.dispatchEvent(new CustomEvent('modal:close'));
 }
 
 // --- HOME-PAGE BESTSELLERS GRID ---
@@ -2089,6 +2092,144 @@ function init() {
   setupSocialProofToast();
   setupPromoPopup();
   setupMobileMenu();
+  injectProductSchemas();
+  setupDeepLinks();
+}
+
+// --- SEO: dynamic Product / ItemList / Breadcrumb JSON-LD --------------
+// Generates one Product schema per fragrance plus an ItemList wrapping them
+// and a BreadcrumbList for the home page, all in a single @graph block.
+// Googlebot renders JS so this is indexed alongside the static head schema.
+function injectProductSchemas() {
+  if (!Array.isArray(FRAGRANCES) || !FRAGRANCES.length) return;
+  const SITE = 'https://veelyn.sk';
+  const products = FRAGRANCES.map((f, i) => {
+    const rating = (state?.ratings || {})[f.id];
+    const slug = encodeURIComponent(f.id);
+    const url = `${SITE}/?vona=${slug}`;
+    const image = `${SITE}/images/veelyn/${f.id}.png`;
+    const node = {
+      '@type': 'Product',
+      '@id': `${SITE}/#product-${f.id}`,
+      name: `VEELYN ${f.veelyn_name}`,
+      description: `Inšpirované ${f.brand} ${f.original_name}. Eau de parfum 50 ml, ${
+        f.gender === 'M' ? 'pánska' : f.gender === 'Z' ? 'dámska' : 'unisex'
+      } vôňa za zlomok ceny originálu.`,
+      sku: `veelyn-${f.id}`,
+      mpn: `VEELYN-${(f.veelyn_name || '').replace(/\s+/g, '-')}`,
+      brand: { '@type': 'Brand', name: 'Veelyn' },
+      category: 'Beauty / Fragrance / Eau de Parfum',
+      image,
+      url,
+      offers: {
+        '@type': 'Offer',
+        url,
+        priceCurrency: 'EUR',
+        price: Number(f.veelyn_price || 0).toFixed(2),
+        availability: 'https://schema.org/InStock',
+        itemCondition: 'https://schema.org/NewCondition',
+        seller: { '@id': `${SITE}/#organization` },
+        shippingDetails: {
+          '@type': 'OfferShippingDetails',
+          shippingDestination: { '@type': 'DefinedRegion', addressCountry: 'SK' },
+          shippingRate: { '@type': 'MonetaryAmount', value: '4.99', currency: 'EUR' },
+        },
+        hasMerchantReturnPolicy: {
+          '@type': 'MerchantReturnPolicy',
+          applicableCountry: 'SK',
+          returnPolicyCategory: 'https://schema.org/MerchantReturnFiniteReturnWindow',
+          merchantReturnDays: 14,
+          returnMethod: 'https://schema.org/ReturnByMail',
+          returnFees: 'https://schema.org/FreeReturn',
+        },
+      },
+    };
+    if (rating && rating.count > 0) {
+      node.aggregateRating = {
+        '@type': 'AggregateRating',
+        ratingValue: Number(rating.avg).toFixed(2),
+        reviewCount: rating.count,
+        bestRating: '5',
+        worstRating: '1',
+      };
+    }
+    return node;
+  });
+
+  const itemList = {
+    '@type': 'ItemList',
+    '@id': `${SITE}/#all-fragrances`,
+    name: 'Všetky vône Veelyn',
+    numberOfItems: products.length,
+    itemListElement: products.map((p, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      url: p.url,
+    })),
+  };
+
+  const breadcrumbs = {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Domov', item: `${SITE}/` },
+      { '@type': 'ListItem', position: 2, name: 'Všetky vône', item: `${SITE}/#vsetky-vonavky` },
+    ],
+  };
+
+  const payload = {
+    '@context': 'https://schema.org',
+    '@graph': [...products, itemList, breadcrumbs],
+  };
+
+  const tag = document.createElement('script');
+  tag.type = 'application/ld+json';
+  tag.id = 'veelyn-product-jsonld';
+  tag.textContent = JSON.stringify(payload);
+  // Replace if it already exists (hot-reload friendly)
+  const existing = document.getElementById('veelyn-product-jsonld');
+  if (existing) existing.remove();
+  document.head.appendChild(tag);
+}
+
+// --- SEO: deep links so each fragrance has a shareable URL --------------
+// `?vona=moulin-rouge` opens the product modal automatically and updates
+// the page title + canonical so social shares show the right product.
+function setupDeepLinks() {
+  const params = new URLSearchParams(location.search);
+  const id = params.get('vona');
+  if (id && Array.isArray(FRAGRANCES) && FRAGRANCES.find(f => f.id === id)) {
+    // Defer so the modal CSS + listeners are all wired before opening
+    setTimeout(() => openProduct(id), 50);
+  }
+
+  // When a product is opened via UI, reflect that in the URL + <title> so
+  // back/forward and social-sharing pick it up.
+  const ORIG_TITLE = document.title;
+  const canonical = document.querySelector('link[rel="canonical"]');
+  const ORIG_CANONICAL = canonical?.href || 'https://veelyn.sk/';
+
+  const _open = openProduct;
+  openProduct = function patchedOpenProduct(pid) {
+    _open(pid);
+    const f = FRAGRANCES.find(x => x.id === pid);
+    if (!f) return;
+    const url = new URL(location.href);
+    url.searchParams.set('vona', pid);
+    history.replaceState({ vona: pid }, '', url.toString());
+    document.title = `VEELYN ${f.veelyn_name} — inšpirované ${f.brand} ${f.original_name} | 24,99 €`;
+    if (canonical) canonical.href = `https://veelyn.sk/?vona=${encodeURIComponent(pid)}`;
+  };
+
+  // Reset title + canonical when any modal closes
+  document.addEventListener('modal:close', () => {
+    const url = new URL(location.href);
+    if (url.searchParams.has('vona')) {
+      url.searchParams.delete('vona');
+      history.replaceState({}, '', url.pathname + (url.search ? url.search : ''));
+    }
+    document.title = ORIG_TITLE;
+    if (canonical) canonical.href = ORIG_CANONICAL;
+  });
 }
 
 // --- MOBILE DRAWER MENU (visible only via CSS under 700px) ---

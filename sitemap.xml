@@ -3,7 +3,7 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/0.9">
   <url>
     <loc>https://veelyn.sk/</loc>
-    <lastmod>2026-05-09</lastmod>
+    <lastmod>2026-05-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
     <image:image>
@@ -13,22 +13,840 @@
   </url>
   <url>
     <loc>https://veelyn.sk/#vsetky-vonavky</loc>
+    <lastmod>2026-05-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://veelyn.sk/#bestsellers</loc>
+    <lastmod>2026-05-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://veelyn.sk/#porovnanie</loc>
+    <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://veelyn.sk/#kontakt</loc>
+    <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://veelyn.sk/?vona=star</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://veelyn.sk/images/veelyn/star.png</image:loc>
+      <image:title>VEELYN STAR</image:title>
+      <image:caption>Inšpirované Burberry Goddess</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://veelyn.sk/?vona=the-one</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://veelyn.sk/images/veelyn/the-one.png</image:loc>
+      <image:title>VEELYN THE ONE</image:title>
+      <image:caption>Inšpirované Burberry Burberry Hero</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://veelyn.sk/?vona=she-is</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://veelyn.sk/images/veelyn/she-is.png</image:loc>
+      <image:title>VEELYN SHE IS</image:title>
+      <image:caption>Inšpirované Burberry Her</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://veelyn.sk/?vona=go-boy</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://veelyn.sk/images/veelyn/go-boy.png</image:loc>
+      <image:title>VEELYN GO BOY</image:title>
+      <image:caption>Inšpirované Carolina Herrera Bad Boy</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://veelyn.sk/?vona=go-girl</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://veelyn.sk/images/veelyn/go-girl.png</image:loc>
+      <image:title>VEELYN GO GIRL</image:title>
+      <image:caption>Inšpirované Carolina Herrera Good Girl</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://veelyn.sk/?vona=go-go-girl</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://veelyn.sk/images/veelyn/go-go-girl.png</image:loc>
+      <image:title>VEELYN GO GO GIRL</image:title>
+      <image:caption>Inšpirované Carolina Herrera Very Good Girl</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://veelyn.sk/?vona=five</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://veelyn.sk/images/veelyn/five.png</image:loc>
+      <image:title>VEELYN FIVE</image:title>
+      <image:caption>Inšpirované Chanel No. 5</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://veelyn.sk/?vona=i-am-blue</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://veelyn.sk/images/veelyn/i-am-blue.png</image:loc>
+      <image:title>VEELYN I AM BLUE</image:title>
+      <image:caption>Inšpirované Chanel Bleu de Chanel</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://veelyn.sk/?vona=old-money</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://veelyn.sk/images/veelyn/old-money.png</image:loc>
+      <image:title>VEELYN OLD MONEY</image:title>
+      <image:caption>Inšpirované Chanel Coco Mademoiselle</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://veelyn.sk/?vona=hard-cash</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://veelyn.sk/images/veelyn/hard-cash.png</image:loc>
+      <image:title>VEELYN HARD CASH</image:title>
+      <image:caption>Inšpirované Creed Aventus</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://veelyn.sk/?vona=important</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://veelyn.sk/images/veelyn/important.png</image:loc>
+      <image:title>VEELYN IMPORTANT</image:title>
+      <image:caption>Inšpirované Creed Millésime Imperial</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://veelyn.sk/?vona=weak-king</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://veelyn.sk/images/veelyn/weak-king.png</image:loc>
+      <image:title>VEELYN WEAK KING</image:title>
+      <image:caption>Inšpirované Creed Viking</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://veelyn.sk/?vona=og-river</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://veelyn.sk/images/veelyn/og-river.png</image:loc>
+      <image:title>VEELYN OG RIVER</image:title>
+      <image:caption>Inšpirované Creed Original Vetiver</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://veelyn.sk/?vona=everest-gold</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://veelyn.sk/images/veelyn/everest-gold.png</image:loc>
+      <image:title>VEELYN EVEREST GOLD</image:title>
+      <image:caption>Inšpirované Creed Silver Mountain Water</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://veelyn.sk/?vona=holy-water</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://veelyn.sk/images/veelyn/holy-water.png</image:loc>
+      <image:title>VEELYN HOLY WATER</image:title>
+      <image:caption>Inšpirované Creed Virgin Island Water</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://veelyn.sk/?vona=suited-irish</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://veelyn.sk/images/veelyn/suited-irish.png</image:loc>
+      <image:title>VEELYN SUITED IRISH</image:title>
+      <image:caption>Inšpirované Creed Green Irish Tweed</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://veelyn.sk/?vona=silk-road</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://veelyn.sk/images/veelyn/silk-road.png</image:loc>
+      <image:title>VEELYN SILK ROAD</image:title>
+      <image:caption>Inšpirované Creed Queen of Silk</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://veelyn.sk/?vona=adore-me</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://veelyn.sk/images/veelyn/adore-me.png</image:loc>
+      <image:title>VEELYN ADORE ME</image:title>
+      <image:caption>Inšpirované Dior J'adore</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://veelyn.sk/?vona=doria</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://veelyn.sk/images/veelyn/doria.png</image:loc>
+      <image:title>VEELYN DORIA</image:title>
+      <image:caption>Inšpirované Dior Miss Dior</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://veelyn.sk/?vona=savage-queen</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://veelyn.sk/images/veelyn/savage-queen.png</image:loc>
+      <image:title>VEELYN SAVAGE QUEEN</image:title>
+      <image:caption>Inšpirované Dior Sauvage</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://veelyn.sk/?vona=you-and-me</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://veelyn.sk/images/veelyn/you-and-me.png</image:loc>
+      <image:title>VEELYN YOU + ME</image:title>
+      <image:caption>Inšpirované Armani Stronger With You Intensely</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://veelyn.sk/?vona=marine</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://veelyn.sk/images/veelyn/marine.png</image:loc>
+      <image:title>VEELYN MARINE</image:title>
+      <image:caption>Inšpirované Armani Acqua di Gio Profumo</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://veelyn.sk/?vona=purple-flower</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://veelyn.sk/images/veelyn/purple-flower.png</image:loc>
+      <image:title>VEELYN PURPLE FLOWER</image:title>
+      <image:caption>Inšpirované Gucci Bloom</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://veelyn.sk/?vona=ocean-wave</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://veelyn.sk/images/veelyn/ocean-wave.png</image:loc>
+      <image:title>VEELYN OCEAN WAVE</image:title>
+      <image:caption>Inšpirované Jean Paul Gaultier Le Male</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://veelyn.sk/?vona=velvet-rush</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://veelyn.sk/images/veelyn/velvet-rush.png</image:loc>
+      <image:title>VEELYN VELVET RUSH</image:title>
+      <image:caption>Inšpirované Jean Paul Gaultier Ultra Male</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://veelyn.sk/?vona=tropical-island</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://veelyn.sk/images/veelyn/tropical-island.png</image:loc>
+      <image:title>VEELYN TROPICAL ISLAND</image:title>
+      <image:caption>Inšpirované Jean Paul Gaultier Paradise Gardens</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://veelyn.sk/?vona=sunset-elixir</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://veelyn.sk/images/veelyn/sunset-elixir.png</image:loc>
+      <image:title>VEELYN SUNSET ELIXIR</image:title>
+      <image:caption>Inšpirované Jean Paul Gaultier Le Beau</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://veelyn.sk/?vona=power-affair</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://veelyn.sk/images/veelyn/power-affair.png</image:loc>
+      <image:title>VEELYN POWER AFFAIR</image:title>
+      <image:caption>Inšpirované Jean Paul Gaultier Scandal Pour Homme</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://veelyn.sk/?vona=candy-whip-81</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://veelyn.sk/images/veelyn/candy-whip-81.png</image:loc>
+      <image:title>VEELYN CANDY WHIP 81</image:title>
+      <image:caption>Inšpirované Kayali Yum Boujee Marshmallow 81</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://veelyn.sk/?vona=vanilla-supreme-64</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://veelyn.sk/images/veelyn/vanilla-supreme-64.png</image:loc>
+      <image:title>VEELYN VANILLA SUPREME 64</image:title>
+      <image:caption>Inšpirované Kayali Vanilla Royale Sugared Patchouli 64</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://veelyn.sk/?vona=dubai-dream-33</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://veelyn.sk/images/veelyn/dubai-dream-33.png</image:loc>
+      <image:title>VEELYN DUBAI DREAM 33</image:title>
+      <image:caption>Inšpirované Kayali Yum Pistachio Gelato 33</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://veelyn.sk/?vona=illa-van-28</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://veelyn.sk/images/veelyn/illa-van-28.png</image:loc>
+      <image:title>VEELYN ILLA VAN 28</image:title>
+      <image:caption>Inšpirované Kayali Vanilla 28</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://veelyn.sk/?vona=apple-bliss-01</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://veelyn.sk/images/veelyn/apple-bliss-01.png</image:loc>
+      <image:title>VEELYN APPLE BLISS 01</image:title>
+      <image:caption>Inšpirované Kayali Eden Juicy Apple 01</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://veelyn.sk/?vona=burning-desire-48</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://veelyn.sk/images/veelyn/burning-desire-48.png</image:loc>
+      <image:title>VEELYN BURNING DESIRE 48</image:title>
+      <image:caption>Inšpirované Kayali Lovefest Burning Cherry 48</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://veelyn.sk/?vona=coco-dream-21</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://veelyn.sk/images/veelyn/coco-dream-21.png</image:loc>
+      <image:title>VEELYN COCO DREAM 21</image:title>
+      <image:caption>Inšpirované Kayali Utopia Vanilla Coco 21</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://veelyn.sk/?vona=imagine-this</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://veelyn.sk/images/veelyn/imagine-this.png</image:loc>
+      <image:title>VEELYN IMAGINE THIS</image:title>
+      <image:caption>Inšpirované Louis Vuitton Imagination</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://veelyn.sk/?vona=harmony</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://veelyn.sk/images/veelyn/harmony.png</image:loc>
+      <image:title>VEELYN HARMONY</image:title>
+      <image:caption>Inšpirované Louis Vuitton Symphony</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://veelyn.sk/?vona=the-horizon</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://veelyn.sk/images/veelyn/the-horizon.png</image:loc>
+      <image:title>VEELYN THE HORIZON</image:title>
+      <image:caption>Inšpirované Louis Vuitton Pacific Chill</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://veelyn.sk/?vona=deep-dive</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://veelyn.sk/images/veelyn/deep-dive.png</image:loc>
+      <image:title>VEELYN DEEP DIVE</image:title>
+      <image:caption>Inšpirované Louis Vuitton Afternoon Swim</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://veelyn.sk/?vona=desert-storm</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://veelyn.sk/images/veelyn/desert-storm.png</image:loc>
+      <image:title>VEELYN DESERT STORM</image:title>
+      <image:caption>Inšpirované Louis Vuitton Ombre Nomade</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://veelyn.sk/?vona=sun-coast</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://veelyn.sk/images/veelyn/sun-coast.png</image:loc>
+      <image:title>VEELYN SUN COAST</image:title>
+      <image:caption>Inšpirované Louis Vuitton On The Beach</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://veelyn.sk/?vona=dream-big</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://veelyn.sk/images/veelyn/dream-big.png</image:loc>
+      <image:title>VEELYN DREAM BIG</image:title>
+      <image:caption>Inšpirované Louis Vuitton California Dream</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://veelyn.sk/?vona=limitless</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://veelyn.sk/images/veelyn/limitless.png</image:loc>
+      <image:title>VEELYN LIMITLESS</image:title>
+      <image:caption>Inšpirované Louis Vuitton L'Immensité</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://veelyn.sk/?vona=cosmic-flame</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://veelyn.sk/images/veelyn/cosmic-flame.png</image:loc>
+      <image:title>VEELYN COSMIC FLAME</image:title>
+      <image:caption>Inšpirované Louis Vuitton Météore</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://veelyn.sk/?vona=midnight-wish</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://veelyn.sk/images/veelyn/midnight-wish.png</image:loc>
+      <image:title>VEELYN MIDNIGHT WISH</image:title>
+      <image:caption>Inšpirované Louis Vuitton Attrape-Rêves</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://veelyn.sk/?vona=moulin-rouge</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://veelyn.sk/images/veelyn/moulin-rouge.png</image:loc>
+      <image:title>VEELYN MOULIN ROUGE</image:title>
+      <image:caption>Inšpirované Maison Francis Kurkdjian Baccarat Rouge 540</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://veelyn.sk/?vona=evening-elixir</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://veelyn.sk/images/veelyn/evening-elixir.png</image:loc>
+      <image:title>VEELYN EVENING ELIXIR</image:title>
+      <image:caption>Inšpirované Maison Francis Kurkdjian Grand Soir</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://veelyn.sk/?vona=satin</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://veelyn.sk/images/veelyn/satin.png</image:loc>
+      <image:title>VEELYN SATIN</image:title>
+      <image:caption>Inšpirované Maison Francis Kurkdjian Oud Satin Mood</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://veelyn.sk/?vona=liquid-gold</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://veelyn.sk/images/veelyn/liquid-gold.png</image:loc>
+      <image:title>VEELYN LIQUID GOLD</image:title>
+      <image:caption>Inšpirované Paco Rabanne 1 Million</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://veelyn.sk/?vona=dark-tobacco</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://veelyn.sk/images/veelyn/dark-tobacco.png</image:loc>
+      <image:title>VEELYN DARK TOBACCO</image:title>
+      <image:caption>Inšpirované Parfums de Marly Herod</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://veelyn.sk/?vona=trojan-horse</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://veelyn.sk/images/veelyn/trojan-horse.png</image:loc>
+      <image:title>VEELYN TROJAN HORSE</image:title>
+      <image:caption>Inšpirované Parfums de Marly Pegasus</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://veelyn.sk/?vona=blaze</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://veelyn.sk/images/veelyn/blaze.png</image:loc>
+      <image:title>VEELYN BLAZE</image:title>
+      <image:caption>Inšpirované Parfums de Marly Althaïr</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://veelyn.sk/?vona=pink-desire</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://veelyn.sk/images/veelyn/pink-desire.png</image:loc>
+      <image:title>VEELYN PINK DESIRE</image:title>
+      <image:caption>Inšpirované Parfums de Marly Delina</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://veelyn.sk/?vona=pure-green</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://veelyn.sk/images/veelyn/pure-green.png</image:loc>
+      <image:title>VEELYN PURE GREEN</image:title>
+      <image:caption>Inšpirované Parfums de Marly Greenley</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://veelyn.sk/?vona=blue-motion</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://veelyn.sk/images/veelyn/blue-motion.png</image:loc>
+      <image:title>VEELYN BLUE MOTION</image:title>
+      <image:caption>Inšpirované Parfums de Marly Sedley</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://veelyn.sk/?vona=spice</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://veelyn.sk/images/veelyn/spice.png</image:loc>
+      <image:title>VEELYN SPICE</image:title>
+      <image:caption>Inšpirované Parfums de Marly Layton</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://veelyn.sk/?vona=mystery</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://veelyn.sk/images/veelyn/mystery.png</image:loc>
+      <image:title>VEELYN MYSTERY</image:title>
+      <image:caption>Inšpirované Prada Paradoxe</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://veelyn.sk/?vona=noble-wood</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://veelyn.sk/images/veelyn/noble-wood.png</image:loc>
+      <image:title>VEELYN NOBLE WOOD</image:title>
+      <image:caption>Inšpirované Tom Ford Oud Wood</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://veelyn.sk/?vona=cherry-pulse</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://veelyn.sk/images/veelyn/cherry-pulse.png</image:loc>
+      <image:title>VEELYN CHERRY PULSE</image:title>
+      <image:caption>Inšpirované Tom Ford Electric Cherry</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://veelyn.sk/?vona=just-leather</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://veelyn.sk/images/veelyn/just-leather.png</image:loc>
+      <image:title>VEELYN JUST LEATHER</image:title>
+      <image:caption>Inšpirované Tom Ford Ombré Leather</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://veelyn.sk/?vona=absolute</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://veelyn.sk/images/veelyn/absolute.png</image:loc>
+      <image:title>VEELYN ABSOLUTE</image:title>
+      <image:caption>Inšpirované Tom Ford Fucking Fabulous</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://veelyn.sk/?vona=forbidden-cherries</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://veelyn.sk/images/veelyn/forbidden-cherries.png</image:loc>
+      <image:title>VEELYN FORBIDDEN CHERRIES</image:title>
+      <image:caption>Inšpirované Tom Ford Lost Cherry</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://veelyn.sk/?vona=sweet-cig</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://veelyn.sk/images/veelyn/sweet-cig.png</image:loc>
+      <image:title>VEELYN SWEET CIG</image:title>
+      <image:caption>Inšpirované Tom Ford Tobacco Vanille</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://veelyn.sk/?vona=dark-flower</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://veelyn.sk/images/veelyn/dark-flower.png</image:loc>
+      <image:title>VEELYN DARK FLOWER</image:title>
+      <image:caption>Inšpirované Tom Ford Black Orchid</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://veelyn.sk/?vona=oud-fire</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://veelyn.sk/images/veelyn/oud-fire.png</image:loc>
+      <image:title>VEELYN OUD FIRE</image:title>
+      <image:caption>Inšpirované Tom Ford Tobacco Oud</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://veelyn.sk/?vona=saint-rome</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://veelyn.sk/images/veelyn/saint-rome.png</image:loc>
+      <image:title>VEELYN SAINT ROME</image:title>
+      <image:caption>Inšpirované Valentino Donna Born In Roma</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://veelyn.sk/?vona=roman-man</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://veelyn.sk/images/veelyn/roman-man.png</image:loc>
+      <image:title>VEELYN ROMAN MAN</image:title>
+      <image:caption>Inšpirované Valentino Uomo Born In Roma</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://veelyn.sk/?vona=nemo</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://veelyn.sk/images/veelyn/nemo.png</image:loc>
+      <image:title>VEELYN NEMO</image:title>
+      <image:caption>Inšpirované Valentino Donna Born In Roma Coral Fantasy</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://veelyn.sk/?vona=free-spirit</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://veelyn.sk/images/veelyn/free-spirit.png</image:loc>
+      <image:title>VEELYN FREE SPIRIT</image:title>
+      <image:caption>Inšpirované Yves Saint Laurent Libre</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://veelyn.sk/?vona=poppy-shot</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://veelyn.sk/images/veelyn/poppy-shot.png</image:loc>
+      <image:title>VEELYN POPPY SHOT</image:title>
+      <image:caption>Inšpirované Yves Saint Laurent Black Opium</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://veelyn.sk/?vona=my-identity</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://veelyn.sk/images/veelyn/my-identity.png</image:loc>
+      <image:title>VEELYN MY IDENTITY</image:title>
+      <image:caption>Inšpirované Yves Saint Laurent MYSLF</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://veelyn.sk/?vona=xyz</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://veelyn.sk/images/veelyn/xyz.png</image:loc>
+      <image:title>VEELYN XYZ</image:title>
+      <image:caption>Inšpirované Yves Saint Laurent Y Eau de Parfum</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://veelyn.sk/?vona=zap-zap</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://veelyn.sk/images/veelyn/zap-zap.png</image:loc>
+      <image:title>VEELYN ZAP ZAP</image:title>
+      <image:caption>Inšpirované Yves Saint Laurent Bleu Électrique</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://veelyn.sk/?vona=el-paso</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://veelyn.sk/images/veelyn/el-paso.png</image:loc>
+      <image:title>VEELYN EL PASO</image:title>
+      <image:caption>Inšpirované Hugo Boss Boss Bottled</image:caption>
+    </image:image>
   </url>
 </urlset>
