@@ -7526,3 +7526,74 @@ body.has-promo-popup .proof-toast { display: none !important; }
   .footer__social-link { width: 36px; height: 36px; }
 }
 
+
+/* ============================================================
+   TRUST BADGES — literal 2x2 grid spec, icons perfectly aligned
+   Replaces the older .trust-row / .trust-row__item markup.
+   ============================================================ */
+.trust-grid {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  grid-template-rows: 1fr 1fr !important;
+  gap: 20px !important;
+  padding: 20px !important;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  width: 100%;
+  max-width: 560px;
+  margin: 0 auto 1rem;
+  box-sizing: border-box;
+}
+.trust-cell {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 12px !important;
+  min-height: 56px;
+  width: 100%;
+  box-sizing: border-box;
+}
+.trust-icon {
+  width: 28px !important;
+  height: 28px !important;
+  flex-shrink: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  color: rgba(167, 139, 250, 1);
+}
+.trust-icon svg {
+  width: 24px !important;
+  height: 24px !important;
+  display: block;
+}
+.trust-text {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 2px !important;
+  min-width: 0 !important;
+  flex: 1 !important;
+}
+.trust-title {
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  color: #ffffff !important;
+  line-height: 1.3 !important;
+  margin: 0 !important;
+}
+.trust-subtitle {
+  font-size: 12px !important;
+  font-weight: 400 !important;
+  color: rgba(255, 255, 255, 0.6) !important;
+  line-height: 1.3 !important;
+  margin: 0 !important;
+}
+@media (min-width: 700px) {
+  .trust-grid {
+    grid-template-columns: repeat(4, 1fr) !important;
+    grid-template-rows: 1fr !important;
+    max-width: 1000px;
+  }
+}
