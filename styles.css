@@ -1640,8 +1640,11 @@ body.lock { overflow: hidden; }
 
 /* ── Mobile-only refinements for the "Luxusné vône, bez luxusnej ceny" section ── */
 @media (max-width: 699px) {
+  /* Orange section: keep the full-width orange background but pad the inside
+     so the tray ("obrázok") sits centered with clear breathing room from
+     viewport edges, the marquee above, and the white card below. */
   .scenery__stage {
-    padding: 1.75rem 0.85rem 2.25rem;
+    padding: 24px 16px 24px;
     gap: 1.1rem;
   }
   /* Hide the giant rotating background text on mobile — pure clutter at this width */
@@ -1649,18 +1652,19 @@ body.lock { overflow: hidden; }
 
   /* Tray + bottles: shrink so all 5 bottles + the orange podstavec are
      visible inside the viewport (including 360px Samsung S23) with a
-     clear breathing margin on the sides instead of touching the edges.
-     !important here because the desktop rules at @media (min-width: 700px)
-     have equal specificity and may otherwise win on devices where both
-     "mobile" and the user-agent stylesheet interpretations conflict. */
+     clear breathing margin on the sides instead of touching the edges. */
   .scenery .scenery__tray {
-    width: min(300px, 82vw) !important;
-    height: 200px !important;
+    width: min(280px, 78vw) !important;
+    height: 196px !important;
     transform: rotate(-0.5deg) !important;
+    border-radius: 16px !important;
+    overflow: hidden !important;
+    margin: 16px auto !important;
   }
   .scenery .scenery__tray-inner {
     padding: 14px 14px 22px !important;
     gap: 5px !important;
+    border-radius: 14px !important;
   }
   .scenery .scenery-bottle {
     width: 34px !important;
