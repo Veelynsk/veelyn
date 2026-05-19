@@ -1696,45 +1696,72 @@ body.lock { overflow: hidden; }
      even if some descendant tries to set a larger width somehow. */
   .scenery, .scenery__stage { max-width: 100vw; overflow-x: clip; }
 
-  /* White card: more vertical breathing room, less horizontal padding so CTA fits */
+  /* Dark card variant — fits the rest of the site's premium dark aesthetic
+     better than a pure-white card sitting on orange */
   .scenery__card {
     width: 94%;
-    padding: 1.5rem 1.1rem 1.6rem;
-    border-radius: 14px;
-    margin-bottom: 0.25rem;
+    padding: 1.4rem 1.1rem 1.5rem;
+    border-radius: 16px;
+    margin: 0 auto 0.25rem;
+    background: rgba(15, 8, 22, 0.88);
+    color: var(--text);
+    border: 1px solid rgba(167, 139, 250, 0.18);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: 0 16px 40px rgba(40, 12, 0, 0.45);
   }
   .scenery__eyebrow {
     font-size: 0.62rem;
-    letter-spacing: 0.18em;
-    margin-bottom: 0.45rem;
+    letter-spacing: 0.22em;
+    margin: 0 0 0.5rem;
+    color: var(--accent-2);
   }
   .scenery__title {
-    font-size: 1.4rem;
-    line-height: 1.18;
-    margin-bottom: 0.7rem;
+    font-size: 1.35rem;
+    line-height: 1.2;
+    margin: 0 0 1rem;
+    color: #fff;
+    text-wrap: balance;
   }
 
-  /* Lead: looser line-height so the red pills don't crash into the surrounding text */
+  /* Lead text: tone-matched accent pills (champagne gold) without the glow */
   .scenery__lead {
     font-size: 0.92rem;
-    line-height: 1.85;
-    margin-bottom: 1.1rem;
+    line-height: 1.7;
+    margin: 0 0 1.5rem;
+    color: var(--text-dim);
   }
   .scenery__lead .scenery__caption-hot {
     display: inline-block;
-    padding: 0.16em 0.5em;
-    font-size: 0.88rem;
+    padding: 0.16em 0.55em;
+    font-size: 0.85rem;
     line-height: 1.25;
     vertical-align: baseline;
+    color: #1a1208;
+    background: linear-gradient(135deg, #e4b85a, #c39a44);
+    border: 1px solid rgba(212, 162, 71, 0.4);
+    border-radius: 6px;
+    box-shadow: none;
+    text-shadow: none;
+    font-weight: 800;
+    letter-spacing: 0.01em;
+    white-space: nowrap;
   }
 
-  /* CTA: keep it inside the card, comfortable tap target */
+  /* CTA: less pillish (12px radius), text + arrow centered together */
   .scenery__cta,
   .scenery__cta--big {
-    padding: 0.95rem 1.35rem;
+    padding: 0.85rem 1.4rem;
     font-size: 0.92rem;
-    letter-spacing: 0.03em;
+    letter-spacing: 0.04em;
     max-width: 100%;
+    border-radius: 12px;
+    gap: 0.4rem;
+    box-shadow: none;
+    background: var(--accent);
+  }
+  .scenery__cta:hover {
+    box-shadow: 0 4px 14px rgba(124, 58, 237, 0.35);
   }
 }
 
