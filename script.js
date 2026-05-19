@@ -411,6 +411,16 @@ function openModal(id) {
 function closeAllModals() {
   $$('.modal, .cart-drawer').forEach(m => m.hidden = true);
   document.body.classList.remove('lock');
+  // Clean up bundle-picking state — if user closes catalog mid-pick, the
+  // is-bundle-picking class would otherwise persist and hide every "Pridaj
+  // do kosika" CTA the next time catalog is opened normally.
+  const catalogModal = document.getElementById('modal-catalog');
+  if (catalogModal) {
+    catalogModal.classList.remove('is-bundle-picking');
+    delete catalogModal.dataset.bundleSlot;
+    const hint = catalogModal.querySelector('.bundle-pick-hint');
+    if (hint) hint.hidden = true;
+  }
 }
 
 // --- HOME-PAGE BESTSELLERS GRID ---
