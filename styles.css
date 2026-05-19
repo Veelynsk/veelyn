@@ -6510,6 +6510,11 @@ body.has-promo-popup .proof-toast { display: none !important; }
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 0.5rem;
   }
+  /* If the last row of the bestsellers grid would have only 1 orphan card,
+     hide it so the section ends cleanly on a row of 3 followed by the CTA */
+  .bestsellers__grid > .prod-card:last-child:nth-child(3n+1) {
+    display: none;
+  }
   /* At 3-per-row each card is ~105px wide — slim down internals so a bottle + name + price fits */
   .prod-card { padding: 0.5rem 0.5rem 0.7rem; gap: 0.45rem; }
   .prod-card__name {
