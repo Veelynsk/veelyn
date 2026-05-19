@@ -53,6 +53,40 @@ SQLite súbor: `backend/orders.sqlite`. **Zálohuj ho** — všetky objednávky 
 
 Schéma — pozri `server.js` CREATE TABLE.
 
+## SuperFaktura
+
+Po vyplnení `SF_EMAIL` + `SF_APIKEY` v `.env` (alebo v Railway → Variables) sa pri každej novej objednávke automaticky vytvorí faktúra v SuperFaktura a uloží sa odkaz na PDF + verejný link.
+
+### Nastavenie
+
+1. Zaregistruj sa na [moja.superfaktura.sk](https://moja.superfaktura.sk).
+2. V `Nastavenia → Nástroje → API` vytvor nový token.
+3. Vyplň `.env`:
+   ```
+   SF_EMAIL=tvoj@email.sk
+   SF_APIKEY=ten-32-znakovy-token
+   SF_VAT_RATE=20      # 0 ak nie si platiteľ DPH
+   ```
+4. Reštartuj server. Po naštartovaní by si mal vidieť `SuperFaktura: ✓ aktívna`.
+
+### Ako to funguje
+
+| Krok | Akcia |
+|------|-------|
+| 1. Zákazník objedná | `POST /api/order` → uložené v DB → faktúra v SF vytvorená → email s linkom na PDF |
+| 2. Zákazník zaplatí | Bankový prevod / hotovosť (manuálne) — SF má bysquare QR na faktúre |
+| 3. Ty označíš ako zaplatené | V admin UI: `PATCH /api/admin/orders/:id { status: 'paid' }` → SF označí faktúru zaplatenú automaticky |
+| 4. Notifikácia | V admin UI vidíš `paid` stav — pripravíš zásielku |
+
+### Admin endpointy pre SF
+
+```
+GET  /api/admin/orders/:id/invoice          → metadáta faktúry (PDF link, public link, paid_at)
+POST /api/admin/orders/:id/invoice/retry    → ak vytvorenie zlyhalo, skús znova
+```
+
+Faktúry sú uložené v SQLite tabuľke `sf_invoices` (1:1 k orders). Ak SF API zlyhá, objednávka sa stále uloží a `sf_invoices.error` obsahuje dôvod — môžeš retry-nuť cez admin UI.
+
 ## Bezpečnosť
 
 - Admin endpointy chránené Bearer tokenom (`ADMIN_PASSWORD`)

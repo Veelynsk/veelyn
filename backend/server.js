@@ -7,6 +7,7 @@ import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
 import { writeFileSync, mkdirSync, existsSync } from 'node:fs';
+import * as sf from './superfaktura.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -46,6 +47,21 @@ db.exec(`
   );
   CREATE INDEX IF NOT EXISTS idx_orders_ts ON orders(ts DESC);
   CREATE INDEX IF NOT EXISTS idx_orders_status ON orders(status);
+
+  -- SuperFaktura: invoice metadata kept in sidecar table so a SF outage
+  -- never breaks the core orders flow. Linked 1:1 to orders.id.
+  CREATE TABLE IF NOT EXISTS sf_invoices (
+    order_id     TEXT PRIMARY KEY,
+    invoice_id   INTEGER,
+    token        TEXT,
+    invoice_no   TEXT,
+    pdf_url      TEXT,
+    public_url   TEXT,
+    paid_at      INTEGER,
+    created_at   INTEGER NOT NULL,
+    error        TEXT,
+    raw_json     TEXT
+  );
 
   CREATE TABLE IF NOT EXISTS users (
     username TEXT PRIMARY KEY,
@@ -313,7 +329,46 @@ app.post('/api/order', async (req, res) => {
     const mail = await sendEmails(order).catch(e => ({ error: e.message }));
     console.log(`[ORDER] ${order.id} created — total ${eur(order.total)} — mail:`, mail);
 
-    res.json({ ok: true, orderId: order.id, mail });
+    // SuperFaktura: create invoice asynchronously. We never block the order
+    // response on this — if SF is down or misconfigured, the order is still
+    // saved and the merchant can retry from the admin UI.
+    let sfResult = null;
+    if (sf.isEnabled()) {
+      try {
+        const resp = await sf.createInvoice(order);
+        const inv = resp?.data?.Invoice || resp?.Invoice || {};
+        sfResult = {
+          invoice_id: inv.id || null,
+          token: inv.token || null,
+          invoice_no: inv.invoice_no_formatted || inv.invoice_no || null,
+          pdf_url: sf.publicPdfUrl(inv),
+          public_url: sf.publicHtmlUrl(inv),
+        };
+        db.prepare(`
+          INSERT INTO sf_invoices (order_id, invoice_id, token, invoice_no, pdf_url, public_url, created_at, raw_json)
+          VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+        `).run(
+          order.id,
+          sfResult.invoice_id,
+          sfResult.token,
+          sfResult.invoice_no,
+          sfResult.pdf_url,
+          sfResult.public_url,
+          Date.now(),
+          JSON.stringify(resp)
+        );
+        console.log(`[SF] Invoice ${sfResult.invoice_no} created for order ${order.id}`);
+      } catch (e) {
+        console.error(`[SF] createInvoice failed for ${order.id}:`, e.message);
+        db.prepare(`
+          INSERT INTO sf_invoices (order_id, created_at, error)
+          VALUES (?, ?, ?)
+        `).run(order.id, Date.now(), e.message);
+        sfResult = { error: e.message };
+      }
+    }
+
+    res.json({ ok: true, orderId: order.id, mail, invoice: sfResult });
   } catch (e) {
     console.error('Order error:', e);
     res.status(500).json({ error: e.message });
@@ -331,7 +386,7 @@ app.get('/api/admin/orders', requireAuth(['admin', 'warehouse']), (req, res) => 
   res.json(orders);
 });
 
-app.patch('/api/admin/orders/:id', requireAuth(['admin','warehouse']), (req, res) => {
+app.patch('/api/admin/orders/:id', requireAuth(['admin','warehouse']), async (req, res) => {
   const { status } = req.body || {};
   if (!['pending','paid','shipped','delivered','cancelled'].includes(status)) {
     return res.status(400).json({ error: 'invalid status' });
@@ -344,7 +399,81 @@ app.patch('/api/admin/orders/:id', requireAuth(['admin','warehouse']), (req, res
   if (!row) return res.status(404).json({ error: 'not found' });
   const order = { ...JSON.parse(row.raw_json), status };
   db.prepare(`UPDATE orders SET status = ?, raw_json = ? WHERE id = ?`).run(status, JSON.stringify(order), req.params.id);
-  res.json({ ok: true });
+
+  // SuperFaktura sync: marking pending → paid in the admin UI also records
+  // the payment against the linked SF invoice (so the SF dashboard reflects
+  // reality and the merchant doesn't have to mark it twice).
+  let sfSync = null;
+  if (status === 'paid' && sf.isEnabled()) {
+    const inv = db.prepare(`SELECT invoice_id FROM sf_invoices WHERE order_id = ?`).get(req.params.id);
+    if (inv?.invoice_id) {
+      try {
+        await sf.markInvoicePaid(inv.invoice_id, { amount: order.total });
+        db.prepare(`UPDATE sf_invoices SET paid_at = ? WHERE order_id = ?`).run(Date.now(), req.params.id);
+        sfSync = { ok: true, invoice_id: inv.invoice_id };
+        console.log(`[SF] Order ${req.params.id} marked paid in invoice ${inv.invoice_id}`);
+      } catch (e) {
+        console.error(`[SF] markInvoicePaid failed for ${req.params.id}:`, e.message);
+        sfSync = { ok: false, error: e.message };
+      }
+    }
+  }
+  res.json({ ok: true, sfSync });
+});
+
+// === SUPERFAKTURA endpoints (admin) ===
+
+// GET /api/admin/orders/:id/invoice — return the SF invoice metadata
+// (id, number, public URLs) for an order, or null if none yet.
+app.get('/api/admin/orders/:id/invoice', requireAuth(['admin','warehouse']), (req, res) => {
+  const row = db.prepare(`SELECT * FROM sf_invoices WHERE order_id = ?`).get(req.params.id);
+  if (!row) return res.json({ invoice: null });
+  res.json({
+    invoice: {
+      order_id: row.order_id,
+      invoice_id: row.invoice_id,
+      invoice_no: row.invoice_no,
+      pdf_url: row.pdf_url,
+      public_url: row.public_url,
+      paid_at: row.paid_at,
+      error: row.error,
+    },
+  });
+});
+
+// POST /api/admin/orders/:id/invoice/retry — retry creating an invoice in
+// SF for an order that previously failed (e.g. SF was down at order time).
+app.post('/api/admin/orders/:id/invoice/retry', requireAuth(['admin']), async (req, res) => {
+  if (!sf.isEnabled()) return res.status(400).json({ error: 'SuperFaktura not configured' });
+  const row = db.prepare(`SELECT raw_json FROM orders WHERE id = ?`).get(req.params.id);
+  if (!row) return res.status(404).json({ error: 'order not found' });
+  const order = JSON.parse(row.raw_json);
+  try {
+    const resp = await sf.createInvoice(order);
+    const inv = resp?.data?.Invoice || resp?.Invoice || {};
+    const result = {
+      invoice_id: inv.id || null,
+      token: inv.token || null,
+      invoice_no: inv.invoice_no_formatted || inv.invoice_no || null,
+      pdf_url: sf.publicPdfUrl(inv),
+      public_url: sf.publicHtmlUrl(inv),
+    };
+    db.prepare(`
+      INSERT INTO sf_invoices (order_id, invoice_id, token, invoice_no, pdf_url, public_url, created_at, raw_json)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+      ON CONFLICT(order_id) DO UPDATE SET
+        invoice_id=excluded.invoice_id, token=excluded.token,
+        invoice_no=excluded.invoice_no, pdf_url=excluded.pdf_url,
+        public_url=excluded.public_url, error=NULL, raw_json=excluded.raw_json
+    `).run(
+      order.id, result.invoice_id, result.token, result.invoice_no,
+      result.pdf_url, result.public_url, Date.now(), JSON.stringify(resp)
+    );
+    res.json({ ok: true, invoice: result });
+  } catch (e) {
+    console.error('[SF] retry failed:', e.message);
+    res.status(502).json({ error: e.message });
+  }
 });
 
 // === STATS (admin only) ===
@@ -550,5 +679,6 @@ app.listen(PORT, () => {
   console.log(`  POST /api/order              — create order`);
   console.log(`  GET  /api/admin/orders       — list (auth: Bearer ${ADMIN_PASSWORD === 'change-me' ? 'CHANGE-ME!' : '***'})`);
   console.log(`  Resend emaily: ${resend ? '✓ aktívne' : '✗ vypnuté (set RESEND_API_KEY)'}`);
+  console.log(`  SuperFaktura: ${sf.isEnabled() ? '✓ aktívna' : '✗ vypnutá (set SF_EMAIL + SF_APIKEY)'}`);
   console.log(`  DB: ${DB_PATH}\n`);
 });
