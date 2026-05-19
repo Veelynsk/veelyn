@@ -6796,14 +6796,22 @@ body.has-promo-popup .proof-toast { display: none !important; }
   .prod-card__rating,
   .prod-card__compare,
   .prod-card__cheaper { display: none; }
-  /* Mobile price-orig is shown (struck-through, inline before .prod-card__price)
-     so the price row matches the desktop "400,00 €  24,99 €" pattern. */
+  /* Mobile price-row matches the desktop pattern: struck-through original
+     INLINE before the bigger Veelyn price — both on one line. Fonts shrunk
+     and nowrap forced so they both fit inside the ~93px content width of a
+     3-per-row mobile card. */
   .prod-card__price-orig {
-    display: inline-block;
-    font-size: 0.7rem;
+    display: inline-block !important;
+    font-size: 0.6rem !important;
     font-weight: 700;
     color: var(--text-mute);
     text-decoration: line-through;
+    white-space: nowrap !important;
+    line-height: 1.2;
+  }
+  .prod-card__price {
+    white-space: nowrap !important;
+    line-height: 1.2;
   }
   /* Reorder + compact spacing per user audit. Card was 555px tall, target
      is ~30-40% shorter via tighter gaps + smaller match-card. */
@@ -6823,7 +6831,7 @@ body.has-promo-popup .proof-toast { display: none !important; }
      "INŠPIROVANÉ..." text wraps to 1, 2, or 3 lines */
   .prod-card__inspired { order: 2; align-items: center; margin: 0 0 0.3rem; min-height: 58px; }
   .prod-card__match    { order: 3; margin-top: 0; }
-  .prod-card__price-row { order: 4; gap: 0.2rem; justify-content: center; margin-top: 0.4rem; }
+  .prod-card__price-row { order: 4; gap: 0.25rem; justify-content: center; margin-top: 0.4rem; flex-wrap: nowrap; align-items: baseline; }
   .prod-card__cta       { order: 5; margin-top: 0.3rem; }
   /* Compact inspired pill so it fits 3-per-row cards. The pill itself is centered
      inside a fixed 48px area so cards with 1-line vs 3-line "Inspirovane..."
@@ -6835,7 +6843,7 @@ body.has-promo-popup .proof-toast { display: none !important; }
     letter-spacing: 0.02em;
     word-break: break-word;
   }
-  .prod-card__price { font-size: 1rem; font-weight: 800; }
+  .prod-card__price { font-size: 0.9rem; font-weight: 800; }
   .prod-card__cta {
     padding: 0.5rem 0.6rem;
     font-size: 0.65rem;
@@ -7753,8 +7761,9 @@ body.has-promo-popup .proof-toast { display: none !important; }
     padding: 0 !important;
   }
   .prod-card__price {
-    font-size: 16px !important;
+    font-size: 14px !important;
     line-height: 1.2 !important;
+    white-space: nowrap !important;
   }
   .prod-card__cta {
     height: 36px !important;
