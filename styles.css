@@ -6503,12 +6503,14 @@ body.has-promo-popup .proof-toast { display: none !important; }
   .prod-card__cheaper,
   .prod-card__price-orig { display: none; }
   /* Reorder so name shows first, then the "Inšpirované..." pill below it */
-  .prod-card__info { gap: 0.3rem; }
+  .prod-card__info { gap: 0.25rem; }
   .prod-card__name     { order: 1; }
-  .prod-card__inspired { order: 2; }
-  .prod-card__price-row { order: 3; gap: 0.2rem; justify-content: center; }
-  .prod-card__cta       { order: 4; }
-  /* Compact inspired pill so it fits 3-per-row cards */
+  .prod-card__inspired { order: 2; min-height: 68px; align-items: center; }
+  .prod-card__price-row { order: 3; gap: 0.2rem; justify-content: center; margin-top: 0.1rem; }
+  .prod-card__cta       { order: 4; margin-top: 0.1rem; }
+  /* Compact inspired pill so it fits 3-per-row cards. The pill itself is centered
+     inside a fixed 48px area so cards with 1-line vs 3-line "Inspirovane..."
+     text still have the same overall height. */
   .prod-card__inspired-quote {
     font-size: 0.5rem;
     padding: 0.22rem 0.45rem;
@@ -6522,6 +6524,15 @@ body.has-promo-popup .proof-toast { display: none !important; }
     font-size: 0.65rem;
     letter-spacing: 0.04em;
     min-height: 36px;
+  }
+  /* Catalog/cart modal close × — slightly smaller so it sits comfortably
+     next to the modal title at mobile size */
+  .modal__close {
+    width: 36px;
+    height: 36px;
+    min-width: 44px;
+    min-height: 44px;
+    font-size: 1.4rem;
   }
   .prod-card__badge {
     font-size: 0.5rem;
