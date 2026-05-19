@@ -7799,12 +7799,12 @@ body.has-promo-popup .proof-toast { display: none !important; }
   .prod-card {
     display: flex !important;
     flex-direction: column !important;
-    /* min-height: 420px so catalog (in flex-constrained modal with
-       grid-auto-rows: 1fr) doesn't collapse to ~22px and overlap.
-       Bestsellers grid uses normal page flow so this acts as a floor
-       for them too — keeps row heights consistent everywhere. */
-    min-height: 420px !important;
-    height: 100% !important;
+    /* min-height matches the bestsellers card height (~468) so the catalog
+       grid (constrained by flex-parent + grid-auto-rows: 1fr) doesn't
+       collapse the row below content size — keeps the "Pridaj do košíka"
+       CTA inside the card box rather than overflowing below it. */
+    min-height: 480px !important;
+    height: auto !important;
   }
   .prod-card__image {
     flex-shrink: 0 !important;
