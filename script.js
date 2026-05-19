@@ -2008,6 +2008,10 @@ function setupCookieBanner() {
     // Sync toggles in modal
     if (analyticsToggle) analyticsToggle.checked = !!prefs.analytics;
     if (marketingToggle) marketingToggle.checked = !!prefs.marketing;
+    // Notify other features (e.g. the scratch-ticket promo popup) that they
+    // can now show themselves — it would be rude to overlay them on top of
+    // a cookie banner that the user hadn't engaged with yet.
+    document.dispatchEvent(new CustomEvent('veelyn:cookie-consent'));
   }
 
   if (!stored) {
@@ -2120,6 +2124,10 @@ function setupMobileMenu() {
 function setupPromoPopup() {
   const popup = document.getElementById('promoPopup');
   if (!popup) return;
+
+  // Mobile gets no scratch popup — not a common UX pattern on small screens.
+  if (window.matchMedia('(max-width: 699px)').matches) return;
+
   const closeBtn = document.getElementById('promoPopupClose');
   const copyBtn = document.getElementById('promoPopupCopy');
   const codeEl = document.getElementById('promoPopupCode');
@@ -2127,6 +2135,7 @@ function setupPromoPopup() {
   const scratchEl = document.getElementById('promoScratch');
   const CODE = 'VEELYN5';
   const KEY = 'veelyn_promo_dismissed_v4';
+  const COOKIE_KEY = 'veelyn_cookie_consent';
   const today = new Date().toISOString().slice(0, 10);
 
   try { if (localStorage.getItem(KEY) === today) return; } catch (e) {}
@@ -2164,7 +2173,20 @@ function setupPromoPopup() {
   popup.addEventListener('pointerdown', cancelAutoHide, true);
   popup.addEventListener('touchstart', cancelAutoHide, { capture: true, passive: true });
 
-  setTimeout(show, 3000);
+  // Don't show the scratch ticket until the user has answered the cookie
+  // banner (accepted, rejected, or saved preferences). If consent isn't yet
+  // stored, wait for the 'veelyn:cookie-consent' event before showing.
+  let hasConsent = false;
+  try { hasConsent = !!localStorage.getItem(COOKIE_KEY); } catch (e) {}
+  if (hasConsent) {
+    setTimeout(show, 3000);
+  } else {
+    document.addEventListener('veelyn:cookie-consent', () => {
+      // Small delay so the popup doesn't slam in the instant the user
+      // clicks the cookie button.
+      setTimeout(show, 1500);
+    }, { once: true });
+  }
   closeBtn && closeBtn.addEventListener('click', () => hide(true));
 
   copyBtn && copyBtn.addEventListener('click', () => {
