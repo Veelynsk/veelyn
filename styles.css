@@ -7782,29 +7782,30 @@ body.has-promo-popup .proof-toast { display: none !important; }
   .prod-card__image {
     flex-shrink: 0 !important;
   }
-  /* Name reserves space for 2 lines so titles "MOULIN ROUGE" and
-     "THE HORIZON" sit at the same y across the row */
+  /* Name: tight, 2-line fit, 6px margin to next section */
   .prod-card__name {
     min-height: 34px !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
     flex-shrink: 0 !important;
+    margin: 0 0 6px 0 !important;
   }
-  /* Inspired pill cell reserves room for the longest variant (3-4 line
-     "MAISON FRANCIS KURKDJIAN BACCARAT ROUGE 540") */
+  /* Inspired pill cell — 80px wrapper, 8px margin below */
   .prod-card__inspired {
-    min-height: 86px !important;
+    min-height: 80px !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
     flex-shrink: 0 !important;
+    margin: 0 0 8px 0 !important;
   }
-  /* Match block reserves enough room for ✓ title + 44px thumb + 2-line
-     brand + price */
+  /* Match block — 140px reserve, 8px margin below, 10px inner padding */
   .prod-card__match {
-    min-height: 160px !important;
+    min-height: 140px !important;
     flex-shrink: 0 !important;
+    margin: 0 0 8px 0 !important;
+    padding: 10px !important;
   }
   /* "Perfektná zhoda" — single line next to ✓ icon, font tight enough
      to fit the ~70px content width on a 3-per-row 105px card */
@@ -7839,13 +7840,13 @@ body.has-promo-popup .proof-toast { display: none !important; }
   .prod-card__match .match-card__brand {
     min-height: 32px !important;
   }
-  /* Push price + CTA to the bottom regardless of card height */
+  /* Price + CTA — minimal margins, tight spacing */
   .prod-card__price-row {
-    margin-top: auto !important;
+    margin: 0 0 6px 0 !important;
     flex-shrink: 0 !important;
   }
   .prod-card__cta {
     flex-shrink: 0 !important;
-    margin-top: 8px !important;
+    margin: 0 !important;
   }
 }
