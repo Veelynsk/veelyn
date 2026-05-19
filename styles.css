@@ -7615,14 +7615,20 @@ body.has-promo-popup .proof-toast { display: none !important; }
    Applied with !important so no earlier rule wins.
    ============================================================ */
 @media (max-width: 699px) {
+  /* Card has fixed min-height so it never collapses to ~22px inside a
+     flex-constrained grid (catalog modal). The earlier min-height: 0 was
+     too aggressive — paired with grid-auto-rows: 1fr inside a flex-sized
+     parent, rows would distribute zero height and overlap. */
   .prod-card {
     padding: 10px !important;
     gap: 0 !important;
-    min-height: 0 !important;
+    min-height: 420px !important;
+    height: auto !important;
   }
   .prod-card__image {
     padding-bottom: 100% !important;
     height: 0 !important;
+    flex-shrink: 0 !important;
     margin-bottom: 6px !important;
   }
   .prod-card__name {
