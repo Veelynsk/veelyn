@@ -7642,6 +7642,28 @@ body.has-promo-popup .proof-toast { display: none !important; }
     grid-template-columns: repeat(4, 1fr) !important;
     grid-template-rows: 1fr !important;
     max-width: 1000px;
+    gap: 24px !important;
+    padding: 24px 28px !important;
+  }
+  /* Bigger text + larger icons so each cell fills its 4-col slot evenly */
+  .trust-cell {
+    gap: 16px !important;
+    min-height: 72px;
+  }
+  .trust-icon {
+    width: 44px !important;
+    height: 44px !important;
+  }
+  .trust-icon svg {
+    width: 36px !important;
+    height: 36px !important;
+  }
+  .trust-title {
+    font-size: 17px !important;
+    font-weight: 700 !important;
+  }
+  .trust-subtitle {
+    font-size: 14px !important;
   }
 }
 
