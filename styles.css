@@ -1649,39 +1649,45 @@ body.lock { overflow: hidden; }
 
   /* Tray + bottles: shrink so all 5 bottles + the orange podstavec are
      visible inside the viewport (including 360px Samsung S23) with a
-     clear breathing margin on the sides instead of touching the edges. */
-  .scenery__tray {
-    width: min(320px, 86vw);
-    height: 200px;
-    transform: rotate(-0.5deg);
+     clear breathing margin on the sides instead of touching the edges.
+     !important here because the desktop rules at @media (min-width: 700px)
+     have equal specificity and may otherwise win on devices where both
+     "mobile" and the user-agent stylesheet interpretations conflict. */
+  .scenery .scenery__tray {
+    width: min(300px, 82vw) !important;
+    height: 200px !important;
+    transform: rotate(-0.5deg) !important;
   }
-  .scenery__tray-inner {
-    padding: 16px 18px 24px;
-    gap: 6px;
+  .scenery .scenery__tray-inner {
+    padding: 14px 14px 22px !important;
+    gap: 5px !important;
   }
-  .scenery-bottle {
-    width: 38px;
-    height: 142px;
-    flex-shrink: 0;
+  .scenery .scenery-bottle {
+    width: 34px !important;
+    height: 130px !important;
+    flex-shrink: 0 !important;
   }
-  .scenery-bottle::before {
-    top: -30px;
-    height: 28px;
+  .scenery .scenery-bottle::before {
+    top: -26px !important;
+    height: 24px !important;
   }
-  .scenery-bottle::after {
-    top: -6px;
-    height: 5px;
+  .scenery .scenery-bottle::after {
+    top: -5px !important;
+    height: 4px !important;
   }
-  .scenery-bottle--hero {
-    width: 72px;
-    height: 200px;
-    flex-shrink: 0;
-    transform: translateY(-22px) scale(1.02);
+  .scenery .scenery-bottle--hero {
+    width: 64px !important;
+    height: 184px !important;
+    flex-shrink: 0 !important;
+    transform: translateY(-20px) scale(1.02) !important;
   }
-  .bottle-pct--top strong { font-size: 1.6rem; }
-  .bottle-pct--top em { font-size: 0.42rem; letter-spacing: 0.1em; }
-  .bottle-pct--bottom strong { font-size: 0.7rem; }
-  .bottle-pct--bottom em { font-size: 0.32rem; }
+  .scenery .bottle-pct--top strong { font-size: 1.4rem !important; }
+  .scenery .bottle-pct--top em { font-size: 0.4rem !important; letter-spacing: 0.1em !important; }
+  .scenery .bottle-pct--bottom strong { font-size: 0.62rem !important; }
+  .scenery .bottle-pct--bottom em { font-size: 0.3rem !important; }
+  /* Make sure the section as a whole never bleeds past the viewport,
+     even if some descendant tries to set a larger width somehow. */
+  .scenery, .scenery__stage { max-width: 100vw; overflow-x: clip; }
 
   /* White card: more vertical breathing room, less horizontal padding so CTA fits */
   .scenery__card {
