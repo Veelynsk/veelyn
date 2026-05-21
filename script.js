@@ -2489,61 +2489,80 @@ function setupPromoPopup() {
   }
 
   function drawScratchSurface(ctx, w, h) {
-    // Silver foil scratch coating (classic lottery)
+    // Luxury foil — deep velvet purple with gold metallic highlights.
+    // Matches Veelyn brand instead of generic silver lottery.
     const base = ctx.createLinearGradient(0, 0, w, h);
-    base.addColorStop(0, '#6b7280');
-    base.addColorStop(0.22, '#9ca3af');
-    base.addColorStop(0.48, '#e5e7eb');
-    base.addColorStop(0.72, '#9ca3af');
-    base.addColorStop(1, '#4b5563');
+    base.addColorStop(0,    '#1a0b2e');
+    base.addColorStop(0.35, '#2d1654');
+    base.addColorStop(0.55, '#3d1f6b');
+    base.addColorStop(0.8,  '#2a1547');
+    base.addColorStop(1,    '#15082a');
     ctx.fillStyle = base;
     ctx.fillRect(0, 0, w, h);
 
-    // Diagonal sheen streak
+    // Gold metallic sheen sweep — diagonal
     const sheen = ctx.createLinearGradient(0, h, w, 0);
-    sheen.addColorStop(0, 'rgba(255,255,255,0)');
-    sheen.addColorStop(0.42, 'rgba(255,255,255,0)');
-    sheen.addColorStop(0.52, 'rgba(255,255,255,0.35)');
-    sheen.addColorStop(0.6, 'rgba(255,255,255,0)');
-    sheen.addColorStop(1, 'rgba(255,255,255,0)');
+    sheen.addColorStop(0,    'rgba(212,162,71,0)');
+    sheen.addColorStop(0.42, 'rgba(212,162,71,0)');
+    sheen.addColorStop(0.5,  'rgba(244,200,100,0.32)');
+    sheen.addColorStop(0.58, 'rgba(212,162,71,0)');
+    sheen.addColorStop(1,    'rgba(212,162,71,0)');
     ctx.fillStyle = sheen;
     ctx.fillRect(0, 0, w, h);
 
-    // Fine grain noise
-    ctx.fillStyle = 'rgba(255,255,255,0.18)';
-    for (let i = 0; i < 60; i++) {
+    // Soft inner vignette for depth
+    const vignette = ctx.createRadialGradient(w/2, h/2, Math.min(w,h)*0.2, w/2, h/2, Math.max(w,h)*0.85);
+    vignette.addColorStop(0, 'rgba(0,0,0,0)');
+    vignette.addColorStop(1, 'rgba(0,0,0,0.45)');
+    ctx.fillStyle = vignette;
+    ctx.fillRect(0, 0, w, h);
+
+    // Faint gold flecks — confetti dust feel
+    for (let i = 0; i < 35; i++) {
       const sx = Math.random() * w;
       const sy = Math.random() * h;
-      const sr = 0.4 + Math.random() * 1;
+      const sr = 0.35 + Math.random() * 0.9;
+      ctx.fillStyle = `rgba(244,200,100,${0.12 + Math.random() * 0.18})`;
       ctx.beginPath(); ctx.arc(sx, sy, sr, 0, Math.PI * 2); ctx.fill();
     }
-    // Darker speckles for texture
-    ctx.fillStyle = 'rgba(30,15,40,0.18)';
-    for (let i = 0; i < 30; i++) {
+    // Subtle purple sparkles for extra depth
+    for (let i = 0; i < 22; i++) {
       const sx = Math.random() * w;
       const sy = Math.random() * h;
-      const sr = 0.4 + Math.random() * 1.2;
+      const sr = 0.3 + Math.random() * 0.7;
+      ctx.fillStyle = `rgba(196,170,255,${0.18 + Math.random() * 0.22})`;
       ctx.beginPath(); ctx.arc(sx, sy, sr, 0, Math.PI * 2); ctx.fill();
     }
 
     // Scale headline + eyes to canvas width (mobile compact popup is much narrower)
     const isCompact = w < 220;
-    const headFontPx = isCompact ? 15 : 23;
-    const eyesSizePx = isCompact ? 26 : 43;
+    const headFontPx = isCompact ? 15 : 22;
+    const eyesSizePx = isCompact ? 26 : 40;
     const eyesGap = isCompact ? 5 : 8;
-    const subFontPx = isCompact ? 9 : 14;
+    const subFontPx = isCompact ? 10 : 14;
 
-    // Main headline + eyes — centered as one unit
+    // Main headline + eyes — centered as one unit, gold gradient text
     ctx.textAlign = 'left';
     ctx.textBaseline = 'middle';
     ctx.font = `800 ${headFontPx}px Manrope, system-ui, sans-serif`;
     const HEADLINE = 'VYBRALI SME TEBA';
-    const headY = h * 0.42;
+    const headY = h * 0.38;
     const headWidth = ctx.measureText(HEADLINE).width;
     const totalWidth = headWidth + eyesGap + eyesSizePx;
     const startX = (w - totalWidth) / 2;
-    ctx.fillStyle = 'rgba(20,8,35,0.92)';
+    // Soft drop shadow
+    ctx.save();
+    ctx.shadowColor = 'rgba(0,0,0,0.5)';
+    ctx.shadowBlur = 4;
+    ctx.shadowOffsetY = 1;
+    const headGrad = ctx.createLinearGradient(0, headY - headFontPx * 0.6, 0, headY + headFontPx * 0.6);
+    headGrad.addColorStop(0,    '#fff7d6');
+    headGrad.addColorStop(0.45, '#f4cc6c');
+    headGrad.addColorStop(0.55, '#e0a847');
+    headGrad.addColorStop(1,    '#b9842c');
+    ctx.fillStyle = headGrad;
     ctx.fillText(HEADLINE, startX, headY);
+    ctx.restore();
 
     // Position HTML eyes overlay right after the headline
     const eyesEl = document.getElementById('promoPopupEyes');
@@ -2554,24 +2573,49 @@ function setupPromoPopup() {
       eyesEl.classList.add('is-positioned');
     }
 
-    // Subline — clean Manrope bold, white-gold gradient with dark outline
+    // Subline — short action CTA in clean gold, no harsh outline
     ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
     ctx.save();
-    const subText = 'Zotri a uvidíš čo si vyhral';
-    const subY = h * 0.74;
-    ctx.font = `800 ${subFontPx}px Manrope, system-ui, sans-serif`;
-    ctx.lineJoin = 'round';
-    ctx.miterLimit = 2;
-    ctx.strokeStyle = '#5b2e0f';
-    ctx.lineWidth = 3.5;
-    ctx.strokeText(subText, w / 2, subY);
-    const subGrad = ctx.createLinearGradient(0, subY - 8, 0, subY + 8);
-    subGrad.addColorStop(0, '#fde68a');
-    subGrad.addColorStop(0.45, '#ffffff');
-    subGrad.addColorStop(0.55, '#ffffff');
-    subGrad.addColorStop(1, '#f59e0b');
+    const subText = 'STIERAJ PRSTOM';
+    const subY = h * 0.66;
+    ctx.font = `900 ${subFontPx}px Manrope, system-ui, sans-serif`;
+    ctx.shadowColor = 'rgba(0,0,0,0.55)';
+    ctx.shadowBlur = 3;
+    ctx.shadowOffsetY = 1;
+    const subGrad = ctx.createLinearGradient(0, subY - 6, 0, subY + 6);
+    subGrad.addColorStop(0,    '#fff5cc');
+    subGrad.addColorStop(0.5,  '#f4cc6c');
+    subGrad.addColorStop(1,    '#d4a247');
     ctx.fillStyle = subGrad;
+    ctx.letterSpacing = '0.3em';
     ctx.fillText(subText, w / 2, subY);
+    ctx.restore();
+
+    // Animated-looking dotted arrow trail underneath the CTA — invites scratch
+    ctx.save();
+    const arrowY = h * 0.82;
+    const arrowMid = w / 2;
+    const arrowSpread = isCompact ? 28 : 50;
+    ctx.fillStyle = 'rgba(244,200,100,0.6)';
+    for (let i = -3; i <= 3; i++) {
+      const t = i / 3;
+      const x = arrowMid + t * arrowSpread;
+      const r = isCompact ? 1.4 : 2.1;
+      ctx.beginPath(); ctx.arc(x, arrowY, r * (1 - Math.abs(t) * 0.3), 0, Math.PI * 2); ctx.fill();
+    }
+    // Pointing arrow on the right
+    ctx.strokeStyle = 'rgba(244,200,100,0.6)';
+    ctx.lineWidth = isCompact ? 1.4 : 1.8;
+    ctx.lineCap = 'round';
+    const ax = arrowMid + arrowSpread;
+    const ay = arrowY;
+    const asz = isCompact ? 4 : 6;
+    ctx.beginPath();
+    ctx.moveTo(ax - asz, ay - asz);
+    ctx.lineTo(ax + asz * 0.4, ay);
+    ctx.lineTo(ax - asz, ay + asz);
+    ctx.stroke();
     ctx.restore();
   }
 }
