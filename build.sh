@@ -16,6 +16,9 @@ cp robots.txt sitemap.xml heureka.xml merchant.xml site.webmanifest public/
 cp GTM_SETUP.md public/ 2>/dev/null || true
 
 cp -r admin public/
+# Legal / policy pages (kept un-linked from main nav — Google Merchant
+# verification + Meta business verification just need the URLs to resolve.)
+cp -r vratenie-tovaru public/
 
 cp -r images/veelyn public/images/
 cp -r images/originals public/images/
