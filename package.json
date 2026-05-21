@@ -2,7 +2,9 @@
   "name": "veelyn-static",
   "version": "1.0.0",
   "private": true,
+  "type": "module",
   "scripts": {
-    "build": "bash build.sh"
+    "build": "bash build.sh",
+    "build-feeds": "node scripts/build-feeds.js && node scripts/build-sitemap.js"
   }
 }

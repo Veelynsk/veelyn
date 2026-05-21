@@ -1,0 +1,3185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SHOP>
+  <SHOPITEM>
+    <ITEM_ID>star</ITEM_ID>
+    <PRODUCTNAME>VEELYN STAR — dupé Burberry Goddess</PRODUCTNAME>
+    <PRODUCT>VEELYN STAR</PRODUCT>
+    <DESCRIPTION>Dupé parfum inšpirovaný značkou Burberry Goddess. Eau de parfum 50 ml, dámska vôňa. Tóny: levanduľa, vanilka, kakao, ambra. Slovenská značka Veelyn — luxusná vôňa za zlomok ceny originálu (145 €).</DESCRIPTION>
+    <URL>https://veelyn.sk/?vona=star</URL>
+    <IMGURL>https://veelyn.sk/images/veelyn/star.png</IMGURL>
+    <PRICE_VAT>24.99</PRICE_VAT>
+    <VAT>20</VAT>
+    <MANUFACTURER>Veelyn</MANUFACTURER>
+    <CATEGORYTEXT>Heureka.sk | Krása | Parfumy | Dámske parfumy</CATEGORYTEXT>
+    <DELIVERY_DATE>0</DELIVERY_DATE>
+    <DELIVERY>
+      <DELIVERY_ID>PACKETA</DELIVERY_ID>
+      <DELIVERY_PRICE>2.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>3.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <DELIVERY>
+      <DELIVERY_ID>COURIER</DELIVERY_ID>
+      <DELIVERY_PRICE>4.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>5.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <PARAM>
+      <PARAM_NAME>Objem</PARAM_NAME>
+      <VAL>50 ml</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Koncentrácia</PARAM_NAME>
+      <VAL>Eau de parfum</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Vhodné pre</PARAM_NAME>
+      <VAL>Dámska</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované značkou</PARAM_NAME>
+      <VAL>Burberry</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované vôňou</PARAM_NAME>
+      <VAL>Goddess</VAL>
+    </PARAM>
+  </SHOPITEM>
+  <SHOPITEM>
+    <ITEM_ID>the-one</ITEM_ID>
+    <PRODUCTNAME>VEELYN THE ONE — dupé Burberry Burberry Hero</PRODUCTNAME>
+    <PRODUCT>VEELYN THE ONE</PRODUCT>
+    <DESCRIPTION>Dupé parfum inšpirovaný značkou Burberry Burberry Hero. Eau de parfum 50 ml, pánska vôňa. Tóny: bergamot, čierne korenie, jedľa, borovica, cédrové drevo, drevitý mošus. Slovenská značka Veelyn — luxusná vôňa za zlomok ceny originálu (130 €).</DESCRIPTION>
+    <URL>https://veelyn.sk/?vona=the-one</URL>
+    <IMGURL>https://veelyn.sk/images/veelyn/the-one.png</IMGURL>
+    <PRICE_VAT>24.99</PRICE_VAT>
+    <VAT>20</VAT>
+    <MANUFACTURER>Veelyn</MANUFACTURER>
+    <CATEGORYTEXT>Heureka.sk | Krása | Parfumy | Pánske parfumy</CATEGORYTEXT>
+    <DELIVERY_DATE>0</DELIVERY_DATE>
+    <DELIVERY>
+      <DELIVERY_ID>PACKETA</DELIVERY_ID>
+      <DELIVERY_PRICE>2.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>3.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <DELIVERY>
+      <DELIVERY_ID>COURIER</DELIVERY_ID>
+      <DELIVERY_PRICE>4.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>5.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <PARAM>
+      <PARAM_NAME>Objem</PARAM_NAME>
+      <VAL>50 ml</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Koncentrácia</PARAM_NAME>
+      <VAL>Eau de parfum</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Vhodné pre</PARAM_NAME>
+      <VAL>Pánska</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované značkou</PARAM_NAME>
+      <VAL>Burberry</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované vôňou</PARAM_NAME>
+      <VAL>Burberry Hero</VAL>
+    </PARAM>
+  </SHOPITEM>
+  <SHOPITEM>
+    <ITEM_ID>she-is</ITEM_ID>
+    <PRODUCTNAME>VEELYN SHE IS — dupé Burberry Her</PRODUCTNAME>
+    <PRODUCT>VEELYN SHE IS</PRODUCT>
+    <DESCRIPTION>Dupé parfum inšpirovaný značkou Burberry Her. Eau de parfum 50 ml, dámska vôňa. Tóny: lesné plody, čierne ríbezle, černice, jahody, fialka, jazmín, mošus, ambra, vanilka. Slovenská značka Veelyn — luxusná vôňa za zlomok ceny originálu (135 €).</DESCRIPTION>
+    <URL>https://veelyn.sk/?vona=she-is</URL>
+    <IMGURL>https://veelyn.sk/images/veelyn/she-is.png</IMGURL>
+    <PRICE_VAT>24.99</PRICE_VAT>
+    <VAT>20</VAT>
+    <MANUFACTURER>Veelyn</MANUFACTURER>
+    <CATEGORYTEXT>Heureka.sk | Krása | Parfumy | Dámske parfumy</CATEGORYTEXT>
+    <DELIVERY_DATE>0</DELIVERY_DATE>
+    <DELIVERY>
+      <DELIVERY_ID>PACKETA</DELIVERY_ID>
+      <DELIVERY_PRICE>2.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>3.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <DELIVERY>
+      <DELIVERY_ID>COURIER</DELIVERY_ID>
+      <DELIVERY_PRICE>4.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>5.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <PARAM>
+      <PARAM_NAME>Objem</PARAM_NAME>
+      <VAL>50 ml</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Koncentrácia</PARAM_NAME>
+      <VAL>Eau de parfum</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Vhodné pre</PARAM_NAME>
+      <VAL>Dámska</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované značkou</PARAM_NAME>
+      <VAL>Burberry</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované vôňou</PARAM_NAME>
+      <VAL>Her</VAL>
+    </PARAM>
+  </SHOPITEM>
+  <SHOPITEM>
+    <ITEM_ID>go-boy</ITEM_ID>
+    <PRODUCTNAME>VEELYN GO BOY — dupé Carolina Herrera Bad Boy</PRODUCTNAME>
+    <PRODUCT>VEELYN GO BOY</PRODUCT>
+    <DESCRIPTION>Dupé parfum inšpirovaný značkou Carolina Herrera Bad Boy. Eau de parfum 50 ml, pánska vôňa. Tóny: bergamot, biele korenie, šalvia, cédrové drevo, tonka bôb, kakao, ambra. Slovenská značka Veelyn — luxusná vôňa za zlomok ceny originálu (120 €).</DESCRIPTION>
+    <URL>https://veelyn.sk/?vona=go-boy</URL>
+    <IMGURL>https://veelyn.sk/images/veelyn/go-boy.png</IMGURL>
+    <PRICE_VAT>24.99</PRICE_VAT>
+    <VAT>20</VAT>
+    <MANUFACTURER>Veelyn</MANUFACTURER>
+    <CATEGORYTEXT>Heureka.sk | Krása | Parfumy | Pánske parfumy</CATEGORYTEXT>
+    <DELIVERY_DATE>0</DELIVERY_DATE>
+    <DELIVERY>
+      <DELIVERY_ID>PACKETA</DELIVERY_ID>
+      <DELIVERY_PRICE>2.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>3.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <DELIVERY>
+      <DELIVERY_ID>COURIER</DELIVERY_ID>
+      <DELIVERY_PRICE>4.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>5.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <PARAM>
+      <PARAM_NAME>Objem</PARAM_NAME>
+      <VAL>50 ml</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Koncentrácia</PARAM_NAME>
+      <VAL>Eau de parfum</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Vhodné pre</PARAM_NAME>
+      <VAL>Pánska</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované značkou</PARAM_NAME>
+      <VAL>Carolina Herrera</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované vôňou</PARAM_NAME>
+      <VAL>Bad Boy</VAL>
+    </PARAM>
+  </SHOPITEM>
+  <SHOPITEM>
+    <ITEM_ID>go-girl</ITEM_ID>
+    <PRODUCTNAME>VEELYN GO GIRL — dupé Carolina Herrera Good Girl</PRODUCTNAME>
+    <PRODUCT>VEELYN GO GIRL</PRODUCT>
+    <DESCRIPTION>Dupé parfum inšpirovaný značkou Carolina Herrera Good Girl. Eau de parfum 50 ml, dámska vôňa. Tóny: mandle, káva, jazmín, tuberóza, kakao, tonka bôb, santal. Slovenská značka Veelyn — luxusná vôňa za zlomok ceny originálu (130 €).</DESCRIPTION>
+    <URL>https://veelyn.sk/?vona=go-girl</URL>
+    <IMGURL>https://veelyn.sk/images/veelyn/go-girl.png</IMGURL>
+    <PRICE_VAT>24.99</PRICE_VAT>
+    <VAT>20</VAT>
+    <MANUFACTURER>Veelyn</MANUFACTURER>
+    <CATEGORYTEXT>Heureka.sk | Krása | Parfumy | Dámske parfumy</CATEGORYTEXT>
+    <DELIVERY_DATE>0</DELIVERY_DATE>
+    <DELIVERY>
+      <DELIVERY_ID>PACKETA</DELIVERY_ID>
+      <DELIVERY_PRICE>2.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>3.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <DELIVERY>
+      <DELIVERY_ID>COURIER</DELIVERY_ID>
+      <DELIVERY_PRICE>4.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>5.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <PARAM>
+      <PARAM_NAME>Objem</PARAM_NAME>
+      <VAL>50 ml</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Koncentrácia</PARAM_NAME>
+      <VAL>Eau de parfum</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Vhodné pre</PARAM_NAME>
+      <VAL>Dámska</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované značkou</PARAM_NAME>
+      <VAL>Carolina Herrera</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované vôňou</PARAM_NAME>
+      <VAL>Good Girl</VAL>
+    </PARAM>
+  </SHOPITEM>
+  <SHOPITEM>
+    <ITEM_ID>go-go-girl</ITEM_ID>
+    <PRODUCTNAME>VEELYN GO GO GIRL — dupé Carolina Herrera Very Good Girl</PRODUCTNAME>
+    <PRODUCT>VEELYN GO GO GIRL</PRODUCT>
+    <DESCRIPTION>Dupé parfum inšpirovaný značkou Carolina Herrera Very Good Girl. Eau de parfum 50 ml, dámska vôňa. Tóny: čerešňa, ríbezle, ruža, jazmín, pačuli, tonka bôb. Slovenská značka Veelyn — luxusná vôňa za zlomok ceny originálu (135 €).</DESCRIPTION>
+    <URL>https://veelyn.sk/?vona=go-go-girl</URL>
+    <IMGURL>https://veelyn.sk/images/veelyn/go-go-girl.png</IMGURL>
+    <PRICE_VAT>24.99</PRICE_VAT>
+    <VAT>20</VAT>
+    <MANUFACTURER>Veelyn</MANUFACTURER>
+    <CATEGORYTEXT>Heureka.sk | Krása | Parfumy | Dámske parfumy</CATEGORYTEXT>
+    <DELIVERY_DATE>0</DELIVERY_DATE>
+    <DELIVERY>
+      <DELIVERY_ID>PACKETA</DELIVERY_ID>
+      <DELIVERY_PRICE>2.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>3.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <DELIVERY>
+      <DELIVERY_ID>COURIER</DELIVERY_ID>
+      <DELIVERY_PRICE>4.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>5.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <PARAM>
+      <PARAM_NAME>Objem</PARAM_NAME>
+      <VAL>50 ml</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Koncentrácia</PARAM_NAME>
+      <VAL>Eau de parfum</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Vhodné pre</PARAM_NAME>
+      <VAL>Dámska</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované značkou</PARAM_NAME>
+      <VAL>Carolina Herrera</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované vôňou</PARAM_NAME>
+      <VAL>Very Good Girl</VAL>
+    </PARAM>
+  </SHOPITEM>
+  <SHOPITEM>
+    <ITEM_ID>five</ITEM_ID>
+    <PRODUCTNAME>VEELYN FIVE — dupé Chanel No. 5</PRODUCTNAME>
+    <PRODUCT>VEELYN FIVE</PRODUCT>
+    <DESCRIPTION>Dupé parfum inšpirovaný značkou Chanel No. 5. Eau de parfum 50 ml, dámska vôňa. Tóny: aldehydy, ylang-ylang, neroli, ruža, jazmín, konvalinka, santal, vetiver, vanilka. Slovenská značka Veelyn — luxusná vôňa za zlomok ceny originálu (165 €).</DESCRIPTION>
+    <URL>https://veelyn.sk/?vona=five</URL>
+    <IMGURL>https://veelyn.sk/images/veelyn/five.png</IMGURL>
+    <PRICE_VAT>24.99</PRICE_VAT>
+    <VAT>20</VAT>
+    <MANUFACTURER>Veelyn</MANUFACTURER>
+    <CATEGORYTEXT>Heureka.sk | Krása | Parfumy | Dámske parfumy</CATEGORYTEXT>
+    <DELIVERY_DATE>0</DELIVERY_DATE>
+    <DELIVERY>
+      <DELIVERY_ID>PACKETA</DELIVERY_ID>
+      <DELIVERY_PRICE>2.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>3.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <DELIVERY>
+      <DELIVERY_ID>COURIER</DELIVERY_ID>
+      <DELIVERY_PRICE>4.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>5.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <PARAM>
+      <PARAM_NAME>Objem</PARAM_NAME>
+      <VAL>50 ml</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Koncentrácia</PARAM_NAME>
+      <VAL>Eau de parfum</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Vhodné pre</PARAM_NAME>
+      <VAL>Dámska</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované značkou</PARAM_NAME>
+      <VAL>Chanel</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované vôňou</PARAM_NAME>
+      <VAL>No. 5</VAL>
+    </PARAM>
+  </SHOPITEM>
+  <SHOPITEM>
+    <ITEM_ID>i-am-blue</ITEM_ID>
+    <PRODUCTNAME>VEELYN I AM BLUE — dupé Chanel Bleu de Chanel</PRODUCTNAME>
+    <PRODUCT>VEELYN I AM BLUE</PRODUCT>
+    <DESCRIPTION>Dupé parfum inšpirovaný značkou Chanel Bleu de Chanel. Eau de parfum 50 ml, pánska vôňa. Tóny: citrón, grapefruit, mäta, zázvor, kadidlo, jazmín, cédrové drevo, santal, labdanum. Slovenská značka Veelyn — luxusná vôňa za zlomok ceny originálu (155 €).</DESCRIPTION>
+    <URL>https://veelyn.sk/?vona=i-am-blue</URL>
+    <IMGURL>https://veelyn.sk/images/veelyn/i-am-blue.png</IMGURL>
+    <PRICE_VAT>24.99</PRICE_VAT>
+    <VAT>20</VAT>
+    <MANUFACTURER>Veelyn</MANUFACTURER>
+    <CATEGORYTEXT>Heureka.sk | Krása | Parfumy | Pánske parfumy</CATEGORYTEXT>
+    <DELIVERY_DATE>0</DELIVERY_DATE>
+    <DELIVERY>
+      <DELIVERY_ID>PACKETA</DELIVERY_ID>
+      <DELIVERY_PRICE>2.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>3.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <DELIVERY>
+      <DELIVERY_ID>COURIER</DELIVERY_ID>
+      <DELIVERY_PRICE>4.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>5.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <PARAM>
+      <PARAM_NAME>Objem</PARAM_NAME>
+      <VAL>50 ml</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Koncentrácia</PARAM_NAME>
+      <VAL>Eau de parfum</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Vhodné pre</PARAM_NAME>
+      <VAL>Pánska</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované značkou</PARAM_NAME>
+      <VAL>Chanel</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované vôňou</PARAM_NAME>
+      <VAL>Bleu de Chanel</VAL>
+    </PARAM>
+  </SHOPITEM>
+  <SHOPITEM>
+    <ITEM_ID>old-money</ITEM_ID>
+    <PRODUCTNAME>VEELYN OLD MONEY — dupé Chanel Coco Mademoiselle</PRODUCTNAME>
+    <PRODUCT>VEELYN OLD MONEY</PRODUCT>
+    <DESCRIPTION>Dupé parfum inšpirovaný značkou Chanel Coco Mademoiselle. Eau de parfum 50 ml, dámska vôňa. Tóny: pomaranč, bergamot, grapefruit, ruža, jazmín, mimoza, pačuli, vetiver, biely mošus. Slovenská značka Veelyn — luxusná vôňa za zlomok ceny originálu (160 €).</DESCRIPTION>
+    <URL>https://veelyn.sk/?vona=old-money</URL>
+    <IMGURL>https://veelyn.sk/images/veelyn/old-money.png</IMGURL>
+    <PRICE_VAT>24.99</PRICE_VAT>
+    <VAT>20</VAT>
+    <MANUFACTURER>Veelyn</MANUFACTURER>
+    <CATEGORYTEXT>Heureka.sk | Krása | Parfumy | Dámske parfumy</CATEGORYTEXT>
+    <DELIVERY_DATE>0</DELIVERY_DATE>
+    <DELIVERY>
+      <DELIVERY_ID>PACKETA</DELIVERY_ID>
+      <DELIVERY_PRICE>2.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>3.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <DELIVERY>
+      <DELIVERY_ID>COURIER</DELIVERY_ID>
+      <DELIVERY_PRICE>4.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>5.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <PARAM>
+      <PARAM_NAME>Objem</PARAM_NAME>
+      <VAL>50 ml</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Koncentrácia</PARAM_NAME>
+      <VAL>Eau de parfum</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Vhodné pre</PARAM_NAME>
+      <VAL>Dámska</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované značkou</PARAM_NAME>
+      <VAL>Chanel</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované vôňou</PARAM_NAME>
+      <VAL>Coco Mademoiselle</VAL>
+    </PARAM>
+  </SHOPITEM>
+  <SHOPITEM>
+    <ITEM_ID>hard-cash</ITEM_ID>
+    <PRODUCTNAME>VEELYN HARD CASH — dupé Creed Aventus</PRODUCTNAME>
+    <PRODUCT>VEELYN HARD CASH</PRODUCT>
+    <DESCRIPTION>Dupé parfum inšpirovaný značkou Creed Aventus. Eau de parfum 50 ml, pánska vôňa. Tóny: ananás, bergamot, čierne ríbezle, jablko, breza, pačuli, ruža, jazmín, dubový mach, ambra, vanilka, mošus. Slovenská značka Veelyn — luxusná vôňa za zlomok ceny originálu (380 €).</DESCRIPTION>
+    <URL>https://veelyn.sk/?vona=hard-cash</URL>
+    <IMGURL>https://veelyn.sk/images/veelyn/hard-cash.png</IMGURL>
+    <PRICE_VAT>24.99</PRICE_VAT>
+    <VAT>20</VAT>
+    <MANUFACTURER>Veelyn</MANUFACTURER>
+    <CATEGORYTEXT>Heureka.sk | Krása | Parfumy | Pánske parfumy</CATEGORYTEXT>
+    <DELIVERY_DATE>0</DELIVERY_DATE>
+    <DELIVERY>
+      <DELIVERY_ID>PACKETA</DELIVERY_ID>
+      <DELIVERY_PRICE>2.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>3.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <DELIVERY>
+      <DELIVERY_ID>COURIER</DELIVERY_ID>
+      <DELIVERY_PRICE>4.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>5.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <PARAM>
+      <PARAM_NAME>Objem</PARAM_NAME>
+      <VAL>50 ml</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Koncentrácia</PARAM_NAME>
+      <VAL>Eau de parfum</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Vhodné pre</PARAM_NAME>
+      <VAL>Pánska</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované značkou</PARAM_NAME>
+      <VAL>Creed</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované vôňou</PARAM_NAME>
+      <VAL>Aventus</VAL>
+    </PARAM>
+  </SHOPITEM>
+  <SHOPITEM>
+    <ITEM_ID>important</ITEM_ID>
+    <PRODUCTNAME>VEELYN IMPORTANT — dupé Creed Millésime Imperial</PRODUCTNAME>
+    <PRODUCT>VEELYN IMPORTANT</PRODUCT>
+    <DESCRIPTION>Dupé parfum inšpirovaný značkou Creed Millésime Imperial. Eau de parfum 50 ml, unisex vôňa. Tóny: citrón, bergamot, morská soľ, irisz, kvety pomarančovníka, santal, mošus, ambra. Slovenská značka Veelyn — luxusná vôňa za zlomok ceny originálu (360 €).</DESCRIPTION>
+    <URL>https://veelyn.sk/?vona=important</URL>
+    <IMGURL>https://veelyn.sk/images/veelyn/important.png</IMGURL>
+    <PRICE_VAT>24.99</PRICE_VAT>
+    <VAT>20</VAT>
+    <MANUFACTURER>Veelyn</MANUFACTURER>
+    <CATEGORYTEXT>Heureka.sk | Krása | Parfumy | Unisex parfumy</CATEGORYTEXT>
+    <DELIVERY_DATE>0</DELIVERY_DATE>
+    <DELIVERY>
+      <DELIVERY_ID>PACKETA</DELIVERY_ID>
+      <DELIVERY_PRICE>2.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>3.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <DELIVERY>
+      <DELIVERY_ID>COURIER</DELIVERY_ID>
+      <DELIVERY_PRICE>4.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>5.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <PARAM>
+      <PARAM_NAME>Objem</PARAM_NAME>
+      <VAL>50 ml</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Koncentrácia</PARAM_NAME>
+      <VAL>Eau de parfum</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Vhodné pre</PARAM_NAME>
+      <VAL>Unisex</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované značkou</PARAM_NAME>
+      <VAL>Creed</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované vôňou</PARAM_NAME>
+      <VAL>Millésime Imperial</VAL>
+    </PARAM>
+  </SHOPITEM>
+  <SHOPITEM>
+    <ITEM_ID>weak-king</ITEM_ID>
+    <PRODUCTNAME>VEELYN WEAK KING — dupé Creed Viking</PRODUCTNAME>
+    <PRODUCT>VEELYN WEAK KING</PRODUCT>
+    <DESCRIPTION>Dupé parfum inšpirovaný značkou Creed Viking. Eau de parfum 50 ml, pánska vôňa. Tóny: bergamot, mäta, ružové korenie, levanduľa, ruža, muškátový oriešok, santal, cédrové drevo, pačuli. Slovenská značka Veelyn — luxusná vôňa za zlomok ceny originálu (370 €).</DESCRIPTION>
+    <URL>https://veelyn.sk/?vona=weak-king</URL>
+    <IMGURL>https://veelyn.sk/images/veelyn/weak-king.png</IMGURL>
+    <PRICE_VAT>24.99</PRICE_VAT>
+    <VAT>20</VAT>
+    <MANUFACTURER>Veelyn</MANUFACTURER>
+    <CATEGORYTEXT>Heureka.sk | Krása | Parfumy | Pánske parfumy</CATEGORYTEXT>
+    <DELIVERY_DATE>0</DELIVERY_DATE>
+    <DELIVERY>
+      <DELIVERY_ID>PACKETA</DELIVERY_ID>
+      <DELIVERY_PRICE>2.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>3.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <DELIVERY>
+      <DELIVERY_ID>COURIER</DELIVERY_ID>
+      <DELIVERY_PRICE>4.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>5.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <PARAM>
+      <PARAM_NAME>Objem</PARAM_NAME>
+      <VAL>50 ml</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Koncentrácia</PARAM_NAME>
+      <VAL>Eau de parfum</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Vhodné pre</PARAM_NAME>
+      <VAL>Pánska</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované značkou</PARAM_NAME>
+      <VAL>Creed</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované vôňou</PARAM_NAME>
+      <VAL>Viking</VAL>
+    </PARAM>
+  </SHOPITEM>
+  <SHOPITEM>
+    <ITEM_ID>og-river</ITEM_ID>
+    <PRODUCTNAME>VEELYN OG RIVER — dupé Creed Original Vetiver</PRODUCTNAME>
+    <PRODUCT>VEELYN OG RIVER</PRODUCT>
+    <DESCRIPTION>Dupé parfum inšpirovaný značkou Creed Original Vetiver. Eau de parfum 50 ml, pánska vôňa. Tóny: mandarínka, bergamot, zázvor, vetiver, irisz, mošus, ambra. Slovenská značka Veelyn — luxusná vôňa za zlomok ceny originálu (350 €).</DESCRIPTION>
+    <URL>https://veelyn.sk/?vona=og-river</URL>
+    <IMGURL>https://veelyn.sk/images/veelyn/og-river.png</IMGURL>
+    <PRICE_VAT>24.99</PRICE_VAT>
+    <VAT>20</VAT>
+    <MANUFACTURER>Veelyn</MANUFACTURER>
+    <CATEGORYTEXT>Heureka.sk | Krása | Parfumy | Pánske parfumy</CATEGORYTEXT>
+    <DELIVERY_DATE>0</DELIVERY_DATE>
+    <DELIVERY>
+      <DELIVERY_ID>PACKETA</DELIVERY_ID>
+      <DELIVERY_PRICE>2.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>3.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <DELIVERY>
+      <DELIVERY_ID>COURIER</DELIVERY_ID>
+      <DELIVERY_PRICE>4.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>5.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <PARAM>
+      <PARAM_NAME>Objem</PARAM_NAME>
+      <VAL>50 ml</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Koncentrácia</PARAM_NAME>
+      <VAL>Eau de parfum</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Vhodné pre</PARAM_NAME>
+      <VAL>Pánska</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované značkou</PARAM_NAME>
+      <VAL>Creed</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované vôňou</PARAM_NAME>
+      <VAL>Original Vetiver</VAL>
+    </PARAM>
+  </SHOPITEM>
+  <SHOPITEM>
+    <ITEM_ID>everest-gold</ITEM_ID>
+    <PRODUCTNAME>VEELYN EVEREST GOLD — dupé Creed Silver Mountain Water</PRODUCTNAME>
+    <PRODUCT>VEELYN EVEREST GOLD</PRODUCT>
+    <DESCRIPTION>Dupé parfum inšpirovaný značkou Creed Silver Mountain Water. Eau de parfum 50 ml, unisex vôňa. Tóny: bergamot, mandarínka, zelený čaj, čierne ríbezle, santal, mošus. Slovenská značka Veelyn — luxusná vôňa za zlomok ceny originálu (360 €).</DESCRIPTION>
+    <URL>https://veelyn.sk/?vona=everest-gold</URL>
+    <IMGURL>https://veelyn.sk/images/veelyn/everest-gold.png</IMGURL>
+    <PRICE_VAT>24.99</PRICE_VAT>
+    <VAT>20</VAT>
+    <MANUFACTURER>Veelyn</MANUFACTURER>
+    <CATEGORYTEXT>Heureka.sk | Krása | Parfumy | Unisex parfumy</CATEGORYTEXT>
+    <DELIVERY_DATE>0</DELIVERY_DATE>
+    <DELIVERY>
+      <DELIVERY_ID>PACKETA</DELIVERY_ID>
+      <DELIVERY_PRICE>2.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>3.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <DELIVERY>
+      <DELIVERY_ID>COURIER</DELIVERY_ID>
+      <DELIVERY_PRICE>4.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>5.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <PARAM>
+      <PARAM_NAME>Objem</PARAM_NAME>
+      <VAL>50 ml</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Koncentrácia</PARAM_NAME>
+      <VAL>Eau de parfum</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Vhodné pre</PARAM_NAME>
+      <VAL>Unisex</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované značkou</PARAM_NAME>
+      <VAL>Creed</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované vôňou</PARAM_NAME>
+      <VAL>Silver Mountain Water</VAL>
+    </PARAM>
+  </SHOPITEM>
+  <SHOPITEM>
+    <ITEM_ID>holy-water</ITEM_ID>
+    <PRODUCTNAME>VEELYN HOLY WATER — dupé Creed Virgin Island Water</PRODUCTNAME>
+    <PRODUCT>VEELYN HOLY WATER</PRODUCT>
+    <DESCRIPTION>Dupé parfum inšpirovaný značkou Creed Virgin Island Water. Eau de parfum 50 ml, unisex vôňa. Tóny: limetka, kokos, biely rum, jazmín, ylang-ylang, hibiskus, cukrová trstina, mošus. Slovenská značka Veelyn — luxusná vôňa za zlomok ceny originálu (360 €).</DESCRIPTION>
+    <URL>https://veelyn.sk/?vona=holy-water</URL>
+    <IMGURL>https://veelyn.sk/images/veelyn/holy-water.png</IMGURL>
+    <PRICE_VAT>24.99</PRICE_VAT>
+    <VAT>20</VAT>
+    <MANUFACTURER>Veelyn</MANUFACTURER>
+    <CATEGORYTEXT>Heureka.sk | Krása | Parfumy | Unisex parfumy</CATEGORYTEXT>
+    <DELIVERY_DATE>0</DELIVERY_DATE>
+    <DELIVERY>
+      <DELIVERY_ID>PACKETA</DELIVERY_ID>
+      <DELIVERY_PRICE>2.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>3.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <DELIVERY>
+      <DELIVERY_ID>COURIER</DELIVERY_ID>
+      <DELIVERY_PRICE>4.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>5.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <PARAM>
+      <PARAM_NAME>Objem</PARAM_NAME>
+      <VAL>50 ml</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Koncentrácia</PARAM_NAME>
+      <VAL>Eau de parfum</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Vhodné pre</PARAM_NAME>
+      <VAL>Unisex</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované značkou</PARAM_NAME>
+      <VAL>Creed</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované vôňou</PARAM_NAME>
+      <VAL>Virgin Island Water</VAL>
+    </PARAM>
+  </SHOPITEM>
+  <SHOPITEM>
+    <ITEM_ID>suited-irish</ITEM_ID>
+    <PRODUCTNAME>VEELYN SUITED IRISH — dupé Creed Green Irish Tweed</PRODUCTNAME>
+    <PRODUCT>VEELYN SUITED IRISH</PRODUCT>
+    <DESCRIPTION>Dupé parfum inšpirovaný značkou Creed Green Irish Tweed. Eau de parfum 50 ml, pánska vôňa. Tóny: citrón, verbéna, irisz, fialka, santal, ambra. Slovenská značka Veelyn — luxusná vôňa za zlomok ceny originálu (360 €).</DESCRIPTION>
+    <URL>https://veelyn.sk/?vona=suited-irish</URL>
+    <IMGURL>https://veelyn.sk/images/veelyn/suited-irish.png</IMGURL>
+    <PRICE_VAT>24.99</PRICE_VAT>
+    <VAT>20</VAT>
+    <MANUFACTURER>Veelyn</MANUFACTURER>
+    <CATEGORYTEXT>Heureka.sk | Krása | Parfumy | Pánske parfumy</CATEGORYTEXT>
+    <DELIVERY_DATE>0</DELIVERY_DATE>
+    <DELIVERY>
+      <DELIVERY_ID>PACKETA</DELIVERY_ID>
+      <DELIVERY_PRICE>2.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>3.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <DELIVERY>
+      <DELIVERY_ID>COURIER</DELIVERY_ID>
+      <DELIVERY_PRICE>4.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>5.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <PARAM>
+      <PARAM_NAME>Objem</PARAM_NAME>
+      <VAL>50 ml</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Koncentrácia</PARAM_NAME>
+      <VAL>Eau de parfum</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Vhodné pre</PARAM_NAME>
+      <VAL>Pánska</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované značkou</PARAM_NAME>
+      <VAL>Creed</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované vôňou</PARAM_NAME>
+      <VAL>Green Irish Tweed</VAL>
+    </PARAM>
+  </SHOPITEM>
+  <SHOPITEM>
+    <ITEM_ID>silk-road</ITEM_ID>
+    <PRODUCTNAME>VEELYN SILK ROAD — dupé Creed Queen of Silk</PRODUCTNAME>
+    <PRODUCT>VEELYN SILK ROAD</PRODUCT>
+    <DESCRIPTION>Dupé parfum inšpirovaný značkou Creed Queen of Silk. Eau de parfum 50 ml, dámska vôňa. Tóny: bergamot, čierne ríbezle, ruža, irisz, magnólia, mošus, santal, ambra. Slovenská značka Veelyn — luxusná vôňa za zlomok ceny originálu (380 €).</DESCRIPTION>
+    <URL>https://veelyn.sk/?vona=silk-road</URL>
+    <IMGURL>https://veelyn.sk/images/veelyn/silk-road.png</IMGURL>
+    <PRICE_VAT>24.99</PRICE_VAT>
+    <VAT>20</VAT>
+    <MANUFACTURER>Veelyn</MANUFACTURER>
+    <CATEGORYTEXT>Heureka.sk | Krása | Parfumy | Dámske parfumy</CATEGORYTEXT>
+    <DELIVERY_DATE>0</DELIVERY_DATE>
+    <DELIVERY>
+      <DELIVERY_ID>PACKETA</DELIVERY_ID>
+      <DELIVERY_PRICE>2.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>3.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <DELIVERY>
+      <DELIVERY_ID>COURIER</DELIVERY_ID>
+      <DELIVERY_PRICE>4.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>5.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <PARAM>
+      <PARAM_NAME>Objem</PARAM_NAME>
+      <VAL>50 ml</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Koncentrácia</PARAM_NAME>
+      <VAL>Eau de parfum</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Vhodné pre</PARAM_NAME>
+      <VAL>Dámska</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované značkou</PARAM_NAME>
+      <VAL>Creed</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované vôňou</PARAM_NAME>
+      <VAL>Queen of Silk</VAL>
+    </PARAM>
+  </SHOPITEM>
+  <SHOPITEM>
+    <ITEM_ID>adore-me</ITEM_ID>
+    <PRODUCTNAME>VEELYN ADORE ME — dupé Dior J&apos;adore</PRODUCTNAME>
+    <PRODUCT>VEELYN ADORE ME</PRODUCT>
+    <DESCRIPTION>Dupé parfum inšpirovaný značkou Dior J&apos;adore. Eau de parfum 50 ml, dámska vôňa. Tóny: mandarínka, bergamot, hruška, jazmín, ruža, ylang-ylang, vanilka, santal, mošus. Slovenská značka Veelyn — luxusná vôňa za zlomok ceny originálu (165 €).</DESCRIPTION>
+    <URL>https://veelyn.sk/?vona=adore-me</URL>
+    <IMGURL>https://veelyn.sk/images/veelyn/adore-me.png</IMGURL>
+    <PRICE_VAT>24.99</PRICE_VAT>
+    <VAT>20</VAT>
+    <MANUFACTURER>Veelyn</MANUFACTURER>
+    <CATEGORYTEXT>Heureka.sk | Krása | Parfumy | Dámske parfumy</CATEGORYTEXT>
+    <DELIVERY_DATE>0</DELIVERY_DATE>
+    <DELIVERY>
+      <DELIVERY_ID>PACKETA</DELIVERY_ID>
+      <DELIVERY_PRICE>2.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>3.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <DELIVERY>
+      <DELIVERY_ID>COURIER</DELIVERY_ID>
+      <DELIVERY_PRICE>4.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>5.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <PARAM>
+      <PARAM_NAME>Objem</PARAM_NAME>
+      <VAL>50 ml</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Koncentrácia</PARAM_NAME>
+      <VAL>Eau de parfum</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Vhodné pre</PARAM_NAME>
+      <VAL>Dámska</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované značkou</PARAM_NAME>
+      <VAL>Dior</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované vôňou</PARAM_NAME>
+      <VAL>J&apos;adore</VAL>
+    </PARAM>
+  </SHOPITEM>
+  <SHOPITEM>
+    <ITEM_ID>doria</ITEM_ID>
+    <PRODUCTNAME>VEELYN DORIA — dupé Dior Miss Dior</PRODUCTNAME>
+    <PRODUCT>VEELYN DORIA</PRODUCT>
+    <DESCRIPTION>Dupé parfum inšpirovaný značkou Dior Miss Dior. Eau de parfum 50 ml, dámska vôňa. Tóny: mandarínka, bergamot, centifolská ruža, pivónia, mošus, drevité tóny. Slovenská značka Veelyn — luxusná vôňa za zlomok ceny originálu (160 €).</DESCRIPTION>
+    <URL>https://veelyn.sk/?vona=doria</URL>
+    <IMGURL>https://veelyn.sk/images/veelyn/doria.png</IMGURL>
+    <PRICE_VAT>24.99</PRICE_VAT>
+    <VAT>20</VAT>
+    <MANUFACTURER>Veelyn</MANUFACTURER>
+    <CATEGORYTEXT>Heureka.sk | Krása | Parfumy | Dámske parfumy</CATEGORYTEXT>
+    <DELIVERY_DATE>0</DELIVERY_DATE>
+    <DELIVERY>
+      <DELIVERY_ID>PACKETA</DELIVERY_ID>
+      <DELIVERY_PRICE>2.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>3.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <DELIVERY>
+      <DELIVERY_ID>COURIER</DELIVERY_ID>
+      <DELIVERY_PRICE>4.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>5.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <PARAM>
+      <PARAM_NAME>Objem</PARAM_NAME>
+      <VAL>50 ml</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Koncentrácia</PARAM_NAME>
+      <VAL>Eau de parfum</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Vhodné pre</PARAM_NAME>
+      <VAL>Dámska</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované značkou</PARAM_NAME>
+      <VAL>Dior</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované vôňou</PARAM_NAME>
+      <VAL>Miss Dior</VAL>
+    </PARAM>
+  </SHOPITEM>
+  <SHOPITEM>
+    <ITEM_ID>savage-queen</ITEM_ID>
+    <PRODUCTNAME>VEELYN SAVAGE QUEEN — dupé Dior Sauvage</PRODUCTNAME>
+    <PRODUCT>VEELYN SAVAGE QUEEN</PRODUCT>
+    <DESCRIPTION>Dupé parfum inšpirovaný značkou Dior Sauvage. Eau de parfum 50 ml, pánska vôňa. Tóny: bergamot, kalábrijský bergamot, sečuánske korenie, levanduľa, geránium, ambroxan, cédrové drevo, labdanum. Slovenská značka Veelyn — luxusná vôňa za zlomok ceny originálu (155 €).</DESCRIPTION>
+    <URL>https://veelyn.sk/?vona=savage-queen</URL>
+    <IMGURL>https://veelyn.sk/images/veelyn/savage-queen.png</IMGURL>
+    <PRICE_VAT>24.99</PRICE_VAT>
+    <VAT>20</VAT>
+    <MANUFACTURER>Veelyn</MANUFACTURER>
+    <CATEGORYTEXT>Heureka.sk | Krása | Parfumy | Pánske parfumy</CATEGORYTEXT>
+    <DELIVERY_DATE>0</DELIVERY_DATE>
+    <DELIVERY>
+      <DELIVERY_ID>PACKETA</DELIVERY_ID>
+      <DELIVERY_PRICE>2.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>3.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <DELIVERY>
+      <DELIVERY_ID>COURIER</DELIVERY_ID>
+      <DELIVERY_PRICE>4.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>5.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <PARAM>
+      <PARAM_NAME>Objem</PARAM_NAME>
+      <VAL>50 ml</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Koncentrácia</PARAM_NAME>
+      <VAL>Eau de parfum</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Vhodné pre</PARAM_NAME>
+      <VAL>Pánska</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované značkou</PARAM_NAME>
+      <VAL>Dior</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované vôňou</PARAM_NAME>
+      <VAL>Sauvage</VAL>
+    </PARAM>
+  </SHOPITEM>
+  <SHOPITEM>
+    <ITEM_ID>you-and-me</ITEM_ID>
+    <PRODUCTNAME>VEELYN YOU + ME — dupé Armani Stronger With You Intensely</PRODUCTNAME>
+    <PRODUCT>VEELYN YOU + ME</PRODUCT>
+    <DESCRIPTION>Dupé parfum inšpirovaný značkou Armani Stronger With You Intensely. Eau de parfum 50 ml, pánska vôňa. Tóny: kardamóm, ružové korenie, fialkové listy, šalvia, levanduľa, jazmín, vanilka, kaštanový med, tonka bôb. Slovenská značka Veelyn — luxusná vôňa za zlomok ceny originálu (130 €).</DESCRIPTION>
+    <URL>https://veelyn.sk/?vona=you-and-me</URL>
+    <IMGURL>https://veelyn.sk/images/veelyn/you-and-me.png</IMGURL>
+    <PRICE_VAT>24.99</PRICE_VAT>
+    <VAT>20</VAT>
+    <MANUFACTURER>Veelyn</MANUFACTURER>
+    <CATEGORYTEXT>Heureka.sk | Krása | Parfumy | Pánske parfumy</CATEGORYTEXT>
+    <DELIVERY_DATE>0</DELIVERY_DATE>
+    <DELIVERY>
+      <DELIVERY_ID>PACKETA</DELIVERY_ID>
+      <DELIVERY_PRICE>2.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>3.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <DELIVERY>
+      <DELIVERY_ID>COURIER</DELIVERY_ID>
+      <DELIVERY_PRICE>4.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>5.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <PARAM>
+      <PARAM_NAME>Objem</PARAM_NAME>
+      <VAL>50 ml</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Koncentrácia</PARAM_NAME>
+      <VAL>Eau de parfum</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Vhodné pre</PARAM_NAME>
+      <VAL>Pánska</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované značkou</PARAM_NAME>
+      <VAL>Armani</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované vôňou</PARAM_NAME>
+      <VAL>Stronger With You Intensely</VAL>
+    </PARAM>
+  </SHOPITEM>
+  <SHOPITEM>
+    <ITEM_ID>marine</ITEM_ID>
+    <PRODUCTNAME>VEELYN MARINE — dupé Armani Acqua di Gio Profumo</PRODUCTNAME>
+    <PRODUCT>VEELYN MARINE</PRODUCT>
+    <DESCRIPTION>Dupé parfum inšpirovaný značkou Armani Acqua di Gio Profumo. Eau de parfum 50 ml, pánska vôňa. Tóny: morská voda, bergamot, geránium, šalvia, rozmarín, kadidlo, pačuli. Slovenská značka Veelyn — luxusná vôňa za zlomok ceny originálu (130 €).</DESCRIPTION>
+    <URL>https://veelyn.sk/?vona=marine</URL>
+    <IMGURL>https://veelyn.sk/images/veelyn/marine.png</IMGURL>
+    <PRICE_VAT>24.99</PRICE_VAT>
+    <VAT>20</VAT>
+    <MANUFACTURER>Veelyn</MANUFACTURER>
+    <CATEGORYTEXT>Heureka.sk | Krása | Parfumy | Pánske parfumy</CATEGORYTEXT>
+    <DELIVERY_DATE>0</DELIVERY_DATE>
+    <DELIVERY>
+      <DELIVERY_ID>PACKETA</DELIVERY_ID>
+      <DELIVERY_PRICE>2.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>3.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <DELIVERY>
+      <DELIVERY_ID>COURIER</DELIVERY_ID>
+      <DELIVERY_PRICE>4.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>5.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <PARAM>
+      <PARAM_NAME>Objem</PARAM_NAME>
+      <VAL>50 ml</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Koncentrácia</PARAM_NAME>
+      <VAL>Eau de parfum</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Vhodné pre</PARAM_NAME>
+      <VAL>Pánska</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované značkou</PARAM_NAME>
+      <VAL>Armani</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované vôňou</PARAM_NAME>
+      <VAL>Acqua di Gio Profumo</VAL>
+    </PARAM>
+  </SHOPITEM>
+  <SHOPITEM>
+    <ITEM_ID>purple-flower</ITEM_ID>
+    <PRODUCTNAME>VEELYN PURPLE FLOWER — dupé Gucci Bloom</PRODUCTNAME>
+    <PRODUCT>VEELYN PURPLE FLOWER</PRODUCT>
+    <DESCRIPTION>Dupé parfum inšpirovaný značkou Gucci Bloom. Eau de parfum 50 ml, dámska vôňa. Tóny: jazmín, tuberóza, rangoonský popínavec, iris koreň, mošus. Slovenská značka Veelyn — luxusná vôňa za zlomok ceny originálu (145 €).</DESCRIPTION>
+    <URL>https://veelyn.sk/?vona=purple-flower</URL>
+    <IMGURL>https://veelyn.sk/images/veelyn/purple-flower.png</IMGURL>
+    <PRICE_VAT>24.99</PRICE_VAT>
+    <VAT>20</VAT>
+    <MANUFACTURER>Veelyn</MANUFACTURER>
+    <CATEGORYTEXT>Heureka.sk | Krása | Parfumy | Dámske parfumy</CATEGORYTEXT>
+    <DELIVERY_DATE>0</DELIVERY_DATE>
+    <DELIVERY>
+      <DELIVERY_ID>PACKETA</DELIVERY_ID>
+      <DELIVERY_PRICE>2.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>3.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <DELIVERY>
+      <DELIVERY_ID>COURIER</DELIVERY_ID>
+      <DELIVERY_PRICE>4.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>5.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <PARAM>
+      <PARAM_NAME>Objem</PARAM_NAME>
+      <VAL>50 ml</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Koncentrácia</PARAM_NAME>
+      <VAL>Eau de parfum</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Vhodné pre</PARAM_NAME>
+      <VAL>Dámska</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované značkou</PARAM_NAME>
+      <VAL>Gucci</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované vôňou</PARAM_NAME>
+      <VAL>Bloom</VAL>
+    </PARAM>
+  </SHOPITEM>
+  <SHOPITEM>
+    <ITEM_ID>ocean-wave</ITEM_ID>
+    <PRODUCTNAME>VEELYN OCEAN WAVE — dupé Jean Paul Gaultier Le Male</PRODUCTNAME>
+    <PRODUCT>VEELYN OCEAN WAVE</PRODUCT>
+    <DESCRIPTION>Dupé parfum inšpirovaný značkou Jean Paul Gaultier Le Male. Eau de parfum 50 ml, pánska vôňa. Tóny: mäta, levanduľa, kardamóm, kvet pomarančovníka, škorica, rasca, vanilka, tonka bôb, santal, cédrové drevo. Slovenská značka Veelyn — luxusná vôňa za zlomok ceny originálu (110 €).</DESCRIPTION>
+    <URL>https://veelyn.sk/?vona=ocean-wave</URL>
+    <IMGURL>https://veelyn.sk/images/veelyn/ocean-wave.png</IMGURL>
+    <PRICE_VAT>24.99</PRICE_VAT>
+    <VAT>20</VAT>
+    <MANUFACTURER>Veelyn</MANUFACTURER>
+    <CATEGORYTEXT>Heureka.sk | Krása | Parfumy | Pánske parfumy</CATEGORYTEXT>
+    <DELIVERY_DATE>0</DELIVERY_DATE>
+    <DELIVERY>
+      <DELIVERY_ID>PACKETA</DELIVERY_ID>
+      <DELIVERY_PRICE>2.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>3.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <DELIVERY>
+      <DELIVERY_ID>COURIER</DELIVERY_ID>
+      <DELIVERY_PRICE>4.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>5.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <PARAM>
+      <PARAM_NAME>Objem</PARAM_NAME>
+      <VAL>50 ml</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Koncentrácia</PARAM_NAME>
+      <VAL>Eau de parfum</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Vhodné pre</PARAM_NAME>
+      <VAL>Pánska</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované značkou</PARAM_NAME>
+      <VAL>Jean Paul Gaultier</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované vôňou</PARAM_NAME>
+      <VAL>Le Male</VAL>
+    </PARAM>
+  </SHOPITEM>
+  <SHOPITEM>
+    <ITEM_ID>velvet-rush</ITEM_ID>
+    <PRODUCTNAME>VEELYN VELVET RUSH — dupé Jean Paul Gaultier Ultra Male</PRODUCTNAME>
+    <PRODUCT>VEELYN VELVET RUSH</PRODUCT>
+    <DESCRIPTION>Dupé parfum inšpirovaný značkou Jean Paul Gaultier Ultra Male. Eau de parfum 50 ml, pánska vôňa. Tóny: levanduľa, hruška, čierne ríbezle, mäta, škorica, vavrín, vanilka, ambra, drevité tóny. Slovenská značka Veelyn — luxusná vôňa za zlomok ceny originálu (115 €).</DESCRIPTION>
+    <URL>https://veelyn.sk/?vona=velvet-rush</URL>
+    <IMGURL>https://veelyn.sk/images/veelyn/velvet-rush.png</IMGURL>
+    <PRICE_VAT>24.99</PRICE_VAT>
+    <VAT>20</VAT>
+    <MANUFACTURER>Veelyn</MANUFACTURER>
+    <CATEGORYTEXT>Heureka.sk | Krása | Parfumy | Pánske parfumy</CATEGORYTEXT>
+    <DELIVERY_DATE>0</DELIVERY_DATE>
+    <DELIVERY>
+      <DELIVERY_ID>PACKETA</DELIVERY_ID>
+      <DELIVERY_PRICE>2.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>3.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <DELIVERY>
+      <DELIVERY_ID>COURIER</DELIVERY_ID>
+      <DELIVERY_PRICE>4.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>5.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <PARAM>
+      <PARAM_NAME>Objem</PARAM_NAME>
+      <VAL>50 ml</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Koncentrácia</PARAM_NAME>
+      <VAL>Eau de parfum</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Vhodné pre</PARAM_NAME>
+      <VAL>Pánska</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované značkou</PARAM_NAME>
+      <VAL>Jean Paul Gaultier</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované vôňou</PARAM_NAME>
+      <VAL>Ultra Male</VAL>
+    </PARAM>
+  </SHOPITEM>
+  <SHOPITEM>
+    <ITEM_ID>tropical-island</ITEM_ID>
+    <PRODUCTNAME>VEELYN TROPICAL ISLAND — dupé Jean Paul Gaultier Paradise Gardens</PRODUCTNAME>
+    <PRODUCT>VEELYN TROPICAL ISLAND</PRODUCT>
+    <DESCRIPTION>Dupé parfum inšpirovaný značkou Jean Paul Gaultier Paradise Gardens. Eau de parfum 50 ml, pánska vôňa. Tóny: kokos, ananás, jazmín, kvet pomarančovníka, vanilka, tonka bôb, drevité tóny. Slovenská značka Veelyn — luxusná vôňa za zlomok ceny originálu (115 €).</DESCRIPTION>
+    <URL>https://veelyn.sk/?vona=tropical-island</URL>
+    <IMGURL>https://veelyn.sk/images/veelyn/tropical-island.png</IMGURL>
+    <PRICE_VAT>24.99</PRICE_VAT>
+    <VAT>20</VAT>
+    <MANUFACTURER>Veelyn</MANUFACTURER>
+    <CATEGORYTEXT>Heureka.sk | Krása | Parfumy | Pánske parfumy</CATEGORYTEXT>
+    <DELIVERY_DATE>0</DELIVERY_DATE>
+    <DELIVERY>
+      <DELIVERY_ID>PACKETA</DELIVERY_ID>
+      <DELIVERY_PRICE>2.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>3.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <DELIVERY>
+      <DELIVERY_ID>COURIER</DELIVERY_ID>
+      <DELIVERY_PRICE>4.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>5.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <PARAM>
+      <PARAM_NAME>Objem</PARAM_NAME>
+      <VAL>50 ml</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Koncentrácia</PARAM_NAME>
+      <VAL>Eau de parfum</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Vhodné pre</PARAM_NAME>
+      <VAL>Pánska</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované značkou</PARAM_NAME>
+      <VAL>Jean Paul Gaultier</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované vôňou</PARAM_NAME>
+      <VAL>Paradise Gardens</VAL>
+    </PARAM>
+  </SHOPITEM>
+  <SHOPITEM>
+    <ITEM_ID>sunset-elixir</ITEM_ID>
+    <PRODUCTNAME>VEELYN SUNSET ELIXIR — dupé Jean Paul Gaultier Le Beau</PRODUCTNAME>
+    <PRODUCT>VEELYN SUNSET ELIXIR</PRODUCT>
+    <DESCRIPTION>Dupé parfum inšpirovaný značkou Jean Paul Gaultier Le Beau. Eau de parfum 50 ml, pánska vôňa. Tóny: bergamot, kokos, tonka bôb, santal, drevité tóny. Slovenská značka Veelyn — luxusná vôňa za zlomok ceny originálu (115 €).</DESCRIPTION>
+    <URL>https://veelyn.sk/?vona=sunset-elixir</URL>
+    <IMGURL>https://veelyn.sk/images/veelyn/sunset-elixir.png</IMGURL>
+    <PRICE_VAT>24.99</PRICE_VAT>
+    <VAT>20</VAT>
+    <MANUFACTURER>Veelyn</MANUFACTURER>
+    <CATEGORYTEXT>Heureka.sk | Krása | Parfumy | Pánske parfumy</CATEGORYTEXT>
+    <DELIVERY_DATE>0</DELIVERY_DATE>
+    <DELIVERY>
+      <DELIVERY_ID>PACKETA</DELIVERY_ID>
+      <DELIVERY_PRICE>2.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>3.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <DELIVERY>
+      <DELIVERY_ID>COURIER</DELIVERY_ID>
+      <DELIVERY_PRICE>4.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>5.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <PARAM>
+      <PARAM_NAME>Objem</PARAM_NAME>
+      <VAL>50 ml</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Koncentrácia</PARAM_NAME>
+      <VAL>Eau de parfum</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Vhodné pre</PARAM_NAME>
+      <VAL>Pánska</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované značkou</PARAM_NAME>
+      <VAL>Jean Paul Gaultier</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované vôňou</PARAM_NAME>
+      <VAL>Le Beau</VAL>
+    </PARAM>
+  </SHOPITEM>
+  <SHOPITEM>
+    <ITEM_ID>power-affair</ITEM_ID>
+    <PRODUCTNAME>VEELYN POWER AFFAIR — dupé Jean Paul Gaultier Scandal Pour Homme</PRODUCTNAME>
+    <PRODUCT>VEELYN POWER AFFAIR</PRODUCT>
+    <DESCRIPTION>Dupé parfum inšpirovaný značkou Jean Paul Gaultier Scandal Pour Homme. Eau de parfum 50 ml, pánska vôňa. Tóny: mandarínka, klinčeky, vetiver, tabak, biele kvety, med, tonka bôb, karamel. Slovenská značka Veelyn — luxusná vôňa za zlomok ceny originálu (115 €).</DESCRIPTION>
+    <URL>https://veelyn.sk/?vona=power-affair</URL>
+    <IMGURL>https://veelyn.sk/images/veelyn/power-affair.png</IMGURL>
+    <PRICE_VAT>24.99</PRICE_VAT>
+    <VAT>20</VAT>
+    <MANUFACTURER>Veelyn</MANUFACTURER>
+    <CATEGORYTEXT>Heureka.sk | Krása | Parfumy | Pánske parfumy</CATEGORYTEXT>
+    <DELIVERY_DATE>0</DELIVERY_DATE>
+    <DELIVERY>
+      <DELIVERY_ID>PACKETA</DELIVERY_ID>
+      <DELIVERY_PRICE>2.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>3.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <DELIVERY>
+      <DELIVERY_ID>COURIER</DELIVERY_ID>
+      <DELIVERY_PRICE>4.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>5.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <PARAM>
+      <PARAM_NAME>Objem</PARAM_NAME>
+      <VAL>50 ml</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Koncentrácia</PARAM_NAME>
+      <VAL>Eau de parfum</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Vhodné pre</PARAM_NAME>
+      <VAL>Pánska</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované značkou</PARAM_NAME>
+      <VAL>Jean Paul Gaultier</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované vôňou</PARAM_NAME>
+      <VAL>Scandal Pour Homme</VAL>
+    </PARAM>
+  </SHOPITEM>
+  <SHOPITEM>
+    <ITEM_ID>candy-whip-81</ITEM_ID>
+    <PRODUCTNAME>VEELYN CANDY WHIP 81 — dupé Kayali Yum Boujee Marshmallow 81</PRODUCTNAME>
+    <PRODUCT>VEELYN CANDY WHIP 81</PRODUCT>
+    <DESCRIPTION>Dupé parfum inšpirovaný značkou Kayali Yum Boujee Marshmallow 81. Eau de parfum 50 ml, dámska vôňa. Tóny: marshmallow, vanilka, mliečne tóny, šľahačka, mošus, karamel. Slovenská značka Veelyn — luxusná vôňa za zlomok ceny originálu (145 €).</DESCRIPTION>
+    <URL>https://veelyn.sk/?vona=candy-whip-81</URL>
+    <IMGURL>https://veelyn.sk/images/veelyn/candy-whip-81.png</IMGURL>
+    <PRICE_VAT>24.99</PRICE_VAT>
+    <VAT>20</VAT>
+    <MANUFACTURER>Veelyn</MANUFACTURER>
+    <CATEGORYTEXT>Heureka.sk | Krása | Parfumy | Dámske parfumy</CATEGORYTEXT>
+    <DELIVERY_DATE>0</DELIVERY_DATE>
+    <DELIVERY>
+      <DELIVERY_ID>PACKETA</DELIVERY_ID>
+      <DELIVERY_PRICE>2.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>3.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <DELIVERY>
+      <DELIVERY_ID>COURIER</DELIVERY_ID>
+      <DELIVERY_PRICE>4.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>5.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <PARAM>
+      <PARAM_NAME>Objem</PARAM_NAME>
+      <VAL>50 ml</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Koncentrácia</PARAM_NAME>
+      <VAL>Eau de parfum</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Vhodné pre</PARAM_NAME>
+      <VAL>Dámska</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované značkou</PARAM_NAME>
+      <VAL>Kayali</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované vôňou</PARAM_NAME>
+      <VAL>Yum Boujee Marshmallow 81</VAL>
+    </PARAM>
+  </SHOPITEM>
+  <SHOPITEM>
+    <ITEM_ID>vanilla-supreme-64</ITEM_ID>
+    <PRODUCTNAME>VEELYN VANILLA SUPREME 64 — dupé Kayali Vanilla Royale Sugared Patchouli 64</PRODUCTNAME>
+    <PRODUCT>VEELYN VANILLA SUPREME 64</PRODUCT>
+    <DESCRIPTION>Dupé parfum inšpirovaný značkou Kayali Vanilla Royale Sugared Patchouli 64. Eau de parfum 50 ml, dámska vôňa. Tóny: vanilka, ambra, pačuli, cukor, mošus. Slovenská značka Veelyn — luxusná vôňa za zlomok ceny originálu (145 €).</DESCRIPTION>
+    <URL>https://veelyn.sk/?vona=vanilla-supreme-64</URL>
+    <IMGURL>https://veelyn.sk/images/veelyn/vanilla-supreme-64.png</IMGURL>
+    <PRICE_VAT>24.99</PRICE_VAT>
+    <VAT>20</VAT>
+    <MANUFACTURER>Veelyn</MANUFACTURER>
+    <CATEGORYTEXT>Heureka.sk | Krása | Parfumy | Dámske parfumy</CATEGORYTEXT>
+    <DELIVERY_DATE>0</DELIVERY_DATE>
+    <DELIVERY>
+      <DELIVERY_ID>PACKETA</DELIVERY_ID>
+      <DELIVERY_PRICE>2.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>3.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <DELIVERY>
+      <DELIVERY_ID>COURIER</DELIVERY_ID>
+      <DELIVERY_PRICE>4.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>5.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <PARAM>
+      <PARAM_NAME>Objem</PARAM_NAME>
+      <VAL>50 ml</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Koncentrácia</PARAM_NAME>
+      <VAL>Eau de parfum</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Vhodné pre</PARAM_NAME>
+      <VAL>Dámska</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované značkou</PARAM_NAME>
+      <VAL>Kayali</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované vôňou</PARAM_NAME>
+      <VAL>Vanilla Royale Sugared Patchouli 64</VAL>
+    </PARAM>
+  </SHOPITEM>
+  <SHOPITEM>
+    <ITEM_ID>dubai-dream-33</ITEM_ID>
+    <PRODUCTNAME>VEELYN DUBAI DREAM 33 — dupé Kayali Yum Pistachio Gelato 33</PRODUCTNAME>
+    <PRODUCT>VEELYN DUBAI DREAM 33</PRODUCT>
+    <DESCRIPTION>Dupé parfum inšpirovaný značkou Kayali Yum Pistachio Gelato 33. Eau de parfum 50 ml, dámska vôňa. Tóny: pistácie, mandle, vanilka, smotana, santal, mošus. Slovenská značka Veelyn — luxusná vôňa za zlomok ceny originálu (145 €).</DESCRIPTION>
+    <URL>https://veelyn.sk/?vona=dubai-dream-33</URL>
+    <IMGURL>https://veelyn.sk/images/veelyn/dubai-dream-33.png</IMGURL>
+    <PRICE_VAT>24.99</PRICE_VAT>
+    <VAT>20</VAT>
+    <MANUFACTURER>Veelyn</MANUFACTURER>
+    <CATEGORYTEXT>Heureka.sk | Krása | Parfumy | Dámske parfumy</CATEGORYTEXT>
+    <DELIVERY_DATE>0</DELIVERY_DATE>
+    <DELIVERY>
+      <DELIVERY_ID>PACKETA</DELIVERY_ID>
+      <DELIVERY_PRICE>2.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>3.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <DELIVERY>
+      <DELIVERY_ID>COURIER</DELIVERY_ID>
+      <DELIVERY_PRICE>4.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>5.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <PARAM>
+      <PARAM_NAME>Objem</PARAM_NAME>
+      <VAL>50 ml</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Koncentrácia</PARAM_NAME>
+      <VAL>Eau de parfum</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Vhodné pre</PARAM_NAME>
+      <VAL>Dámska</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované značkou</PARAM_NAME>
+      <VAL>Kayali</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované vôňou</PARAM_NAME>
+      <VAL>Yum Pistachio Gelato 33</VAL>
+    </PARAM>
+  </SHOPITEM>
+  <SHOPITEM>
+    <ITEM_ID>illa-van-28</ITEM_ID>
+    <PRODUCTNAME>VEELYN ILLA VAN 28 — dupé Kayali Vanilla 28</PRODUCTNAME>
+    <PRODUCT>VEELYN ILLA VAN 28</PRODUCT>
+    <DESCRIPTION>Dupé parfum inšpirovaný značkou Kayali Vanilla 28. Eau de parfum 50 ml, dámska vôňa. Tóny: brandy, vanilka, jazmín, amyris drevo, mošus, tonka bôb. Slovenská značka Veelyn — luxusná vôňa za zlomok ceny originálu (140 €).</DESCRIPTION>
+    <URL>https://veelyn.sk/?vona=illa-van-28</URL>
+    <IMGURL>https://veelyn.sk/images/veelyn/illa-van-28.png</IMGURL>
+    <PRICE_VAT>24.99</PRICE_VAT>
+    <VAT>20</VAT>
+    <MANUFACTURER>Veelyn</MANUFACTURER>
+    <CATEGORYTEXT>Heureka.sk | Krása | Parfumy | Dámske parfumy</CATEGORYTEXT>
+    <DELIVERY_DATE>0</DELIVERY_DATE>
+    <DELIVERY>
+      <DELIVERY_ID>PACKETA</DELIVERY_ID>
+      <DELIVERY_PRICE>2.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>3.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <DELIVERY>
+      <DELIVERY_ID>COURIER</DELIVERY_ID>
+      <DELIVERY_PRICE>4.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>5.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <PARAM>
+      <PARAM_NAME>Objem</PARAM_NAME>
+      <VAL>50 ml</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Koncentrácia</PARAM_NAME>
+      <VAL>Eau de parfum</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Vhodné pre</PARAM_NAME>
+      <VAL>Dámska</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované značkou</PARAM_NAME>
+      <VAL>Kayali</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované vôňou</PARAM_NAME>
+      <VAL>Vanilla 28</VAL>
+    </PARAM>
+  </SHOPITEM>
+  <SHOPITEM>
+    <ITEM_ID>apple-bliss-01</ITEM_ID>
+    <PRODUCTNAME>VEELYN APPLE BLISS 01 — dupé Kayali Eden Juicy Apple 01</PRODUCTNAME>
+    <PRODUCT>VEELYN APPLE BLISS 01</PRODUCT>
+    <DESCRIPTION>Dupé parfum inšpirovaný značkou Kayali Eden Juicy Apple 01. Eau de parfum 50 ml, dámska vôňa. Tóny: červené jablko, ríbezle, jazmín, fialka, mošus, ambra. Slovenská značka Veelyn — luxusná vôňa za zlomok ceny originálu (145 €).</DESCRIPTION>
+    <URL>https://veelyn.sk/?vona=apple-bliss-01</URL>
+    <IMGURL>https://veelyn.sk/images/veelyn/apple-bliss-01.png</IMGURL>
+    <PRICE_VAT>24.99</PRICE_VAT>
+    <VAT>20</VAT>
+    <MANUFACTURER>Veelyn</MANUFACTURER>
+    <CATEGORYTEXT>Heureka.sk | Krása | Parfumy | Dámske parfumy</CATEGORYTEXT>
+    <DELIVERY_DATE>0</DELIVERY_DATE>
+    <DELIVERY>
+      <DELIVERY_ID>PACKETA</DELIVERY_ID>
+      <DELIVERY_PRICE>2.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>3.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <DELIVERY>
+      <DELIVERY_ID>COURIER</DELIVERY_ID>
+      <DELIVERY_PRICE>4.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>5.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <PARAM>
+      <PARAM_NAME>Objem</PARAM_NAME>
+      <VAL>50 ml</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Koncentrácia</PARAM_NAME>
+      <VAL>Eau de parfum</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Vhodné pre</PARAM_NAME>
+      <VAL>Dámska</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované značkou</PARAM_NAME>
+      <VAL>Kayali</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované vôňou</PARAM_NAME>
+      <VAL>Eden Juicy Apple 01</VAL>
+    </PARAM>
+  </SHOPITEM>
+  <SHOPITEM>
+    <ITEM_ID>burning-desire-48</ITEM_ID>
+    <PRODUCTNAME>VEELYN BURNING DESIRE 48 — dupé Kayali Lovefest Burning Cherry 48</PRODUCTNAME>
+    <PRODUCT>VEELYN BURNING DESIRE 48</PRODUCT>
+    <DESCRIPTION>Dupé parfum inšpirovaný značkou Kayali Lovefest Burning Cherry 48. Eau de parfum 50 ml, dámska vôňa. Tóny: čerešňa, rum, ruža, tabak, benzoín, mošus. Slovenská značka Veelyn — luxusná vôňa za zlomok ceny originálu (145 €).</DESCRIPTION>
+    <URL>https://veelyn.sk/?vona=burning-desire-48</URL>
+    <IMGURL>https://veelyn.sk/images/veelyn/burning-desire-48.png</IMGURL>
+    <PRICE_VAT>24.99</PRICE_VAT>
+    <VAT>20</VAT>
+    <MANUFACTURER>Veelyn</MANUFACTURER>
+    <CATEGORYTEXT>Heureka.sk | Krása | Parfumy | Dámske parfumy</CATEGORYTEXT>
+    <DELIVERY_DATE>0</DELIVERY_DATE>
+    <DELIVERY>
+      <DELIVERY_ID>PACKETA</DELIVERY_ID>
+      <DELIVERY_PRICE>2.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>3.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <DELIVERY>
+      <DELIVERY_ID>COURIER</DELIVERY_ID>
+      <DELIVERY_PRICE>4.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>5.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <PARAM>
+      <PARAM_NAME>Objem</PARAM_NAME>
+      <VAL>50 ml</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Koncentrácia</PARAM_NAME>
+      <VAL>Eau de parfum</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Vhodné pre</PARAM_NAME>
+      <VAL>Dámska</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované značkou</PARAM_NAME>
+      <VAL>Kayali</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované vôňou</PARAM_NAME>
+      <VAL>Lovefest Burning Cherry 48</VAL>
+    </PARAM>
+  </SHOPITEM>
+  <SHOPITEM>
+    <ITEM_ID>coco-dream-21</ITEM_ID>
+    <PRODUCTNAME>VEELYN COCO DREAM 21 — dupé Kayali Utopia Vanilla Coco 21</PRODUCTNAME>
+    <PRODUCT>VEELYN COCO DREAM 21</PRODUCT>
+    <DESCRIPTION>Dupé parfum inšpirovaný značkou Kayali Utopia Vanilla Coco 21. Eau de parfum 50 ml, dámska vôňa. Tóny: kokos, vanilka, frangipani, tuberóza, mošus, ambra. Slovenská značka Veelyn — luxusná vôňa za zlomok ceny originálu (145 €).</DESCRIPTION>
+    <URL>https://veelyn.sk/?vona=coco-dream-21</URL>
+    <IMGURL>https://veelyn.sk/images/veelyn/coco-dream-21.png</IMGURL>
+    <PRICE_VAT>24.99</PRICE_VAT>
+    <VAT>20</VAT>
+    <MANUFACTURER>Veelyn</MANUFACTURER>
+    <CATEGORYTEXT>Heureka.sk | Krása | Parfumy | Dámske parfumy</CATEGORYTEXT>
+    <DELIVERY_DATE>0</DELIVERY_DATE>
+    <DELIVERY>
+      <DELIVERY_ID>PACKETA</DELIVERY_ID>
+      <DELIVERY_PRICE>2.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>3.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <DELIVERY>
+      <DELIVERY_ID>COURIER</DELIVERY_ID>
+      <DELIVERY_PRICE>4.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>5.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <PARAM>
+      <PARAM_NAME>Objem</PARAM_NAME>
+      <VAL>50 ml</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Koncentrácia</PARAM_NAME>
+      <VAL>Eau de parfum</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Vhodné pre</PARAM_NAME>
+      <VAL>Dámska</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované značkou</PARAM_NAME>
+      <VAL>Kayali</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované vôňou</PARAM_NAME>
+      <VAL>Utopia Vanilla Coco 21</VAL>
+    </PARAM>
+  </SHOPITEM>
+  <SHOPITEM>
+    <ITEM_ID>imagine-this</ITEM_ID>
+    <PRODUCTNAME>VEELYN IMAGINE THIS — dupé Louis Vuitton Imagination</PRODUCTNAME>
+    <PRODUCT>VEELYN IMAGINE THIS</PRODUCT>
+    <DESCRIPTION>Dupé parfum inšpirovaný značkou Louis Vuitton Imagination. Eau de parfum 50 ml, unisex vôňa. Tóny: mandarínka, bergamot, čierny čaj, kadidlo, santal, ambra. Slovenská značka Veelyn — luxusná vôňa za zlomok ceny originálu (380 €).</DESCRIPTION>
+    <URL>https://veelyn.sk/?vona=imagine-this</URL>
+    <IMGURL>https://veelyn.sk/images/veelyn/imagine-this.png</IMGURL>
+    <PRICE_VAT>24.99</PRICE_VAT>
+    <VAT>20</VAT>
+    <MANUFACTURER>Veelyn</MANUFACTURER>
+    <CATEGORYTEXT>Heureka.sk | Krása | Parfumy | Unisex parfumy</CATEGORYTEXT>
+    <DELIVERY_DATE>0</DELIVERY_DATE>
+    <DELIVERY>
+      <DELIVERY_ID>PACKETA</DELIVERY_ID>
+      <DELIVERY_PRICE>2.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>3.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <DELIVERY>
+      <DELIVERY_ID>COURIER</DELIVERY_ID>
+      <DELIVERY_PRICE>4.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>5.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <PARAM>
+      <PARAM_NAME>Objem</PARAM_NAME>
+      <VAL>50 ml</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Koncentrácia</PARAM_NAME>
+      <VAL>Eau de parfum</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Vhodné pre</PARAM_NAME>
+      <VAL>Unisex</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované značkou</PARAM_NAME>
+      <VAL>Louis Vuitton</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované vôňou</PARAM_NAME>
+      <VAL>Imagination</VAL>
+    </PARAM>
+  </SHOPITEM>
+  <SHOPITEM>
+    <ITEM_ID>harmony</ITEM_ID>
+    <PRODUCTNAME>VEELYN HARMONY — dupé Louis Vuitton Symphony</PRODUCTNAME>
+    <PRODUCT>VEELYN HARMONY</PRODUCT>
+    <DESCRIPTION>Dupé parfum inšpirovaný značkou Louis Vuitton Symphony. Eau de parfum 50 ml, unisex vôňa. Tóny: bergamot, ruža, jazmín, irisz, pačuli, santal. Slovenská značka Veelyn — luxusná vôňa za zlomok ceny originálu (400 €).</DESCRIPTION>
+    <URL>https://veelyn.sk/?vona=harmony</URL>
+    <IMGURL>https://veelyn.sk/images/veelyn/harmony.png</IMGURL>
+    <PRICE_VAT>24.99</PRICE_VAT>
+    <VAT>20</VAT>
+    <MANUFACTURER>Veelyn</MANUFACTURER>
+    <CATEGORYTEXT>Heureka.sk | Krása | Parfumy | Unisex parfumy</CATEGORYTEXT>
+    <DELIVERY_DATE>0</DELIVERY_DATE>
+    <DELIVERY>
+      <DELIVERY_ID>PACKETA</DELIVERY_ID>
+      <DELIVERY_PRICE>2.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>3.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <DELIVERY>
+      <DELIVERY_ID>COURIER</DELIVERY_ID>
+      <DELIVERY_PRICE>4.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>5.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <PARAM>
+      <PARAM_NAME>Objem</PARAM_NAME>
+      <VAL>50 ml</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Koncentrácia</PARAM_NAME>
+      <VAL>Eau de parfum</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Vhodné pre</PARAM_NAME>
+      <VAL>Unisex</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované značkou</PARAM_NAME>
+      <VAL>Louis Vuitton</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované vôňou</PARAM_NAME>
+      <VAL>Symphony</VAL>
+    </PARAM>
+  </SHOPITEM>
+  <SHOPITEM>
+    <ITEM_ID>the-horizon</ITEM_ID>
+    <PRODUCTNAME>VEELYN THE HORIZON — dupé Louis Vuitton Pacific Chill</PRODUCTNAME>
+    <PRODUCT>VEELYN THE HORIZON</PRODUCT>
+    <DESCRIPTION>Dupé parfum inšpirovaný značkou Louis Vuitton Pacific Chill. Eau de parfum 50 ml, unisex vôňa. Tóny: citrusy, mäta, šalvia, zázvor, cédrové drevo, mošus. Slovenská značka Veelyn — luxusná vôňa za zlomok ceny originálu (380 €).</DESCRIPTION>
+    <URL>https://veelyn.sk/?vona=the-horizon</URL>
+    <IMGURL>https://veelyn.sk/images/veelyn/the-horizon.png</IMGURL>
+    <PRICE_VAT>24.99</PRICE_VAT>
+    <VAT>20</VAT>
+    <MANUFACTURER>Veelyn</MANUFACTURER>
+    <CATEGORYTEXT>Heureka.sk | Krása | Parfumy | Unisex parfumy</CATEGORYTEXT>
+    <DELIVERY_DATE>0</DELIVERY_DATE>
+    <DELIVERY>
+      <DELIVERY_ID>PACKETA</DELIVERY_ID>
+      <DELIVERY_PRICE>2.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>3.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <DELIVERY>
+      <DELIVERY_ID>COURIER</DELIVERY_ID>
+      <DELIVERY_PRICE>4.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>5.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <PARAM>
+      <PARAM_NAME>Objem</PARAM_NAME>
+      <VAL>50 ml</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Koncentrácia</PARAM_NAME>
+      <VAL>Eau de parfum</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Vhodné pre</PARAM_NAME>
+      <VAL>Unisex</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované značkou</PARAM_NAME>
+      <VAL>Louis Vuitton</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované vôňou</PARAM_NAME>
+      <VAL>Pacific Chill</VAL>
+    </PARAM>
+  </SHOPITEM>
+  <SHOPITEM>
+    <ITEM_ID>deep-dive</ITEM_ID>
+    <PRODUCTNAME>VEELYN DEEP DIVE — dupé Louis Vuitton Afternoon Swim</PRODUCTNAME>
+    <PRODUCT>VEELYN DEEP DIVE</PRODUCT>
+    <DESCRIPTION>Dupé parfum inšpirovaný značkou Louis Vuitton Afternoon Swim. Eau de parfum 50 ml, unisex vôňa. Tóny: pomaranč, limetka, mandarínka, bergamot, petitgrain, santal, mošus. Slovenská značka Veelyn — luxusná vôňa za zlomok ceny originálu (380 €).</DESCRIPTION>
+    <URL>https://veelyn.sk/?vona=deep-dive</URL>
+    <IMGURL>https://veelyn.sk/images/veelyn/deep-dive.png</IMGURL>
+    <PRICE_VAT>24.99</PRICE_VAT>
+    <VAT>20</VAT>
+    <MANUFACTURER>Veelyn</MANUFACTURER>
+    <CATEGORYTEXT>Heureka.sk | Krása | Parfumy | Unisex parfumy</CATEGORYTEXT>
+    <DELIVERY_DATE>0</DELIVERY_DATE>
+    <DELIVERY>
+      <DELIVERY_ID>PACKETA</DELIVERY_ID>
+      <DELIVERY_PRICE>2.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>3.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <DELIVERY>
+      <DELIVERY_ID>COURIER</DELIVERY_ID>
+      <DELIVERY_PRICE>4.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>5.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <PARAM>
+      <PARAM_NAME>Objem</PARAM_NAME>
+      <VAL>50 ml</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Koncentrácia</PARAM_NAME>
+      <VAL>Eau de parfum</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Vhodné pre</PARAM_NAME>
+      <VAL>Unisex</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované značkou</PARAM_NAME>
+      <VAL>Louis Vuitton</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované vôňou</PARAM_NAME>
+      <VAL>Afternoon Swim</VAL>
+    </PARAM>
+  </SHOPITEM>
+  <SHOPITEM>
+    <ITEM_ID>desert-storm</ITEM_ID>
+    <PRODUCTNAME>VEELYN DESERT STORM — dupé Louis Vuitton Ombre Nomade</PRODUCTNAME>
+    <PRODUCT>VEELYN DESERT STORM</PRODUCT>
+    <DESCRIPTION>Dupé parfum inšpirovaný značkou Louis Vuitton Ombre Nomade. Eau de parfum 50 ml, unisex vôňa. Tóny: maliny, ruža, oud, kadidlo, benzoín, labdanum, ambra. Slovenská značka Veelyn — luxusná vôňa za zlomok ceny originálu (400 €).</DESCRIPTION>
+    <URL>https://veelyn.sk/?vona=desert-storm</URL>
+    <IMGURL>https://veelyn.sk/images/veelyn/desert-storm.png</IMGURL>
+    <PRICE_VAT>24.99</PRICE_VAT>
+    <VAT>20</VAT>
+    <MANUFACTURER>Veelyn</MANUFACTURER>
+    <CATEGORYTEXT>Heureka.sk | Krása | Parfumy | Unisex parfumy</CATEGORYTEXT>
+    <DELIVERY_DATE>0</DELIVERY_DATE>
+    <DELIVERY>
+      <DELIVERY_ID>PACKETA</DELIVERY_ID>
+      <DELIVERY_PRICE>2.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>3.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <DELIVERY>
+      <DELIVERY_ID>COURIER</DELIVERY_ID>
+      <DELIVERY_PRICE>4.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>5.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <PARAM>
+      <PARAM_NAME>Objem</PARAM_NAME>
+      <VAL>50 ml</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Koncentrácia</PARAM_NAME>
+      <VAL>Eau de parfum</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Vhodné pre</PARAM_NAME>
+      <VAL>Unisex</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované značkou</PARAM_NAME>
+      <VAL>Louis Vuitton</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované vôňou</PARAM_NAME>
+      <VAL>Ombre Nomade</VAL>
+    </PARAM>
+  </SHOPITEM>
+  <SHOPITEM>
+    <ITEM_ID>sun-coast</ITEM_ID>
+    <PRODUCTNAME>VEELYN SUN COAST — dupé Louis Vuitton On The Beach</PRODUCTNAME>
+    <PRODUCT>VEELYN SUN COAST</PRODUCT>
+    <DESCRIPTION>Dupé parfum inšpirovaný značkou Louis Vuitton On The Beach. Eau de parfum 50 ml, unisex vôňa. Tóny: bergamot, neroli, pomarančový kvet, santal, biely mošus. Slovenská značka Veelyn — luxusná vôňa za zlomok ceny originálu (380 €).</DESCRIPTION>
+    <URL>https://veelyn.sk/?vona=sun-coast</URL>
+    <IMGURL>https://veelyn.sk/images/veelyn/sun-coast.png</IMGURL>
+    <PRICE_VAT>24.99</PRICE_VAT>
+    <VAT>20</VAT>
+    <MANUFACTURER>Veelyn</MANUFACTURER>
+    <CATEGORYTEXT>Heureka.sk | Krása | Parfumy | Unisex parfumy</CATEGORYTEXT>
+    <DELIVERY_DATE>0</DELIVERY_DATE>
+    <DELIVERY>
+      <DELIVERY_ID>PACKETA</DELIVERY_ID>
+      <DELIVERY_PRICE>2.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>3.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <DELIVERY>
+      <DELIVERY_ID>COURIER</DELIVERY_ID>
+      <DELIVERY_PRICE>4.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>5.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <PARAM>
+      <PARAM_NAME>Objem</PARAM_NAME>
+      <VAL>50 ml</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Koncentrácia</PARAM_NAME>
+      <VAL>Eau de parfum</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Vhodné pre</PARAM_NAME>
+      <VAL>Unisex</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované značkou</PARAM_NAME>
+      <VAL>Louis Vuitton</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované vôňou</PARAM_NAME>
+      <VAL>On The Beach</VAL>
+    </PARAM>
+  </SHOPITEM>
+  <SHOPITEM>
+    <ITEM_ID>dream-big</ITEM_ID>
+    <PRODUCTNAME>VEELYN DREAM BIG — dupé Louis Vuitton California Dream</PRODUCTNAME>
+    <PRODUCT>VEELYN DREAM BIG</PRODUCT>
+    <DESCRIPTION>Dupé parfum inšpirovaný značkou Louis Vuitton California Dream. Eau de parfum 50 ml, unisex vôňa. Tóny: mandarínka, bergamot, citrón, kvety pomarančovníka, mošus, ambra. Slovenská značka Veelyn — luxusná vôňa za zlomok ceny originálu (380 €).</DESCRIPTION>
+    <URL>https://veelyn.sk/?vona=dream-big</URL>
+    <IMGURL>https://veelyn.sk/images/veelyn/dream-big.png</IMGURL>
+    <PRICE_VAT>24.99</PRICE_VAT>
+    <VAT>20</VAT>
+    <MANUFACTURER>Veelyn</MANUFACTURER>
+    <CATEGORYTEXT>Heureka.sk | Krása | Parfumy | Unisex parfumy</CATEGORYTEXT>
+    <DELIVERY_DATE>0</DELIVERY_DATE>
+    <DELIVERY>
+      <DELIVERY_ID>PACKETA</DELIVERY_ID>
+      <DELIVERY_PRICE>2.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>3.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <DELIVERY>
+      <DELIVERY_ID>COURIER</DELIVERY_ID>
+      <DELIVERY_PRICE>4.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>5.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <PARAM>
+      <PARAM_NAME>Objem</PARAM_NAME>
+      <VAL>50 ml</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Koncentrácia</PARAM_NAME>
+      <VAL>Eau de parfum</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Vhodné pre</PARAM_NAME>
+      <VAL>Unisex</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované značkou</PARAM_NAME>
+      <VAL>Louis Vuitton</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované vôňou</PARAM_NAME>
+      <VAL>California Dream</VAL>
+    </PARAM>
+  </SHOPITEM>
+  <SHOPITEM>
+    <ITEM_ID>limitless</ITEM_ID>
+    <PRODUCTNAME>VEELYN LIMITLESS — dupé Louis Vuitton L&apos;Immensité</PRODUCTNAME>
+    <PRODUCT>VEELYN LIMITLESS</PRODUCT>
+    <DESCRIPTION>Dupé parfum inšpirovaný značkou Louis Vuitton L&apos;Immensité. Eau de parfum 50 ml, pánska vôňa. Tóny: grapefruit, zázvor, rozmarín, škorica, ambra, drevité tóny. Slovenská značka Veelyn — luxusná vôňa za zlomok ceny originálu (380 €).</DESCRIPTION>
+    <URL>https://veelyn.sk/?vona=limitless</URL>
+    <IMGURL>https://veelyn.sk/images/veelyn/limitless.png</IMGURL>
+    <PRICE_VAT>24.99</PRICE_VAT>
+    <VAT>20</VAT>
+    <MANUFACTURER>Veelyn</MANUFACTURER>
+    <CATEGORYTEXT>Heureka.sk | Krása | Parfumy | Pánske parfumy</CATEGORYTEXT>
+    <DELIVERY_DATE>0</DELIVERY_DATE>
+    <DELIVERY>
+      <DELIVERY_ID>PACKETA</DELIVERY_ID>
+      <DELIVERY_PRICE>2.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>3.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <DELIVERY>
+      <DELIVERY_ID>COURIER</DELIVERY_ID>
+      <DELIVERY_PRICE>4.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>5.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <PARAM>
+      <PARAM_NAME>Objem</PARAM_NAME>
+      <VAL>50 ml</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Koncentrácia</PARAM_NAME>
+      <VAL>Eau de parfum</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Vhodné pre</PARAM_NAME>
+      <VAL>Pánska</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované značkou</PARAM_NAME>
+      <VAL>Louis Vuitton</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované vôňou</PARAM_NAME>
+      <VAL>L&apos;Immensité</VAL>
+    </PARAM>
+  </SHOPITEM>
+  <SHOPITEM>
+    <ITEM_ID>cosmic-flame</ITEM_ID>
+    <PRODUCTNAME>VEELYN COSMIC FLAME — dupé Louis Vuitton Météore</PRODUCTNAME>
+    <PRODUCT>VEELYN COSMIC FLAME</PRODUCT>
+    <DESCRIPTION>Dupé parfum inšpirovaný značkou Louis Vuitton Météore. Eau de parfum 50 ml, pánska vôňa. Tóny: bergamot, mandarínka, neroli, čierne korenie, muškátový oriešok, kardamóm, vetiver, santal. Slovenská značka Veelyn — luxusná vôňa za zlomok ceny originálu (380 €).</DESCRIPTION>
+    <URL>https://veelyn.sk/?vona=cosmic-flame</URL>
+    <IMGURL>https://veelyn.sk/images/veelyn/cosmic-flame.png</IMGURL>
+    <PRICE_VAT>24.99</PRICE_VAT>
+    <VAT>20</VAT>
+    <MANUFACTURER>Veelyn</MANUFACTURER>
+    <CATEGORYTEXT>Heureka.sk | Krása | Parfumy | Pánske parfumy</CATEGORYTEXT>
+    <DELIVERY_DATE>0</DELIVERY_DATE>
+    <DELIVERY>
+      <DELIVERY_ID>PACKETA</DELIVERY_ID>
+      <DELIVERY_PRICE>2.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>3.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <DELIVERY>
+      <DELIVERY_ID>COURIER</DELIVERY_ID>
+      <DELIVERY_PRICE>4.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>5.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <PARAM>
+      <PARAM_NAME>Objem</PARAM_NAME>
+      <VAL>50 ml</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Koncentrácia</PARAM_NAME>
+      <VAL>Eau de parfum</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Vhodné pre</PARAM_NAME>
+      <VAL>Pánska</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované značkou</PARAM_NAME>
+      <VAL>Louis Vuitton</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované vôňou</PARAM_NAME>
+      <VAL>Météore</VAL>
+    </PARAM>
+  </SHOPITEM>
+  <SHOPITEM>
+    <ITEM_ID>midnight-wish</ITEM_ID>
+    <PRODUCTNAME>VEELYN MIDNIGHT WISH — dupé Louis Vuitton Attrape-Rêves</PRODUCTNAME>
+    <PRODUCT>VEELYN MIDNIGHT WISH</PRODUCT>
+    <DESCRIPTION>Dupé parfum inšpirovaný značkou Louis Vuitton Attrape-Rêves. Eau de parfum 50 ml, dámska vôňa. Tóny: červené ovocie, broskyňa, jazmín, magnólia, pačuli, ambra. Slovenská značka Veelyn — luxusná vôňa za zlomok ceny originálu (380 €).</DESCRIPTION>
+    <URL>https://veelyn.sk/?vona=midnight-wish</URL>
+    <IMGURL>https://veelyn.sk/images/veelyn/midnight-wish.png</IMGURL>
+    <PRICE_VAT>24.99</PRICE_VAT>
+    <VAT>20</VAT>
+    <MANUFACTURER>Veelyn</MANUFACTURER>
+    <CATEGORYTEXT>Heureka.sk | Krása | Parfumy | Dámske parfumy</CATEGORYTEXT>
+    <DELIVERY_DATE>0</DELIVERY_DATE>
+    <DELIVERY>
+      <DELIVERY_ID>PACKETA</DELIVERY_ID>
+      <DELIVERY_PRICE>2.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>3.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <DELIVERY>
+      <DELIVERY_ID>COURIER</DELIVERY_ID>
+      <DELIVERY_PRICE>4.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>5.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <PARAM>
+      <PARAM_NAME>Objem</PARAM_NAME>
+      <VAL>50 ml</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Koncentrácia</PARAM_NAME>
+      <VAL>Eau de parfum</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Vhodné pre</PARAM_NAME>
+      <VAL>Dámska</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované značkou</PARAM_NAME>
+      <VAL>Louis Vuitton</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované vôňou</PARAM_NAME>
+      <VAL>Attrape-Rêves</VAL>
+    </PARAM>
+  </SHOPITEM>
+  <SHOPITEM>
+    <ITEM_ID>moulin-rouge</ITEM_ID>
+    <PRODUCTNAME>VEELYN MOULIN ROUGE — dupé Maison Francis Kurkdjian Baccarat Rouge 540</PRODUCTNAME>
+    <PRODUCT>VEELYN MOULIN ROUGE</PRODUCT>
+    <DESCRIPTION>Dupé parfum inšpirovaný značkou Maison Francis Kurkdjian Baccarat Rouge 540. Eau de parfum 50 ml, unisex vôňa. Tóny: šafrán, jazmín, ambra drevitá, cédrové drevo, fir balzam, mošus. Slovenská značka Veelyn — luxusná vôňa za zlomok ceny originálu (350 €).</DESCRIPTION>
+    <URL>https://veelyn.sk/?vona=moulin-rouge</URL>
+    <IMGURL>https://veelyn.sk/images/veelyn/moulin-rouge.png</IMGURL>
+    <PRICE_VAT>24.99</PRICE_VAT>
+    <VAT>20</VAT>
+    <MANUFACTURER>Veelyn</MANUFACTURER>
+    <CATEGORYTEXT>Heureka.sk | Krása | Parfumy | Unisex parfumy</CATEGORYTEXT>
+    <DELIVERY_DATE>0</DELIVERY_DATE>
+    <DELIVERY>
+      <DELIVERY_ID>PACKETA</DELIVERY_ID>
+      <DELIVERY_PRICE>2.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>3.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <DELIVERY>
+      <DELIVERY_ID>COURIER</DELIVERY_ID>
+      <DELIVERY_PRICE>4.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>5.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <PARAM>
+      <PARAM_NAME>Objem</PARAM_NAME>
+      <VAL>50 ml</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Koncentrácia</PARAM_NAME>
+      <VAL>Eau de parfum</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Vhodné pre</PARAM_NAME>
+      <VAL>Unisex</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované značkou</PARAM_NAME>
+      <VAL>Maison Francis Kurkdjian</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované vôňou</PARAM_NAME>
+      <VAL>Baccarat Rouge 540</VAL>
+    </PARAM>
+  </SHOPITEM>
+  <SHOPITEM>
+    <ITEM_ID>evening-elixir</ITEM_ID>
+    <PRODUCTNAME>VEELYN EVENING ELIXIR — dupé Maison Francis Kurkdjian Grand Soir</PRODUCTNAME>
+    <PRODUCT>VEELYN EVENING ELIXIR</PRODUCT>
+    <DESCRIPTION>Dupé parfum inšpirovaný značkou Maison Francis Kurkdjian Grand Soir. Eau de parfum 50 ml, unisex vôňa. Tóny: benzoín, vanilka, levanduľa, tonka bôb, ambra, labdanum. Slovenská značka Veelyn — luxusná vôňa za zlomok ceny originálu (320 €).</DESCRIPTION>
+    <URL>https://veelyn.sk/?vona=evening-elixir</URL>
+    <IMGURL>https://veelyn.sk/images/veelyn/evening-elixir.png</IMGURL>
+    <PRICE_VAT>24.99</PRICE_VAT>
+    <VAT>20</VAT>
+    <MANUFACTURER>Veelyn</MANUFACTURER>
+    <CATEGORYTEXT>Heureka.sk | Krása | Parfumy | Unisex parfumy</CATEGORYTEXT>
+    <DELIVERY_DATE>0</DELIVERY_DATE>
+    <DELIVERY>
+      <DELIVERY_ID>PACKETA</DELIVERY_ID>
+      <DELIVERY_PRICE>2.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>3.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <DELIVERY>
+      <DELIVERY_ID>COURIER</DELIVERY_ID>
+      <DELIVERY_PRICE>4.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>5.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <PARAM>
+      <PARAM_NAME>Objem</PARAM_NAME>
+      <VAL>50 ml</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Koncentrácia</PARAM_NAME>
+      <VAL>Eau de parfum</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Vhodné pre</PARAM_NAME>
+      <VAL>Unisex</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované značkou</PARAM_NAME>
+      <VAL>Maison Francis Kurkdjian</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované vôňou</PARAM_NAME>
+      <VAL>Grand Soir</VAL>
+    </PARAM>
+  </SHOPITEM>
+  <SHOPITEM>
+    <ITEM_ID>satin</ITEM_ID>
+    <PRODUCTNAME>VEELYN SATIN — dupé Maison Francis Kurkdjian Oud Satin Mood</PRODUCTNAME>
+    <PRODUCT>VEELYN SATIN</PRODUCT>
+    <DESCRIPTION>Dupé parfum inšpirovaný značkou Maison Francis Kurkdjian Oud Satin Mood. Eau de parfum 50 ml, unisex vôňa. Tóny: fialka, ruža, oud, vanilka, benzoín, ambra. Slovenská značka Veelyn — luxusná vôňa za zlomok ceny originálu (320 €).</DESCRIPTION>
+    <URL>https://veelyn.sk/?vona=satin</URL>
+    <IMGURL>https://veelyn.sk/images/veelyn/satin.png</IMGURL>
+    <PRICE_VAT>24.99</PRICE_VAT>
+    <VAT>20</VAT>
+    <MANUFACTURER>Veelyn</MANUFACTURER>
+    <CATEGORYTEXT>Heureka.sk | Krása | Parfumy | Unisex parfumy</CATEGORYTEXT>
+    <DELIVERY_DATE>0</DELIVERY_DATE>
+    <DELIVERY>
+      <DELIVERY_ID>PACKETA</DELIVERY_ID>
+      <DELIVERY_PRICE>2.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>3.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <DELIVERY>
+      <DELIVERY_ID>COURIER</DELIVERY_ID>
+      <DELIVERY_PRICE>4.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>5.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <PARAM>
+      <PARAM_NAME>Objem</PARAM_NAME>
+      <VAL>50 ml</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Koncentrácia</PARAM_NAME>
+      <VAL>Eau de parfum</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Vhodné pre</PARAM_NAME>
+      <VAL>Unisex</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované značkou</PARAM_NAME>
+      <VAL>Maison Francis Kurkdjian</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované vôňou</PARAM_NAME>
+      <VAL>Oud Satin Mood</VAL>
+    </PARAM>
+  </SHOPITEM>
+  <SHOPITEM>
+    <ITEM_ID>liquid-gold</ITEM_ID>
+    <PRODUCTNAME>VEELYN LIQUID GOLD — dupé Paco Rabanne 1 Million</PRODUCTNAME>
+    <PRODUCT>VEELYN LIQUID GOLD</PRODUCT>
+    <DESCRIPTION>Dupé parfum inšpirovaný značkou Paco Rabanne 1 Million. Eau de parfum 50 ml, pánska vôňa. Tóny: grapefruit, mäta, škorica, ruža, ambra, koža, drevité tóny. Slovenská značka Veelyn — luxusná vôňa za zlomok ceny originálu (105 €).</DESCRIPTION>
+    <URL>https://veelyn.sk/?vona=liquid-gold</URL>
+    <IMGURL>https://veelyn.sk/images/veelyn/liquid-gold.png</IMGURL>
+    <PRICE_VAT>24.99</PRICE_VAT>
+    <VAT>20</VAT>
+    <MANUFACTURER>Veelyn</MANUFACTURER>
+    <CATEGORYTEXT>Heureka.sk | Krása | Parfumy | Pánske parfumy</CATEGORYTEXT>
+    <DELIVERY_DATE>0</DELIVERY_DATE>
+    <DELIVERY>
+      <DELIVERY_ID>PACKETA</DELIVERY_ID>
+      <DELIVERY_PRICE>2.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>3.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <DELIVERY>
+      <DELIVERY_ID>COURIER</DELIVERY_ID>
+      <DELIVERY_PRICE>4.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>5.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <PARAM>
+      <PARAM_NAME>Objem</PARAM_NAME>
+      <VAL>50 ml</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Koncentrácia</PARAM_NAME>
+      <VAL>Eau de parfum</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Vhodné pre</PARAM_NAME>
+      <VAL>Pánska</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované značkou</PARAM_NAME>
+      <VAL>Paco Rabanne</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované vôňou</PARAM_NAME>
+      <VAL>1 Million</VAL>
+    </PARAM>
+  </SHOPITEM>
+  <SHOPITEM>
+    <ITEM_ID>dark-tobacco</ITEM_ID>
+    <PRODUCTNAME>VEELYN DARK TOBACCO — dupé Parfums de Marly Herod</PRODUCTNAME>
+    <PRODUCT>VEELYN DARK TOBACCO</PRODUCT>
+    <DESCRIPTION>Dupé parfum inšpirovaný značkou Parfums de Marly Herod. Eau de parfum 50 ml, pánska vôňa. Tóny: čierne korenie, kassia, škorica, tabakový list, vanilka, cédrové drevo, labdanum. Slovenská značka Veelyn — luxusná vôňa za zlomok ceny originálu (290 €).</DESCRIPTION>
+    <URL>https://veelyn.sk/?vona=dark-tobacco</URL>
+    <IMGURL>https://veelyn.sk/images/veelyn/dark-tobacco.png</IMGURL>
+    <PRICE_VAT>24.99</PRICE_VAT>
+    <VAT>20</VAT>
+    <MANUFACTURER>Veelyn</MANUFACTURER>
+    <CATEGORYTEXT>Heureka.sk | Krása | Parfumy | Pánske parfumy</CATEGORYTEXT>
+    <DELIVERY_DATE>0</DELIVERY_DATE>
+    <DELIVERY>
+      <DELIVERY_ID>PACKETA</DELIVERY_ID>
+      <DELIVERY_PRICE>2.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>3.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <DELIVERY>
+      <DELIVERY_ID>COURIER</DELIVERY_ID>
+      <DELIVERY_PRICE>4.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>5.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <PARAM>
+      <PARAM_NAME>Objem</PARAM_NAME>
+      <VAL>50 ml</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Koncentrácia</PARAM_NAME>
+      <VAL>Eau de parfum</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Vhodné pre</PARAM_NAME>
+      <VAL>Pánska</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované značkou</PARAM_NAME>
+      <VAL>Parfums de Marly</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované vôňou</PARAM_NAME>
+      <VAL>Herod</VAL>
+    </PARAM>
+  </SHOPITEM>
+  <SHOPITEM>
+    <ITEM_ID>trojan-horse</ITEM_ID>
+    <PRODUCTNAME>VEELYN TROJAN HORSE — dupé Parfums de Marly Pegasus</PRODUCTNAME>
+    <PRODUCT>VEELYN TROJAN HORSE</PRODUCT>
+    <DESCRIPTION>Dupé parfum inšpirovaný značkou Parfums de Marly Pegasus. Eau de parfum 50 ml, pánska vôňa. Tóny: bergamot, horké mandle, heliotropium, jazmín, vanilka, santal. Slovenská značka Veelyn — luxusná vôňa za zlomok ceny originálu (290 €).</DESCRIPTION>
+    <URL>https://veelyn.sk/?vona=trojan-horse</URL>
+    <IMGURL>https://veelyn.sk/images/veelyn/trojan-horse.png</IMGURL>
+    <PRICE_VAT>24.99</PRICE_VAT>
+    <VAT>20</VAT>
+    <MANUFACTURER>Veelyn</MANUFACTURER>
+    <CATEGORYTEXT>Heureka.sk | Krása | Parfumy | Pánske parfumy</CATEGORYTEXT>
+    <DELIVERY_DATE>0</DELIVERY_DATE>
+    <DELIVERY>
+      <DELIVERY_ID>PACKETA</DELIVERY_ID>
+      <DELIVERY_PRICE>2.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>3.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <DELIVERY>
+      <DELIVERY_ID>COURIER</DELIVERY_ID>
+      <DELIVERY_PRICE>4.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>5.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <PARAM>
+      <PARAM_NAME>Objem</PARAM_NAME>
+      <VAL>50 ml</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Koncentrácia</PARAM_NAME>
+      <VAL>Eau de parfum</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Vhodné pre</PARAM_NAME>
+      <VAL>Pánska</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované značkou</PARAM_NAME>
+      <VAL>Parfums de Marly</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované vôňou</PARAM_NAME>
+      <VAL>Pegasus</VAL>
+    </PARAM>
+  </SHOPITEM>
+  <SHOPITEM>
+    <ITEM_ID>blaze</ITEM_ID>
+    <PRODUCTNAME>VEELYN BLAZE — dupé Parfums de Marly Althaïr</PRODUCTNAME>
+    <PRODUCT>VEELYN BLAZE</PRODUCT>
+    <DESCRIPTION>Dupé parfum inšpirovaný značkou Parfums de Marly Althaïr. Eau de parfum 50 ml, pánska vôňa. Tóny: mandle, kardamóm, vanilka, tonka bôb, ambra, santal. Slovenská značka Veelyn — luxusná vôňa za zlomok ceny originálu (290 €).</DESCRIPTION>
+    <URL>https://veelyn.sk/?vona=blaze</URL>
+    <IMGURL>https://veelyn.sk/images/veelyn/blaze.png</IMGURL>
+    <PRICE_VAT>24.99</PRICE_VAT>
+    <VAT>20</VAT>
+    <MANUFACTURER>Veelyn</MANUFACTURER>
+    <CATEGORYTEXT>Heureka.sk | Krása | Parfumy | Pánske parfumy</CATEGORYTEXT>
+    <DELIVERY_DATE>0</DELIVERY_DATE>
+    <DELIVERY>
+      <DELIVERY_ID>PACKETA</DELIVERY_ID>
+      <DELIVERY_PRICE>2.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>3.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <DELIVERY>
+      <DELIVERY_ID>COURIER</DELIVERY_ID>
+      <DELIVERY_PRICE>4.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>5.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <PARAM>
+      <PARAM_NAME>Objem</PARAM_NAME>
+      <VAL>50 ml</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Koncentrácia</PARAM_NAME>
+      <VAL>Eau de parfum</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Vhodné pre</PARAM_NAME>
+      <VAL>Pánska</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované značkou</PARAM_NAME>
+      <VAL>Parfums de Marly</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované vôňou</PARAM_NAME>
+      <VAL>Althaïr</VAL>
+    </PARAM>
+  </SHOPITEM>
+  <SHOPITEM>
+    <ITEM_ID>pink-desire</ITEM_ID>
+    <PRODUCTNAME>VEELYN PINK DESIRE — dupé Parfums de Marly Delina</PRODUCTNAME>
+    <PRODUCT>VEELYN PINK DESIRE</PRODUCT>
+    <DESCRIPTION>Dupé parfum inšpirovaný značkou Parfums de Marly Delina. Eau de parfum 50 ml, dámska vôňa. Tóny: litchi, rebarbora, bergamot, turecká ruža, pivónia, cédrové drevo, mošus, vanilka. Slovenská značka Veelyn — luxusná vôňa za zlomok ceny originálu (290 €).</DESCRIPTION>
+    <URL>https://veelyn.sk/?vona=pink-desire</URL>
+    <IMGURL>https://veelyn.sk/images/veelyn/pink-desire.png</IMGURL>
+    <PRICE_VAT>24.99</PRICE_VAT>
+    <VAT>20</VAT>
+    <MANUFACTURER>Veelyn</MANUFACTURER>
+    <CATEGORYTEXT>Heureka.sk | Krása | Parfumy | Dámske parfumy</CATEGORYTEXT>
+    <DELIVERY_DATE>0</DELIVERY_DATE>
+    <DELIVERY>
+      <DELIVERY_ID>PACKETA</DELIVERY_ID>
+      <DELIVERY_PRICE>2.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>3.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <DELIVERY>
+      <DELIVERY_ID>COURIER</DELIVERY_ID>
+      <DELIVERY_PRICE>4.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>5.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <PARAM>
+      <PARAM_NAME>Objem</PARAM_NAME>
+      <VAL>50 ml</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Koncentrácia</PARAM_NAME>
+      <VAL>Eau de parfum</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Vhodné pre</PARAM_NAME>
+      <VAL>Dámska</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované značkou</PARAM_NAME>
+      <VAL>Parfums de Marly</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované vôňou</PARAM_NAME>
+      <VAL>Delina</VAL>
+    </PARAM>
+  </SHOPITEM>
+  <SHOPITEM>
+    <ITEM_ID>pure-green</ITEM_ID>
+    <PRODUCTNAME>VEELYN PURE GREEN — dupé Parfums de Marly Greenley</PRODUCTNAME>
+    <PRODUCT>VEELYN PURE GREEN</PRODUCT>
+    <DESCRIPTION>Dupé parfum inšpirovaný značkou Parfums de Marly Greenley. Eau de parfum 50 ml, pánska vôňa. Tóny: bergamot, limetka, ananás, vetiver, geránium, pačuli, vanilka. Slovenská značka Veelyn — luxusná vôňa za zlomok ceny originálu (290 €).</DESCRIPTION>
+    <URL>https://veelyn.sk/?vona=pure-green</URL>
+    <IMGURL>https://veelyn.sk/images/veelyn/pure-green.png</IMGURL>
+    <PRICE_VAT>24.99</PRICE_VAT>
+    <VAT>20</VAT>
+    <MANUFACTURER>Veelyn</MANUFACTURER>
+    <CATEGORYTEXT>Heureka.sk | Krása | Parfumy | Pánske parfumy</CATEGORYTEXT>
+    <DELIVERY_DATE>0</DELIVERY_DATE>
+    <DELIVERY>
+      <DELIVERY_ID>PACKETA</DELIVERY_ID>
+      <DELIVERY_PRICE>2.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>3.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <DELIVERY>
+      <DELIVERY_ID>COURIER</DELIVERY_ID>
+      <DELIVERY_PRICE>4.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>5.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <PARAM>
+      <PARAM_NAME>Objem</PARAM_NAME>
+      <VAL>50 ml</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Koncentrácia</PARAM_NAME>
+      <VAL>Eau de parfum</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Vhodné pre</PARAM_NAME>
+      <VAL>Pánska</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované značkou</PARAM_NAME>
+      <VAL>Parfums de Marly</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované vôňou</PARAM_NAME>
+      <VAL>Greenley</VAL>
+    </PARAM>
+  </SHOPITEM>
+  <SHOPITEM>
+    <ITEM_ID>blue-motion</ITEM_ID>
+    <PRODUCTNAME>VEELYN BLUE MOTION — dupé Parfums de Marly Sedley</PRODUCTNAME>
+    <PRODUCT>VEELYN BLUE MOTION</PRODUCT>
+    <DESCRIPTION>Dupé parfum inšpirovaný značkou Parfums de Marly Sedley. Eau de parfum 50 ml, pánska vôňa. Tóny: mäta, bergamot, broskyňa, levanduľa, fialka, mošus, drevité tóny. Slovenská značka Veelyn — luxusná vôňa za zlomok ceny originálu (290 €).</DESCRIPTION>
+    <URL>https://veelyn.sk/?vona=blue-motion</URL>
+    <IMGURL>https://veelyn.sk/images/veelyn/blue-motion.png</IMGURL>
+    <PRICE_VAT>24.99</PRICE_VAT>
+    <VAT>20</VAT>
+    <MANUFACTURER>Veelyn</MANUFACTURER>
+    <CATEGORYTEXT>Heureka.sk | Krása | Parfumy | Pánske parfumy</CATEGORYTEXT>
+    <DELIVERY_DATE>0</DELIVERY_DATE>
+    <DELIVERY>
+      <DELIVERY_ID>PACKETA</DELIVERY_ID>
+      <DELIVERY_PRICE>2.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>3.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <DELIVERY>
+      <DELIVERY_ID>COURIER</DELIVERY_ID>
+      <DELIVERY_PRICE>4.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>5.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <PARAM>
+      <PARAM_NAME>Objem</PARAM_NAME>
+      <VAL>50 ml</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Koncentrácia</PARAM_NAME>
+      <VAL>Eau de parfum</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Vhodné pre</PARAM_NAME>
+      <VAL>Pánska</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované značkou</PARAM_NAME>
+      <VAL>Parfums de Marly</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované vôňou</PARAM_NAME>
+      <VAL>Sedley</VAL>
+    </PARAM>
+  </SHOPITEM>
+  <SHOPITEM>
+    <ITEM_ID>spice</ITEM_ID>
+    <PRODUCTNAME>VEELYN SPICE — dupé Parfums de Marly Layton</PRODUCTNAME>
+    <PRODUCT>VEELYN SPICE</PRODUCT>
+    <DESCRIPTION>Dupé parfum inšpirovaný značkou Parfums de Marly Layton. Eau de parfum 50 ml, pánska vôňa. Tóny: jablko, kardamóm, muškátový oriešok, geránium, levanduľa, jazmín, vanilka, santal, vetiver. Slovenská značka Veelyn — luxusná vôňa za zlomok ceny originálu (290 €).</DESCRIPTION>
+    <URL>https://veelyn.sk/?vona=spice</URL>
+    <IMGURL>https://veelyn.sk/images/veelyn/spice.png</IMGURL>
+    <PRICE_VAT>24.99</PRICE_VAT>
+    <VAT>20</VAT>
+    <MANUFACTURER>Veelyn</MANUFACTURER>
+    <CATEGORYTEXT>Heureka.sk | Krása | Parfumy | Pánske parfumy</CATEGORYTEXT>
+    <DELIVERY_DATE>0</DELIVERY_DATE>
+    <DELIVERY>
+      <DELIVERY_ID>PACKETA</DELIVERY_ID>
+      <DELIVERY_PRICE>2.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>3.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <DELIVERY>
+      <DELIVERY_ID>COURIER</DELIVERY_ID>
+      <DELIVERY_PRICE>4.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>5.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <PARAM>
+      <PARAM_NAME>Objem</PARAM_NAME>
+      <VAL>50 ml</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Koncentrácia</PARAM_NAME>
+      <VAL>Eau de parfum</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Vhodné pre</PARAM_NAME>
+      <VAL>Pánska</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované značkou</PARAM_NAME>
+      <VAL>Parfums de Marly</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované vôňou</PARAM_NAME>
+      <VAL>Layton</VAL>
+    </PARAM>
+  </SHOPITEM>
+  <SHOPITEM>
+    <ITEM_ID>mystery</ITEM_ID>
+    <PRODUCTNAME>VEELYN MYSTERY — dupé Prada Paradoxe</PRODUCTNAME>
+    <PRODUCT>VEELYN MYSTERY</PRODUCT>
+    <DESCRIPTION>Dupé parfum inšpirovaný značkou Prada Paradoxe. Eau de parfum 50 ml, dámska vôňa. Tóny: bergamot, neroli, jazmín, biely mošus, ambra. Slovenská značka Veelyn — luxusná vôňa za zlomok ceny originálu (145 €).</DESCRIPTION>
+    <URL>https://veelyn.sk/?vona=mystery</URL>
+    <IMGURL>https://veelyn.sk/images/veelyn/mystery.png</IMGURL>
+    <PRICE_VAT>24.99</PRICE_VAT>
+    <VAT>20</VAT>
+    <MANUFACTURER>Veelyn</MANUFACTURER>
+    <CATEGORYTEXT>Heureka.sk | Krása | Parfumy | Dámske parfumy</CATEGORYTEXT>
+    <DELIVERY_DATE>0</DELIVERY_DATE>
+    <DELIVERY>
+      <DELIVERY_ID>PACKETA</DELIVERY_ID>
+      <DELIVERY_PRICE>2.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>3.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <DELIVERY>
+      <DELIVERY_ID>COURIER</DELIVERY_ID>
+      <DELIVERY_PRICE>4.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>5.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <PARAM>
+      <PARAM_NAME>Objem</PARAM_NAME>
+      <VAL>50 ml</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Koncentrácia</PARAM_NAME>
+      <VAL>Eau de parfum</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Vhodné pre</PARAM_NAME>
+      <VAL>Dámska</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované značkou</PARAM_NAME>
+      <VAL>Prada</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované vôňou</PARAM_NAME>
+      <VAL>Paradoxe</VAL>
+    </PARAM>
+  </SHOPITEM>
+  <SHOPITEM>
+    <ITEM_ID>noble-wood</ITEM_ID>
+    <PRODUCTNAME>VEELYN NOBLE WOOD — dupé Tom Ford Oud Wood</PRODUCTNAME>
+    <PRODUCT>VEELYN NOBLE WOOD</PRODUCT>
+    <DESCRIPTION>Dupé parfum inšpirovaný značkou Tom Ford Oud Wood. Eau de parfum 50 ml, unisex vôňa. Tóny: oud, ružové drevo, kardamóm, sečuánske korenie, santal, vanilka, ambra. Slovenská značka Veelyn — luxusná vôňa za zlomok ceny originálu (320 €).</DESCRIPTION>
+    <URL>https://veelyn.sk/?vona=noble-wood</URL>
+    <IMGURL>https://veelyn.sk/images/veelyn/noble-wood.png</IMGURL>
+    <PRICE_VAT>24.99</PRICE_VAT>
+    <VAT>20</VAT>
+    <MANUFACTURER>Veelyn</MANUFACTURER>
+    <CATEGORYTEXT>Heureka.sk | Krása | Parfumy | Unisex parfumy</CATEGORYTEXT>
+    <DELIVERY_DATE>0</DELIVERY_DATE>
+    <DELIVERY>
+      <DELIVERY_ID>PACKETA</DELIVERY_ID>
+      <DELIVERY_PRICE>2.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>3.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <DELIVERY>
+      <DELIVERY_ID>COURIER</DELIVERY_ID>
+      <DELIVERY_PRICE>4.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>5.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <PARAM>
+      <PARAM_NAME>Objem</PARAM_NAME>
+      <VAL>50 ml</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Koncentrácia</PARAM_NAME>
+      <VAL>Eau de parfum</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Vhodné pre</PARAM_NAME>
+      <VAL>Unisex</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované značkou</PARAM_NAME>
+      <VAL>Tom Ford</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované vôňou</PARAM_NAME>
+      <VAL>Oud Wood</VAL>
+    </PARAM>
+  </SHOPITEM>
+  <SHOPITEM>
+    <ITEM_ID>cherry-pulse</ITEM_ID>
+    <PRODUCTNAME>VEELYN CHERRY PULSE — dupé Tom Ford Electric Cherry</PRODUCTNAME>
+    <PRODUCT>VEELYN CHERRY PULSE</PRODUCT>
+    <DESCRIPTION>Dupé parfum inšpirovaný značkou Tom Ford Electric Cherry. Eau de parfum 50 ml, unisex vôňa. Tóny: čerešňa, ríbezle, sliva, ruža, pačuli, vanilka. Slovenská značka Veelyn — luxusná vôňa za zlomok ceny originálu (280 €).</DESCRIPTION>
+    <URL>https://veelyn.sk/?vona=cherry-pulse</URL>
+    <IMGURL>https://veelyn.sk/images/veelyn/cherry-pulse.png</IMGURL>
+    <PRICE_VAT>24.99</PRICE_VAT>
+    <VAT>20</VAT>
+    <MANUFACTURER>Veelyn</MANUFACTURER>
+    <CATEGORYTEXT>Heureka.sk | Krása | Parfumy | Unisex parfumy</CATEGORYTEXT>
+    <DELIVERY_DATE>0</DELIVERY_DATE>
+    <DELIVERY>
+      <DELIVERY_ID>PACKETA</DELIVERY_ID>
+      <DELIVERY_PRICE>2.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>3.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <DELIVERY>
+      <DELIVERY_ID>COURIER</DELIVERY_ID>
+      <DELIVERY_PRICE>4.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>5.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <PARAM>
+      <PARAM_NAME>Objem</PARAM_NAME>
+      <VAL>50 ml</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Koncentrácia</PARAM_NAME>
+      <VAL>Eau de parfum</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Vhodné pre</PARAM_NAME>
+      <VAL>Unisex</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované značkou</PARAM_NAME>
+      <VAL>Tom Ford</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované vôňou</PARAM_NAME>
+      <VAL>Electric Cherry</VAL>
+    </PARAM>
+  </SHOPITEM>
+  <SHOPITEM>
+    <ITEM_ID>just-leather</ITEM_ID>
+    <PRODUCTNAME>VEELYN JUST LEATHER — dupé Tom Ford Ombré Leather</PRODUCTNAME>
+    <PRODUCT>VEELYN JUST LEATHER</PRODUCT>
+    <DESCRIPTION>Dupé parfum inšpirovaný značkou Tom Ford Ombré Leather. Eau de parfum 50 ml, unisex vôňa. Tóny: kardamóm, ružové korenie, koža, jazmín, pačuli, ambra, mošus. Slovenská značka Veelyn — luxusná vôňa za zlomok ceny originálu (220 €).</DESCRIPTION>
+    <URL>https://veelyn.sk/?vona=just-leather</URL>
+    <IMGURL>https://veelyn.sk/images/veelyn/just-leather.png</IMGURL>
+    <PRICE_VAT>24.99</PRICE_VAT>
+    <VAT>20</VAT>
+    <MANUFACTURER>Veelyn</MANUFACTURER>
+    <CATEGORYTEXT>Heureka.sk | Krása | Parfumy | Unisex parfumy</CATEGORYTEXT>
+    <DELIVERY_DATE>0</DELIVERY_DATE>
+    <DELIVERY>
+      <DELIVERY_ID>PACKETA</DELIVERY_ID>
+      <DELIVERY_PRICE>2.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>3.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <DELIVERY>
+      <DELIVERY_ID>COURIER</DELIVERY_ID>
+      <DELIVERY_PRICE>4.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>5.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <PARAM>
+      <PARAM_NAME>Objem</PARAM_NAME>
+      <VAL>50 ml</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Koncentrácia</PARAM_NAME>
+      <VAL>Eau de parfum</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Vhodné pre</PARAM_NAME>
+      <VAL>Unisex</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované značkou</PARAM_NAME>
+      <VAL>Tom Ford</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované vôňou</PARAM_NAME>
+      <VAL>Ombré Leather</VAL>
+    </PARAM>
+  </SHOPITEM>
+  <SHOPITEM>
+    <ITEM_ID>absolute</ITEM_ID>
+    <PRODUCTNAME>VEELYN ABSOLUTE — dupé Tom Ford Fucking Fabulous</PRODUCTNAME>
+    <PRODUCT>VEELYN ABSOLUTE</PRODUCT>
+    <DESCRIPTION>Dupé parfum inšpirovaný značkou Tom Ford Fucking Fabulous. Eau de parfum 50 ml, unisex vôňa. Tóny: mandle, klary šalvia, levanduľa, irisz, tonka bôb, koža, vanilka, drevité tóny. Slovenská značka Veelyn — luxusná vôňa za zlomok ceny originálu (380 €).</DESCRIPTION>
+    <URL>https://veelyn.sk/?vona=absolute</URL>
+    <IMGURL>https://veelyn.sk/images/veelyn/absolute.png</IMGURL>
+    <PRICE_VAT>24.99</PRICE_VAT>
+    <VAT>20</VAT>
+    <MANUFACTURER>Veelyn</MANUFACTURER>
+    <CATEGORYTEXT>Heureka.sk | Krása | Parfumy | Unisex parfumy</CATEGORYTEXT>
+    <DELIVERY_DATE>0</DELIVERY_DATE>
+    <DELIVERY>
+      <DELIVERY_ID>PACKETA</DELIVERY_ID>
+      <DELIVERY_PRICE>2.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>3.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <DELIVERY>
+      <DELIVERY_ID>COURIER</DELIVERY_ID>
+      <DELIVERY_PRICE>4.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>5.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <PARAM>
+      <PARAM_NAME>Objem</PARAM_NAME>
+      <VAL>50 ml</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Koncentrácia</PARAM_NAME>
+      <VAL>Eau de parfum</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Vhodné pre</PARAM_NAME>
+      <VAL>Unisex</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované značkou</PARAM_NAME>
+      <VAL>Tom Ford</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované vôňou</PARAM_NAME>
+      <VAL>Fucking Fabulous</VAL>
+    </PARAM>
+  </SHOPITEM>
+  <SHOPITEM>
+    <ITEM_ID>forbidden-cherries</ITEM_ID>
+    <PRODUCTNAME>VEELYN FORBIDDEN CHERRIES — dupé Tom Ford Lost Cherry</PRODUCTNAME>
+    <PRODUCT>VEELYN FORBIDDEN CHERRIES</PRODUCT>
+    <DESCRIPTION>Dupé parfum inšpirovaný značkou Tom Ford Lost Cherry. Eau de parfum 50 ml, unisex vôňa. Tóny: čerešňa, horké mandle, likér, ruža, jazmín, turecký gríf, pačuli, santal, tonka bôb, vanilka. Slovenská značka Veelyn — luxusná vôňa za zlomok ceny originálu (380 €).</DESCRIPTION>
+    <URL>https://veelyn.sk/?vona=forbidden-cherries</URL>
+    <IMGURL>https://veelyn.sk/images/veelyn/forbidden-cherries.png</IMGURL>
+    <PRICE_VAT>24.99</PRICE_VAT>
+    <VAT>20</VAT>
+    <MANUFACTURER>Veelyn</MANUFACTURER>
+    <CATEGORYTEXT>Heureka.sk | Krása | Parfumy | Unisex parfumy</CATEGORYTEXT>
+    <DELIVERY_DATE>0</DELIVERY_DATE>
+    <DELIVERY>
+      <DELIVERY_ID>PACKETA</DELIVERY_ID>
+      <DELIVERY_PRICE>2.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>3.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <DELIVERY>
+      <DELIVERY_ID>COURIER</DELIVERY_ID>
+      <DELIVERY_PRICE>4.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>5.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <PARAM>
+      <PARAM_NAME>Objem</PARAM_NAME>
+      <VAL>50 ml</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Koncentrácia</PARAM_NAME>
+      <VAL>Eau de parfum</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Vhodné pre</PARAM_NAME>
+      <VAL>Unisex</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované značkou</PARAM_NAME>
+      <VAL>Tom Ford</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované vôňou</PARAM_NAME>
+      <VAL>Lost Cherry</VAL>
+    </PARAM>
+  </SHOPITEM>
+  <SHOPITEM>
+    <ITEM_ID>sweet-cig</ITEM_ID>
+    <PRODUCTNAME>VEELYN SWEET CIG — dupé Tom Ford Tobacco Vanille</PRODUCTNAME>
+    <PRODUCT>VEELYN SWEET CIG</PRODUCT>
+    <DESCRIPTION>Dupé parfum inšpirovaný značkou Tom Ford Tobacco Vanille. Eau de parfum 50 ml, unisex vôňa. Tóny: tabakový list, korenie, vanilka, kakao, tonka bôb, sušené ovocie, drevité tóny. Slovenská značka Veelyn — luxusná vôňa za zlomok ceny originálu (320 €).</DESCRIPTION>
+    <URL>https://veelyn.sk/?vona=sweet-cig</URL>
+    <IMGURL>https://veelyn.sk/images/veelyn/sweet-cig.png</IMGURL>
+    <PRICE_VAT>24.99</PRICE_VAT>
+    <VAT>20</VAT>
+    <MANUFACTURER>Veelyn</MANUFACTURER>
+    <CATEGORYTEXT>Heureka.sk | Krása | Parfumy | Unisex parfumy</CATEGORYTEXT>
+    <DELIVERY_DATE>0</DELIVERY_DATE>
+    <DELIVERY>
+      <DELIVERY_ID>PACKETA</DELIVERY_ID>
+      <DELIVERY_PRICE>2.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>3.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <DELIVERY>
+      <DELIVERY_ID>COURIER</DELIVERY_ID>
+      <DELIVERY_PRICE>4.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>5.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <PARAM>
+      <PARAM_NAME>Objem</PARAM_NAME>
+      <VAL>50 ml</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Koncentrácia</PARAM_NAME>
+      <VAL>Eau de parfum</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Vhodné pre</PARAM_NAME>
+      <VAL>Unisex</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované značkou</PARAM_NAME>
+      <VAL>Tom Ford</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované vôňou</PARAM_NAME>
+      <VAL>Tobacco Vanille</VAL>
+    </PARAM>
+  </SHOPITEM>
+  <SHOPITEM>
+    <ITEM_ID>dark-flower</ITEM_ID>
+    <PRODUCTNAME>VEELYN DARK FLOWER — dupé Tom Ford Black Orchid</PRODUCTNAME>
+    <PRODUCT>VEELYN DARK FLOWER</PRODUCT>
+    <DESCRIPTION>Dupé parfum inšpirovaný značkou Tom Ford Black Orchid. Eau de parfum 50 ml, unisex vôňa. Tóny: čierna ríbezľa, ylang-ylang, bergamot, čierna orchidea, jazmín, korenie, pačuli, vanilka, santal, tmavá čokoláda. Slovenská značka Veelyn — luxusná vôňa za zlomok ceny originálu (220 €).</DESCRIPTION>
+    <URL>https://veelyn.sk/?vona=dark-flower</URL>
+    <IMGURL>https://veelyn.sk/images/veelyn/dark-flower.png</IMGURL>
+    <PRICE_VAT>24.99</PRICE_VAT>
+    <VAT>20</VAT>
+    <MANUFACTURER>Veelyn</MANUFACTURER>
+    <CATEGORYTEXT>Heureka.sk | Krása | Parfumy | Unisex parfumy</CATEGORYTEXT>
+    <DELIVERY_DATE>0</DELIVERY_DATE>
+    <DELIVERY>
+      <DELIVERY_ID>PACKETA</DELIVERY_ID>
+      <DELIVERY_PRICE>2.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>3.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <DELIVERY>
+      <DELIVERY_ID>COURIER</DELIVERY_ID>
+      <DELIVERY_PRICE>4.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>5.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <PARAM>
+      <PARAM_NAME>Objem</PARAM_NAME>
+      <VAL>50 ml</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Koncentrácia</PARAM_NAME>
+      <VAL>Eau de parfum</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Vhodné pre</PARAM_NAME>
+      <VAL>Unisex</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované značkou</PARAM_NAME>
+      <VAL>Tom Ford</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované vôňou</PARAM_NAME>
+      <VAL>Black Orchid</VAL>
+    </PARAM>
+  </SHOPITEM>
+  <SHOPITEM>
+    <ITEM_ID>oud-fire</ITEM_ID>
+    <PRODUCTNAME>VEELYN OUD FIRE — dupé Tom Ford Tobacco Oud</PRODUCTNAME>
+    <PRODUCT>VEELYN OUD FIRE</PRODUCT>
+    <DESCRIPTION>Dupé parfum inšpirovaný značkou Tom Ford Tobacco Oud. Eau de parfum 50 ml, unisex vôňa. Tóny: korenie, tabak, oud, kadidlo, santal, ambra. Slovenská značka Veelyn — luxusná vôňa za zlomok ceny originálu (320 €).</DESCRIPTION>
+    <URL>https://veelyn.sk/?vona=oud-fire</URL>
+    <IMGURL>https://veelyn.sk/images/veelyn/oud-fire.png</IMGURL>
+    <PRICE_VAT>24.99</PRICE_VAT>
+    <VAT>20</VAT>
+    <MANUFACTURER>Veelyn</MANUFACTURER>
+    <CATEGORYTEXT>Heureka.sk | Krása | Parfumy | Unisex parfumy</CATEGORYTEXT>
+    <DELIVERY_DATE>0</DELIVERY_DATE>
+    <DELIVERY>
+      <DELIVERY_ID>PACKETA</DELIVERY_ID>
+      <DELIVERY_PRICE>2.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>3.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <DELIVERY>
+      <DELIVERY_ID>COURIER</DELIVERY_ID>
+      <DELIVERY_PRICE>4.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>5.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <PARAM>
+      <PARAM_NAME>Objem</PARAM_NAME>
+      <VAL>50 ml</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Koncentrácia</PARAM_NAME>
+      <VAL>Eau de parfum</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Vhodné pre</PARAM_NAME>
+      <VAL>Unisex</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované značkou</PARAM_NAME>
+      <VAL>Tom Ford</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované vôňou</PARAM_NAME>
+      <VAL>Tobacco Oud</VAL>
+    </PARAM>
+  </SHOPITEM>
+  <SHOPITEM>
+    <ITEM_ID>saint-rome</ITEM_ID>
+    <PRODUCTNAME>VEELYN SAINT ROME — dupé Valentino Donna Born In Roma</PRODUCTNAME>
+    <PRODUCT>VEELYN SAINT ROME</PRODUCT>
+    <DESCRIPTION>Dupé parfum inšpirovaný značkou Valentino Donna Born In Roma. Eau de parfum 50 ml, dámska vôňa. Tóny: bergamot, ružové korenie, jazmín, vanilka, cédrové drevo, mošus. Slovenská značka Veelyn — luxusná vôňa za zlomok ceny originálu (140 €).</DESCRIPTION>
+    <URL>https://veelyn.sk/?vona=saint-rome</URL>
+    <IMGURL>https://veelyn.sk/images/veelyn/saint-rome.png</IMGURL>
+    <PRICE_VAT>24.99</PRICE_VAT>
+    <VAT>20</VAT>
+    <MANUFACTURER>Veelyn</MANUFACTURER>
+    <CATEGORYTEXT>Heureka.sk | Krása | Parfumy | Dámske parfumy</CATEGORYTEXT>
+    <DELIVERY_DATE>0</DELIVERY_DATE>
+    <DELIVERY>
+      <DELIVERY_ID>PACKETA</DELIVERY_ID>
+      <DELIVERY_PRICE>2.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>3.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <DELIVERY>
+      <DELIVERY_ID>COURIER</DELIVERY_ID>
+      <DELIVERY_PRICE>4.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>5.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <PARAM>
+      <PARAM_NAME>Objem</PARAM_NAME>
+      <VAL>50 ml</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Koncentrácia</PARAM_NAME>
+      <VAL>Eau de parfum</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Vhodné pre</PARAM_NAME>
+      <VAL>Dámska</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované značkou</PARAM_NAME>
+      <VAL>Valentino</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované vôňou</PARAM_NAME>
+      <VAL>Donna Born In Roma</VAL>
+    </PARAM>
+  </SHOPITEM>
+  <SHOPITEM>
+    <ITEM_ID>roman-man</ITEM_ID>
+    <PRODUCTNAME>VEELYN ROMAN MAN — dupé Valentino Uomo Born In Roma</PRODUCTNAME>
+    <PRODUCT>VEELYN ROMAN MAN</PRODUCT>
+    <DESCRIPTION>Dupé parfum inšpirovaný značkou Valentino Uomo Born In Roma. Eau de parfum 50 ml, pánska vôňa. Tóny: zázvor, minerálne tóny, levanduľa, fialka, vetiver, drevité tóny. Slovenská značka Veelyn — luxusná vôňa za zlomok ceny originálu (130 €).</DESCRIPTION>
+    <URL>https://veelyn.sk/?vona=roman-man</URL>
+    <IMGURL>https://veelyn.sk/images/veelyn/roman-man.png</IMGURL>
+    <PRICE_VAT>24.99</PRICE_VAT>
+    <VAT>20</VAT>
+    <MANUFACTURER>Veelyn</MANUFACTURER>
+    <CATEGORYTEXT>Heureka.sk | Krása | Parfumy | Pánske parfumy</CATEGORYTEXT>
+    <DELIVERY_DATE>0</DELIVERY_DATE>
+    <DELIVERY>
+      <DELIVERY_ID>PACKETA</DELIVERY_ID>
+      <DELIVERY_PRICE>2.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>3.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <DELIVERY>
+      <DELIVERY_ID>COURIER</DELIVERY_ID>
+      <DELIVERY_PRICE>4.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>5.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <PARAM>
+      <PARAM_NAME>Objem</PARAM_NAME>
+      <VAL>50 ml</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Koncentrácia</PARAM_NAME>
+      <VAL>Eau de parfum</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Vhodné pre</PARAM_NAME>
+      <VAL>Pánska</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované značkou</PARAM_NAME>
+      <VAL>Valentino</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované vôňou</PARAM_NAME>
+      <VAL>Uomo Born In Roma</VAL>
+    </PARAM>
+  </SHOPITEM>
+  <SHOPITEM>
+    <ITEM_ID>nemo</ITEM_ID>
+    <PRODUCTNAME>VEELYN NEMO — dupé Valentino Donna Born In Roma Coral Fantasy</PRODUCTNAME>
+    <PRODUCT>VEELYN NEMO</PRODUCT>
+    <DESCRIPTION>Dupé parfum inšpirovaný značkou Valentino Donna Born In Roma Coral Fantasy. Eau de parfum 50 ml, dámska vôňa. Tóny: mandarínka, ananás, jazmín sambac, vanilka, cédrové drevo. Slovenská značka Veelyn — luxusná vôňa za zlomok ceny originálu (140 €).</DESCRIPTION>
+    <URL>https://veelyn.sk/?vona=nemo</URL>
+    <IMGURL>https://veelyn.sk/images/veelyn/nemo.png</IMGURL>
+    <PRICE_VAT>24.99</PRICE_VAT>
+    <VAT>20</VAT>
+    <MANUFACTURER>Veelyn</MANUFACTURER>
+    <CATEGORYTEXT>Heureka.sk | Krása | Parfumy | Dámske parfumy</CATEGORYTEXT>
+    <DELIVERY_DATE>0</DELIVERY_DATE>
+    <DELIVERY>
+      <DELIVERY_ID>PACKETA</DELIVERY_ID>
+      <DELIVERY_PRICE>2.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>3.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <DELIVERY>
+      <DELIVERY_ID>COURIER</DELIVERY_ID>
+      <DELIVERY_PRICE>4.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>5.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <PARAM>
+      <PARAM_NAME>Objem</PARAM_NAME>
+      <VAL>50 ml</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Koncentrácia</PARAM_NAME>
+      <VAL>Eau de parfum</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Vhodné pre</PARAM_NAME>
+      <VAL>Dámska</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované značkou</PARAM_NAME>
+      <VAL>Valentino</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované vôňou</PARAM_NAME>
+      <VAL>Donna Born In Roma Coral Fantasy</VAL>
+    </PARAM>
+  </SHOPITEM>
+  <SHOPITEM>
+    <ITEM_ID>free-spirit</ITEM_ID>
+    <PRODUCTNAME>VEELYN FREE SPIRIT — dupé Yves Saint Laurent Libre</PRODUCTNAME>
+    <PRODUCT>VEELYN FREE SPIRIT</PRODUCT>
+    <DESCRIPTION>Dupé parfum inšpirovaný značkou Yves Saint Laurent Libre. Eau de parfum 50 ml, dámska vôňa. Tóny: mandarínka, kassia, lavandín, levanduľa, kvet pomarančovníka, jazmín, vanilka, ambra, mošus, cédrové drevo. Slovenská značka Veelyn — luxusná vôňa za zlomok ceny originálu (145 €).</DESCRIPTION>
+    <URL>https://veelyn.sk/?vona=free-spirit</URL>
+    <IMGURL>https://veelyn.sk/images/veelyn/free-spirit.png</IMGURL>
+    <PRICE_VAT>24.99</PRICE_VAT>
+    <VAT>20</VAT>
+    <MANUFACTURER>Veelyn</MANUFACTURER>
+    <CATEGORYTEXT>Heureka.sk | Krása | Parfumy | Dámske parfumy</CATEGORYTEXT>
+    <DELIVERY_DATE>0</DELIVERY_DATE>
+    <DELIVERY>
+      <DELIVERY_ID>PACKETA</DELIVERY_ID>
+      <DELIVERY_PRICE>2.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>3.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <DELIVERY>
+      <DELIVERY_ID>COURIER</DELIVERY_ID>
+      <DELIVERY_PRICE>4.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>5.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <PARAM>
+      <PARAM_NAME>Objem</PARAM_NAME>
+      <VAL>50 ml</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Koncentrácia</PARAM_NAME>
+      <VAL>Eau de parfum</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Vhodné pre</PARAM_NAME>
+      <VAL>Dámska</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované značkou</PARAM_NAME>
+      <VAL>Yves Saint Laurent</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované vôňou</PARAM_NAME>
+      <VAL>Libre</VAL>
+    </PARAM>
+  </SHOPITEM>
+  <SHOPITEM>
+    <ITEM_ID>poppy-shot</ITEM_ID>
+    <PRODUCTNAME>VEELYN POPPY SHOT — dupé Yves Saint Laurent Black Opium</PRODUCTNAME>
+    <PRODUCT>VEELYN POPPY SHOT</PRODUCT>
+    <DESCRIPTION>Dupé parfum inšpirovaný značkou Yves Saint Laurent Black Opium. Eau de parfum 50 ml, dámska vôňa. Tóny: hruška, ružové korenie, pomarančový kvet, káva, jazmín, horké mandle, vanilka, pačuli, kakao, cédrové drevo. Slovenská značka Veelyn — luxusná vôňa za zlomok ceny originálu (145 €).</DESCRIPTION>
+    <URL>https://veelyn.sk/?vona=poppy-shot</URL>
+    <IMGURL>https://veelyn.sk/images/veelyn/poppy-shot.png</IMGURL>
+    <PRICE_VAT>24.99</PRICE_VAT>
+    <VAT>20</VAT>
+    <MANUFACTURER>Veelyn</MANUFACTURER>
+    <CATEGORYTEXT>Heureka.sk | Krása | Parfumy | Dámske parfumy</CATEGORYTEXT>
+    <DELIVERY_DATE>0</DELIVERY_DATE>
+    <DELIVERY>
+      <DELIVERY_ID>PACKETA</DELIVERY_ID>
+      <DELIVERY_PRICE>2.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>3.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <DELIVERY>
+      <DELIVERY_ID>COURIER</DELIVERY_ID>
+      <DELIVERY_PRICE>4.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>5.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <PARAM>
+      <PARAM_NAME>Objem</PARAM_NAME>
+      <VAL>50 ml</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Koncentrácia</PARAM_NAME>
+      <VAL>Eau de parfum</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Vhodné pre</PARAM_NAME>
+      <VAL>Dámska</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované značkou</PARAM_NAME>
+      <VAL>Yves Saint Laurent</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované vôňou</PARAM_NAME>
+      <VAL>Black Opium</VAL>
+    </PARAM>
+  </SHOPITEM>
+  <SHOPITEM>
+    <ITEM_ID>my-identity</ITEM_ID>
+    <PRODUCTNAME>VEELYN MY IDENTITY — dupé Yves Saint Laurent MYSLF</PRODUCTNAME>
+    <PRODUCT>VEELYN MY IDENTITY</PRODUCT>
+    <DESCRIPTION>Dupé parfum inšpirovaný značkou Yves Saint Laurent MYSLF. Eau de parfum 50 ml, pánska vôňa. Tóny: bergamot, kvety pomarančovníka, jazmín, pačuli, ambra. Slovenská značka Veelyn — luxusná vôňa za zlomok ceny originálu (140 €).</DESCRIPTION>
+    <URL>https://veelyn.sk/?vona=my-identity</URL>
+    <IMGURL>https://veelyn.sk/images/veelyn/my-identity.png</IMGURL>
+    <PRICE_VAT>24.99</PRICE_VAT>
+    <VAT>20</VAT>
+    <MANUFACTURER>Veelyn</MANUFACTURER>
+    <CATEGORYTEXT>Heureka.sk | Krása | Parfumy | Pánske parfumy</CATEGORYTEXT>
+    <DELIVERY_DATE>0</DELIVERY_DATE>
+    <DELIVERY>
+      <DELIVERY_ID>PACKETA</DELIVERY_ID>
+      <DELIVERY_PRICE>2.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>3.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <DELIVERY>
+      <DELIVERY_ID>COURIER</DELIVERY_ID>
+      <DELIVERY_PRICE>4.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>5.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <PARAM>
+      <PARAM_NAME>Objem</PARAM_NAME>
+      <VAL>50 ml</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Koncentrácia</PARAM_NAME>
+      <VAL>Eau de parfum</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Vhodné pre</PARAM_NAME>
+      <VAL>Pánska</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované značkou</PARAM_NAME>
+      <VAL>Yves Saint Laurent</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované vôňou</PARAM_NAME>
+      <VAL>MYSLF</VAL>
+    </PARAM>
+  </SHOPITEM>
+  <SHOPITEM>
+    <ITEM_ID>xyz</ITEM_ID>
+    <PRODUCTNAME>VEELYN XYZ — dupé Yves Saint Laurent Y Eau de Parfum</PRODUCTNAME>
+    <PRODUCT>VEELYN XYZ</PRODUCT>
+    <DESCRIPTION>Dupé parfum inšpirovaný značkou Yves Saint Laurent Y Eau de Parfum. Eau de parfum 50 ml, pánska vôňa. Tóny: jablko, zázvor, bergamot, šalvia, geránium, jazmín, cédrové drevo, tonka bôb, vetiver. Slovenská značka Veelyn — luxusná vôňa za zlomok ceny originálu (140 €).</DESCRIPTION>
+    <URL>https://veelyn.sk/?vona=xyz</URL>
+    <IMGURL>https://veelyn.sk/images/veelyn/xyz.png</IMGURL>
+    <PRICE_VAT>24.99</PRICE_VAT>
+    <VAT>20</VAT>
+    <MANUFACTURER>Veelyn</MANUFACTURER>
+    <CATEGORYTEXT>Heureka.sk | Krása | Parfumy | Pánske parfumy</CATEGORYTEXT>
+    <DELIVERY_DATE>0</DELIVERY_DATE>
+    <DELIVERY>
+      <DELIVERY_ID>PACKETA</DELIVERY_ID>
+      <DELIVERY_PRICE>2.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>3.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <DELIVERY>
+      <DELIVERY_ID>COURIER</DELIVERY_ID>
+      <DELIVERY_PRICE>4.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>5.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <PARAM>
+      <PARAM_NAME>Objem</PARAM_NAME>
+      <VAL>50 ml</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Koncentrácia</PARAM_NAME>
+      <VAL>Eau de parfum</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Vhodné pre</PARAM_NAME>
+      <VAL>Pánska</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované značkou</PARAM_NAME>
+      <VAL>Yves Saint Laurent</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované vôňou</PARAM_NAME>
+      <VAL>Y Eau de Parfum</VAL>
+    </PARAM>
+  </SHOPITEM>
+  <SHOPITEM>
+    <ITEM_ID>zap-zap</ITEM_ID>
+    <PRODUCTNAME>VEELYN ZAP ZAP — dupé Yves Saint Laurent Bleu Électrique</PRODUCTNAME>
+    <PRODUCT>VEELYN ZAP ZAP</PRODUCT>
+    <DESCRIPTION>Dupé parfum inšpirovaný značkou Yves Saint Laurent Bleu Électrique. Eau de parfum 50 ml, pánska vôňa. Tóny: levanduľa, bergamot, šalvia, geránium, cédrové drevo, mošus, ambra. Slovenská značka Veelyn — luxusná vôňa za zlomok ceny originálu (145 €).</DESCRIPTION>
+    <URL>https://veelyn.sk/?vona=zap-zap</URL>
+    <IMGURL>https://veelyn.sk/images/veelyn/zap-zap.png</IMGURL>
+    <PRICE_VAT>24.99</PRICE_VAT>
+    <VAT>20</VAT>
+    <MANUFACTURER>Veelyn</MANUFACTURER>
+    <CATEGORYTEXT>Heureka.sk | Krása | Parfumy | Pánske parfumy</CATEGORYTEXT>
+    <DELIVERY_DATE>0</DELIVERY_DATE>
+    <DELIVERY>
+      <DELIVERY_ID>PACKETA</DELIVERY_ID>
+      <DELIVERY_PRICE>2.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>3.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <DELIVERY>
+      <DELIVERY_ID>COURIER</DELIVERY_ID>
+      <DELIVERY_PRICE>4.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>5.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <PARAM>
+      <PARAM_NAME>Objem</PARAM_NAME>
+      <VAL>50 ml</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Koncentrácia</PARAM_NAME>
+      <VAL>Eau de parfum</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Vhodné pre</PARAM_NAME>
+      <VAL>Pánska</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované značkou</PARAM_NAME>
+      <VAL>Yves Saint Laurent</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované vôňou</PARAM_NAME>
+      <VAL>Bleu Électrique</VAL>
+    </PARAM>
+  </SHOPITEM>
+  <SHOPITEM>
+    <ITEM_ID>el-paso</ITEM_ID>
+    <PRODUCTNAME>VEELYN EL PASO — dupé Hugo Boss Boss Bottled</PRODUCTNAME>
+    <PRODUCT>VEELYN EL PASO</PRODUCT>
+    <DESCRIPTION>Dupé parfum inšpirovaný značkou Hugo Boss Boss Bottled. Eau de parfum 50 ml, pánska vôňa. Tóny: jablko, bergamot, citrón, geránium, škorica, muškátový oriešok, santal, cédrové drevo, vetiver. Slovenská značka Veelyn — luxusná vôňa za zlomok ceny originálu (95 €).</DESCRIPTION>
+    <URL>https://veelyn.sk/?vona=el-paso</URL>
+    <IMGURL>https://veelyn.sk/images/veelyn/el-paso.png</IMGURL>
+    <PRICE_VAT>24.99</PRICE_VAT>
+    <VAT>20</VAT>
+    <MANUFACTURER>Veelyn</MANUFACTURER>
+    <CATEGORYTEXT>Heureka.sk | Krása | Parfumy | Pánske parfumy</CATEGORYTEXT>
+    <DELIVERY_DATE>0</DELIVERY_DATE>
+    <DELIVERY>
+      <DELIVERY_ID>PACKETA</DELIVERY_ID>
+      <DELIVERY_PRICE>2.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>3.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <DELIVERY>
+      <DELIVERY_ID>COURIER</DELIVERY_ID>
+      <DELIVERY_PRICE>4.99</DELIVERY_PRICE>
+      <DELIVERY_PRICE_COD>5.99</DELIVERY_PRICE_COD>
+    </DELIVERY>
+    <PARAM>
+      <PARAM_NAME>Objem</PARAM_NAME>
+      <VAL>50 ml</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Koncentrácia</PARAM_NAME>
+      <VAL>Eau de parfum</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Vhodné pre</PARAM_NAME>
+      <VAL>Pánska</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované značkou</PARAM_NAME>
+      <VAL>Hugo Boss</VAL>
+    </PARAM>
+    <PARAM>
+      <PARAM_NAME>Inšpirované vôňou</PARAM_NAME>
+      <VAL>Boss Bottled</VAL>
+    </PARAM>
+  </SHOPITEM>
+</SHOP>
