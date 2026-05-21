@@ -19,6 +19,10 @@ cp -r admin public/
 # Legal / policy pages (kept un-linked from main nav — Google Merchant
 # verification + Meta business verification just need the URLs to resolve.)
 cp -r vratenie-tovaru public/
+cp -r obchodne-podmienky public/
+cp -r ochrana-osobnych-udajov public/
+# Shared stylesheet for all legal pages
+mkdir -p public/styles && cp styles/legal.css public/styles/
 
 cp -r images/veelyn public/images/
 cp -r images/originals public/images/
