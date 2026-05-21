@@ -2210,16 +2210,31 @@ function setupCookieBanner() {
 function setupNewsletter() {
   const form = $('#newsletterForm');
   if (!form) return;
+  const feedback = $('#newsletterFeedback');
+
+  // Inline feedback — replaces the old browser alert() popups which
+  // looked terrible and broke immersion. The element lives below the
+  // form (display:none until needed), shows for 7 s, then auto-hides.
+  let hideTimer = null;
+  function showFeedback(msg, kind = 'success') {
+    if (!feedback) return;
+    if (hideTimer) clearTimeout(hideTimer);
+    feedback.hidden = false;
+    feedback.textContent = msg;
+    feedback.className = 'footer__newsletter-feedback footer__newsletter-feedback--' + kind;
+    hideTimer = setTimeout(() => { feedback.hidden = true; }, 7000);
+  }
+
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const data = new FormData(form);
     if (!data.get('consent')) {
-      alert('Pre prihlásenie potrebujeme tvoj súhlas so spracovaním osobných údajov.');
+      showFeedback('Pre prihlásenie zaškrtni prosím súhlas so spracovaním údajov.', 'error');
       return;
     }
     const email = (data.get('email') || '').toString().trim();
     if (!email || !email.includes('@')) {
-      alert('Zadaj prosím platný e-mail.');
+      showFeedback('Zadaj prosím platný e-mail.', 'error');
       return;
     }
     const submitBtn = form.querySelector('button[type="submit"]');
@@ -2232,15 +2247,14 @@ function setupNewsletter() {
         body: JSON.stringify({ email, source: 'footer' }),
       });
       if (!res.ok) throw new Error(`Server vrátil ${res.status}`);
-      // GA4 sign_up event for measurement
       try { trackEvent('sign_up', { method: 'newsletter' }); } catch {}
-      alert(`Ďakujeme, ${email} bol prihlásený. Pozri si schránku — pošleme ti potvrdzovací email.`);
+      showFeedback('Hotovo! ✦ Pozri si schránku — čaká ťa zľavový kód.', 'success');
       form.reset();
     } catch (err) {
       console.warn('Newsletter signup failed:', err);
-      alert(`Niečo sa pokazilo, skús to prosím za chvíľu. (${err.message})`);
+      showFeedback('Niečo sa pokazilo, skús to prosím o chvíľu znova.', 'error');
     } finally {
-      if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = originalText || 'Prihlásiť sa'; }
+      if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = originalText || 'Prihlásiť'; }
     }
   });
 }
