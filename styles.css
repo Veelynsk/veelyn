@@ -3060,30 +3060,41 @@ body.lock { overflow: hidden; }
   gap: 0.5rem;
   align-items: stretch;
 }
+/* Input + button share the same vertical metrics so they sit on the
+   same baseline / same height as a clean strip. */
+.footer__newsletter-form input[type="email"],
+.footer__newsletter-form .btn {
+  height: 48px;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  box-sizing: border-box;
+  line-height: 1;
+}
 .footer__newsletter-form input[type="email"] {
   flex: 1;
   min-width: 0;
   background: rgba(0,0,0,0.4);
   border: 1px solid var(--line-2);
-  border-radius: 8px;
-  padding: 0.7rem 0.9rem;
+  padding: 0 1rem;
   color: var(--text);
-  font-size: 0.9rem;
-  font-weight: 600;
   outline: none;
   transition: border-color var(--t-fast) var(--ease);
 }
 .footer__newsletter-form input:focus { border-color: var(--accent-2); }
 .footer__newsletter-form .btn {
-  padding: 0.85rem 1.6rem;
-  font-size: 0.9rem;
-  font-weight: 900;
+  padding: 0 1.6rem;
+  font-weight: 800;
   letter-spacing: 0.04em;
   text-transform: none;
   white-space: nowrap;
   background: linear-gradient(135deg, #a78bfa, #7c3aed);
   box-shadow: 0 6px 20px rgba(167,139,250,0.45);
   border: 1px solid rgba(255,255,255,0.15);
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 .footer__newsletter-form .btn:hover {
   transform: translateY(-1px);
