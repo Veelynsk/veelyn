@@ -2537,20 +2537,34 @@ function setupPromoPopup() {
 
     // Scale headline + eyes to canvas width (mobile compact popup is much narrower)
     const isCompact = w < 220;
-    const headFontPx = isCompact ? 15 : 22;
-    const eyesSizePx = isCompact ? 26 : 40;
-    const eyesGap = isCompact ? 5 : 8;
+    let headFontPx = isCompact ? 13 : 22;
+    let eyesSizePx = isCompact ? 22 : 40;
+    const eyesGap = isCompact ? 4 : 8;
     const subFontPx = isCompact ? 10 : 14;
+    const SIDE_PAD = isCompact ? 4 : 8;
 
-    // Main headline + eyes — centered as one unit, gold gradient text
+    // Main headline + eyes — centered as one unit, gold gradient text.
+    // If the text+eyes block would overflow the canvas width (which can
+    // happen on the 174px-wide mobile compact ticket), scale both down
+    // together so the leading "V" never gets clipped.
     ctx.textAlign = 'left';
     ctx.textBaseline = 'middle';
     ctx.font = `800 ${headFontPx}px Manrope, system-ui, sans-serif`;
     const HEADLINE = 'VYBRALI SME TEBA';
     const headY = h * 0.38;
-    const headWidth = ctx.measureText(HEADLINE).width;
-    const totalWidth = headWidth + eyesGap + eyesSizePx;
-    const startX = (w - totalWidth) / 2;
+    let headWidth = ctx.measureText(HEADLINE).width;
+    let totalWidth = headWidth + eyesGap + eyesSizePx;
+    const maxWidth = w - SIDE_PAD * 2;
+    if (totalWidth > maxWidth) {
+      const scale = maxWidth / totalWidth;
+      headFontPx = Math.max(10, Math.floor(headFontPx * scale));
+      eyesSizePx = Math.max(18, Math.floor(eyesSizePx * scale));
+      ctx.font = `800 ${headFontPx}px Manrope, system-ui, sans-serif`;
+      headWidth = ctx.measureText(HEADLINE).width;
+      totalWidth = headWidth + eyesGap + eyesSizePx;
+    }
+    let startX = (w - totalWidth) / 2;
+    if (startX < SIDE_PAD) startX = SIDE_PAD;
     // Soft drop shadow
     ctx.save();
     ctx.shadowColor = 'rgba(0,0,0,0.5)';
