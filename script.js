@@ -1940,6 +1940,27 @@ function wireCheckoutStep(t) {
         dic:       data.get('dic')?.trim(),
         icdph:     data.get('icdph')?.trim(),
       };
+      // Abandoned cart: fire-and-forget — once we have a valid email,
+      // tag this person in MailerLite. If they don't complete the order,
+      // the win-back automation fires. If they DO complete, /api/order
+      // removes them from the Abandoned cart group automatically.
+      try {
+        const t = calcCheckoutTotals();
+        const items = (t.items || []).map(i => {
+          const f = FRAGRANCES.find(x => x.id === i.id);
+          return f ? `${f.veelyn_name}×${i.qty}` : '';
+        }).filter(Boolean).join(', ');
+        fetch(VEELYN_API + '/api/cart-abandoned', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email,
+            cartValue: t.total,
+            cartItems: items,
+          }),
+          keepalive: true, // request survives even if the user navigates away
+        }).catch(() => {});
+      } catch (e) {}
       checkoutState.step = 3;
       renderCheckout();
     };
@@ -2189,7 +2210,7 @@ function setupCookieBanner() {
 function setupNewsletter() {
   const form = $('#newsletterForm');
   if (!form) return;
-  form.addEventListener('submit', (e) => {
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const data = new FormData(form);
     if (!data.get('consent')) {
@@ -2201,9 +2222,26 @@ function setupNewsletter() {
       alert('Zadaj prosím platný e-mail.');
       return;
     }
-    // TODO: integrate with newsletter provider (Mailchimp, Brevo, …)
-    alert(`Ďakujeme, ${email} bol prihlásený na newsletter Veelyn.`);
-    form.reset();
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const originalText = submitBtn?.textContent;
+    if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Prihlasujem…'; }
+    try {
+      const res = await fetch(VEELYN_API + '/api/newsletter', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, source: 'footer' }),
+      });
+      if (!res.ok) throw new Error(`Server vrátil ${res.status}`);
+      // GA4 sign_up event for measurement
+      try { trackEvent('sign_up', { method: 'newsletter' }); } catch {}
+      alert(`Ďakujeme, ${email} bol prihlásený. Pozri si schránku — pošleme ti potvrdzovací email.`);
+      form.reset();
+    } catch (err) {
+      console.warn('Newsletter signup failed:', err);
+      alert(`Niečo sa pokazilo, skús to prosím za chvíľu. (${err.message})`);
+    } finally {
+      if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = originalText || 'Prihlásiť sa'; }
+    }
   });
 }
 

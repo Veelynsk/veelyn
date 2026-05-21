@@ -8,6 +8,7 @@ import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
 import { writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import * as sf from './superfaktura.js';
+import * as ml from './mailerlite.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -225,7 +226,65 @@ async function sendEmails(order) {
 
 // ---- ROUTES ----
 app.get('/api/health', (req, res) => {
-  res.json({ ok: true, time: new Date().toISOString(), resendConfigured: !!resend });
+  res.json({
+    ok: true,
+    time: new Date().toISOString(),
+    resendConfigured: !!resend,
+    mailerliteConfigured: ml.isEnabled(),
+    superfakturaConfigured: sf.isEnabled(),
+  });
+});
+
+// ---- NEWSLETTER ----
+// Public endpoint that the footer newsletter form posts to. Adds the
+// subscriber to the "Newsletter" group in MailerLite, which then triggers
+// the welcome flow automation configured in the MailerLite UI.
+app.post('/api/newsletter', async (req, res) => {
+  const email = String((req.body || {}).email || '').trim().toLowerCase();
+  const source = String((req.body || {}).source || 'footer');
+  if (!email || !email.includes('@')) {
+    return res.status(400).json({ error: 'Invalid email' });
+  }
+  if (!ml.isEnabled()) {
+    // Soft-fail: log and pretend it worked so users still see "thanks".
+    // Backend can be configured later without breaking the form.
+    console.warn(`[NEWSLETTER] MailerLite not configured, email ${email} not stored`);
+    return res.json({ ok: true, queued: false });
+  }
+  try {
+    const result = await ml.addToGroup(email, 'Newsletter', { source });
+    console.log(`[NEWSLETTER] ${email} → Newsletter group (source=${source})`);
+    res.json({ ok: true, subscriberId: result?.data?.id || null });
+  } catch (e) {
+    console.error('[NEWSLETTER] failed:', e.message);
+    res.status(502).json({ error: e.message });
+  }
+});
+
+// ---- ABANDONED CART ----
+// Frontend pings this when the user lands on checkout step 1 and fills
+// in their email but doesn't complete the order within ~30 min. The
+// /api/order success handler later removes them from this group so the
+// win-back email doesn't fire on customers who DID convert.
+app.post('/api/cart-abandoned', async (req, res) => {
+  const body = req.body || {};
+  const email = String(body.email || '').trim().toLowerCase();
+  if (!email || !email.includes('@')) {
+    return res.status(400).json({ error: 'Invalid email' });
+  }
+  if (!ml.isEnabled()) return res.json({ ok: true, queued: false });
+  try {
+    await ml.addToGroup(email, 'Abandoned cart', {
+      cart_value: Number(body.cartValue) || 0,
+      cart_items: String(body.cartItems || '').slice(0, 250), // safety cap
+      cart_link: 'https://veelyn.sk/',
+    });
+    console.log(`[ABANDONED] ${email} → Abandoned cart (€${body.cartValue})`);
+    res.json({ ok: true });
+  } catch (e) {
+    console.error('[ABANDONED] failed:', e.message);
+    res.status(502).json({ error: e.message });
+  }
 });
 
 // ---- AUTH ----
@@ -328,6 +387,21 @@ app.post('/api/order', async (req, res) => {
 
     const mail = await sendEmails(order).catch(e => ({ error: e.message }));
     console.log(`[ORDER] ${order.id} created — total ${eur(order.total)} — mail:`, mail);
+
+    // MailerLite: move customer from "Abandoned cart" → "Customers" so
+    // the win-back automation stops and the post-purchase + review flow
+    // starts. Non-blocking — order success is independent of this.
+    if (ml.isEnabled() && order.customer?.email) {
+      ml.addToGroup(order.customer.email, 'Customers', {
+        name: order.customer.firstName || '',
+        last_name: order.customer.lastName || '',
+        last_order_id: order.id,
+        last_order_value: Number(order.total) || 0,
+        last_order_at: new Date(order.ts).toISOString().slice(0, 10),
+      }).catch(e => console.warn('[ML] addToGroup Customers failed:', e.message));
+      ml.removeFromGroup(order.customer.email, 'Abandoned cart')
+        .catch(e => console.warn('[ML] removeFromGroup Abandoned cart failed:', e.message));
+    }
 
     // SuperFaktura: create invoice asynchronously. We never block the order
     // response on this — if SF is down or misconfigured, the order is still
@@ -680,5 +754,6 @@ app.listen(PORT, () => {
   console.log(`  GET  /api/admin/orders       — list (auth: Bearer ${ADMIN_PASSWORD === 'change-me' ? 'CHANGE-ME!' : '***'})`);
   console.log(`  Resend emaily: ${resend ? '✓ aktívne' : '✗ vypnuté (set RESEND_API_KEY)'}`);
   console.log(`  SuperFaktura: ${sf.isEnabled() ? '✓ aktívna' : '✗ vypnutá (set SF_EMAIL + SF_APIKEY)'}`);
+  console.log(`  MailerLite: ${ml.isEnabled() ? '✓ aktívna' : '✗ vypnutá (set MAILERLITE_TOKEN)'}`);
   console.log(`  DB: ${DB_PATH}\n`);
 });
