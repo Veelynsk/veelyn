@@ -2303,8 +2303,9 @@ function setupPromoPopup() {
   const popup = document.getElementById('promoPopup');
   if (!popup) return;
 
-  // Mobile gets no scratch popup — not a common UX pattern on small screens.
-  if (window.matchMedia('(max-width: 699px)').matches) return;
+  // Mobile + desktop both get the scratch popup now — the CSS at
+  // @media (max-width: 699px) shrinks it to a 188px corner pill on
+  // small screens. CTA text differs (prstom vs kurzorom) — see below.
 
   const closeBtn = document.getElementById('promoPopupClose');
   const copyBtn = document.getElementById('promoPopupCopy');
@@ -2573,11 +2574,14 @@ function setupPromoPopup() {
       eyesEl.classList.add('is-positioned');
     }
 
-    // Subline — short action CTA in clean gold, no harsh outline
+    // Subline — short action CTA in clean gold, no harsh outline.
+    // Touch devices: "ZOTRI PRSTOM" (finger). Pointer devices: "ZOTRI KURZOROM".
+    // pointer: coarse → primary input is touch (phone, tablet, touch laptop).
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
     ctx.save();
-    const subText = 'STIERAJ PRSTOM';
+    const isTouch = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
+    const subText = isTouch ? 'ZOTRI PRSTOM' : 'ZOTRI KURZOROM';
     const subY = h * 0.66;
     ctx.font = `900 ${subFontPx}px Manrope, system-ui, sans-serif`;
     ctx.shadowColor = 'rgba(0,0,0,0.55)';
