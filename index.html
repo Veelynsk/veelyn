@@ -4,6 +4,55 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
 
+<!-- ====================================================================
+     GOOGLE CONSENT MODE V2 — defaults BEFORE GTM loads.
+     EU GDPR/ePrivacy requires all marketing+analytics signals to start
+     in 'denied' state. The cookie banner accept handler later calls
+     gtag('consent','update',{...}) to flip the user's chosen categories
+     to 'granted'. GTM tags must be configured to wait for 'analytics_
+     storage' / 'ad_storage' grants — that part is done in GTM UI.
+     ==================================================================== -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){ dataLayer.push(arguments); }
+  // Defaults — denied until user opts in (EU)
+  gtag('consent', 'default', {
+    ad_storage:            'denied',
+    ad_user_data:          'denied',
+    ad_personalization:    'denied',
+    analytics_storage:     'denied',
+    functionality_storage: 'granted',
+    security_storage:      'granted',
+    wait_for_update:       500
+  });
+  // Restore previously saved consent (set by setupCookieBanner on click)
+  try {
+    const saved = JSON.parse(localStorage.getItem('veelyn_cookie_consent') || 'null');
+    if (saved) {
+      gtag('consent', 'update', {
+        ad_storage:         saved.marketing ? 'granted' : 'denied',
+        ad_user_data:       saved.marketing ? 'granted' : 'denied',
+        ad_personalization: saved.marketing ? 'granted' : 'denied',
+        analytics_storage:  saved.analytics ? 'granted' : 'denied',
+      });
+    }
+  } catch (e) {}
+</script>
+
+<!-- ====================================================================
+     GOOGLE TAG MANAGER — single container that holds GA4, Meta Pixel,
+     Google Ads conversion, TikTok, etc. configured via the GTM UI.
+     Replace GTM-XXXXXXX with your container ID from
+     https://tagmanager.google.com/.
+     ==================================================================== -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-XXXXXXX');</script>
+<!-- End GTM -->
+
+
 <!-- SEO -->
 <title>Dupé parfumy Veelyn — vône ako Creed, Tom Ford, Dior za 24,99 €</title>
 <meta name="description" content="Dupé parfumy zo Slovenska. Vôňa ako Creed Aventus, Tom Ford, Dior Sauvage, Baccarat Rouge 540, YSL — za 24,99 € namiesto 200+ €. 50 ml eau de parfum, doprava zdarma nad 40 €, 14 dní na vrátenie.">
@@ -46,7 +95,7 @@
 <link rel="preconnect" href="https://widget.packeta.com">
 <link rel="dns-prefetch" href="https://widget.packeta.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..900;1,9..144,400..900&family=Manrope:wght@300..800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=20260521-004">
+<link rel="stylesheet" href="styles.css?v=20260521-005">
 
 <!-- JSON-LD Structured Data -->
 <script type="application/ld+json">
@@ -172,6 +221,11 @@
 </script>
 </head>
 <body>
+
+<!-- Google Tag Manager (noscript) — fallback for users with JS disabled -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End GTM noscript -->
 
 <!-- TOP MARQUEE -->
 <div class="marquee" aria-hidden="true">
@@ -1190,7 +1244,7 @@
 <!-- Packeta widget v6 (https://docs.packetery.com/03-creating-shipments/05-widget-v6.html) -->
 <script src="https://widget.packeta.com/v6/www/js/library.js" async></script>
 
-<script src="data.js?v=20260521-004"></script>
-<script src="script.js?v=20260521-004"></script>
+<script src="data.js?v=20260521-005"></script>
+<script src="script.js?v=20260521-005"></script>
 </body>
 </html>

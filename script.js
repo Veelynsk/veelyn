@@ -14,6 +14,103 @@ const state = {
   reviews: {}  // id -> [reviews]
 };
 
+// --- ANALYTICS / GTM dataLayer ---------------------------------------
+// All e-commerce events flow through dataLayer pushes so the GTM tags
+// (GA4, Meta Pixel, Google Ads conversion, TikTok Pixel, …) can be
+// added/removed in the GTM UI without code changes.
+//
+// Event names mirror GA4 e-commerce spec so GA4 "Enhanced E-commerce"
+// works out of the box. Meta/TikTok mappings are documented in
+// /GTM_SETUP.md.
+const dataLayer = (window.dataLayer = window.dataLayer || []);
+
+function trackEvent(name, payload = {}) {
+  try {
+    dataLayer.push({ event: name, ecommerce: null }); // reset prior
+    dataLayer.push({ event: name, ...payload });
+  } catch (e) {}
+}
+
+function gaItem(frag, qty = 1, variant = 'veelyn') {
+  if (!frag) return null;
+  const price = variant === 'original' ? frag.original_price : frag.veelyn_price;
+  return {
+    item_id: frag.id,
+    item_name: `VEELYN ${frag.veelyn_name}`,
+    item_brand: 'Veelyn',
+    item_variant: variant,
+    item_category: frag.gender === 'M' ? 'Pánska' : frag.gender === 'Z' ? 'Dámska' : 'Unisex',
+    item_category2: `Dupé ${frag.brand}`,
+    price: Number(price),
+    quantity: qty,
+  };
+}
+
+function trackViewItem(frag) {
+  if (!frag) return;
+  trackEvent('view_item', {
+    ecommerce: { currency: 'EUR', value: Number(frag.veelyn_price), items: [gaItem(frag)] },
+  });
+}
+function trackAddToCart(frag, qty = 1, variant = 'veelyn') {
+  if (!frag) return;
+  const price = variant === 'original' ? frag.original_price : frag.veelyn_price;
+  trackEvent('add_to_cart', {
+    ecommerce: { currency: 'EUR', value: Number(price) * qty, items: [gaItem(frag, qty, variant)] },
+  });
+}
+function trackRemoveFromCart(frag, qty = 1, variant = 'veelyn') {
+  if (!frag) return;
+  trackEvent('remove_from_cart', {
+    ecommerce: { currency: 'EUR', items: [gaItem(frag, qty, variant)] },
+  });
+}
+function trackViewCart(items, total) {
+  trackEvent('view_cart', {
+    ecommerce: {
+      currency: 'EUR',
+      value: Number(total) || 0,
+      items: (items || []).map(i => {
+        const f = FRAGRANCES.find(x => x.id === i.id);
+        return gaItem(f, i.qty || 1, i.variant);
+      }).filter(Boolean),
+    },
+  });
+}
+function trackBeginCheckout(items, total) {
+  trackEvent('begin_checkout', {
+    ecommerce: {
+      currency: 'EUR',
+      value: Number(total) || 0,
+      items: (items || []).map(i => {
+        const f = FRAGRANCES.find(x => x.id === i.id);
+        return gaItem(f, i.qty || 1, i.variant);
+      }).filter(Boolean),
+    },
+  });
+}
+function trackPurchase(order) {
+  if (!order) return;
+  trackEvent('purchase', {
+    ecommerce: {
+      transaction_id: order.id,
+      value: Number(order.total) || 0,
+      currency: 'EUR',
+      tax: 0,
+      shipping: Number(order.shipping) || 0,
+      coupon: order.couponCode || undefined,
+      items: (order.items || []).map(i => {
+        const f = FRAGRANCES.find(x => x.id === i.id);
+        return gaItem(f, i.qty || 1, i.variant);
+      }).filter(Boolean),
+    },
+  });
+}
+function trackSearch(query) {
+  if (!query) return;
+  trackEvent('search', { search_term: String(query) });
+}
+
 // --- Backend API ---
 // Dev: localhost:3001. Production: Railway.
 const VEELYN_API = (typeof window !== 'undefined' && window.VEELYN_API) ||
@@ -407,6 +504,14 @@ function openModal(id) {
   if (!el) return;
   el.hidden = false;
   document.body.classList.add('lock');
+  // GA4 view_cart fires when the cart drawer is opened by any path
+  // (header button, "added to cart" toast, bundle complete, …).
+  if (id === 'cart') {
+    try {
+      const t = calcCheckoutTotals();
+      trackViewCart(state.cart, t.total);
+    } catch (e) {}
+  }
 }
 function closeAllModals() {
   $$('.modal, .cart-drawer').forEach(m => m.hidden = true);
@@ -589,12 +694,16 @@ function setupSearch() {
   const input = $('#searchInput');
   const results = $('#searchResults');
 
+  // Debounced GA4 'search' event so the dataLayer isn't spammed on every keystroke
+  let searchTimer = null;
   input.addEventListener('input', () => {
     const q = input.value.trim().toLowerCase();
     if (q.length < 1) {
       results.innerHTML = '';
       return;
     }
+    if (searchTimer) clearTimeout(searchTimer);
+    searchTimer = setTimeout(() => trackSearch(q), 700);
     const tokens = q.split(/\s+/).filter(Boolean);
     const matches = FRAGRANCES.filter(f => {
       const haystack = (
@@ -981,6 +1090,8 @@ function addToCart(id, qty = 1, openDrawer = false, variant = 'veelyn') {
   } else {
     state.cart.push({ id, qty, variant });
   }
+  // GTM dataLayer push — GA4 add_to_cart, Meta AddToCart, etc.
+  trackAddToCart(FRAGRANCES.find(f => f.id === id), qty, variant);
   renderCart();
   if (openDrawer) {
     closeAllModals();
@@ -988,6 +1099,9 @@ function addToCart(id, qty = 1, openDrawer = false, variant = 'veelyn') {
   }
 }
 function removeFromCart(id, variant = 'veelyn') {
+  const f = FRAGRANCES.find(x => x.id === id);
+  const it = state.cart.find(i => i.id === id && (i.variant || 'veelyn') === variant);
+  trackRemoveFromCart(f, it?.qty || 1, variant);
   state.cart = state.cart.filter(i => !(i.id === id && (i.variant || 'veelyn') === variant));
   renderCart();
 }
@@ -1511,6 +1625,9 @@ function openCheckout() {
   checkoutState.step = 1;
   checkoutState.customer = {};
   checkoutState.pickupPoint = null;
+  // GA4 begin_checkout / Meta InitiateCheckout
+  const tot = calcCheckoutTotals();
+  trackBeginCheckout(state.cart, tot.total);
   renderCheckout();
   closeAllModals();
   openModal('checkout');
@@ -1929,6 +2046,10 @@ async function finishOrder() {
   existing.unshift(order);
   localStorage.setItem('veelyn_admin_orders', JSON.stringify(existing));
 
+  // GTM purchase event — GA4 purchase, Meta Purchase, Google Ads conversion,
+  // TikTok CompletePayment all hang off this single push.
+  trackPurchase(order);
+
   if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Záväzne objednať s povinnosťou platby'; }
 
   // Empty cart
@@ -2011,6 +2132,25 @@ function setupCookieBanner() {
     // Sync toggles in modal
     if (analyticsToggle) analyticsToggle.checked = !!prefs.analytics;
     if (marketingToggle) marketingToggle.checked = !!prefs.marketing;
+
+    // Google Consent Mode v2 update — flips GTM tags (GA4, Meta CAPI, Ads)
+    // from queued/cookieless state to fully tracking based on user choice.
+    if (typeof window.gtag === 'function') {
+      window.gtag('consent', 'update', {
+        ad_storage:         prefs.marketing ? 'granted' : 'denied',
+        ad_user_data:       prefs.marketing ? 'granted' : 'denied',
+        ad_personalization: prefs.marketing ? 'granted' : 'denied',
+        analytics_storage:  prefs.analytics ? 'granted' : 'denied',
+      });
+    }
+    // Also push the user's choice as a dataLayer event so GTM tags can
+    // fire any "consent_update" triggers configured in GTM UI.
+    (window.dataLayer = window.dataLayer || []).push({
+      event: 'consent_update',
+      analytics_granted: !!prefs.analytics,
+      marketing_granted: !!prefs.marketing,
+    });
+
     // Notify other features (e.g. the scratch-ticket promo popup) that they
     // can now show themselves — it would be rude to overlay them on top of
     // a cookie banner that the user hadn't engaged with yet.
@@ -2236,6 +2376,8 @@ function setupDeepLinks() {
     _open(pid);
     const f = FRAGRANCES.find(x => x.id === pid);
     if (!f) return;
+    // GA4 view_item / Meta ViewContent
+    trackViewItem(f);
     const url = new URL(location.href);
     url.searchParams.set('vona', pid);
     history.replaceState({ vona: pid }, '', url.toString());
