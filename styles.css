@@ -6501,6 +6501,10 @@ body.has-promo-popup .proof-toast { display: none !important; }
   border: 1px solid rgba(167,139,250,0.22);
   border-radius: 12px;
 }
+.affiliate-intro__note {
+  margin: 1.2rem 0 1.5rem;
+  padding: 1rem 1.2rem;
+}
 .affiliate-form__note strong {
   display: block;
   color: #c4b5fd;
