@@ -217,13 +217,53 @@ function setupMarquees() {
   for (let i = 0; i < 6; i++) midOne += buildSet(midItems, 'marquee__item--big');
   const midHTML = midOne + midOne;
 
+  // iOS Safari intermittently skips the CSS animation start when the track
+  // content is set via JS (especially when the tab was backgrounded during
+  // page load or restored from bfcache). We force-restart the animation after
+  // setting innerHTML by toggling animation:none + forcing a reflow.
+  function kickAnimation(el) {
+    if (!el) return;
+    el.style.animation = 'none';
+    // Force layout — required for the animation restart to take effect.
+    // eslint-disable-next-line no-unused-expressions
+    el.offsetWidth;
+    el.style.animation = '';
+  }
+
   if (top) {
     top.innerHTML = topHTML;
     top.style.willChange = 'transform';
+    requestAnimationFrame(() => kickAnimation(top));
   }
   if (mid) {
     mid.innerHTML = midHTML;
     mid.style.willChange = 'transform';
+    requestAnimationFrame(() => kickAnimation(mid));
+  }
+
+  // Handle bfcache restore (back/forward navigation on mobile Safari):
+  // the page comes back paused, so we re-kick the marquees on pageshow.
+  // We only register the listener once.
+  if (!setupMarquees._pageshowBound) {
+    setupMarquees._pageshowBound = true;
+    window.addEventListener('pageshow', (e) => {
+      if (e.persisted) {
+        const t = document.getElementById('marqueeTop');
+        const m = document.getElementById('marqueeMid');
+        kickAnimation(t);
+        kickAnimation(m);
+      }
+    });
+    // Also re-kick when the tab becomes visible again (mobile Safari can
+    // pause CSS animations in background tabs without resuming cleanly).
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible') {
+        const t = document.getElementById('marqueeTop');
+        const m = document.getElementById('marqueeMid');
+        kickAnimation(t);
+        kickAnimation(m);
+      }
+    });
   }
 }
 
