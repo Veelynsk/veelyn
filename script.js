@@ -2418,6 +2418,21 @@ function init() {
   setupContactForm();
   setupWholesaleForm();
   setupAffiliateForm();
+  // Scroll-to-form CTA inside affiliate modal — uses panel-relative
+  // scroll instead of native anchor (which would mutate the URL).
+  const scrollToForm = document.getElementById('affiliateScrollToForm');
+  if (scrollToForm) {
+    scrollToForm.addEventListener('click', (e) => {
+      e.preventDefault();
+      const target = document.getElementById('affiliateForm');
+      const panel = scrollToForm.closest('.modal__panel');
+      if (target && panel) {
+        const rect = target.getBoundingClientRect();
+        const panelRect = panel.getBoundingClientRect();
+        panel.scrollBy({ top: rect.top - panelRect.top - 16, behavior: 'smooth' });
+      }
+    });
+  }
   setupHeroCart();
   setupCookieBanner();
   setupNewsletter();

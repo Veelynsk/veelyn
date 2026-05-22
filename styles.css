@@ -77,7 +77,15 @@ h1, h2, h3, h4 {
 
 [hidden] { display: none !important; }
 
-body.lock { overflow: hidden; }
+body.lock {
+  overflow: hidden;
+  /* Prevent iOS Safari from chaining scroll up from the modal panel
+     to the document when the panel reaches its top/bottom. Combined
+     with overflow-y:auto + overscroll-behavior:contain on .modal__panel
+     this fully traps the scroll inside the modal. */
+  overscroll-behavior: none;
+  touch-action: none;
+}
 
 /* --- LOGO --- */
 .logo {
@@ -267,39 +275,46 @@ body.lock { overflow: hidden; }
 /* All nav links share the same "pill" outline style by default — clean
    visual rhythm across the whole nav. Variants below override fill /
    accent color but keep the same shape + padding. */
+/* Plain text links by default — biele písmo, žiadny rámik. Underline
+   on hover for affordance. */
 .nav__link {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  /* Generous horizontal padding so text has breathing room — pill
-     extends ~20px past the leading & trailing letter on each side
-     instead of hugging the text. */
-  padding: 8px 22px;
-  font-size: 0.65rem;
+  padding: 0.18rem 0;
+  font-size: 0.62rem;
   font-weight: 800;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--text);
   background: transparent;
-  border: 1px solid var(--accent-2);
-  border-radius: 999px;
-  transition: background var(--t-fast) var(--ease), color var(--t-fast) var(--ease);
+  border: none;
+  border-radius: 0;
+  transition: color var(--t-fast) var(--ease);
   position: relative;
-  text-align: center;
-  line-height: 1.2;
+  text-align: left;
+  line-height: 1.25;
   white-space: nowrap;
   text-decoration: none;
 }
-.nav__link:hover {
+.nav__link::after {
+  content: "";
+  position: absolute;
+  left: 0; bottom: 0;
+  height: 1.5px;
+  width: 0;
   background: var(--accent-2);
-  color: #fff;
+  transition: width var(--t-base) var(--ease);
 }
+.nav__link:hover { color: var(--accent-2); }
+.nav__link:hover::after { width: 100%; }
 
-/* 3+1 ZADARMO — primary CTA, filled purple by default (star prefix). */
+/* 3+1 ZADARMO — primary CTA, filled purple pill with star prefix. */
 .nav__link--accent {
+  padding: 6px 14px;
   background: linear-gradient(135deg, #a78bfa, #7c3aed);
   color: #fff;
-  border-color: rgba(167,139,250,0.6);
+  border: 1px solid rgba(167,139,250,0.6);
+  border-radius: 999px;
   box-shadow: 0 6px 18px rgba(124,58,237,0.32);
 }
 .nav__link--accent::before {
@@ -307,15 +322,24 @@ body.lock { overflow: hidden; }
   margin-right: 0.4rem;
   display: inline-block;
 }
+.nav__link--accent::after { display: none; }
 .nav__link--accent:hover {
   background: linear-gradient(135deg, #c4b5fd, #8b5cf6);
   color: #fff;
 }
 
-/* The legacy modifier still works for backwards compatibility — already
-   the base default style (matches affiliate). Kept as no-op selector
-   in case other components reference it. */
-.nav__link--outline {}
+/* Affiliate — outline pill (transparent fill, purple border). */
+.nav__link--outline {
+  padding: 6px 14px;
+  border: 1px solid var(--accent-2);
+  border-radius: 999px;
+  background: transparent;
+}
+.nav__link--outline::after { display: none; }
+.nav__link--outline:hover {
+  background: var(--accent-2);
+  color: #fff;
+}
 
 /* CENTER: Big logo */
 .nav__center {
@@ -412,10 +436,16 @@ body.lock { overflow: hidden; }
 @media (min-width: 700px) {
   .nav { padding: 0.9rem 1.5rem; min-height: 100px; }
   .nav__link { font-size: 0.85rem; padding: 0.28rem 0; }
+  /* Keep the pill modifiers' horizontal padding even at larger
+     viewports — the base .nav__link rule above otherwise resets px=0. */
+  .nav__link.nav__link--accent,
+  .nav__link.nav__link--outline { padding: 7px 16px; }
 }
 @media (min-width: 1000px) {
   .nav { padding: 1rem 2rem; min-height: 108px; }
   .nav__link { font-size: 0.92rem; padding: 0.32rem 0; }
+  .nav__link.nav__link--accent,
+  .nav__link.nav__link--outline { padding: 8px 18px; }
 }
 
 /* --- HERO --- */
@@ -3942,7 +3972,14 @@ body.has-promo-popup .proof-toast { display: none !important; }
   background: var(--bg-2);
   border: 1px solid var(--line-2);
   border-radius: 14px;
-  overflow: hidden;
+  /* Internal scroll so panel content doesn't bubble scroll up to the
+     body (iOS Safari was scrolling the page behind affiliate modal).
+     overscroll-behavior: contain pins momentum scrolling inside the
+     panel. */
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
   display: flex;
   flex-direction: column;
   box-shadow: 0 32px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.04);
@@ -6326,6 +6363,15 @@ body.has-promo-popup .proof-toast { display: none !important; }
   margin: 0 auto;
 }
 .wholesale__lead strong { color: #fff; font-weight: 800; }
+.wholesale__head-cta {
+  display: inline-flex;
+  margin-top: 1rem;
+  padding: 0.85rem 1.6rem;
+  font-size: 0.92rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+}
 
 .wholesale__grid {
   display: grid;
