@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Regenerate sitemap.xml + heureka.xml + merchant.xml from fragrances.json
-# so the feeds are always in sync with the catalog. Safe to run on every
-# build — outputs are deterministic.
+# Regenerate sitemap.xml + heureka.xml + merchant.xml + per-product
+# landing pages from fragrances.json so everything stays in sync.
+# Outputs are deterministic — safe to run on every build.
+node scripts/build-product-pages.js
 node scripts/build-sitemap.js
 node scripts/build-feeds.js
 
@@ -21,10 +22,14 @@ cp -r admin public/
 cp -r vratenie-tovaru public/
 cp -r obchodne-podmienky public/
 cp -r ochrana-osobnych-udajov public/
-# Shared stylesheet for legal pages (affiliate is now a modal on the
-# homepage, not a separate page — no extra stylesheet needed.)
+# 74 generated original-fragrance landing pages (the "parizske.sk
+# strategy") — each captures organic search for an original perfume name
+# and converts to the matching Veelyn dupé.
+cp -r produkt public/
+# Shared stylesheets
 mkdir -p public/styles
 cp styles/legal.css public/styles/
+cp styles/product.css public/styles/
 
 cp -r images/veelyn public/images/
 cp -r images/originals public/images/

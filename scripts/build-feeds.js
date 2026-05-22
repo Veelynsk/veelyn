@@ -29,6 +29,16 @@ const xmlEscape = (s) =>
   String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
            .replace(/"/g, '&quot;').replace(/'/g, '&apos;');
 
+// Same slugify as build-product-pages.js so feed URLs match the
+// generated landing pages 1:1.
+const slugify = (s) => String(s).toLowerCase()
+  .normalize('NFD').replace(/[̀-ͯ]/g, '')
+  .replace(/[^a-z0-9]+/g, '-')
+  .replace(/^-+|-+$/g, '');
+
+const productUrl = (f) =>
+  `${SITE}/produkt/${slugify(`${f.brand}-${f.original_name}`)}/`;
+
 const genderText = (g) => g === 'M' ? 'Pánska' : g === 'Z' ? 'Dámska' : 'Unisex';
 const genderEN   = (g) => g === 'M' ? 'male'   : g === 'Z' ? 'female'  : 'unisex';
 
@@ -67,7 +77,7 @@ function buildHeureka() {
     <PRODUCTNAME>VEELYN ${xmlEscape(f.veelyn_name)} — dupé ${xmlEscape(f.brand)} ${xmlEscape(f.original_name)}</PRODUCTNAME>
     <PRODUCT>VEELYN ${xmlEscape(f.veelyn_name)}</PRODUCT>
     <DESCRIPTION>${xmlEscape(description(f))}</DESCRIPTION>
-    <URL>${SITE}/?vona=${encodeURIComponent(f.id)}</URL>
+    <URL>${productUrl(f)}</URL>
     <IMGURL>${SITE}/images/veelyn/${encodeURIComponent(f.id)}.png</IMGURL>
     <PRICE_VAT>${Number(f.veelyn_price).toFixed(2)}</PRICE_VAT>
     <VAT>20</VAT>
@@ -120,7 +130,7 @@ function buildMerchant() {
       <g:id>${xmlEscape(f.id)}</g:id>
       <g:title>VEELYN ${xmlEscape(f.veelyn_name)} — dupé ${xmlEscape(f.brand)} ${xmlEscape(f.original_name)}</g:title>
       <g:description>${xmlEscape(description(f))}</g:description>
-      <g:link>${SITE}/?vona=${encodeURIComponent(f.id)}</g:link>
+      <g:link>${productUrl(f)}</g:link>
       <g:image_link>${SITE}/images/veelyn/${encodeURIComponent(f.id)}.png</g:image_link>
       <g:availability>in_stock</g:availability>
       <g:price>${Number(f.veelyn_price).toFixed(2)} EUR</g:price>

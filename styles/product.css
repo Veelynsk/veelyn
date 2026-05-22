@@ -1,0 +1,343 @@
+/* /produkt/<slug>/ — original fragrance landing page that converts to
+   the Veelyn dupé. Self-contained: no dependency on /styles.css so each
+   page can ship a tiny CSS payload independently. */
+
+* { box-sizing: border-box; }
+body.product-page {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(ellipse at 25% 10%, rgba(124,58,237,0.16), transparent 55%),
+    radial-gradient(ellipse at 80% 90%, rgba(76,29,149,0.18), transparent 60%),
+    #0a0510;
+  color: #f4f1ee;
+  font-family: 'Manrope', system-ui, sans-serif;
+  line-height: 1.5;
+}
+
+/* === Header === */
+.prod-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  background: rgba(10, 5, 16, 0.88);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(167, 139, 250, 0.16);
+}
+.prod-brand {
+  text-decoration: none;
+  font-family: 'Fraunces', Georgia, serif;
+  font-style: italic;
+  font-weight: 800;
+  font-size: 1.25rem;
+  letter-spacing: 0.05em;
+}
+.logo__vee { color: #fff; }
+.logo__lyn { color: #a78bfa; }
+.prod-back {
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: rgba(244,241,238,0.7);
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: color 0.18s ease;
+}
+.prod-back:hover { color: #a78bfa; }
+
+/* === Main panel === */
+.prod-main {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 3rem 1rem 4rem;
+}
+.prod-card {
+  background: linear-gradient(180deg, rgba(20,12,32,0.85), rgba(15,8,28,0.88));
+  border: 1px solid rgba(167, 139, 250, 0.22);
+  border-radius: 18px;
+  padding: 2rem 1.5rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+}
+@media (min-width: 800px) {
+  .prod-card {
+    grid-template-columns: 1fr 1.2fr;
+    padding: 3rem 3rem;
+    gap: 3rem;
+  }
+}
+
+/* === Visual === */
+.prod-card__visual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(ellipse at 50% 50%, rgba(167,139,250,0.18), transparent 70%);
+  border-radius: 14px;
+  min-height: 320px;
+  padding: 1.5rem;
+}
+.prod-card__visual img {
+  max-width: 100%;
+  max-height: 380px;
+  object-fit: contain;
+  filter: drop-shadow(0 18px 36px rgba(0,0,0,0.6));
+}
+
+/* === Info column === */
+.prod-card__brand {
+  margin: 0 0 0.3rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.32em;
+  color: #c4b5fd;
+  text-transform: uppercase;
+}
+.prod-card__title {
+  font-family: 'Fraunces', Georgia, serif;
+  font-style: italic;
+  font-weight: 800;
+  font-size: clamp(2rem, 5vw, 2.8rem);
+  line-height: 1.1;
+  margin: 0 0 0.5rem;
+  color: #fff;
+}
+.prod-card__gender {
+  margin: 0 0 1.5rem;
+  font-size: 0.92rem;
+  color: rgba(244,241,238,0.7);
+}
+
+.prod-card__price-orig {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 0.85rem 1rem;
+  background: rgba(0,0,0,0.4);
+  border: 1px solid rgba(244,241,238,0.12);
+  border-radius: 10px;
+  margin-bottom: 1.4rem;
+}
+.prod-card__price-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(244,241,238,0.7);
+}
+.prod-card__price-amount {
+  font-family: 'Manrope', system-ui, sans-serif;
+  font-weight: 900;
+  font-size: 1.4rem;
+  color: #f4f1ee;
+  text-decoration: line-through;
+  text-decoration-color: rgba(244,241,238,0.4);
+}
+
+/* === Match card (the conversion play) === */
+.match-card {
+  background: linear-gradient(180deg, rgba(124,58,237,0.18), rgba(124,58,237,0.08));
+  border: 1.5px solid rgba(167,139,250,0.45);
+  border-radius: 14px;
+  padding: 1.2rem 1.1rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 8px 24px rgba(124,58,237,0.18);
+}
+.match-card__header {
+  margin-bottom: 1rem;
+}
+.match-card__badge {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  color: #4ade80;
+  text-transform: uppercase;
+  padding: 0.3rem 0.7rem;
+  background: rgba(74,222,128,0.12);
+  border: 1px solid rgba(74,222,128,0.4);
+  border-radius: 999px;
+}
+.match-card__body {
+  display: grid;
+  grid-template-columns: 72px 1fr auto;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+@media (max-width: 540px) {
+  .match-card__body {
+    grid-template-columns: 56px 1fr;
+  }
+  .match-card__pricing {
+    grid-column: 1 / -1;
+    border-top: 1px solid rgba(167,139,250,0.2);
+    padding-top: 0.85rem;
+    margin-top: 0.2rem;
+  }
+}
+.match-card__thumb {
+  width: 72px;
+  height: 72px;
+  object-fit: cover;
+  border-radius: 8px;
+  background: rgba(0,0,0,0.4);
+}
+.match-card__brand {
+  margin: 0 0 0.2rem;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  color: #c4b5fd;
+  text-transform: uppercase;
+}
+.match-card__name {
+  margin: 0;
+  font-family: 'Fraunces', Georgia, serif;
+  font-style: italic;
+  font-weight: 800;
+  font-size: 1.4rem;
+  color: #fff;
+}
+.match-card__pitch {
+  margin: 0.25rem 0 0;
+  font-size: 0.88rem;
+  color: rgba(244,241,238,0.75);
+}
+.match-card__pricing {
+  text-align: right;
+}
+.match-card__price-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(244,241,238,0.7);
+}
+.match-card__price-row strong {
+  font-family: 'Manrope', system-ui, sans-serif;
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: #fff;
+  text-decoration: none;
+  letter-spacing: -0.01em;
+  text-transform: none;
+}
+.match-card__savings {
+  margin-top: 0.3rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #f4cc6c;
+}
+.match-card__cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 0.95rem 1.2rem;
+  font-size: 0.92rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #fff;
+  background: linear-gradient(135deg, #a78bfa, #7c3aed);
+  border-radius: 10px;
+  text-decoration: none;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+  box-shadow: 0 8px 22px rgba(124,58,237,0.42);
+}
+.match-card__cta:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 14px 32px rgba(124,58,237,0.55);
+}
+
+/* === Notes block === */
+.prod-card__notes {
+  margin-top: 1rem;
+  padding: 1rem 1.2rem;
+  background: rgba(0,0,0,0.3);
+  border: 1px solid rgba(167,139,250,0.18);
+  border-radius: 10px;
+}
+.prod-card__notes h3 {
+  margin: 0 0 0.6rem;
+  font-family: 'Fraunces', Georgia, serif;
+  font-style: italic;
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: #fff;
+}
+.prod-card__notes ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  font-size: 0.92rem;
+  color: rgba(244,241,238,0.85);
+}
+.prod-card__notes strong {
+  color: #c4b5fd;
+  font-weight: 700;
+}
+
+/* === Disclaimer === */
+.prod-card__disclaimer {
+  margin: 1.5rem 0 0;
+  padding-top: 1.2rem;
+  border-top: 1px solid rgba(167,139,250,0.15);
+  font-size: 0.78rem;
+  line-height: 1.55;
+  color: rgba(244,241,238,0.55);
+}
+
+/* === Footer === */
+.prod-footer {
+  border-top: 1px solid rgba(167,139,250,0.15);
+  padding: 2rem 0 1.5rem;
+  background: rgba(0,0,0,0.35);
+}
+.prod-footer__inner {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+  text-align: center;
+}
+.prod-footer__brand p {
+  margin: 0.3rem 0 0;
+  font-size: 0.85rem;
+  color: rgba(244,241,238,0.7);
+}
+.prod-footer__nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem 1.5rem;
+  justify-content: center;
+  font-size: 0.85rem;
+}
+.prod-footer__nav a {
+  color: rgba(244,241,238,0.7);
+  text-decoration: none;
+  transition: color 0.18s ease;
+}
+.prod-footer__nav a:hover { color: #a78bfa; }
+.prod-footer__copy {
+  margin: 0;
+  font-size: 0.78rem;
+  color: rgba(244,241,238,0.45);
+}

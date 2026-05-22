@@ -56,17 +56,38 @@ const urls = [
   url({ loc: `${SITE}/#kontakt`, lastmod: today, changefreq: 'monthly', priority: '0.5' }),
 ];
 
+// Original-brand landing pages (the "parizske.sk strategy"). High SEO
+// priority — these capture branded organic search like "Baccarat Rouge
+// 540" and route the visitor to the Veelyn dupé.
+const slugify = (s) => String(s).toLowerCase()
+  .normalize('NFD').replace(/[̀-ͯ]/g, '')
+  .replace(/[^a-z0-9]+/g, '-')
+  .replace(/^-+|-+$/g, '');
+
+for (const f of fragrances) {
+  const slug = slugify(`${f.brand}-${f.original_name}`);
+  urls.push(url({
+    loc: `${SITE}/produkt/${slug}/`,
+    lastmod: today,
+    changefreq: 'weekly',
+    priority: '0.85',
+    images: [{
+      loc: `${SITE}/images/veelyn/${f.id}.png`,
+      title: `VEELYN ${f.veelyn_name} — dupé ${f.brand} ${f.original_name}`,
+      caption: `Inšpirované ${f.brand} ${f.original_name}`,
+    }],
+  }));
+}
+
+// Deep-link product-modal URLs (?vona=<id>) kept too for any inbound
+// links + GA4 tracking, lower priority since the /produkt/ pages are
+// the canonical SEO surface now.
 for (const f of fragrances) {
   urls.push(url({
     loc: `${SITE}/?vona=${encodeURIComponent(f.id)}`,
     lastmod: today,
     changefreq: 'weekly',
-    priority: '0.7',
-    images: [{
-      loc: `${SITE}/images/veelyn/${f.id}.png`,
-      title: `VEELYN ${f.veelyn_name}`,
-      caption: `Inšpirované ${f.brand} ${f.original_name}`,
-    }],
+    priority: '0.6',
   }));
 }
 
