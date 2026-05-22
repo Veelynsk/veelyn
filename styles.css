@@ -256,64 +256,63 @@ body.lock { overflow: hidden; }
   min-height: 56px;
 }
 
-/* LEFT: Vertical stack of nav links */
+/* LEFT: Vertical stack of nav links — pills sit comfortably with 6px gap */
 .nav__left {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  gap: 0.1rem;
+  gap: 6px;
 }
+/* All nav links share the same "pill" outline style by default — clean
+   visual rhythm across the whole nav. Variants below override fill /
+   accent color but keep the same shape + padding. */
 .nav__link {
   display: inline-flex;
   align-items: center;
-  padding: 0.1rem 0;
-  font-size: 0.6rem;
+  justify-content: center;
+  padding: 6px 14px;
+  font-size: 0.65rem;
   font-weight: 800;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--text);
-  transition: all var(--t-fast) var(--ease);
+  background: transparent;
+  border: 1px solid var(--accent-2);
+  border-radius: 999px;
+  transition: background var(--t-fast) var(--ease), color var(--t-fast) var(--ease);
   position: relative;
-  text-align: left;
+  text-align: center;
   line-height: 1.2;
   white-space: nowrap;
+  text-decoration: none;
 }
-.nav__link::after {
-  content: "";
-  position: absolute;
-  left: 0; bottom: 0;
-  height: 1.5px;
-  width: 0;
+.nav__link:hover {
   background: var(--accent-2);
-  transition: width var(--t-base) var(--ease);
+  color: #fff;
 }
-.nav__link:hover { color: var(--accent-2); }
-.nav__link:hover::after { width: 100%; }
+
+/* 3+1 ZADARMO — primary CTA, filled purple by default (star prefix). */
 .nav__link--accent {
-  color: var(--accent-2);
+  background: linear-gradient(135deg, #a78bfa, #7c3aed);
+  color: #fff;
+  border-color: rgba(167,139,250,0.6);
+  box-shadow: 0 6px 18px rgba(124,58,237,0.32);
 }
 .nav__link--accent::before {
   content: "★";
   margin-right: 0.4rem;
   display: inline-block;
 }
+.nav__link--accent:hover {
+  background: linear-gradient(135deg, #c4b5fd, #8b5cf6);
+  color: #fff;
+}
 
-/* Outline button variant used for the AFFILIATE nav link. Transparent
-   fill, purple border, fills purple on hover (text stays white). */
-.nav__link--outline {
-  padding: 6px 14px !important;
-  border: 1px solid var(--accent-2);
-  border-radius: 999px;
-  color: var(--text) !important;
-  background: transparent;
-  transition: background var(--t-fast) var(--ease), color var(--t-fast) var(--ease);
-}
-.nav__link--outline::after { display: none; }
-.nav__link--outline:hover {
-  background: var(--accent-2);
-  color: #fff !important;
-}
+/* The legacy modifier still works for backwards compatibility — already
+   the base default style (matches affiliate). Kept as no-op selector
+   in case other components reference it. */
+.nav__link--outline {}
 
 /* CENTER: Big logo */
 .nav__center {
