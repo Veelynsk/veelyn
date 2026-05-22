@@ -595,6 +595,8 @@ function productCardHTML(f, isBest, showMatch) {
             <div class="match-card__thumb">
               <img src="images/originals/${origSlug}.png"
                    alt="${f.brand} ${f.original_name}"
+                   loading="lazy"
+                   decoding="async"
                    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
               <div class="match-card__thumb-fallback" style="display:none;">
                 <span>${(f.brand||'').slice(0,2).toUpperCase()}</span>
@@ -614,7 +616,7 @@ function productCardHTML(f, isBest, showMatch) {
     <article class="prod-card${isBest ? ' prod-card--best' : ''}" data-id="${f.id}">
       ${isBest ? '<span class="prod-card__badge">★ BEST</span>' : ''}
       <div class="prod-card__image">
-        <img src="images/veelyn/${f.id}.png?v=2" alt="${f.veelyn_name}" loading="lazy"
+        <img src="images/veelyn/${f.id}.png?v=2" alt="${f.veelyn_name}" loading="lazy" decoding="async"
              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
         <div class="prod-card__placeholder" style="display:none;">
           <span>№${num}</span>
@@ -827,6 +829,8 @@ function openProduct(id) {
           <div class="match-card__thumb">
             <img src="images/originals/${slugifyOriginal(f.original_name)}.png"
                  alt="${f.brand} ${f.original_name}"
+                 loading="lazy"
+                 decoding="async"
                  onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
             <div class="match-card__thumb-fallback" style="display:none;">
               <span>${(f.brand||'').slice(0,2).toUpperCase()}</span>
@@ -971,6 +975,8 @@ function openMatchOrigin(fragId) {
             <div class="match-card__thumb">
               <img src="images/veelyn/${f.id}.png?v=2"
                    alt="Veelyn ${f.veelyn_name}"
+                   loading="lazy"
+                   decoding="async"
                    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
               <div class="match-card__thumb-fallback" style="display:none;">
                 <span>V</span>

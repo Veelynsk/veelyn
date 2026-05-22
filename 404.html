@@ -69,8 +69,45 @@
     transition: transform 0.2s ease;
   }
   .err__cta:hover { transform: translateY(-2px); }
+  .err__suggest {
+    margin: 2rem auto 0;
+    padding: 1.2rem 1.4rem;
+    background: rgba(124,58,237,0.08);
+    border: 1px solid rgba(167,139,250,0.22);
+    border-radius: 12px;
+    max-width: 480px;
+  }
+  .err__suggest h3 {
+    margin: 0 0 0.6rem;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #c4b5fd;
+  }
+  .err__suggest ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    justify-content: center;
+  }
+  .err__suggest a {
+    display: inline-block;
+    padding: 0.35rem 0.85rem;
+    font-size: 0.85rem;
+    color: #fff;
+    background: rgba(167,139,250,0.15);
+    border: 1px solid rgba(167,139,250,0.35);
+    border-radius: 999px;
+    text-decoration: none;
+    transition: background 0.18s ease;
+  }
+  .err__suggest a:hover { background: rgba(167,139,250,0.3); }
   .err__alt {
-    margin-top: 1.25rem;
+    margin-top: 1.5rem;
     font-size: 0.85rem;
     color: #8e85a3;
   }
@@ -83,6 +120,21 @@
     <h2 class="err__title">Táto stránka asi vyšumela…</h2>
     <p class="err__lead">Vyzerá to, že hľadaná adresa neexistuje alebo bola presunutá. Vráť sa späť a vyber si vôňu, ktorá zostane.</p>
     <a href="/" class="err__cta">← Späť na Veelyn</a>
+
+    <!-- Popular dupé landing pages — gives the visitor a recovery path
+         straight into something they probably wanted. -->
+    <div class="err__suggest">
+      <h3>Možno si hľadal/a</h3>
+      <ul>
+        <li><a href="/produkt/maison-francis-kurkdjian-baccarat-rouge-540/">Baccarat Rouge 540</a></li>
+        <li><a href="/produkt/creed-aventus/">Creed Aventus</a></li>
+        <li><a href="/produkt/tom-ford-lost-cherry/">Tom Ford Lost Cherry</a></li>
+        <li><a href="/produkt/dior-sauvage/">Dior Sauvage</a></li>
+        <li><a href="/produkt/yves-saint-laurent-libre/">YSL Libre</a></li>
+        <li><a href="/produkt/tom-ford-tobacco-vanille/">Tom Ford Tobacco Vanille</a></li>
+      </ul>
+    </div>
+
     <p class="err__alt">Pomoc? Napíš nám na <a href="mailto:info@veelyn.sk">info@veelyn.sk</a></p>
   </main>
 </body>

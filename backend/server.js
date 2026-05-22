@@ -131,6 +131,51 @@ const app = express();
 app.use(cors());
 app.use(express.json({ limit: '256kb' }));
 
+// Security headers — minimal set without pulling helmet as a dependency.
+// Applied to every response. Tweak via setHeader on specific routes if
+// some endpoint needs different CSP / framing rules.
+app.use((req, res, next) => {
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('X-Frame-Options', 'DENY');
+  res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+  res.setHeader('Permissions-Policy', 'geolocation=(), microphone=(), camera=()');
+  // HSTS only kicks in over HTTPS (Railway terminates HTTPS upstream
+  // so the connection is HTTPS from the client's POV).
+  res.setHeader('Strict-Transport-Security', 'max-age=15552000; includeSubDomains');
+  next();
+});
+
+// Per-IP, in-memory rate limiter for the public POST endpoints. Not a
+// distributed solution — fine for a single Railway instance. Limits are
+// generous enough that real users never hit them; bots that hammer the
+// form get 429ed.
+const rateBuckets = new Map(); // key -> { count, resetAt }
+function rateLimit({ windowMs, max }) {
+  return (req, res, next) => {
+    const key = (req.ip || req.connection?.remoteAddress || 'anon') + ':' + req.path;
+    const now = Date.now();
+    let b = rateBuckets.get(key);
+    if (!b || now > b.resetAt) {
+      b = { count: 0, resetAt: now + windowMs };
+      rateBuckets.set(key, b);
+    }
+    b.count++;
+    if (b.count > max) {
+      const retry = Math.max(1, Math.ceil((b.resetAt - now) / 1000));
+      res.setHeader('Retry-After', String(retry));
+      return res.status(429).json({ error: 'Too many requests', retryAfter: retry });
+    }
+    next();
+  };
+}
+// Periodic cleanup of expired buckets so the map doesn't grow forever.
+setInterval(() => {
+  const now = Date.now();
+  for (const [k, b] of rateBuckets) {
+    if (now > b.resetAt) rateBuckets.delete(k);
+  }
+}, 60_000).unref();
+
 // Helper: format EUR
 const eur = (n) => (Math.round(Number(n) * 100) / 100).toFixed(2).replace('.', ',') + ' €';
 
@@ -255,7 +300,7 @@ app.get('/api/health', (req, res) => {
 // Public endpoint that the footer newsletter form posts to. Adds the
 // subscriber to the "Newsletter" group in MailerLite, which then triggers
 // the welcome flow automation configured in the MailerLite UI.
-app.post('/api/newsletter', async (req, res) => {
+app.post('/api/newsletter', rateLimit({ windowMs: 60_000, max: 5 }), async (req, res) => {
   const email = String((req.body || {}).email || '').trim().toLowerCase();
   const source = String((req.body || {}).source || 'footer');
   if (!email || !email.includes('@')) {
@@ -282,7 +327,7 @@ app.post('/api/newsletter', async (req, res) => {
 // in their email but doesn't complete the order within ~30 min. The
 // /api/order success handler later removes them from this group so the
 // win-back email doesn't fire on customers who DID convert.
-app.post('/api/cart-abandoned', async (req, res) => {
+app.post('/api/cart-abandoned', rateLimit({ windowMs: 60_000, max: 10 }), async (req, res) => {
   const body = req.body || {};
   const email = String(body.email || '').trim().toLowerCase();
   if (!email || !email.includes('@')) {
@@ -328,7 +373,7 @@ function requireAuth(roles = null) {
   };
 }
 
-app.post('/api/admin/login', (req, res) => {
+app.post('/api/admin/login', rateLimit({ windowMs: 5 * 60_000, max: 10 }), (req, res) => {
   const { username, password } = req.body || {};
   if (!username || !password) return res.status(400).json({ error: 'username + password required' });
   const u = db.prepare(`SELECT * FROM users WHERE username = ?`).get(String(username).toLowerCase());
@@ -355,7 +400,7 @@ app.get('/api/admin/me', requireAuth(), (req, res) => {
 // SELLER_EMAIL if not configured) via Resend. Always returns ok:true
 // to the frontend so the UX never breaks if Resend is down — the
 // payload is also logged to backend/logs/ as a fallback record.
-app.post('/api/affiliate', async (req, res) => {
+app.post('/api/affiliate', rateLimit({ windowMs: 60_000, max: 3 }), async (req, res) => {
   const b = req.body || {};
   const email = String(b.email || '').trim().toLowerCase();
   const name = String(b.name || '').trim();
@@ -424,7 +469,7 @@ function escapeHtml(s) {
     .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 }
 
-app.post('/api/order', async (req, res) => {
+app.post('/api/order', rateLimit({ windowMs: 60_000, max: 10 }), async (req, res) => {
   try {
     const body = req.body || {};
     // Minimal validation

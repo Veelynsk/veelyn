@@ -472,6 +472,13 @@ function openOrderDetail(orderId) {
         </div>
       </div>
 
+      <!-- Packeta section: fetch the sidecar row on open; if no shipment
+           yet show "Vytvoriť zásielku", otherwise show tracking + PDF link. -->
+      <div class="order-detail__section order-detail__packeta" id="orderPacketaSection" style="margin-top:1rem;">
+        <h3>Packeta zásielka</h3>
+        <div id="orderPacketaBody"><em style="color:var(--text-mute);">Načítava sa…</em></div>
+      </div>
+
       <div class="order-detail__actions">
         <select class="select" id="orderStatusUpdate">
           ${Object.entries(STATUS_LABEL).map(([k, v]) => `<option value="${k}" ${k === o.status ? 'selected' : ''}>${v}</option>`).join('')}
@@ -483,6 +490,7 @@ function openOrderDetail(orderId) {
     </div>
   `;
   $('#orderDialog').hidden = false;
+  refreshPacketaSection(o.id);
 
   $('#updateOrderStatus').addEventListener('click', async () => {
     const newStatus = $('#orderStatusUpdate').value;
@@ -506,6 +514,95 @@ function openOrderDetail(orderId) {
 function closeDialog() {
   $('#orderDialog').hidden = true;
   $('#orderDialogContent').innerHTML = '';
+}
+
+// Packeta shipment section inside order detail. Pulls the sidecar row
+// from the backend, then renders either "Vytvoriť zásielku" (create
+// button) or the existing shipment info (tracking + PDF download).
+async function refreshPacketaSection(orderId) {
+  const body = document.getElementById('orderPacketaBody');
+  if (!body) return;
+  let shipment = null;
+  try {
+    const data = await apiGet('/api/admin/orders/' + encodeURIComponent(orderId) + '/shipment');
+    shipment = data?.shipment || null;
+  } catch (e) {
+    body.innerHTML = `<em style="color:#ff9090;">Chyba: ${e.message}</em>`;
+    return;
+  }
+
+  if (!shipment || (!shipment.packet_id && !shipment.error)) {
+    body.innerHTML = `
+      <p style="margin:0 0 0.7rem;color:var(--text-dim);font-size:0.88rem;">
+        Pre túto objednávku zatiaľ neexistuje zásielka v Packete.
+      </p>
+      <button class="btn btn--primary btn--small" id="packetaCreate" data-order="${orderId}">📦 Vytvoriť zásielku</button>
+    `;
+    document.getElementById('packetaCreate')?.addEventListener('click', async (e) => {
+      const btn = e.currentTarget;
+      btn.disabled = true;
+      btn.textContent = 'Vytváram…';
+      try {
+        await apiPost('/api/admin/orders/' + encodeURIComponent(orderId) + '/shipment', {});
+        await refreshPacketaSection(orderId);
+      } catch (err) {
+        alert('Nepodarilo sa vytvoriť zásielku: ' + err.message);
+        btn.disabled = false;
+        btn.textContent = '📦 Vytvoriť zásielku';
+      }
+    });
+    return;
+  }
+
+  if (shipment.error && !shipment.packet_id) {
+    body.innerHTML = `
+      <p style="margin:0 0 0.6rem;color:#ff9090;font-size:0.88rem;">
+        Predchádzajúci pokus zlyhal: ${shipment.error}
+      </p>
+      <button class="btn btn--primary btn--small" id="packetaRetry">↻ Skúsiť znova</button>
+    `;
+    document.getElementById('packetaRetry')?.addEventListener('click', async (e) => {
+      e.currentTarget.disabled = true;
+      try {
+        await apiPost('/api/admin/orders/' + encodeURIComponent(orderId) + '/shipment', {});
+        await refreshPacketaSection(orderId);
+      } catch (err) {
+        alert('Stále zlyháva: ' + err.message);
+        e.currentTarget.disabled = false;
+      }
+    });
+    return;
+  }
+
+  // Shipment exists — show tracking + label download
+  const tracking = shipment.tracking_url || ('https://tracking.packeta.com/sk/?id=' + encodeURIComponent(shipment.barcode || ''));
+  const labelUrl = VEELYN_API + '/api/admin/orders/' + encodeURIComponent(orderId) + '/shipment/label';
+  body.innerHTML = `
+    <div style="display:flex;flex-direction:column;gap:0.45rem;font-size:0.9rem;">
+      <div><strong>Packet ID:</strong> <code>${shipment.packet_id || '—'}</code></div>
+      <div><strong>Barcode:</strong> <code>${shipment.barcode_text || shipment.barcode || '—'}</code></div>
+      <div>
+        <a href="${tracking}" target="_blank" rel="noopener" style="color:var(--accent-2);">🔎 Sleduj zásielku ↗</a>
+      </div>
+      <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:0.4rem;">
+        <button class="btn btn--primary btn--small" id="packetaLabel">📄 Stiahnuť štítok PDF</button>
+      </div>
+    </div>
+  `;
+  document.getElementById('packetaLabel')?.addEventListener('click', async () => {
+    // Authenticated download — fetch as blob so we send the Bearer
+    // token, then open in a new tab via a transient object URL.
+    try {
+      const r = await fetch(labelUrl, { headers: authHeaders() });
+      if (!r.ok) throw new Error('Server vrátil ' + r.status);
+      const blob = await r.blob();
+      const obj = URL.createObjectURL(blob);
+      window.open(obj, '_blank');
+      setTimeout(() => URL.revokeObjectURL(obj), 30000);
+    } catch (err) {
+      alert('Nepodarilo sa stiahnuť štítok: ' + err.message);
+    }
+  });
 }
 
 function exportOrdersCSV() {
