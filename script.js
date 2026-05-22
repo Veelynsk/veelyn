@@ -1445,6 +1445,65 @@ function setupContactForm() {
 }
 
 // --- WHOLESALE / WHITELABEL FORM ---
+// Affiliate modal form — submits to our backend /api/affiliate (Resend
+// then forwards to info@veelyn.sk). Same UX pattern as the newsletter
+// form: inline feedback bar instead of alert(), submit-button disabled
+// state while flying.
+function setupAffiliateForm() {
+  const form = $('#affiliateForm');
+  if (!form) return;
+  const submitBtn = form.querySelector('button[type="submit"]');
+  const origLabel = submitBtn ? submitBtn.textContent : 'Odoslať prihlášku';
+
+  function showFeedback(msg, kind) {
+    let fb = form.querySelector('.wholesale__form-feedback');
+    if (!fb) {
+      fb = document.createElement('div');
+      fb.className = 'wholesale__form-feedback';
+      form.appendChild(fb);
+    }
+    fb.textContent = msg;
+    fb.dataset.kind = kind;
+    setTimeout(() => { fb.textContent = ''; fb.dataset.kind = ''; }, 8000);
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const data = new FormData(form);
+    if (data.get('botcheck')) return; // honeypot
+    const payload = {
+      name: (data.get('name') || '').toString().trim(),
+      email: (data.get('email') || '').toString().trim().toLowerCase(),
+      phone: (data.get('phone') || '').toString().trim(),
+      followers: (data.get('followers') || '').toString(),
+      platform: (data.get('platform') || '').toString(),
+      handle: (data.get('handle') || '').toString().trim(),
+      message: (data.get('message') || '').toString().trim(),
+    };
+    if (!payload.name || !payload.email.includes('@') || !payload.message) {
+      showFeedback('Vyplň meno, e-mail a krátku správu.', 'error');
+      return;
+    }
+    if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Odosielam…'; }
+    try {
+      const res = await fetch(VEELYN_API + '/api/affiliate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      if (!res.ok) throw new Error(`Server vrátil ${res.status}`);
+      showFeedback('Hotovo ✦ Ozveme sa do 48 hodín.', 'success');
+      form.reset();
+      // GA4 sign_up event (affiliate variant) — for measuring conversion
+      try { trackEvent('sign_up', { method: 'affiliate' }); } catch {}
+    } catch (err) {
+      showFeedback('Niečo sa pokazilo, skús to prosím o chvíľu znova.', 'error');
+    } finally {
+      if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = origLabel; }
+    }
+  });
+}
+
 function setupWholesaleForm() {
   const form = $('#wholesaleForm');
   if (!form) return;
@@ -2358,6 +2417,7 @@ function init() {
   setupBundle();
   setupContactForm();
   setupWholesaleForm();
+  setupAffiliateForm();
   setupHeroCart();
   setupCookieBanner();
   setupNewsletter();

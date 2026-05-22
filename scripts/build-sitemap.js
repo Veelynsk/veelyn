@@ -54,7 +54,6 @@ const urls = [
   url({ loc: `${SITE}/#bestsellers`, lastmod: today, changefreq: 'weekly', priority: '0.8' }),
   url({ loc: `${SITE}/#porovnanie`, lastmod: today, changefreq: 'monthly', priority: '0.6' }),
   url({ loc: `${SITE}/#kontakt`, lastmod: today, changefreq: 'monthly', priority: '0.5' }),
-  url({ loc: `${SITE}/affiliate/`, lastmod: today, changefreq: 'monthly', priority: '0.8' }),
 ];
 
 for (const f of fragrances) {

@@ -6479,6 +6479,27 @@ body.has-promo-popup .proof-toast { display: none !important; }
   text-align: center;
   margin: 0.5rem 0 0;
 }
+/* Inline feedback bar appended by setupAffiliateForm / setupWholesaleForm
+   when the submit succeeds or fails. Hidden when empty. */
+.wholesale__form-feedback {
+  margin-top: 0.7rem;
+  padding: 0.7rem 0.95rem;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-align: center;
+}
+.wholesale__form-feedback:empty { display: none; }
+.wholesale__form-feedback[data-kind="success"] {
+  background: linear-gradient(135deg, rgba(74,222,128,0.14), rgba(124,58,237,0.08));
+  border: 1px solid rgba(74,222,128,0.42);
+  color: #d8ffe6;
+}
+.wholesale__form-feedback[data-kind="error"] {
+  background: rgba(220,38,38,0.14);
+  border: 1px solid rgba(220,38,38,0.4);
+  color: #ffd0d0;
+}
 
 /* --- REVIEWS --- */
 .reviews { padding: 3rem 1.25rem 2rem; }

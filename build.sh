@@ -21,11 +21,10 @@ cp -r admin public/
 cp -r vratenie-tovaru public/
 cp -r obchodne-podmienky public/
 cp -r ochrana-osobnych-udajov public/
-cp -r affiliate public/
-# Shared stylesheets for legal + affiliate pages
+# Shared stylesheet for legal pages (affiliate is now a modal on the
+# homepage, not a separate page — no extra stylesheet needed.)
 mkdir -p public/styles
 cp styles/legal.css public/styles/
-cp styles/affiliate.css public/styles/
 
 cp -r images/veelyn public/images/
 cp -r images/originals public/images/
