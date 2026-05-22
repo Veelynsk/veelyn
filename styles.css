@@ -6816,9 +6816,81 @@ body.has-promo-popup .proof-toast { display: none !important; }
    ============================================================= */
 @media (max-width: 699px) {
 
-  /* --- Global safety: no overflow, accessible tap targets --- */
-  html, body { max-width: 100vw; }
+  /* --- Global safety: no overflow, accessible tap targets ---
+     iOS Safari ignores body { overflow-x: hidden } when html doesn't
+     also clip horizontal pan. Belt + braces: clip on both. */
+  html, body {
+    max-width: 100vw;
+    overflow-x: clip;
+  }
   img, video { max-width: 100%; height: auto; }
+
+  /* --- AFFILIATE INTRO MODAL — mobile-only compact layout ---
+     Goal: fit everything on one screen, no scroll. Same shape as
+     desktop (2 cards side-by-side + 1 wide below + CTA), just denser.
+     Top two cards lose their checklist on mobile (they get short
+     headline + one-line subtitle); the wide content card keeps its
+     checklist because that's the main info. */
+  #modal-affiliate .wholesale__head { margin-bottom: 0.9rem; }
+  #modal-affiliate .wholesale__title { font-size: 1.4rem; margin: 0.1rem 0; }
+  #modal-affiliate .wholesale__lead {
+    font-size: 0.82rem;
+    line-height: 1.4;
+    margin-top: 0.4rem;
+  }
+  #modal-affiliate .wholesale__eyebrow {
+    font-size: 0.65rem;
+    padding: 0.25rem 0.7rem;
+  }
+  #modal-affiliate .wholesale__grid--two {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.6rem;
+    margin-bottom: 1rem;
+  }
+  #modal-affiliate .wholesale__card {
+    padding: 0.85rem 0.7rem;
+    gap: 0.35rem;
+    border-radius: 12px;
+  }
+  #modal-affiliate .wholesale__icon { font-size: 1.3rem; }
+  #modal-affiliate .wholesale__card h3 {
+    font-size: 0.78rem;
+    letter-spacing: 0.02em;
+    line-height: 1.2;
+  }
+  #modal-affiliate .wholesale__card p {
+    font-size: 0.76rem;
+    line-height: 1.35;
+  }
+  #modal-affiliate .wholesale__badge {
+    font-size: 0.55rem;
+    padding: 0.2rem 0.5rem;
+    letter-spacing: 0.12em;
+    top: -8px;
+  }
+  /* Hide the checklist on the top two cards on mobile (saves vertical
+     space). The wide card keeps its checklist via the rule below. */
+  #modal-affiliate .wholesale__grid--two > .wholesale__card:not(.wholesale__card--wide) ul {
+    display: none;
+  }
+  #modal-affiliate .wholesale__card--wide {
+    padding: 0.9rem 0.85rem;
+  }
+  #modal-affiliate .wholesale__card--wide ul {
+    margin-top: 0.3rem;
+    gap: 0.25rem;
+  }
+  #modal-affiliate .wholesale__card--wide ul li {
+    font-size: 0.78rem;
+    line-height: 1.35;
+  }
+  /* Compact CTA spacing */
+  #modal-affiliate .affiliate-intro__cta { margin-top: 1rem; }
+  #modal-affiliate .affiliate-intro__cta .btn { padding: 0.95rem 1.4rem; font-size: 0.88rem; }
+  #modal-affiliate .affiliate-intro__cta p {
+    font-size: 0.75rem;
+    margin-top: 0.5rem;
+  }
 
   /* --- Header: hamburger replaces left link stack, logo stays prominent --- */
   .header {
