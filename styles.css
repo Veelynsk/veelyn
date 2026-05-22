@@ -303,10 +303,22 @@ body.lock {
   color: #fff;
 }
 
-/* Filled purple variant — used by primary CTAs (3+1 ZADARMO + the
-   main catalog entry "Všetky vonavky"). Has a star prefix on 3+1
-   only via :first-of-type-like markup; star is just on accent
-   variant for backwards compat. */
+/* Filled gold variant — used for the "3+1 ZADARMO" deal CTA, matches
+   the gold deal button under the carousel (.btn--gold) so the nav
+   reads as the primary entry point to the bundle offer. */
+.nav__link--gold {
+  background: linear-gradient(135deg, #d4a247 0%, #b88835 100%);
+  color: #1a1208;
+  border-color: #d4a247;
+  box-shadow: 0 4px 14px rgba(212,162,71,0.35);
+}
+.nav__link--gold:hover {
+  background: linear-gradient(135deg, #e2b35a 0%, #c39a44 100%);
+  color: #1a1208;
+  box-shadow: 0 6px 18px rgba(212,162,71,0.45);
+}
+
+/* Filled purple variant — used by primary catalog CTAs (Všetky vonavky). */
 .nav__link--accent {
   background: linear-gradient(135deg, #a78bfa, #7c3aed);
   color: #fff;
@@ -6345,6 +6357,115 @@ body.has-promo-popup .proof-toast { display: none !important; }
   font-weight: 900;
   letter-spacing: 0.04em;
   text-decoration: none;
+}
+
+/* ===========================================================
+   Affiliate modal — compact single-view layout (pitch + form
+   side-by-side on desktop, stacked on mobile). No internal scroll
+   on desktop; whole form + pitch visible at once.
+   =========================================================== */
+.affiliate-modal__layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  padding: 2rem 1.5rem 1.5rem;
+}
+@media (min-width: 760px) {
+  .affiliate-modal__layout {
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: 2.5rem;
+    padding: 2rem 2.5rem;
+  }
+}
+.affiliate-modal__pitch .wholesale__eyebrow { margin-bottom: 0.4rem; }
+.affiliate-modal__pitch .wholesale__title {
+  font-size: clamp(1.4rem, 3vw, 1.9rem);
+  margin: 0.3rem 0 0.5rem;
+}
+.affiliate-modal__lead {
+  font-size: 0.95rem;
+  color: var(--text-dim);
+  line-height: 1.5;
+  margin: 0 0 1rem;
+}
+.affiliate-modal__lead strong { color: #fff; font-weight: 800; }
+.affiliate-modal__bullets {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  font-size: 0.92rem;
+  color: var(--text);
+  line-height: 1.4;
+}
+.affiliate-modal__bullets li {
+  padding-left: 0;
+}
+
+.affiliate-modal__form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  background: rgba(124,58,237,0.05);
+  border: 1px solid rgba(167,139,250,0.22);
+  border-radius: 12px;
+  padding: 1.25rem 1.1rem;
+}
+.affiliate-modal__form-title {
+  margin: 0 0 0.3rem;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #fff;
+  text-align: center;
+}
+.affiliate-modal__form .field { gap: 0.25rem; }
+.affiliate-modal__form .field > span {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+.affiliate-modal__form .field input[type="text"],
+.affiliate-modal__form .field input[type="email"],
+.affiliate-modal__form .field input[type="tel"],
+.affiliate-modal__form .field select,
+.affiliate-modal__form .field textarea,
+.affiliate-modal__form .affiliate-modal__phone {
+  padding: 0.55rem 0.7rem;
+  font-size: 0.92rem;
+  background: rgba(0,0,0,0.4);
+  border: 1px solid var(--line-2);
+  border-radius: 8px;
+  color: var(--text);
+  font-family: var(--font-body);
+  outline: none;
+  width: 100%;
+  box-sizing: border-box;
+}
+.affiliate-modal__form .field textarea { resize: vertical; min-height: 60px; }
+.affiliate-modal__form .field input:focus,
+.affiliate-modal__form .field select:focus,
+.affiliate-modal__form .field textarea:focus,
+.affiliate-modal__form .affiliate-modal__phone:focus { border-color: var(--accent-2); }
+.affiliate-modal__phone {
+  margin-top: 0.2rem;
+}
+.affiliate-modal__form .wholesale__form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.7rem;
+}
+.affiliate-modal__form .btn { margin-top: 0.5rem; padding: 0.85rem 1rem; font-size: 0.92rem; }
+.affiliate-modal__form .wholesale__form-hint {
+  margin: 0.4rem 0 0;
+  font-size: 0.78rem;
+  text-align: center;
 }
 
 .wholesale__grid {

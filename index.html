@@ -128,7 +128,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="preconnect" href="https://widget.packeta.com">
 <link rel="dns-prefetch" href="https://widget.packeta.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..900;1,9..144,400..900&family=Manrope:wght@300..800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=20260522-007">
+<link rel="stylesheet" href="styles.css?v=20260522-008">
 
 <!-- JSON-LD Structured Data -->
 <script type="application/ld+json">
@@ -275,7 +275,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </button>
 
     <div class="nav__left">
-      <button class="nav__link nav__link--accent" data-open="bundle">★ 3+1 ZADARMO</button>
+      <button class="nav__link nav__link--gold" data-open="bundle">★ 3+1 ZADARMO</button>
       <button class="nav__link nav__link--accent" data-open="catalog">Všetky vonavky</button>
       <button class="nav__link" data-open="wholesale">Veľkoobchod / Whitelabel značka</button>
       <button class="nav__link" data-open="affiliate">Affiliate</button>
@@ -917,101 +917,76 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
      grid + form layout. Different content + form fields per spec. -->
 <div class="modal" id="modal-affiliate" hidden>
   <div class="modal__backdrop" data-close></div>
-  <div class="modal__panel modal__panel--wide">
+  <div class="modal__panel modal__panel--wide affiliate-modal">
     <button class="modal__close" data-close aria-label="Zavrieť">×</button>
-    <div class="wholesale">
-      <header class="wholesale__head">
+
+    <!-- Single-view layout: pitch on the left, form on the right. Both
+         columns fit inside the panel without internal scroll. -->
+    <div class="affiliate-modal__layout">
+      <aside class="affiliate-modal__pitch">
         <span class="wholesale__eyebrow">AFFILIATE PROGRAM</span>
         <h2 class="wholesale__title">Zarob s nami</h2>
-        <p class="wholesale__lead">
-          Promuj Veelyn s vlastným kódom a dostaň <strong>15 % z každej objednávky cez teba.</strong>
-          Žiadne minimum, vyplácané mesačne.
+        <p class="affiliate-modal__lead">
+          <strong>15 % z každej objednávky cez tvoj kód.</strong>
+          Žiadne minimum, mesačné výplaty.
         </p>
-        <!-- Scroll-to-form CTA so users on long modals (mobile) see
-             the registration entry point above the fold. -->
-        <a href="#affiliateForm" class="btn btn--primary wholesale__head-cta" id="affiliateScrollToForm">Zaregistrovať sa →</a>
-      </header>
+        <ul class="affiliate-modal__bullets">
+          <li>✓ Vlastný unikátny zľavový kód</li>
+          <li>✓ 10 % zľava pre tvoje publikum</li>
+          <li>✓ 15 % provízia z každej objednávky</li>
+          <li>✓ Real-time dashboard + štatistiky</li>
+          <li>✓ Mesačné výplaty do 15. dňa</li>
+          <li>✓ Skoré balíčky na recenzie</li>
+        </ul>
+      </aside>
 
-      <div class="wholesale__grid wholesale__grid--two">
-        <article class="wholesale__card">
-          <div class="wholesale__icon">🎟️</div>
-          <h3>Vlastný kód + 15 %</h3>
-          <p><strong>Unikátny zľavový kód pre teba.</strong> Z každej objednávky cez tvoj kód dostávaš 15 % provízie. Žiadny strop, žiadne minimum.</p>
-          <ul>
-            <li>10 % zľava pre tvoje publikum</li>
-            <li>15 % provízia z hodnoty objednávky</li>
-            <li>Mesačné výplaty do 15. dňa</li>
-          </ul>
-        </article>
-
-        <article class="wholesale__card wholesale__card--featured">
-          <div class="wholesale__badge">PRE INFLUENCEROV</div>
-          <div class="wholesale__icon">📊</div>
-          <h3>Dashboard + balíčky</h3>
-          <p><strong>Vlastný dashboard so štatistikami v reálnom čase</strong> — kliknutia, objednávky, provízie. Plus nové vône dostávaš ako prvý/á na recenzie.</p>
-          <ul>
-            <li>Real-time štatistiky + výplaty</li>
-            <li>Skoré balíčky pred releasom</li>
-            <li>Akceptujeme aj mikroinfluencerov</li>
-          </ul>
-        </article>
-      </div>
-
-      <div class="wholesale__cta">
-        <h3 class="wholesale__cta-title">Pridaj sa do programu</h3>
-        <p class="wholesale__cta-text">Pár základných údajov a sme dohodnutí. Ozveme sa do <strong>48 hodín</strong>.</p>
-        <form class="wholesale__form" id="affiliateForm" novalidate>
-          <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;opacity:0;pointer-events:none;">
-          <div class="wholesale__form-row">
-            <label class="field">
-              <span>Meno / Nick</span>
-              <input type="text" name="name" required>
-            </label>
-            <label class="field">
-              <span>E-mail</span>
-              <input type="email" name="email" required>
-            </label>
-          </div>
-          <div class="wholesale__form-row">
-            <label class="field">
-              <span>Telefón</span>
-              <input type="tel" name="phone" placeholder="+421 9XX XXX XXX">
-            </label>
-            <label class="field">
-              <span>Počet followerov</span>
-              <select name="followers" required>
-                <option value="">— vyber —</option>
-                <option value="0-5k">0 – 5 000</option>
-                <option value="5-25k">5 000 – 25 000</option>
-                <option value="25-100k">25 000 – 100 000</option>
-                <option value="100k+">100 000+</option>
-              </select>
-            </label>
-          </div>
-          <div class="wholesale__form-row">
-            <label class="field">
-              <span>Primárna platforma</span>
-              <select name="platform" required>
-                <option value="">— vyber —</option>
-                <option value="instagram">Instagram</option>
-                <option value="tiktok">TikTok</option>
-                <option value="youtube">YouTube</option>
-                <option value="ine">Iné</option>
-              </select>
-            </label>
-            <label class="field">
-              <span>Handle / URL</span>
-              <input type="text" name="handle" placeholder="@username alebo odkaz" required>
-            </label>
-          </div>
+      <form class="affiliate-modal__form" id="affiliateForm" novalidate>
+        <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;opacity:0;pointer-events:none;">
+        <h3 class="affiliate-modal__form-title">Prihlás sa do programu</h3>
+        <div class="wholesale__form-row">
           <label class="field">
-            <span>Akým štýlom budeš tvoriť obsah?</span>
-            <textarea name="message" rows="4" placeholder="Krátko nám napíš ako si predstavuješ promo Veelyn — reels, recenzie, story-bundle, blog… štýl necháme na teba." required></textarea>
+            <span>Meno / Nick</span>
+            <input type="text" name="name" required>
           </label>
-          <button type="submit" class="btn btn--primary btn--block">Odoslať prihlášku</button>
-          <p class="wholesale__form-hint">Pôjde priamo na <strong>info@veelyn.sk</strong></p>
-        </form>
-      </div>
+          <label class="field">
+            <span>E-mail</span>
+            <input type="email" name="email" required>
+          </label>
+        </div>
+        <div class="wholesale__form-row">
+          <label class="field">
+            <span>Followers</span>
+            <select name="followers" required>
+              <option value="">— vyber —</option>
+              <option value="0-5k">0 – 5 000</option>
+              <option value="5-25k">5 000 – 25 000</option>
+              <option value="25-100k">25 000 – 100 000</option>
+              <option value="100k+">100 000+</option>
+            </select>
+          </label>
+          <label class="field">
+            <span>Platforma</span>
+            <select name="platform" required>
+              <option value="">— vyber —</option>
+              <option value="instagram">Instagram</option>
+              <option value="tiktok">TikTok</option>
+              <option value="youtube">YouTube</option>
+              <option value="ine">Iné</option>
+            </select>
+          </label>
+        </div>
+        <label class="field">
+          <span>Handle / URL</span>
+          <input type="text" name="handle" placeholder="@username alebo odkaz" required>
+        </label>
+        <label class="field">
+          <span>Štýl obsahu</span>
+          <textarea name="message" rows="2" placeholder="Krátko ako si predstavuješ promo Veelyn — štýl necháme na teba." required></textarea>
+        </label>
+        <input type="tel" name="phone" placeholder="+421 telefón (voliteľné)" autocomplete="tel" class="affiliate-modal__phone">
+        <button type="submit" class="btn btn--primary btn--block">Odoslať prihlášku</button>
+        <p class="wholesale__form-hint">Pôjde priamo na <strong>info@veelyn.sk</strong></p>
+      </form>
     </div>
   </div>
 </div>
@@ -1350,7 +1325,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- Packeta widget v6 (https://docs.packetery.com/03-creating-shipments/05-widget-v6.html) -->
 <script src="https://widget.packeta.com/v6/www/js/library.js" async></script>
 
-<script src="data.js?v=20260522-007"></script>
-<script src="script.js?v=20260522-007"></script>
+<script src="data.js?v=20260522-008"></script>
+<script src="script.js?v=20260522-008"></script>
 </body>
 </html>
