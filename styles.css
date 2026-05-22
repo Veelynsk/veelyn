@@ -6291,6 +6291,15 @@ body.has-promo-popup .proof-toast { display: none !important; }
   text-transform: uppercase;
   color: #fff;
 }
+.field__optional {
+  font-weight: 500;
+  font-style: normal;
+  letter-spacing: 0.05em;
+  text-transform: none;
+  color: #8e85a3;
+  margin-left: 0.4em;
+  font-size: 0.85em;
+}
 .field input, .field textarea {
   width: 100%;
   padding: 0.85rem 1rem;

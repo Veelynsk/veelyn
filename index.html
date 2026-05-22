@@ -128,7 +128,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="preconnect" href="https://widget.packeta.com">
 <link rel="dns-prefetch" href="https://widget.packeta.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..900;1,9..144,400..900&family=Manrope:wght@300..800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=20260522-013">
+<link rel="stylesheet" href="styles.css?v=20260522-014">
 
 <!-- JSON-LD Structured Data -->
 <script type="application/ld+json">
@@ -996,10 +996,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
         <div class="wholesale__form-row">
           <label class="field">
-            <span>Telefón</span>
-            <input type="tel" name="phone" placeholder="+421 9XX XXX XXX">
-          </label>
-          <label class="field">
             <span>Followers</span>
             <select name="followers" required>
               <option value="">— vyber —</option>
@@ -1009,8 +1005,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <option value="100k+">100 000+</option>
             </select>
           </label>
-        </div>
-        <div class="wholesale__form-row">
           <label class="field">
             <span>Platforma</span>
             <select name="platform" required>
@@ -1021,11 +1015,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <option value="ine">Iné</option>
             </select>
           </label>
-          <label class="field">
-            <span>Handle / URL</span>
-            <input type="text" name="handle" placeholder="@username alebo odkaz" required>
-          </label>
         </div>
+        <label class="field">
+          <span>Handle / URL</span>
+          <input type="text" name="handle" placeholder="@username alebo odkaz" required>
+        </label>
+        <label class="field">
+          <span>Poznámka <em class="field__optional">(nepovinné)</em></span>
+          <textarea name="message" rows="3" placeholder="Ak nám chceš niečo doplniť — sem s tým. Pokojne to nechaj prázdne."></textarea>
+        </label>
         <div class="affiliate-form__note">
           <strong>Ako to funguje s obsahom?</strong>
           <p>Videá môžeš tvoriť úplne po svojom — necháme to na teba. Alebo ti pošleme hotové scenáre, ktoré majú u nás <strong>najlepšiu účinnosť</strong>. Do mailu ti pribalíme aj <strong>príklady videí od iných influencerov</strong>, nech máš inšpiráciu.</p>
@@ -1371,7 +1369,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- Packeta widget v6 (https://docs.packetery.com/03-creating-shipments/05-widget-v6.html) -->
 <script src="https://widget.packeta.com/v6/www/js/library.js" async></script>
 
-<script src="data.js?v=20260522-013"></script>
-<script src="script.js?v=20260522-013"></script>
+<script src="data.js?v=20260522-014"></script>
+<script src="script.js?v=20260522-014"></script>
 </body>
 </html>
