@@ -1574,7 +1574,11 @@ function setupEvents() {
 }
 
 // --- CHECKOUT — multi-step: 1) Doručenie 2) Údaje 3) Platba ---
-const PACKETA_API_KEY = 'demo-packeta-key'; // TODO: replace with real key from packeta.com
+// Packeta Widget V6 API key (PUBLIC — embedded in widget.packeta.com calls
+// for identifying the merchant). The matching REST API password lives in
+// Railway env var PACKETA_API_PASSWORD and is used by the backend for
+// creating shipments + generating labels.
+const PACKETA_API_KEY = '3486767127ceef1f';
 const SHIPPING_METHODS = {
   'packeta-zbox':   { label: 'Packeta Z-BOX',         note: 'Vyzdvihnutie 24/7 · 1–2 dni',   price: 2.99, packeta: true,  vendors: 'czzpoint,zbox' },
   'packeta-pobocka':{ label: 'Packeta výdajné miesto',note: 'Pobočka · 2–3 dni',             price: 3.49, packeta: true,  vendors: 'czzpoint,packeta' },
@@ -2052,19 +2056,16 @@ function wireCheckoutStep(t) {
 }
 
 function openPacketaWidget() {
+  // The widget library is loaded async in <head> — if the user clicked
+  // very early, retry once after a short delay before falling back.
   if (typeof Packeta === 'undefined' || !Packeta.Widget) {
-    // Fallback: simulated point picker (works without API key for demo)
-    const samplePoints = [
-      { id: 'p1', name: 'Z-BOX Tesco Lamač', street: 'Lamačská cesta 5', city: 'Bratislava', zip: '841 03' },
-      { id: 'p2', name: 'Packeta Aupark', street: 'Einsteinova 18', city: 'Bratislava', zip: '851 01' },
-      { id: 'p3', name: 'Z-BOX Eurovea', street: 'Pribinova 8', city: 'Bratislava', zip: '811 09' },
-    ];
-    const pick = prompt('Packeta widget sa načíta po nasadení API kľúča.\n\nPre demo zadaj 1, 2 alebo 3:\n1) Z-BOX Tesco Lamač\n2) Packeta Aupark\n3) Z-BOX Eurovea');
-    const idx = parseInt(pick, 10);
-    if (idx >= 1 && idx <= 3) {
-      checkoutState.pickupPoint = samplePoints[idx - 1];
-      renderCheckout();
-    }
+    setTimeout(() => {
+      if (typeof Packeta !== 'undefined' && Packeta.Widget) {
+        openPacketaWidget();
+      } else {
+        alert('Packeta widget sa nepodarilo načítať. Skontroluj internetové pripojenie a skús znova.');
+      }
+    }, 1200);
     return;
   }
   const m = SHIPPING_METHODS[checkoutState.shippingId];

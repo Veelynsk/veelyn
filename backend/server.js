@@ -9,6 +9,7 @@ import { dirname, resolve } from 'node:path';
 import { writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import * as sf from './superfaktura.js';
 import * as ml from './mailerlite.js';
+import * as pk from './packeta.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -62,6 +63,21 @@ db.exec(`
     created_at   INTEGER NOT NULL,
     error        TEXT,
     raw_json     TEXT
+  );
+
+  -- Packeta shipments: same sidecar pattern. Created automatically when
+  -- an order transitions to "paid" (or admin manually marks "shipped")
+  -- and PACKETA_API_PASSWORD is configured. Holds tracking number +
+  -- barcode so admin UI can show "Vytlačiť štítok" + "Sleduj zásielku".
+  CREATE TABLE IF NOT EXISTS packeta_shipments (
+    order_id     TEXT PRIMARY KEY,
+    packet_id    TEXT,
+    barcode      TEXT,
+    barcode_text TEXT,
+    label_pdf_path TEXT,
+    created_at   INTEGER NOT NULL,
+    error        TEXT,
+    raw_xml      TEXT
   );
 
   CREATE TABLE IF NOT EXISTS users (
@@ -566,6 +582,87 @@ app.post('/api/admin/orders/:id/invoice/retry', requireAuth(['admin']), async (r
   }
 });
 
+// === PACKETA endpoints (admin) ===
+
+// GET /api/admin/orders/:id/shipment — read sidecar row for an order
+app.get('/api/admin/orders/:id/shipment', requireAuth(['admin','warehouse']), (req, res) => {
+  const row = db.prepare(`SELECT * FROM packeta_shipments WHERE order_id = ?`).get(req.params.id);
+  if (!row) return res.json({ shipment: null });
+  res.json({
+    shipment: {
+      order_id: row.order_id,
+      packet_id: row.packet_id,
+      barcode: row.barcode,
+      barcode_text: row.barcode_text,
+      tracking_url: row.barcode ? `https://tracking.packeta.com/sk/?id=${encodeURIComponent(row.barcode)}` : null,
+      created_at: row.created_at,
+      error: row.error,
+    },
+  });
+});
+
+// POST /api/admin/orders/:id/shipment — create a Packeta packet for an
+// order. Idempotent: if a shipment already exists for the order, returns
+// the existing record.
+app.post('/api/admin/orders/:id/shipment', requireAuth(['admin','warehouse']), async (req, res) => {
+  if (!pk.isEnabled()) {
+    return res.status(400).json({ error: 'Packeta REST API not configured (set PACKETA_API_PASSWORD)' });
+  }
+  const existing = db.prepare(`SELECT * FROM packeta_shipments WHERE order_id = ?`).get(req.params.id);
+  if (existing && existing.packet_id) {
+    return res.json({ ok: true, shipment: { packet_id: existing.packet_id, barcode: existing.barcode } });
+  }
+
+  const row = db.prepare(`SELECT raw_json FROM orders WHERE id = ?`).get(req.params.id);
+  if (!row) return res.status(404).json({ error: 'order not found' });
+  const order = JSON.parse(row.raw_json);
+
+  try {
+    const r = await pk.createPacket(order);
+    db.prepare(`
+      INSERT INTO packeta_shipments (order_id, packet_id, barcode, barcode_text, created_at, raw_xml)
+      VALUES (?, ?, ?, ?, ?, ?)
+      ON CONFLICT(order_id) DO UPDATE SET
+        packet_id=excluded.packet_id, barcode=excluded.barcode,
+        barcode_text=excluded.barcode_text, error=NULL, raw_xml=excluded.raw_xml
+    `).run(order.id, r.id, r.barcode, r.barcodeText, Date.now(), r.raw);
+    console.log(`[PACKETA] Shipment ${r.id} (barcode ${r.barcode}) created for order ${order.id}`);
+    res.json({
+      ok: true,
+      shipment: {
+        packet_id: r.id,
+        barcode: r.barcode,
+        barcode_text: r.barcodeText,
+        tracking_url: `https://tracking.packeta.com/sk/?id=${encodeURIComponent(r.barcode)}`,
+      },
+    });
+  } catch (e) {
+    console.error('[PACKETA] createPacket failed:', e.message);
+    db.prepare(`
+      INSERT INTO packeta_shipments (order_id, created_at, error)
+      VALUES (?, ?, ?)
+      ON CONFLICT(order_id) DO UPDATE SET error=excluded.error
+    `).run(req.params.id, Date.now(), e.message);
+    res.status(502).json({ error: e.message });
+  }
+});
+
+// GET /api/admin/orders/:id/shipment/label — stream the Packeta label PDF
+// directly so admin UI can download it with one click.
+app.get('/api/admin/orders/:id/shipment/label', requireAuth(['admin','warehouse']), async (req, res) => {
+  const row = db.prepare(`SELECT packet_id FROM packeta_shipments WHERE order_id = ?`).get(req.params.id);
+  if (!row?.packet_id) return res.status(404).json({ error: 'shipment not created yet' });
+  try {
+    const pdf = await pk.getLabelPdf(row.packet_id);
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('Content-Disposition', `inline; filename="packeta-${req.params.id}.pdf"`);
+    res.end(pdf);
+  } catch (e) {
+    console.error('[PACKETA] label PDF failed:', e.message);
+    res.status(502).json({ error: e.message });
+  }
+});
+
 // === STATS (admin only) ===
 app.get('/api/admin/stats', requireAuth(['admin']), (req, res) => {
   const rows = db.prepare(`SELECT ts, status, total, items_json FROM orders`).all();
@@ -771,5 +868,6 @@ app.listen(PORT, () => {
   console.log(`  Resend emaily: ${resend ? '✓ aktívne' : '✗ vypnuté (set RESEND_API_KEY)'}`);
   console.log(`  SuperFaktura: ${sf.isEnabled() ? '✓ aktívna' : '✗ vypnutá (set SF_EMAIL + SF_APIKEY)'}`);
   console.log(`  MailerLite: ${ml.isEnabled() ? '✓ aktívna' : '✗ vypnutá (set MAILERLITE_TOKEN)'}`);
+  console.log(`  Packeta REST: ${pk.isEnabled() ? '✓ aktívna' : '✗ vypnutá (set PACKETA_API_PASSWORD)'}`);
   console.log(`  DB: ${DB_PATH}\n`);
 });
