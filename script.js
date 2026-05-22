@@ -644,9 +644,15 @@ function productCardHTML(f, isBest, showMatch) {
 function wireProductCards(scope) {
   $$('.prod-card', scope).forEach(card => {
     card.addEventListener('click', (e) => {
-      if (e.target.closest('[data-add]')) {
+      // The "Pridaj do košíka" button has <span> children — if the user
+      // clicks the span text, e.target is the span (not the button), so
+      // e.target.dataset.add was undefined → addToCart received undefined
+      // and silently failed while still opening the cart drawer.
+      // Read data-add from the closest <button> instead.
+      const addBtn = e.target.closest('[data-add]');
+      if (addBtn) {
         e.stopPropagation();
-        addToCart(e.target.dataset.add, 1, true);
+        addToCart(addBtn.dataset.add, 1, true);
         return;
       }
       const reviewsBtn = e.target.closest('[data-reviews]');
