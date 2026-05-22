@@ -370,8 +370,8 @@ app.post('/api/affiliate', async (req, res) => {
     email,
     phone: String(b.phone || '').trim(),
     followers: String(b.followers || '').trim(),
-    instagram: String(b.instagram || '').trim(),
-    tiktok: String(b.tiktok || '').trim(),
+    platform: String(b.platform || '').trim(),
+    handle: String(b.handle || '').trim(),
     message: String(b.message || '').trim().slice(0, 4000),
   };
 
@@ -381,22 +381,28 @@ app.post('/api/affiliate', async (req, res) => {
   try { writeFileSync(resolve(LOG_DIR, fname), JSON.stringify(payload, null, 2)); } catch {}
 
   if (resend) {
+    const platformLabel = {
+      instagram: 'Instagram',
+      tiktok: 'TikTok',
+      youtube: 'YouTube',
+      ine: 'Iné',
+    }[payload.platform] || payload.platform || '—';
     const html = `
       <h2>Nová affiliate prihláška</h2>
       <p><strong>${escapeHtml(payload.name)}</strong> &lt;${escapeHtml(payload.email)}&gt;</p>
       <ul>
         <li><strong>Telefón:</strong> ${escapeHtml(payload.phone) || '—'}</li>
         <li><strong>Followers:</strong> ${escapeHtml(payload.followers) || '—'}</li>
-        <li><strong>Instagram:</strong> ${escapeHtml(payload.instagram) || '—'}</li>
-        <li><strong>TikTok:</strong> ${escapeHtml(payload.tiktok) || '—'}</li>
+        <li><strong>Platforma:</strong> ${escapeHtml(platformLabel)}</li>
+        <li><strong>Handle / URL:</strong> ${escapeHtml(payload.handle) || '—'}</li>
       </ul>
-      <p><strong>Správa:</strong></p>
+      <p><strong>Štýl obsahu / správa:</strong></p>
       <pre style="white-space:pre-wrap;font-family:inherit;background:#f6f5f0;padding:1rem;border-radius:8px">${escapeHtml(payload.message)}</pre>
     `;
     try {
       const r = await resend.emails.send({
         from: FROM_EMAIL,
-        to: ['affiliate@veelyn.sk', SELLER_EMAIL].filter(Boolean),
+        to: [SELLER_EMAIL || 'info@veelyn.sk'],
         replyTo: email,
         subject: `[Affiliate] Prihláška – ${name}`,
         html,

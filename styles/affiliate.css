@@ -1,20 +1,21 @@
 /* ============================================================
-   /affiliate/ — landing page for Veelyn affiliate program.
-   Reuses tokens from main styles.css (--accent-2, --text, etc.),
-   adds page-specific section layout.
+   /affiliate/ — compact panel layout mirroring the wholesale modal.
+   Single centered "card" container with sections inside, instead of a
+   full-bleed landing with separate dark/light bands.
    ============================================================ */
 
 body.affiliate-page {
   background:
-    radial-gradient(ellipse at 20% 10%, rgba(124,58,237,0.16), transparent 55%),
-    radial-gradient(ellipse at 80% 85%, rgba(76,29,149,0.18), transparent 60%),
+    radial-gradient(ellipse at 20% 10%, rgba(124,58,237,0.18), transparent 55%),
+    radial-gradient(ellipse at 80% 85%, rgba(76,29,149,0.2), transparent 60%),
     #0a0510;
   color: var(--text);
   font-family: var(--font-body);
   margin: 0;
+  min-height: 100vh;
 }
 
-/* === Lightweight header === */
+/* === Header === */
 .aff-header {
   position: sticky;
   top: 0;
@@ -49,222 +50,135 @@ body.affiliate-page {
 }
 .aff-back:hover { color: var(--accent-2); }
 
-/* === Section shell === */
-.aff-section-inner {
-  max-width: 1080px;
+/* === Panel wrapper === */
+.aff-panel-wrap {
+  max-width: 980px;
   margin: 0 auto;
-  padding: 4rem 1.5rem;
+  padding: 3rem 1rem 4rem;
 }
-.aff-section-inner--narrow { max-width: 720px; }
-.aff-section-title {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-weight: 800;
-  font-size: clamp(1.8rem, 4vw, 2.8rem);
-  line-height: 1.05;
-  text-align: center;
-  margin: 0 0 2.5rem;
-  background: linear-gradient(135deg, #fff 0%, #c4b5fd 70%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+.aff-panel {
+  background: linear-gradient(180deg, rgba(20,12,32,0.85) 0%, rgba(15,8,28,0.85) 100%);
+  border: 1px solid rgba(167, 139, 250, 0.22);
+  border-radius: 18px;
+  padding: 2.5rem 2rem 2rem;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+}
+@media (min-width: 700px) {
+  .aff-panel { padding: 3rem 3rem 2.5rem; }
 }
 
-/* === HERO === */
-.aff-hero {
-  position: relative;
-  overflow: hidden;
-  padding: 5rem 1.5rem 4rem;
+/* === Head === */
+.aff-panel__head {
   text-align: center;
+  margin-bottom: 2.5rem;
 }
-.aff-hero__bg {
-  position: absolute; inset: 0;
-  background:
-    radial-gradient(ellipse 60% 60% at 50% 35%, rgba(167,139,250,0.22), transparent 70%);
-  pointer-events: none;
-}
-.aff-hero__inner {
-  position: relative;
-  max-width: 760px;
-  margin: 0 auto;
-}
-.aff-hero__eyebrow {
-  font-size: 0.78rem;
+.aff-panel__eyebrow {
+  display: inline-block;
+  font-size: 0.72rem;
   font-weight: 800;
   letter-spacing: 0.32em;
   color: var(--accent-2);
   text-transform: uppercase;
-  margin: 0 0 1rem;
+  margin-bottom: 0.8rem;
 }
-.aff-hero__title {
+.aff-panel__title {
   font-family: var(--font-display);
   font-style: italic;
-  font-weight: 900;
-  font-size: clamp(3rem, 9vw, 6rem);
-  line-height: 1;
-  margin: 0 0 1.5rem;
-  letter-spacing: -0.02em;
-  color: #fff;
-  text-transform: uppercase;
-}
-.aff-hero__title em {
-  font-style: italic;
-  background: linear-gradient(135deg, #f4cc6c, #d4a247);
+  font-weight: 800;
+  font-size: clamp(2rem, 5vw, 2.8rem);
+  line-height: 1.05;
+  margin: 0 0 1rem;
+  background: linear-gradient(135deg, #fff 0%, #c4b5fd 75%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  text-transform: lowercase;
 }
-.aff-hero__lead {
-  font-size: clamp(1rem, 2vw, 1.2rem);
+.aff-panel__lead {
+  font-size: 1rem;
   line-height: 1.55;
   color: var(--text-dim);
-  margin: 0 auto 2rem;
+  margin: 0 auto;
   max-width: 600px;
 }
-.aff-hero__lead strong { color: #fff; font-weight: 800; }
-.aff-hero__cta {
-  display: inline-block;
-  font-size: 1rem;
-  padding: 1rem 2rem;
-  margin-bottom: 2rem;
-}
-.aff-hero__trust {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 1.5rem;
-  font-size: 0.85rem;
-  font-weight: 700;
-  color: var(--text-dim);
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
+.aff-panel__lead strong {
+  color: #fff;
+  font-weight: 800;
 }
 
-/* === BENEFITS === */
-.aff-benefits {
-  border-top: 1px solid rgba(167,139,250,0.12);
-  border-bottom: 1px solid rgba(167,139,250,0.12);
+/* === Section titles inside the panel === */
+.aff-section-title {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 700;
+  font-size: 1.5rem;
+  text-align: center;
+  margin: 2.5rem 0 1.25rem;
+  color: #fff;
 }
+.aff-section-title--small {
+  font-size: 1.3rem;
+  letter-spacing: 0.01em;
+}
+
+/* === Benefits === */
 .aff-benefits__grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 1rem;
+  gap: 0.9rem;
 }
-@media (min-width: 700px) {
+@media (min-width: 600px) {
   .aff-benefits__grid { grid-template-columns: repeat(2, 1fr); }
 }
-@media (min-width: 1000px) {
-  .aff-benefits__grid { grid-template-columns: repeat(4, 1fr); }
-}
 .aff-benefit {
-  padding: 1.5rem 1.25rem;
-  background: rgba(20, 12, 32, 0.55);
-  border: 1px solid rgba(167, 139, 250, 0.2);
-  border-radius: 14px;
-  transition: transform var(--t-fast) var(--ease), border-color var(--t-fast) var(--ease);
-}
-.aff-benefit:hover {
-  transform: translateY(-3px);
-  border-color: rgba(167, 139, 250, 0.5);
+  padding: 1.2rem 1.1rem;
+  background: rgba(124,58,237,0.06);
+  border: 1px solid rgba(167, 139, 250, 0.22);
+  border-radius: 12px;
 }
 .aff-benefit__icon {
-  font-size: 2rem;
-  margin-bottom: 0.7rem;
+  font-size: 1.7rem;
+  margin-bottom: 0.5rem;
   line-height: 1;
 }
 .aff-benefit h3 {
   font-family: var(--font-display);
   font-style: italic;
   font-weight: 700;
-  font-size: 1.2rem;
-  margin: 0 0 0.5rem;
+  font-size: 1.1rem;
+  margin: 0 0 0.4rem;
   color: #fff;
 }
+/* Bold + brighter description per spec — same weight + readability
+   as the heading so the card reads as one strong message. */
 .aff-benefit p {
   margin: 0;
   font-size: 0.92rem;
   line-height: 1.5;
-  color: var(--text-dim);
+  color: var(--text);
 }
+.aff-benefit p strong { color: #fff; font-weight: 700; }
 
-/* === STEPS === */
-.aff-steps__list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.5rem;
-  counter-reset: step;
-}
-@media (min-width: 800px) {
-  .aff-steps__list { grid-template-columns: repeat(3, 1fr); }
-}
-.aff-steps__list li {
-  position: relative;
-  padding: 2rem 1.5rem 1.5rem;
-  background: rgba(20, 12, 32, 0.5);
-  border: 1px solid rgba(167, 139, 250, 0.2);
-  border-radius: 14px;
-}
-.aff-steps__num {
-  position: absolute;
-  top: -16px;
-  left: 1.5rem;
-  width: 36px;
-  height: 36px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(135deg, #a78bfa, #7c3aed);
-  border-radius: 50%;
-  color: #fff;
-  font-weight: 900;
-  font-size: 1rem;
-  font-family: var(--font-body);
-  box-shadow: 0 6px 16px rgba(167, 139, 250, 0.4);
-}
-.aff-steps__list h3 {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-weight: 700;
-  font-size: 1.2rem;
-  margin: 0 0 0.5rem;
-  color: #fff;
-}
-.aff-steps__list p {
-  margin: 0;
-  font-size: 0.92rem;
-  line-height: 1.5;
-  color: var(--text-dim);
-}
-
-/* === FORM === */
-.aff-form-section {
-  background: rgba(0,0,0,0.25);
-  border-top: 1px solid rgba(167,139,250,0.12);
-  border-bottom: 1px solid rgba(167,139,250,0.12);
+/* === Form block === */
+.aff-form-block {
+  margin-top: 0.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(167, 139, 250, 0.18);
 }
 .aff-form-lead {
   text-align: center;
-  font-size: 1rem;
+  font-size: 0.95rem;
   color: var(--text-dim);
-  margin: -1rem 0 2rem;
+  margin: -0.5rem 0 1.5rem;
 }
 .aff-form {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  background: rgba(20, 12, 32, 0.55);
-  border: 1px solid rgba(167, 139, 250, 0.22);
-  border-radius: 16px;
-  padding: 2rem 1.5rem;
+  gap: 0.95rem;
 }
 .aff-form__row {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 1rem;
+  gap: 0.95rem;
 }
 @media (min-width: 600px) {
   .aff-form__row { grid-template-columns: 1fr 1fr; }
@@ -274,19 +188,12 @@ body.affiliate-page {
   flex-direction: column;
   gap: 0.4rem;
 }
-.aff-form .field span {
-  font-size: 0.78rem;
+.aff-form .field > span {
+  font-size: 0.74rem;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--text-dim);
-}
-.aff-form .field span em {
-  text-transform: none;
-  letter-spacing: 0;
-  font-style: normal;
-  font-weight: 500;
-  opacity: 0.7;
 }
 .aff-form .field input[type="text"],
 .aff-form .field input[type="email"],
@@ -294,7 +201,7 @@ body.affiliate-page {
 .aff-form .field select,
 .aff-form .field textarea {
   width: 100%;
-  padding: 0.75rem 0.9rem;
+  padding: 0.7rem 0.9rem;
   background: rgba(0,0,0,0.4);
   border: 1px solid var(--line-2);
   border-radius: 8px;
@@ -318,8 +225,8 @@ body.affiliate-page {
 .aff-form__consent {
   display: flex;
   align-items: flex-start;
-  gap: 0.65rem;
-  font-size: 0.88rem;
+  gap: 0.6rem;
+  font-size: 0.86rem;
   color: var(--text-dim);
   line-height: 1.5;
   margin-top: 0.4rem;
@@ -337,7 +244,7 @@ body.affiliate-page {
   text-decoration: underline;
   text-underline-offset: 2px;
 }
-.aff-form__submit { margin-top: 0.5rem; }
+.aff-form__submit { margin-top: 0.6rem; }
 .aff-form__hint {
   text-align: center;
   font-size: 0.82rem;
@@ -373,22 +280,20 @@ body.affiliate-page {
 .aff-faq__list {
   display: flex;
   flex-direction: column;
-  gap: 0.7rem;
-  max-width: 760px;
-  margin: 0 auto;
+  gap: 0.5rem;
 }
 .aff-faq__item {
-  background: rgba(20, 12, 32, 0.5);
-  border: 1px solid rgba(167, 139, 250, 0.2);
-  border-radius: 12px;
-  padding: 1rem 1.25rem;
+  background: rgba(124,58,237,0.06);
+  border: 1px solid rgba(167, 139, 250, 0.22);
+  border-radius: 10px;
+  padding: 0.85rem 1.1rem;
   transition: border-color var(--t-fast) var(--ease);
 }
 .aff-faq__item[open] { border-color: rgba(167, 139, 250, 0.45); }
 .aff-faq__item summary {
   cursor: pointer;
   font-weight: 700;
-  font-size: 1rem;
+  font-size: 0.95rem;
   color: #fff;
   list-style: none;
   position: relative;
@@ -401,15 +306,14 @@ body.affiliate-page {
   right: 0;
   top: 50%;
   transform: translateY(-50%);
-  font-size: 1.4rem;
+  font-size: 1.3rem;
   font-weight: 300;
   color: var(--accent-2);
-  transition: transform var(--t-fast) var(--ease);
 }
 .aff-faq__item[open] summary::after { content: "−"; }
 .aff-faq__item p {
-  margin: 0.7rem 0 0;
-  font-size: 0.95rem;
+  margin: 0.6rem 0 0;
+  font-size: 0.9rem;
   line-height: 1.55;
   color: var(--text-dim);
 }
@@ -417,28 +321,30 @@ body.affiliate-page {
 /* === Footer === */
 .aff-footer {
   border-top: 1px solid rgba(167, 139, 250, 0.15);
-  padding: 2.5rem 0 2rem;
+  padding: 2rem 0 1.5rem;
   background: rgba(0,0,0,0.35);
 }
 .aff-footer__inner {
+  max-width: 980px;
+  margin: 0 auto;
   padding: 0 1.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1.5rem;
+  gap: 1.2rem;
   text-align: center;
 }
 .aff-footer__brand p {
   margin: 0.3rem 0 0;
-  font-size: 0.88rem;
+  font-size: 0.85rem;
   color: var(--text-dim);
 }
 .aff-footer__nav {
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem 1.5rem;
+  gap: 0.8rem 1.5rem;
   justify-content: center;
-  font-size: 0.88rem;
+  font-size: 0.85rem;
 }
 .aff-footer__nav a {
   color: var(--text-dim);

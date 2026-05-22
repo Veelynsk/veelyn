@@ -36,64 +36,30 @@
 <meta name="twitter:description" content="Promuj Veelyn, zarobíš 15 % z každej objednávky. Mesačné výplaty, žiadne minimum.">
 <meta name="twitter:image" content="https://veelyn.sk/og-image.jpg">
 
-<!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..900;1,9..144,400..900&family=Manrope:wght@300..800&display=swap" rel="stylesheet">
 
-<!-- Shared site stylesheet for headers, buttons, modals, footer — reused
-     so the page inherits the full Veelyn brand vocabulary without
-     duplicating tokens. -->
 <link rel="stylesheet" href="/styles.css">
 <link rel="stylesheet" href="/styles/affiliate.css">
 
-<!-- JSON-LD: FAQPage so Google can surface our FAQ in rich results. -->
+<!-- FAQPage JSON-LD for Google rich results -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "Aké je minimum predaja na výplatu?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Žiadne minimum. Provízie sa vyplácajú mesačne za celý predchádzajúci mesiac."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Kedy dostanem peniaze?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Provízie za predchádzajúci mesiac sa vyplácajú vždy do 15. dňa nasledujúceho mesiaca na tvoj bankový účet."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Aký zľavový kód dostanú moji sledovatelia?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Tvoj kód poskytuje 10 % zľavu pre tvojich sledovateľov. Ty dostávaš 15 % z hodnoty objednávky."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Musím mať veľa followerov?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Nie. Akceptujeme aj mikroinfluencerov od 1 000 followerov, ak je obsah kvalitný a relevantný k téme krásy / lifestyle."
-      }
-    }
+    {"@type":"Question","name":"Aké je minimum predaja na výplatu?","acceptedAnswer":{"@type":"Answer","text":"Žiadne minimum. Provízie sa vyplácajú mesačne za celý predchádzajúci mesiac."}},
+    {"@type":"Question","name":"Kedy dostanem peniaze?","acceptedAnswer":{"@type":"Answer","text":"Provízie za predchádzajúci mesiac sa vyplácajú vždy do 15. dňa nasledujúceho mesiaca na tvoj bankový účet."}},
+    {"@type":"Question","name":"Aký zľavový kód dostanú moji sledovatelia?","acceptedAnswer":{"@type":"Answer","text":"Tvoj kód poskytuje 10 % zľavu pre tvojich sledovateľov. Ty dostávaš 15 % z hodnoty objednávky."}},
+    {"@type":"Question","name":"Musím mať veľa followerov?","acceptedAnswer":{"@type":"Answer","text":"Nie. Akceptujeme aj mikroinfluencerov od 1 000 followerov, ak je obsah kvalitný a relevantný k téme krásy / lifestyle."}}
   ]
 }
 </script>
 </head>
 <body class="affiliate-page">
 
-<!-- Lightweight header — just a back-link to the main site. The full
-     Veelyn nav with cart / search doesn't belong on a landing page like
-     this; we want the visitor focused on the affiliate signup. -->
+<!-- Minimal header — logo + back link, same as legal pages -->
 <header class="aff-header">
   <a class="aff-brand" href="/" aria-label="VEELYN — domov">
     <span class="logo__vee">VEE</span><span class="logo__lyn">LYN</span>
@@ -101,147 +67,118 @@
   <a class="aff-back" href="/">← Späť na veelyn.sk</a>
 </header>
 
-<!-- ============ HERO ============ -->
-<section class="aff-hero">
-  <div class="aff-hero__bg" aria-hidden="true"></div>
-  <div class="aff-hero__inner">
-    <p class="aff-hero__eyebrow">VEELYN AFFILIATE PROGRAM</p>
-    <h1 class="aff-hero__title">ZAROB <em>s nami</em></h1>
-    <p class="aff-hero__lead">
-      Promuj Veelyn s vlastným kódom a dostaň <strong>15 % z každej objednávky</strong>
-      cez teba. Žiadne minimum, vyplácané mesačne.
-    </p>
-    <a href="#aff-form" class="btn btn--primary btn--big aff-hero__cta">Zaregistrovať sa →</a>
-    <div class="aff-hero__trust">
-      <span>✦ Žiadne minimum</span>
-      <span>✦ Mesačné výplaty</span>
-      <span>✦ Vlastný dashboard</span>
-    </div>
-  </div>
-</section>
+<!-- ============ Single panel (looks like the wholesale modal) ============ -->
+<main class="aff-panel-wrap">
+  <article class="aff-panel">
 
-<!-- ============ BENEFITS (4 cards) ============ -->
-<section class="aff-benefits">
-  <div class="aff-section-inner">
-    <h2 class="aff-section-title">Prečo s nami</h2>
+    <header class="aff-panel__head">
+      <span class="aff-panel__eyebrow">AFFILIATE PROGRAM</span>
+      <h1 class="aff-panel__title">Zarob s nami</h1>
+      <p class="aff-panel__lead">
+        <strong>Promuj Veelyn s vlastným kódom a dostaň 15 % z každej objednávky cez teba.</strong>
+        Žiadne minimum, vyplácané mesačne.
+      </p>
+    </header>
+
+    <!-- Benefits grid — same card style as the wholesale modal,
+         description text is bold per the user spec. -->
+    <h2 class="aff-section-title aff-section-title--small">Prečo s nami</h2>
     <div class="aff-benefits__grid">
       <article class="aff-benefit">
         <div class="aff-benefit__icon">🎟️</div>
         <h3>Vlastný unikátny kód</h3>
-        <p>Každý partner dostane unikátny zľavový kód, ktorý môže zdieľať s publikom.</p>
+        <p><strong>Každý partner dostane unikátny zľavový kód, ktorý môže zdieľať s publikom.</strong></p>
       </article>
       <article class="aff-benefit">
         <div class="aff-benefit__icon">💸</div>
         <h3>15 % z každej objednávky</h3>
-        <p>Žiadne stropy, žiadne minimum. Provízia sa počíta z každej objednávky uskutočnenej cez tvoj kód.</p>
+        <p><strong>Žiadne stropy, žiadne minimum. Provízia sa počíta z každej objednávky uskutočnenej cez tvoj kód.</strong></p>
       </article>
       <article class="aff-benefit">
         <div class="aff-benefit__icon">📊</div>
         <h3>Dashboard so štatistikami</h3>
-        <p>Sleduj v reálnom čase počet kliknutí, objednávky, provízie a výplaty cez vlastný profil.</p>
+        <p><strong>Sleduj v reálnom čase počet kliknutí, objednávky, provízie a výplaty cez vlastný profil.</strong></p>
       </article>
       <article class="aff-benefit">
         <div class="aff-benefit__icon">📦</div>
         <h3>Skoré balíčky na recenzie</h3>
-        <p>Nové vône a limitované edície dostávaš ako prvý/á — ešte pred spustením predaja.</p>
+        <p><strong>Nové vône a limitované edície dostávaš ako prvý/á — ešte pred spustením predaja.</strong></p>
       </article>
     </div>
-  </div>
-</section>
 
-<!-- ============ HOW IT WORKS (3 steps) ============ -->
-<section class="aff-steps">
-  <div class="aff-section-inner">
-    <h2 class="aff-section-title">Ako to funguje</h2>
-    <ol class="aff-steps__list">
-      <li>
-        <span class="aff-steps__num">1</span>
-        <h3>Zaregistruj sa</h3>
-        <p>Vyplň krátky formulár nižšie — ozveme sa do 48 hodín.</p>
-      </li>
-      <li>
-        <span class="aff-steps__num">2</span>
-        <h3>Dostaneš kód a dashboard</h3>
-        <p>Pridelíme ti unikátny zľavový kód a prístup k dashboardu so štatistikami v reálnom čase.</p>
-      </li>
-      <li>
-        <span class="aff-steps__num">3</span>
-        <h3>Zdieľaj, zarábaj, dostávaj</h3>
-        <p>Zdieľaj kód s publikom, dostávaj 15 % z každej objednávky. Výplaty mesačne na účet.</p>
-      </li>
-    </ol>
-  </div>
-</section>
+    <!-- Form -->
+    <div class="aff-form-block" id="aff-form">
+      <h2 class="aff-section-title aff-section-title--small">Prihlás sa do programu</h2>
+      <p class="aff-form-lead">Pár základných údajov a sme dohodnutí. Ozveme sa do 48 hodín.</p>
 
-<!-- ============ FORM ============ -->
-<section class="aff-form-section" id="aff-form">
-  <div class="aff-section-inner aff-section-inner--narrow">
-    <h2 class="aff-section-title">Prihlás sa do programu</h2>
-    <p class="aff-form-lead">Pár základných údajov a sme dohodnutí. Ozveme sa do 48 hodín.</p>
+      <form class="aff-form" id="affiliateForm" novalidate>
+        <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;opacity:0;pointer-events:none;">
 
-    <form class="aff-form" id="affiliateForm" novalidate>
-      <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;opacity:0;pointer-events:none;">
+        <div class="aff-form__row">
+          <label class="field">
+            <span>Meno / Nick</span>
+            <input type="text" name="name" required>
+          </label>
+          <label class="field">
+            <span>E-mail</span>
+            <input type="email" name="email" required autocomplete="email">
+          </label>
+        </div>
 
-      <div class="aff-form__row">
+        <div class="aff-form__row">
+          <label class="field">
+            <span>Telefón</span>
+            <input type="tel" name="phone" placeholder="+421 9XX XXX XXX" autocomplete="tel">
+          </label>
+          <label class="field">
+            <span>Počet followerov</span>
+            <select name="followers" required>
+              <option value="">— vyber —</option>
+              <option value="0-5k">0 – 5 000</option>
+              <option value="5-25k">5 000 – 25 000</option>
+              <option value="25-100k">25 000 – 100 000</option>
+              <option value="100k+">100 000+</option>
+            </select>
+          </label>
+        </div>
+
+        <!-- Replaced separate Instagram + TikTok inputs with a single
+             platform dropdown + matching handle/URL input. -->
+        <div class="aff-form__row">
+          <label class="field">
+            <span>Primárna platforma</span>
+            <select name="platform" required>
+              <option value="">— vyber —</option>
+              <option value="instagram">Instagram</option>
+              <option value="tiktok">TikTok</option>
+              <option value="youtube">YouTube</option>
+              <option value="ine">Iné</option>
+            </select>
+          </label>
+          <label class="field">
+            <span>Handle / URL</span>
+            <input type="text" name="handle" placeholder="@username alebo odkaz" required>
+          </label>
+        </div>
+
         <label class="field">
-          <span>Meno / Nick</span>
-          <input type="text" name="name" required>
+          <span>Akým štýlom budeš tvoriť obsah?</span>
+          <textarea name="message" rows="4" placeholder="Krátko nám napíš ako si predstavuješ promo Veelyn — reels, recenzie, story-bundle, blog, ... štýl necháme na teba." required></textarea>
         </label>
-        <label class="field">
-          <span>E-mail</span>
-          <input type="email" name="email" required autocomplete="email">
+
+        <label class="aff-form__consent">
+          <input type="checkbox" name="consent" required>
+          <span>Súhlasím so <a href="/ochrana-osobnych-udajov/" target="_blank">spracovaním osobných údajov</a> za účelom posúdenia spolupráce.</span>
         </label>
-      </div>
 
-      <div class="aff-form__row">
-        <label class="field">
-          <span>Telefón</span>
-          <input type="tel" name="phone" placeholder="+421 9XX XXX XXX" autocomplete="tel">
-        </label>
-        <label class="field">
-          <span>Počet followerov</span>
-          <select name="followers" required>
-            <option value="">— vyber —</option>
-            <option value="0-5k">0 – 5 000</option>
-            <option value="5-25k">5 000 – 25 000</option>
-            <option value="25-100k">25 000 – 100 000</option>
-            <option value="100k+">100 000+</option>
-          </select>
-        </label>
-      </div>
+        <button type="submit" class="btn btn--primary btn--block aff-form__submit">Odoslať prihlášku</button>
+        <p class="aff-form__hint">Pôjde priamo na <strong>info@veelyn.sk</strong></p>
+        <div class="aff-form__feedback" id="affiliateFeedback" role="status" aria-live="polite" hidden></div>
+      </form>
+    </div>
 
-      <div class="aff-form__row">
-        <label class="field">
-          <span>Instagram</span>
-          <input type="text" name="instagram" placeholder="@username">
-        </label>
-        <label class="field">
-          <span>TikTok <em>(voliteľné)</em></span>
-          <input type="text" name="tiktok" placeholder="@username">
-        </label>
-      </div>
-
-      <label class="field">
-        <span>Správa</span>
-        <textarea name="message" rows="4" placeholder="Pár viet o tvojom obsahu a publiku" required></textarea>
-      </label>
-
-      <label class="aff-form__consent">
-        <input type="checkbox" name="consent" required>
-        <span>Súhlasím so <a href="/ochrana-osobnych-udajov/" target="_blank">spracovaním osobných údajov</a> za účelom posúdenia spolupráce.</span>
-      </label>
-
-      <button type="submit" class="btn btn--primary btn--block aff-form__submit">Odoslať prihlášku</button>
-      <p class="aff-form__hint">Pôjde priamo na <strong>affiliate@veelyn.sk</strong></p>
-      <div class="aff-form__feedback" id="affiliateFeedback" role="status" aria-live="polite" hidden></div>
-    </form>
-  </div>
-</section>
-
-<!-- ============ FAQ ============ -->
-<section class="aff-faq">
-  <div class="aff-section-inner">
-    <h2 class="aff-section-title">Časté otázky</h2>
+    <!-- FAQ -->
+    <h2 class="aff-section-title aff-section-title--small">Časté otázky</h2>
     <div class="aff-faq__list">
       <details class="aff-faq__item">
         <summary>Aké je minimum predaja na výplatu?</summary>
@@ -260,12 +197,12 @@
         <p>Nie. Akceptujeme aj mikroinfluencerov od 1 000 followerov, ak je obsah kvalitný a relevantný k téme krásy / lifestyle.</p>
       </details>
     </div>
-  </div>
-</section>
 
-<!-- ============ FOOTER ============ -->
+  </article>
+</main>
+
 <footer class="aff-footer">
-  <div class="aff-section-inner aff-footer__inner">
+  <div class="aff-footer__inner">
     <div class="aff-footer__brand">
       <span class="logo">
         <span class="logo__vee">VEE</span><span class="logo__lyn">LYN</span>
@@ -284,9 +221,6 @@
 </footer>
 
 <script>
-  // Affiliate form: POSTs to /api/affiliate (relayed by backend to
-  // affiliate@veelyn.sk via Resend). Same Brand voice + UX as the
-  // newsletter form on the homepage.
   (function () {
     var API = (location.hostname === 'localhost' || location.hostname === '127.0.0.1')
       ? 'http://localhost:3001'
@@ -307,7 +241,7 @@
     form.addEventListener('submit', async function (e) {
       e.preventDefault();
       var data = new FormData(form);
-      if (data.get('botcheck')) return; // honeypot
+      if (data.get('botcheck')) return;
       if (!data.get('consent')) {
         flash('Pre odoslanie potrebujeme tvoj súhlas so spracovaním údajov.', 'error');
         return;
@@ -317,8 +251,8 @@
         email: (data.get('email') || '').toString().trim().toLowerCase(),
         phone: (data.get('phone') || '').toString().trim(),
         followers: (data.get('followers') || '').toString(),
-        instagram: (data.get('instagram') || '').toString().trim(),
-        tiktok: (data.get('tiktok') || '').toString().trim(),
+        platform: (data.get('platform') || '').toString(),
+        handle: (data.get('handle') || '').toString().trim(),
         message: (data.get('message') || '').toString().trim(),
       };
       if (!payload.email.includes('@')) {

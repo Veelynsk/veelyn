@@ -271,7 +271,10 @@ body.lock { overflow: hidden; }
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 6px 14px;
+  /* Generous horizontal padding so text has breathing room — pill
+     extends ~20px past the leading & trailing letter on each side
+     instead of hugging the text. */
+  padding: 8px 22px;
   font-size: 0.65rem;
   font-weight: 800;
   letter-spacing: 0.14em;
