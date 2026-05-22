@@ -272,6 +272,12 @@ body.lock {
   justify-content: center;
   gap: 6px;
 }
+/* Inline group inside the vertical stack — used to put two short pills
+   (Affiliate + Kontakt) on the same row so the nav saves one line. */
+.nav__inline {
+  display: flex;
+  gap: 6px;
+}
 /* All nav links share the same "pill" outline style by default — clean
    visual rhythm across the whole nav. Variants below override fill /
    accent color but keep the same shape + padding. */
