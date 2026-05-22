@@ -349,6 +349,75 @@ app.get('/api/admin/me', requireAuth(), (req, res) => {
   res.json({ user: req.user });
 });
 
+// ---- AFFILIATE FORM ----
+// Public endpoint that the /affiliate/ landing page submits to. Sends
+// the application as an email to affiliate@veelyn.sk (falls back to
+// SELLER_EMAIL if not configured) via Resend. Always returns ok:true
+// to the frontend so the UX never breaks if Resend is down — the
+// payload is also logged to backend/logs/ as a fallback record.
+app.post('/api/affiliate', async (req, res) => {
+  const b = req.body || {};
+  const email = String(b.email || '').trim().toLowerCase();
+  const name = String(b.name || '').trim();
+  if (!email.includes('@') || !name || !b.message) {
+    return res.status(400).json({ error: 'Missing required fields' });
+  }
+
+  const payload = {
+    type: 'affiliate-application',
+    ts: new Date().toISOString(),
+    name,
+    email,
+    phone: String(b.phone || '').trim(),
+    followers: String(b.followers || '').trim(),
+    instagram: String(b.instagram || '').trim(),
+    tiktok: String(b.tiktok || '').trim(),
+    message: String(b.message || '').trim().slice(0, 4000),
+  };
+
+  // Local fallback log so we always have a record even if Resend is
+  // down or unconfigured. One JSON file per application.
+  const fname = `affiliate-${Date.now()}-${email.replace(/[^a-z0-9]/g, '_')}.json`;
+  try { writeFileSync(resolve(LOG_DIR, fname), JSON.stringify(payload, null, 2)); } catch {}
+
+  if (resend) {
+    const html = `
+      <h2>Nová affiliate prihláška</h2>
+      <p><strong>${escapeHtml(payload.name)}</strong> &lt;${escapeHtml(payload.email)}&gt;</p>
+      <ul>
+        <li><strong>Telefón:</strong> ${escapeHtml(payload.phone) || '—'}</li>
+        <li><strong>Followers:</strong> ${escapeHtml(payload.followers) || '—'}</li>
+        <li><strong>Instagram:</strong> ${escapeHtml(payload.instagram) || '—'}</li>
+        <li><strong>TikTok:</strong> ${escapeHtml(payload.tiktok) || '—'}</li>
+      </ul>
+      <p><strong>Správa:</strong></p>
+      <pre style="white-space:pre-wrap;font-family:inherit;background:#f6f5f0;padding:1rem;border-radius:8px">${escapeHtml(payload.message)}</pre>
+    `;
+    try {
+      const r = await resend.emails.send({
+        from: FROM_EMAIL,
+        to: ['affiliate@veelyn.sk', SELLER_EMAIL].filter(Boolean),
+        replyTo: email,
+        subject: `[Affiliate] Prihláška – ${name}`,
+        html,
+      });
+      console.log(`[AFFILIATE] application from ${email} → resend ${r?.data?.id || 'queued'}`);
+    } catch (e) {
+      console.warn('[AFFILIATE] resend failed (kept in logs):', e.message);
+    }
+  } else {
+    console.log(`[AFFILIATE] application from ${email} — logged to ${fname} (Resend not configured)`);
+  }
+
+  res.json({ ok: true });
+});
+
+function escapeHtml(s) {
+  return String(s || '')
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+}
+
 app.post('/api/order', async (req, res) => {
   try {
     const body = req.body || {};

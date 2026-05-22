@@ -299,6 +299,22 @@ body.lock { overflow: hidden; }
   display: inline-block;
 }
 
+/* Outline button variant used for the AFFILIATE nav link. Transparent
+   fill, purple border, fills purple on hover (text stays white). */
+.nav__link--outline {
+  padding: 6px 14px !important;
+  border: 1px solid var(--accent-2);
+  border-radius: 999px;
+  color: var(--text) !important;
+  background: transparent;
+  transition: background var(--t-fast) var(--ease), color var(--t-fast) var(--ease);
+}
+.nav__link--outline::after { display: none; }
+.nav__link--outline:hover {
+  background: var(--accent-2);
+  color: #fff !important;
+}
+
 /* CENTER: Big logo */
 .nav__center {
   display: flex;
@@ -6317,6 +6333,14 @@ body.has-promo-popup .proof-toast { display: none !important; }
 }
 @media (min-width: 760px) {
   .wholesale__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  /* Two-card variant — affiliate card was removed, so we center the
+     remaining wholesale + whitelabel pair instead of leaving an empty
+     third column. */
+  .wholesale__grid--two {
+    grid-template-columns: repeat(2, minmax(0, 380px));
+    justify-content: center;
+    gap: 1.5rem;
+  }
 }
 .wholesale__card {
   position: relative;
@@ -6696,6 +6720,18 @@ body.has-promo-popup .proof-toast { display: none !important; }
     color: var(--accent-2);
     background: rgba(124,58,237,0.08);
     border: 1px solid rgba(124,58,237,0.3);
+  }
+  .mobile-menu__link--outline {
+    color: var(--text);
+    background: transparent;
+    border: 1px solid var(--accent-2);
+    border-radius: 999px;
+    text-align: center;
+  }
+  .mobile-menu__link--outline:hover,
+  .mobile-menu__link--outline:focus-visible {
+    background: var(--accent-2);
+    color: #fff;
   }
   body.menu-open { overflow: hidden; }
 

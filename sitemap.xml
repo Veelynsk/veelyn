@@ -3,7 +3,7 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/0.9">
   <url>
     <loc>https://veelyn.sk/</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
     <image:image>
@@ -13,31 +13,37 @@
   </url>
   <url>
     <loc>https://veelyn.sk/#vsetky-vonavky</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://veelyn.sk/#bestsellers</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://veelyn.sk/#porovnanie</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://veelyn.sk/#kontakt</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
+    <loc>https://veelyn.sk/affiliate/</loc>
+    <lastmod>2026-05-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://veelyn.sk/?vona=star</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -48,7 +54,7 @@
   </url>
   <url>
     <loc>https://veelyn.sk/?vona=the-one</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -59,7 +65,7 @@
   </url>
   <url>
     <loc>https://veelyn.sk/?vona=she-is</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -70,7 +76,7 @@
   </url>
   <url>
     <loc>https://veelyn.sk/?vona=go-boy</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -81,7 +87,7 @@
   </url>
   <url>
     <loc>https://veelyn.sk/?vona=go-girl</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -92,7 +98,7 @@
   </url>
   <url>
     <loc>https://veelyn.sk/?vona=go-go-girl</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -103,7 +109,7 @@
   </url>
   <url>
     <loc>https://veelyn.sk/?vona=five</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -114,7 +120,7 @@
   </url>
   <url>
     <loc>https://veelyn.sk/?vona=i-am-blue</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -125,7 +131,7 @@
   </url>
   <url>
     <loc>https://veelyn.sk/?vona=old-money</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -136,7 +142,7 @@
   </url>
   <url>
     <loc>https://veelyn.sk/?vona=hard-cash</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -147,7 +153,7 @@
   </url>
   <url>
     <loc>https://veelyn.sk/?vona=important</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -158,7 +164,7 @@
   </url>
   <url>
     <loc>https://veelyn.sk/?vona=weak-king</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -169,7 +175,7 @@
   </url>
   <url>
     <loc>https://veelyn.sk/?vona=og-river</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -180,7 +186,7 @@
   </url>
   <url>
     <loc>https://veelyn.sk/?vona=everest-gold</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -191,7 +197,7 @@
   </url>
   <url>
     <loc>https://veelyn.sk/?vona=holy-water</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -202,7 +208,7 @@
   </url>
   <url>
     <loc>https://veelyn.sk/?vona=suited-irish</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -213,7 +219,7 @@
   </url>
   <url>
     <loc>https://veelyn.sk/?vona=silk-road</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -224,7 +230,7 @@
   </url>
   <url>
     <loc>https://veelyn.sk/?vona=adore-me</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -235,7 +241,7 @@
   </url>
   <url>
     <loc>https://veelyn.sk/?vona=doria</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -246,7 +252,7 @@
   </url>
   <url>
     <loc>https://veelyn.sk/?vona=savage-queen</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -257,7 +263,7 @@
   </url>
   <url>
     <loc>https://veelyn.sk/?vona=you-and-me</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -268,7 +274,7 @@
   </url>
   <url>
     <loc>https://veelyn.sk/?vona=marine</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -279,7 +285,7 @@
   </url>
   <url>
     <loc>https://veelyn.sk/?vona=purple-flower</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -290,7 +296,7 @@
   </url>
   <url>
     <loc>https://veelyn.sk/?vona=ocean-wave</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -301,7 +307,7 @@
   </url>
   <url>
     <loc>https://veelyn.sk/?vona=velvet-rush</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -312,7 +318,7 @@
   </url>
   <url>
     <loc>https://veelyn.sk/?vona=tropical-island</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -323,7 +329,7 @@
   </url>
   <url>
     <loc>https://veelyn.sk/?vona=sunset-elixir</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -334,7 +340,7 @@
   </url>
   <url>
     <loc>https://veelyn.sk/?vona=power-affair</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -345,7 +351,7 @@
   </url>
   <url>
     <loc>https://veelyn.sk/?vona=candy-whip-81</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -356,7 +362,7 @@
   </url>
   <url>
     <loc>https://veelyn.sk/?vona=vanilla-supreme-64</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -367,7 +373,7 @@
   </url>
   <url>
     <loc>https://veelyn.sk/?vona=dubai-dream-33</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -378,7 +384,7 @@
   </url>
   <url>
     <loc>https://veelyn.sk/?vona=illa-van-28</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -389,7 +395,7 @@
   </url>
   <url>
     <loc>https://veelyn.sk/?vona=apple-bliss-01</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -400,7 +406,7 @@
   </url>
   <url>
     <loc>https://veelyn.sk/?vona=burning-desire-48</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -411,7 +417,7 @@
   </url>
   <url>
     <loc>https://veelyn.sk/?vona=coco-dream-21</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -422,7 +428,7 @@
   </url>
   <url>
     <loc>https://veelyn.sk/?vona=imagine-this</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -433,7 +439,7 @@
   </url>
   <url>
     <loc>https://veelyn.sk/?vona=harmony</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -444,7 +450,7 @@
   </url>
   <url>
     <loc>https://veelyn.sk/?vona=the-horizon</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -455,7 +461,7 @@
   </url>
   <url>
     <loc>https://veelyn.sk/?vona=deep-dive</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -466,7 +472,7 @@
   </url>
   <url>
     <loc>https://veelyn.sk/?vona=desert-storm</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -477,7 +483,7 @@
   </url>
   <url>
     <loc>https://veelyn.sk/?vona=sun-coast</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -488,7 +494,7 @@
   </url>
   <url>
     <loc>https://veelyn.sk/?vona=dream-big</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -499,7 +505,7 @@
   </url>
   <url>
     <loc>https://veelyn.sk/?vona=limitless</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -510,7 +516,7 @@
   </url>
   <url>
     <loc>https://veelyn.sk/?vona=cosmic-flame</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -521,7 +527,7 @@
   </url>
   <url>
     <loc>https://veelyn.sk/?vona=midnight-wish</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -532,7 +538,7 @@
   </url>
   <url>
     <loc>https://veelyn.sk/?vona=moulin-rouge</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -543,7 +549,7 @@
   </url>
   <url>
     <loc>https://veelyn.sk/?vona=evening-elixir</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -554,7 +560,7 @@
   </url>
   <url>
     <loc>https://veelyn.sk/?vona=satin</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -565,7 +571,7 @@
   </url>
   <url>
     <loc>https://veelyn.sk/?vona=liquid-gold</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -576,7 +582,7 @@
   </url>
   <url>
     <loc>https://veelyn.sk/?vona=dark-tobacco</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -587,7 +593,7 @@
   </url>
   <url>
     <loc>https://veelyn.sk/?vona=trojan-horse</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -598,7 +604,7 @@
   </url>
   <url>
     <loc>https://veelyn.sk/?vona=blaze</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -609,7 +615,7 @@
   </url>
   <url>
     <loc>https://veelyn.sk/?vona=pink-desire</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -620,7 +626,7 @@
   </url>
   <url>
     <loc>https://veelyn.sk/?vona=pure-green</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -631,7 +637,7 @@
   </url>
   <url>
     <loc>https://veelyn.sk/?vona=blue-motion</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -642,7 +648,7 @@
   </url>
   <url>
     <loc>https://veelyn.sk/?vona=spice</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -653,7 +659,7 @@
   </url>
   <url>
     <loc>https://veelyn.sk/?vona=mystery</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -664,7 +670,7 @@
   </url>
   <url>
     <loc>https://veelyn.sk/?vona=noble-wood</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -675,7 +681,7 @@
   </url>
   <url>
     <loc>https://veelyn.sk/?vona=cherry-pulse</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -686,7 +692,7 @@
   </url>
   <url>
     <loc>https://veelyn.sk/?vona=just-leather</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -697,7 +703,7 @@
   </url>
   <url>
     <loc>https://veelyn.sk/?vona=absolute</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -708,7 +714,7 @@
   </url>
   <url>
     <loc>https://veelyn.sk/?vona=forbidden-cherries</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -719,7 +725,7 @@
   </url>
   <url>
     <loc>https://veelyn.sk/?vona=sweet-cig</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -730,7 +736,7 @@
   </url>
   <url>
     <loc>https://veelyn.sk/?vona=dark-flower</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -741,7 +747,7 @@
   </url>
   <url>
     <loc>https://veelyn.sk/?vona=oud-fire</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -752,7 +758,7 @@
   </url>
   <url>
     <loc>https://veelyn.sk/?vona=saint-rome</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -763,7 +769,7 @@
   </url>
   <url>
     <loc>https://veelyn.sk/?vona=roman-man</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -774,7 +780,7 @@
   </url>
   <url>
     <loc>https://veelyn.sk/?vona=nemo</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -785,7 +791,7 @@
   </url>
   <url>
     <loc>https://veelyn.sk/?vona=free-spirit</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -796,7 +802,7 @@
   </url>
   <url>
     <loc>https://veelyn.sk/?vona=poppy-shot</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -807,7 +813,7 @@
   </url>
   <url>
     <loc>https://veelyn.sk/?vona=my-identity</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -818,7 +824,7 @@
   </url>
   <url>
     <loc>https://veelyn.sk/?vona=xyz</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -829,7 +835,7 @@
   </url>
   <url>
     <loc>https://veelyn.sk/?vona=zap-zap</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -840,7 +846,7 @@
   </url>
   <url>
     <loc>https://veelyn.sk/?vona=el-paso</loc>
-    <lastmod>2026-05-19</lastmod>
+    <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <image:image>
