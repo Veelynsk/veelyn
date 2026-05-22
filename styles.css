@@ -6485,6 +6485,35 @@ body.has-promo-popup .proof-toast { display: none !important; }
   font-size: 0.78rem;
   text-align: center;
 }
+.affiliate-form__note {
+  margin: 0.3rem 0 0.2rem;
+  padding: 0.85rem 1rem;
+  background: rgba(124,58,237,0.08);
+  border: 1px solid rgba(167,139,250,0.22);
+  border-radius: 12px;
+}
+.affiliate-form__note strong {
+  display: block;
+  color: #c4b5fd;
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 0.35rem;
+}
+.affiliate-form__note p {
+  margin: 0;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: #e8e2f0;
+}
+.affiliate-form__note p strong {
+  display: inline;
+  color: #fff;
+  font-size: inherit;
+  letter-spacing: 0;
+  text-transform: none;
+  margin: 0;
+}
 
 .wholesale__grid {
   display: grid;
