@@ -51,6 +51,14 @@ function description(f) {
 
 // ──────────────────────────────────────────────────────────────────
 // HEUREKA.SK feed
+//
+// Note: DELIVERY_DATE tag is intentionally omitted. Heureka requires
+// the delivery time value to be mirrored on each product's detail page
+// on the website. We don't display per-product delivery times on
+// veelyn.sk (only the general "1–3 pracovné dni" trust badge), so per
+// Heureka support feedback (2026-05-22) we leave the tag out — Heureka
+// then displays a generic "Info v obchode" placeholder, which passes
+// their validation.
 // ──────────────────────────────────────────────────────────────────
 function buildHeureka() {
   const items = fragrances.map(f => `
@@ -65,7 +73,6 @@ function buildHeureka() {
     <VAT>20</VAT>
     <MANUFACTURER>Veelyn</MANUFACTURER>
     <CATEGORYTEXT>${xmlEscape(heurekaCategory(f.gender))}</CATEGORYTEXT>
-    <DELIVERY_DATE>0</DELIVERY_DATE>
     <DELIVERY>
       <DELIVERY_ID>PACKETA</DELIVERY_ID>
       <DELIVERY_PRICE>2.99</DELIVERY_PRICE>
