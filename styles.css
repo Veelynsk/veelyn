@@ -2284,6 +2284,64 @@ body.lock { overflow: hidden; }
   color: var(--accent-2);
 }
 
+/* Discount code (collapsible) in the checkout sidebar */
+.checkout__coupon {
+  margin: 0.9rem 0 0.4rem;
+  padding: 0.55rem 0.85rem;
+  background: rgba(124,58,237,0.06);
+  border: 1px solid rgba(167,139,250,0.22);
+  border-radius: 10px;
+}
+.checkout__coupon > summary {
+  cursor: pointer;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #c4b5fd;
+  list-style: none;
+  user-select: none;
+}
+.checkout__coupon > summary::-webkit-details-marker { display: none; }
+.checkout__coupon[open] > summary { margin-bottom: 0.55rem; }
+.checkout__coupon-form {
+  display: flex;
+  gap: 0.45rem;
+  align-items: stretch;
+}
+.checkout__coupon-form input[type="text"] {
+  flex: 1;
+  min-width: 0;
+  height: 40px;
+  padding: 0 0.7rem;
+  background: rgba(0,0,0,0.35);
+  border: 1px solid var(--line-2);
+  border-radius: 8px;
+  color: var(--text);
+  font-size: 0.92rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  outline: none;
+}
+.checkout__coupon-form input[type="text"]:focus { border-color: var(--accent-2); }
+.checkout__coupon-form input[readonly] {
+  background: rgba(74,222,128,0.08);
+  border-color: rgba(74,222,128,0.35);
+  color: #b8ffc8;
+}
+.checkout__coupon-form .btn {
+  height: 40px;
+  padding: 0 1rem;
+  font-size: 0.8rem;
+  font-weight: 800;
+  white-space: nowrap;
+}
+.checkout__coupon-msg {
+  margin-top: 0.45rem;
+  font-size: 0.82rem;
+  min-height: 1.2em;
+}
+
+
 /* === Multi-step checkout === */
 .checkout__steps {
   list-style: none;

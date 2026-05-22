@@ -1593,6 +1593,10 @@ const checkoutState = {
   paymentId: 'card',
   pickupPoint: null, // { id, name, street, city, zip }
   customer: {},
+  // Discount code: { code, type ('percent'|'fixed'), value (Number) } | null
+  // Applied via /api/discount/validate. Calculated on top of bundle
+  // discount + before shipping/payment fees.
+  discount: null,
 };
 
 function calcCheckoutTotals() {
@@ -1608,14 +1612,27 @@ function calcCheckoutTotals() {
   const bundle = calcBundleDiscount(state.cart);
   const bundleDiscount = bundle.discount;
   const freeQty = bundle.freeQty;
-  const productsTotal = subtotal - bundleDiscount;
+  // Discount code on top of bundle (applied to productsTotal AFTER bundle)
+  const afterBundle = subtotal - bundleDiscount;
+  let codeDiscount = 0;
+  if (checkoutState.discount) {
+    if (checkoutState.discount.type === 'percent') {
+      codeDiscount = Math.round(afterBundle * (checkoutState.discount.value / 100) * 100) / 100;
+    } else {
+      // fixed € amount, never below 0
+      codeDiscount = Math.min(checkoutState.discount.value, afterBundle);
+    }
+  }
+  const productsTotal = afterBundle - codeDiscount;
   const ship = SHIPPING_METHODS[checkoutState.shippingId];
   const pay = PAYMENT_METHODS[checkoutState.paymentId];
   const freeShipping = productsTotal >= FREE_SHIPPING_THRESHOLD;
   const shipPrice = freeShipping ? 0 : (ship?.price || 0);
   const fee = pay?.fee || 0;
   return {
-    items, subtotal, bundleDiscount, freeQty, productsTotal,
+    items, subtotal, bundleDiscount, freeQty, codeDiscount,
+    discountCode: checkoutState.discount?.code || null,
+    productsTotal,
     freeShipping, shipPrice, fee,
     total: productsTotal + shipPrice + fee
   };
@@ -1681,11 +1698,27 @@ function renderCheckoutSummary(t) {
     <div class="checkout__totals">
       <div><span>Medzisúčet</span><strong>${eur(t.subtotal)}</strong></div>
       ${t.bundleDiscount > 0 ? `<div class="checkout__totals-bundle"><span>★ 3+1 ZADARMO <em>(${t.freeQty}× zadarmo)</em></span><strong>−${eur(t.bundleDiscount)}</strong></div>` : ''}
+      ${t.codeDiscount > 0 ? `<div class="checkout__totals-bundle"><span>✦ Zľavový kód <em>(${t.discountCode})</em></span><strong>−${eur(t.codeDiscount)}</strong></div>` : ''}
       <div><span>Doprava</span><strong>${t.freeShipping ? 'ZDARMA' : eur(t.shipPrice)}</strong></div>
       ${t.fee > 0 ? `<div><span>Poplatok</span><strong>${eur(t.fee)}</strong></div>` : ''}
       ${!t.freeShipping ? `<div class="checkout__free-hint">Pridaj ešte <strong>${eur(FREE_SHIPPING_THRESHOLD - t.productsTotal)}</strong> a doprava bude ZDARMA</div>` : ''}
       <div class="checkout__totals-final"><span>Spolu</span><strong>${eur(t.total)}</strong></div>
     </div>
+
+    <!-- Discount code input — collapsible to keep the sidebar clean. Submits
+         the code to /api/discount/validate; success applies the discount
+         to checkoutState.discount and re-renders. -->
+    <details class="checkout__coupon" ${checkoutState.discount ? 'open' : ''}>
+      <summary>✦ Mám zľavový kód</summary>
+      <form id="couponForm" class="checkout__coupon-form" autocomplete="off">
+        <input type="text" name="code" placeholder="napr. VEELYN5" autocomplete="off"
+               value="${checkoutState.discount?.code || ''}" ${checkoutState.discount ? 'readonly' : ''}>
+        ${checkoutState.discount
+          ? `<button type="button" class="btn btn--ghost" id="couponRemoveBtn">Odobrať</button>`
+          : `<button type="submit" class="btn btn--primary">Použiť</button>`}
+      </form>
+      <div class="checkout__coupon-msg" id="couponMsg" aria-live="polite"></div>
+    </details>
     <ul class="checkout__trust">
       <li>🔒 SSL šifrovaná platba</li>
       <li>↩ 14 dní na vrátenie</li>
@@ -1851,6 +1884,51 @@ function renderStepPayment(t) {
 function wireCheckoutStep(t) {
   const back = document.getElementById('checkoutBack');
   if (back) back.onclick = () => { checkoutState.step--; renderCheckout(); };
+
+  // Coupon form is on every step (in the sidebar). Bind submit handler
+  // that hits /api/discount/validate; on success, apply to state and
+  // re-render so totals update everywhere consistently.
+  const couponForm = document.getElementById('couponForm');
+  const couponMsg = document.getElementById('couponMsg');
+  const couponRemoveBtn = document.getElementById('couponRemoveBtn');
+  if (couponForm) {
+    couponForm.onsubmit = async (e) => {
+      e.preventDefault();
+      const code = (new FormData(couponForm).get('code') || '').toString().trim().toUpperCase();
+      if (!code) { if (couponMsg) couponMsg.textContent = 'Zadaj kód.'; return; }
+      if (couponMsg) couponMsg.textContent = 'Overujem…';
+      try {
+        const subtotal = (t.subtotal - t.bundleDiscount).toFixed(2);
+        const res = await fetch(VEELYN_API + '/api/discount/validate?code=' +
+          encodeURIComponent(code) + '&subtotal=' + subtotal);
+        const json = await res.json();
+        if (!json.valid) {
+          if (couponMsg) {
+            couponMsg.textContent = '❌ ' + (json.error || 'Neplatný kód');
+            couponMsg.style.color = '#ff8c8c';
+          }
+          return;
+        }
+        checkoutState.discount = { code: json.code, type: json.type, value: Number(json.value) };
+        if (couponMsg) {
+          couponMsg.textContent = '✓ Kód aplikovaný';
+          couponMsg.style.color = '#7be88a';
+        }
+        renderCheckout();
+      } catch (err) {
+        if (couponMsg) {
+          couponMsg.textContent = '❌ Chyba pripojenia, skús znova';
+          couponMsg.style.color = '#ff8c8c';
+        }
+      }
+    };
+  }
+  if (couponRemoveBtn) {
+    couponRemoveBtn.onclick = () => {
+      checkoutState.discount = null;
+      renderCheckout();
+    };
+  }
 
   if (checkoutState.step === 1) {
     document.querySelectorAll('#shippingOptions input[name="shipping"]').forEach(r => {
@@ -2032,6 +2110,8 @@ async function finishOrder() {
     subtotal: t.subtotal,
     bundleDiscount: t.bundleDiscount || 0,
     freeQty: t.freeQty || 0,
+    couponCode: t.discountCode || null,
+    couponDiscount: t.codeDiscount || 0,
     shipping: t.shipPrice,
     fee: t.fee,
     total: t.total,

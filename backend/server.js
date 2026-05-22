@@ -349,6 +349,8 @@ app.post('/api/order', async (req, res) => {
       subtotal: Number(body.subtotal) || 0,
       bundleDiscount: Number(body.bundleDiscount) || 0,
       freeQty: Number(body.freeQty) || 0,
+      couponCode: body.couponCode || null,
+      couponDiscount: Number(body.couponDiscount) || 0,
       shipping: Number(body.shipping) || 0,
       fee: Number(body.fee) || 0,
       total: Number(body.total) || 0,
@@ -360,6 +362,20 @@ app.post('/api/order', async (req, res) => {
       pickupPoint: body.pickupPoint || null,
       newsletterOptIn: !!body.newsletterOptIn,
     };
+
+    // Increment used_count on the discount code (best-effort — failure
+    // doesn't block the order). Idempotent enough: code is locked when
+    // max_uses is reached via /api/discount/validate, so even concurrent
+    // orders past the cap will still increment but won't be applied
+    // because validate already returned valid:false.
+    if (order.couponCode) {
+      try {
+        db.prepare(`UPDATE discount_codes SET used_count = used_count + 1 WHERE code = ?`)
+          .run(String(order.couponCode).toUpperCase());
+      } catch (e) {
+        console.warn('[DISCOUNT] used_count increment failed:', e.message);
+      }
+    }
 
     db.prepare(`
       INSERT INTO orders (id, ts, customer_json, items_json, subtotal, bundle_discount, free_qty, shipping, fee, total, status, shipping_method, shipping_id, payment_method, payment_id, pickup_point_json, newsletter_opt_in, raw_json)
