@@ -128,7 +128,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="preconnect" href="https://widget.packeta.com">
 <link rel="dns-prefetch" href="https://widget.packeta.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..900;1,9..144,400..900&family=Manrope:wght@300..800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=20260522-010">
+<link rel="stylesheet" href="styles.css?v=20260522-011">
 
 <!-- JSON-LD Structured Data -->
 <script type="application/ld+json">
@@ -917,36 +917,73 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </div>
 
-<!-- AFFILIATE — mirrors the wholesale modal: same panel, fonts, card
-     grid + form layout. Different content + form fields per spec. -->
+<!-- AFFILIATE intro modal — compact, icon cards + single CTA. The
+     registration form lives in its own modal (#modal-affiliate-form)
+     opened from the CTA below. Splitting the two keeps each modal
+     short enough to fit on mobile without page-behind scroll bleed. -->
 <div class="modal" id="modal-affiliate" hidden>
   <div class="modal__backdrop" data-close></div>
-  <div class="modal__panel modal__panel--wide affiliate-modal">
+  <div class="modal__panel modal__panel--wide">
     <button class="modal__close" data-close aria-label="Zavrieť">×</button>
-
-    <!-- Single-view layout: pitch on the left, form on the right. Both
-         columns fit inside the panel without internal scroll. -->
-    <div class="affiliate-modal__layout">
-      <aside class="affiliate-modal__pitch">
+    <div class="wholesale">
+      <header class="wholesale__head">
         <span class="wholesale__eyebrow">AFFILIATE PROGRAM</span>
         <h2 class="wholesale__title">Zarob s nami</h2>
-        <p class="affiliate-modal__lead">
-          <strong>15 % z každej objednávky cez tvoj kód.</strong>
-          Žiadne minimum, mesačné výplaty.
+        <p class="wholesale__lead">
+          Promuj Veelyn s vlastným kódom a dostaň <strong>15 % z každej objednávky cez teba.</strong>
+          Žiadne minimum, vyplácané mesačne.
         </p>
-        <ul class="affiliate-modal__bullets">
-          <li>✓ Vlastný unikátny zľavový kód</li>
-          <li>✓ 10 % zľava pre tvoje publikum</li>
-          <li>✓ 15 % provízia z každej objednávky</li>
-          <li>✓ Real-time dashboard + štatistiky</li>
-          <li>✓ Mesačné výplaty do 15. dňa</li>
-          <li>✓ Skoré balíčky na recenzie</li>
-        </ul>
-      </aside>
+      </header>
 
-      <form class="affiliate-modal__form" id="affiliateForm" novalidate>
+      <div class="wholesale__grid wholesale__grid--two">
+        <article class="wholesale__card">
+          <div class="wholesale__icon">🎟️</div>
+          <h3>Vlastný kód + 15 %</h3>
+          <p><strong>Unikátny zľavový kód pre teba.</strong> Z každej objednávky cez tvoj kód dostávaš 15 % provízie. Žiadny strop, žiadne minimum.</p>
+          <ul>
+            <li>10 % zľava pre tvoje publikum</li>
+            <li>15 % provízia z hodnoty objednávky</li>
+            <li>Mesačné výplaty do 15. dňa</li>
+          </ul>
+        </article>
+
+        <article class="wholesale__card wholesale__card--featured">
+          <div class="wholesale__badge">PRE INFLUENCEROV</div>
+          <div class="wholesale__icon">📊</div>
+          <h3>Dashboard + balíčky</h3>
+          <p><strong>Vlastný dashboard so štatistikami v reálnom čase</strong> — kliknutia, objednávky, provízie. Plus nové vône dostávaš ako prvý/á na recenzie.</p>
+          <ul>
+            <li>Real-time štatistiky + výplaty</li>
+            <li>Skoré balíčky pred releasom</li>
+            <li>Akceptujeme aj mikroinfluencerov</li>
+          </ul>
+        </article>
+      </div>
+
+      <div class="affiliate-intro__cta">
+        <!-- data-open closes the intro modal and opens the form modal -->
+        <button class="btn btn--primary btn--big" data-open="affiliate-form">Zaregistrovať sa →</button>
+        <p>Pár základných údajov · Ozveme sa do 48 hodín</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- AFFILIATE form modal — opened from the intro CTA. Pure form, no
+     extra marketing copy, so it fits on a small phone screen. -->
+<div class="modal" id="modal-affiliate-form" hidden>
+  <div class="modal__backdrop" data-close></div>
+  <div class="modal__panel">
+    <button class="modal__close" data-close aria-label="Zavrieť">×</button>
+    <div class="wholesale" style="padding-top:2rem;">
+      <header class="wholesale__head" style="margin-bottom:1.2rem;">
+        <span class="wholesale__eyebrow">AFFILIATE · REGISTRÁCIA</span>
+        <h2 class="wholesale__title">Prihlás sa do programu</h2>
+        <p class="wholesale__lead" style="font-size:0.95rem;">Pár základných údajov a sme dohodnutí. Ozveme sa do <strong>48 hodín</strong>.</p>
+      </header>
+
+      <form class="wholesale__form" id="affiliateForm" novalidate>
         <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;opacity:0;pointer-events:none;">
-        <h3 class="affiliate-modal__form-title">Prihlás sa do programu</h3>
         <div class="wholesale__form-row">
           <label class="field">
             <span>Meno / Nick</span>
@@ -959,6 +996,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
         <div class="wholesale__form-row">
           <label class="field">
+            <span>Telefón</span>
+            <input type="tel" name="phone" placeholder="+421 9XX XXX XXX">
+          </label>
+          <label class="field">
             <span>Followers</span>
             <select name="followers" required>
               <option value="">— vyber —</option>
@@ -968,6 +1009,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <option value="100k+">100 000+</option>
             </select>
           </label>
+        </div>
+        <div class="wholesale__form-row">
           <label class="field">
             <span>Platforma</span>
             <select name="platform" required>
@@ -978,16 +1021,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <option value="ine">Iné</option>
             </select>
           </label>
+          <label class="field">
+            <span>Handle / URL</span>
+            <input type="text" name="handle" placeholder="@username alebo odkaz" required>
+          </label>
         </div>
         <label class="field">
-          <span>Handle / URL</span>
-          <input type="text" name="handle" placeholder="@username alebo odkaz" required>
+          <span>Akým štýlom budeš tvoriť obsah?</span>
+          <textarea name="message" rows="3" placeholder="Krátko nám napíš ako si predstavuješ promo Veelyn — štýl necháme na teba." required></textarea>
         </label>
-        <label class="field">
-          <span>Štýl obsahu</span>
-          <textarea name="message" rows="2" placeholder="Krátko ako si predstavuješ promo Veelyn — štýl necháme na teba." required></textarea>
-        </label>
-        <input type="tel" name="phone" placeholder="+421 telefón (voliteľné)" autocomplete="tel" class="affiliate-modal__phone">
         <button type="submit" class="btn btn--primary btn--block">Odoslať prihlášku</button>
         <p class="wholesale__form-hint">Pôjde priamo na <strong>info@veelyn.sk</strong></p>
       </form>
@@ -1329,7 +1371,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- Packeta widget v6 (https://docs.packetery.com/03-creating-shipments/05-widget-v6.html) -->
 <script src="https://widget.packeta.com/v6/www/js/library.js" async></script>
 
-<script src="data.js?v=20260522-010"></script>
-<script src="script.js?v=20260522-010"></script>
+<script src="data.js?v=20260522-011"></script>
+<script src="script.js?v=20260522-011"></script>
 </body>
 </html>

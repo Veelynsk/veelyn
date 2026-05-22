@@ -6365,10 +6365,22 @@ body.has-promo-popup .proof-toast { display: none !important; }
   text-decoration: none;
 }
 
+/* Affiliate intro modal — bottom CTA + tagline.
+   The intro modal reuses wholesale__* classes for header/cards. */
+.affiliate-intro__cta {
+  text-align: center;
+  margin-top: 1.5rem;
+}
+.affiliate-intro__cta p {
+  margin: 0.6rem 0 0;
+  font-size: 0.82rem;
+  color: var(--text-mute);
+}
+
 /* ===========================================================
-   Affiliate modal — compact single-view layout (pitch + form
-   side-by-side on desktop, stacked on mobile). No internal scroll
-   on desktop; whole form + pitch visible at once.
+   Legacy affiliate-modal__layout — kept for backwards compat if
+   anything else references it. New flow uses #modal-affiliate
+   (intro) + #modal-affiliate-form (form) instead.
    =========================================================== */
 .affiliate-modal__layout {
   display: grid;
