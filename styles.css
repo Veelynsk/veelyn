@@ -8819,3 +8819,61 @@ input, select, textarea, label {
 }
 .carousel__slide .carousel__match .match-card__price small { display: none !important; }
 .carousel__slide .carousel__match .match-card__link { display: none !important; }
+
+/* Title-text variants: short on mobile + laptop (compact), full long
+   "Perfektná zhoda vôňových nôt" on real desktop with room to breathe. */
+.carousel__slide .carousel__match .match-card__title-short { display: inline; }
+.carousel__slide .carousel__match .match-card__title-long  { display: none; }
+@media (min-width: 1000px) and (min-height: 921px) {
+  .carousel__slide .carousel__match .match-card__title-short { display: none; }
+  .carousel__slide .carousel__match .match-card__title-long  { display: inline; }
+}
+
+/* =============================================================
+   DESKTOP HERO — push trust badge below the fold + scale up
+   carousel slide so the freed vertical space gets reclaimed by
+   bigger bottles. Only fires on real desktop heights (>920px) so
+   the laptop @media block above stays the canonical authority on
+   narrow viewports.
+   ============================================================= */
+@media (min-width: 1000px) and (min-height: 921px) {
+  /* Push the trust badge well below the fold. The user wants the
+     landing to visually end at the CTA buttons. We use a viewport-
+     height-based margin so taller monitors (1440px+) ALSO keep the
+     trust below the fold — the gap scales with available room. */
+  .hero { padding-bottom: 1.5rem; }
+  .trust-grid.trust-row--top {
+    margin-top: max(3.5rem, calc(100vh - 1130px));
+  }
+
+  /* Slightly tighter trust badge — less padding, smaller text/icons. */
+  .trust-grid {
+    padding: 0.7rem 1rem;
+    gap: 0.6rem;
+    max-width: 880px;
+  }
+  .trust-cell { gap: 0.55rem; }
+  .trust-icon { width: 36px; height: 36px; }
+  .trust-icon svg { width: 20px; height: 20px; }
+  .trust-title { font-size: 0.82rem; }
+  .trust-subtitle { font-size: 0.72rem; }
+
+  /* Bigger carousel slides to fill the freed vertical room — bottles
+     get more presence on the hero. Sized so the worst-case viewport
+     (1920x1200) still fits the CTAs above the fold while bumping the
+     trust badge clearly below. */
+  .carousel__stage { height: 680px; }
+  .carousel__slide {
+    width: 345px;
+    height: 650px;
+  }
+  .carousel__slide.is-prev  { transform: translate(calc(-50% - 295px), -50%) scale(0.82); }
+  .carousel__slide.is-next  { transform: translate(calc(-50% + 295px), -50%) scale(0.82); }
+  .carousel__slide.is-far-prev { transform: translate(calc(-50% - 500px), -50%) scale(0.64); }
+  .carousel__slide.is-far-next { transform: translate(calc(-50% + 500px), -50%) scale(0.64); }
+
+  /* Bottles a touch bigger on PC. */
+  .carousel__bottles { min-height: 290px; }
+  .bottle-veelyn { width: 260px; height: 390px; top: -135px; }
+  .bottle-original { width: 200px; height: 250px; top: -25px; }
+}
