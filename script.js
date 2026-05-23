@@ -466,6 +466,7 @@ function renderCarousel() {
             </p>
           </div>
         </div>
+        <a class="match-card__link carousel__match-link" href="#" data-orig-link="${f.id}">Zobraziť produkt <span aria-hidden="true">→</span></a>
       </article>
       <p class="carousel__cheaper-line">
         Lacnejšia o <strong>${eur(f.original_price - f.veelyn_price)}</strong> ako <strong>${f.original_name}</strong>

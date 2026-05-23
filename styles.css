@@ -6928,28 +6928,34 @@ body.has-promo-popup .proof-toast { display: none !important; }
    the now-below-fold trust badge. Reclaim that space: bigger hero
    title, taller carousel stage, larger bottle photos.
    ============================================================= */
-@media (min-width: 1000px) and (min-height: 870px) and (max-height: 920px) {
+@media (min-width: 1000px) and (min-height: 870px) {
+  .hero { padding: 0.2rem 2rem 0.4rem; }
   .hero__title {
-    font-size: clamp(1.6rem, 2.5vw, 2.3rem);
-    margin: 0 0 0.45rem;
+    font-size: clamp(1.3rem, 2vw, 1.85rem);
+    margin: 0 0 0.25rem;
+    line-height: 0.95;
   }
 
-  .carousel__stage { height: 570px; }
+  /* Slide tall enough to fit: bottle area (~185px) + name (~30px) +
+     2-LINE inspired pill (~48px, worst case) + 3-row price box
+     (~104px) + match-card with link (~155px) + bottom pad (~10px)
+     ≈ 580px. Used as the SAME canonical desktop layout for all
+     viewports ≥870px tall — user wants visual consistency. */
+  .carousel__stage { height: 590px; }
   .carousel__slide {
-    width: 335px;
-    height: 555px;
-    padding: 0 1.1rem 0.7rem;
+    width: 345px;
+    height: 582px;
+    padding: 0 1.1rem 0.6rem;
   }
-  .carousel__slide.is-prev  { transform: translate(calc(-50% - 280px), -50%) scale(0.78); }
-  .carousel__slide.is-next  { transform: translate(calc(-50% + 280px), -50%) scale(0.78); }
-  .carousel__slide.is-far-prev { transform: translate(calc(-50% - 480px), -50%) scale(0.6); }
-  .carousel__slide.is-far-next { transform: translate(calc(-50% + 480px), -50%) scale(0.6); }
+  .carousel__slide.is-prev  { transform: translate(calc(-50% - 290px), -50%) scale(0.78); }
+  .carousel__slide.is-next  { transform: translate(calc(-50% + 290px), -50%) scale(0.78); }
+  .carousel__slide.is-far-prev { transform: translate(calc(-50% - 490px), -50%) scale(0.6); }
+  .carousel__slide.is-far-next { transform: translate(calc(-50% + 490px), -50%) scale(0.6); }
 
-  /* Bigger bottles to match the larger slide */
-  .carousel__bottles { min-height: 215px; }
-  .bottle-veelyn { width: 215px; height: 320px; top: -100px; }
-  .bottle-original { width: 165px; height: 210px; top: -22px; }
-
+  /* Bottles sized so the price card + match card sit comfortably below */
+  .carousel__bottles { min-height: 195px; }
+  .bottle-veelyn { width: 200px; height: 300px; top: -95px; }
+  .bottle-original { width: 155px; height: 195px; top: -20px; }
 }
 
 /* =============================================================
@@ -8854,7 +8860,10 @@ input, select, textarea, label {
   color: #fff;
 }
 .carousel__slide .carousel__match .match-card__price small { display: none !important; }
-.carousel__slide .carousel__match .match-card__link { display: none !important; }
+/* "Zobraziť produkt →" link under the price — hidden on the most
+   cramped layouts (mobile + smallest 1366×768 laptops), shown on
+   anything with room to breathe (desktop pump @media below). */
+.carousel__slide .carousel__match .match-card__link { display: none; }
 
 /* Title-text variants: short on mobile + smallest laptops, full long
    "Perfektná zhoda vôňových nôt" anywhere with room to breathe
@@ -8896,24 +8905,10 @@ input, select, textarea, label {
   .trust-title { font-size: 0.82rem; }
   .trust-subtitle { font-size: 0.72rem; }
 
-  /* Bigger carousel slides to fill the freed vertical room — bottles
-     get more presence on the hero. Sized so the worst-case viewport
-     (1920x1200) still fits the CTAs above the fold while bumping the
-     trust badge clearly below. */
-  .carousel__stage { height: 680px; }
-  .carousel__slide {
-    width: 345px;
-    height: 650px;
-  }
-  .carousel__slide.is-prev  { transform: translate(calc(-50% - 295px), -50%) scale(0.82); }
-  .carousel__slide.is-next  { transform: translate(calc(-50% + 295px), -50%) scale(0.82); }
-  .carousel__slide.is-far-prev { transform: translate(calc(-50% - 500px), -50%) scale(0.64); }
-  .carousel__slide.is-far-next { transform: translate(calc(-50% + 500px), -50%) scale(0.64); }
-
-  /* Bottles a touch bigger on PC. */
-  .carousel__bottles { min-height: 290px; }
-  .bottle-veelyn { width: 260px; height: 390px; top: -135px; }
-  .bottle-original { width: 200px; height: 250px; top: -25px; }
+  /* Carousel sizing is now shared with the laptop @media above
+     (min-height: 870px) — user wanted visual consistency across all
+     monitors. So we DON'T override slide/bottle sizes here; the
+     bigger PC monitor just gets more empty space around the hero. */
 }
 
 /* =============================================================
@@ -8966,5 +8961,32 @@ input, select, textarea, label {
   }
   .carousel__slide .carousel__match .match-card__price strong {
     font-size: 1.15rem;
+  }
+  /* Show the "Zobraziť produkt →" link below the price on viewports
+     with room. Compact: small font + tight margin so the match-card
+     stays inside the slide even on the worst-case 2-line inspired
+     pill. */
+  .carousel__slide .carousel__match .match-card__link {
+    display: inline-flex !important;
+    align-items: center;
+    gap: 0.25rem;
+    margin: 0.3rem 0 0;
+    padding: 0;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #a78bfa;
+    text-decoration: none;
+    align-self: flex-end;
+    pointer-events: auto;
+    transition: color 0.15s ease, gap 0.15s ease;
+    line-height: 1.1;
+  }
+  .carousel__slide .carousel__match .match-card__link:hover {
+    color: #c4b5fd;
+    gap: 0.4rem;
+  }
+  .carousel__slide .carousel__match .match-card__link span {
+    font-size: 0.85rem;
+    line-height: 1;
   }
 }
