@@ -6892,6 +6892,56 @@ body.has-promo-popup .proof-toast { display: none !important; }
     margin-top: 0.5rem;
   }
 
+  /* --- AFFILIATE FORM MODAL — mobile-only compact layout ---
+     Same fit-on-one-screen goal as the intro modal. Force the
+     form-rows to 2-up on mobile (default stacks at <600px), shrink
+     paddings and gaps so all 6 fields + textarea + CTA fit a 375x812
+     viewport without scrolling. */
+  #modal-affiliate-form .wholesale { padding-top: 1.2rem !important; }
+  #modal-affiliate-form .wholesale__head { margin-bottom: 0.8rem !important; }
+  #modal-affiliate-form .wholesale__eyebrow {
+    font-size: 0.62rem;
+    padding: 0.22rem 0.6rem;
+  }
+  #modal-affiliate-form .wholesale__title {
+    font-size: 1.25rem;
+    margin: 0.2rem 0 0.3rem;
+    line-height: 1.15;
+  }
+  #modal-affiliate-form .wholesale__lead {
+    font-size: 0.78rem !important;
+    line-height: 1.35;
+    margin: 0;
+  }
+  /* Force 2 columns on mobile for both form-rows */
+  #modal-affiliate-form .wholesale__form-row {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.55rem;
+  }
+  #modal-affiliate-form .wholesale__form {
+    gap: 0.55rem;
+  }
+  #modal-affiliate-form .field span {
+    font-size: 0.65rem;
+    margin-bottom: 0.2rem;
+    letter-spacing: 0.1em;
+  }
+  #modal-affiliate-form .field input,
+  #modal-affiliate-form .field textarea,
+  #modal-affiliate-form .wholesale__form select {
+    padding: 0.6rem 0.75rem;
+    font-size: 0.88rem;
+    border-radius: 8px;
+  }
+  #modal-affiliate-form .field textarea {
+    min-height: 56px;
+  }
+  #modal-affiliate-form .btn--block {
+    padding: 0.85rem 1rem;
+    font-size: 0.88rem;
+    margin-top: 0.3rem;
+  }
+
   /* --- Header: hamburger replaces left link stack, logo stays prominent --- */
   .header {
     /* Slightly thinner header on mobile */
