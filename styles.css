@@ -6952,10 +6952,12 @@ body.has-promo-popup .proof-toast { display: none !important; }
   .carousel__slide.is-far-prev { transform: translate(calc(-50% - 490px), -50%) scale(0.6); }
   .carousel__slide.is-far-next { transform: translate(calc(-50% + 490px), -50%) scale(0.6); }
 
-  /* Bottles sized so the price card + match card sit comfortably below */
-  .carousel__bottles { min-height: 195px; }
-  .bottle-veelyn { width: 200px; height: 300px; top: -95px; }
-  .bottle-original { width: 155px; height: 195px; top: -20px; }
+  /* Bottles sized so the price card + match card sit comfortably below.
+     min-height reduced from 195 to 175 to give the bigger match-card
+     thumb (108px) room without overflowing the slide. */
+  .carousel__bottles { min-height: 175px; }
+  .bottle-veelyn { width: 195px; height: 290px; top: -100px; }
+  .bottle-original { width: 150px; height: 190px; top: -22px; }
 }
 
 /* =============================================================
@@ -8937,17 +8939,17 @@ input, select, textarea, label {
     height: 16px;
   }
   .carousel__slide .carousel__match .match-card__row {
-    grid-template-columns: 78px 1fr;
-    gap: 0.85rem;
+    grid-template-columns: 108px 1fr;
+    gap: 0.95rem;
     align-items: center;
   }
   .carousel__slide .carousel__match .match-card__thumb {
-    width: 78px;
-    height: 78px;
-    border-radius: 9px;
+    width: 108px;
+    height: 108px;
+    border-radius: 10px;
   }
   .carousel__slide .carousel__match .match-card__thumb img {
-    padding: 5px;
+    padding: 4px;
   }
   .carousel__slide .carousel__match .match-card__thumb-fallback {
     font-size: 16px;
