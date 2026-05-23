@@ -412,7 +412,9 @@ function renderCarousel() {
   const dots = $('#carouselDots');
   const heroFrags = HERO_PICKS.map(id => FRAGRANCES.find(f => f.id === id)).filter(Boolean);
 
-  stage.innerHTML = heroFrags.map((f, i) => `
+  stage.innerHTML = heroFrags.map((f, i) => {
+    const origSlug = slugifyOriginal(f.original_name);
+    return `
     <div class="carousel__slide" data-idx="${i}" data-id="${f.id}">
       <div class="carousel__bottles carousel__bottles--solo">
         ${bottleHTML(f, 'veelyn')}
@@ -437,11 +439,39 @@ function renderCarousel() {
           <span class="price">${eur(f.original_price - f.veelyn_price)}</span>
         </div>
       </div>
+      <article class="match-card prod-card__match carousel__match" data-orig="${f.id}" data-orig-id="${f.id}">
+        <p class="match-card__title">
+          <svg viewBox="0 0 24 24" aria-hidden="true" width="14" height="14">
+            <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
+            <path d="M7 12l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span class="match-card__title-text">Perfektná zhoda</span>
+        </p>
+        <div class="match-card__row">
+          <div class="match-card__thumb">
+            <img src="images/originals/${origSlug}.png"
+                 alt="${f.brand} ${f.original_name}"
+                 loading="lazy"
+                 decoding="async"
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <div class="match-card__thumb-fallback" style="display:none;">
+              <span>${(f.brand||'').slice(0,2).toUpperCase()}</span>
+            </div>
+          </div>
+          <div class="match-card__body">
+            <p class="match-card__brand"><span>${f.brand}</span> | ${f.original_name}</p>
+            <p class="match-card__price">
+              <strong>${eur(f.original_price)}</strong>
+            </p>
+          </div>
+        </div>
+      </article>
       <p class="carousel__cheaper-line">
         Lacnejšia o <strong>${eur(f.original_price - f.veelyn_price)}</strong> ako <strong>${f.original_name}</strong>
       </p>
     </div>
-  `).join('');
+  `;
+  }).join('');
 
   dots.innerHTML = heroFrags.map((_, i) =>
     `<button class="carousel__dot ${i === 0 ? 'is-active' : ''}" data-idx="${i}" aria-label="Slide ${i+1}"></button>`
