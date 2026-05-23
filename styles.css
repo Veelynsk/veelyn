@@ -8838,12 +8838,13 @@ input, select, textarea, label {
    ============================================================= */
 @media (min-width: 1000px) and (min-height: 921px) {
   /* Push the trust badge well below the fold. The user wants the
-     landing to visually end at the CTA buttons. We use a viewport-
-     height-based margin so taller monitors (1440px+) ALSO keep the
-     trust below the fold — the gap scales with available room. */
+     landing to visually end at the CTA buttons. We force a big
+     bottom margin so it's guaranteed below the fold even on smaller
+     desktop viewports (~1080-1200px tall), and the calc() bumps it
+     even further on really tall monitors so the gap scales. */
   .hero { padding-bottom: 1.5rem; }
   .trust-grid.trust-row--top {
-    margin-top: max(3.5rem, calc(100vh - 1130px));
+    margin-top: max(11rem, calc(100vh - 1050px));
   }
 
   /* Slightly tighter trust badge — less padding, smaller text/icons. */
