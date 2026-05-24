@@ -8727,6 +8727,16 @@ input, select, textarea, label {
   .prod-card__info > .prod-card__rating   { order: 4; }
   .prod-card__info > .prod-card__price-row { order: 5; }
   .prod-card__info > .prod-card__cta      { order: 6; }
+  /* SHRINK the Veelyn bottle photo at the top of the prod-card so the
+     full "Perfektná zhoda" match panel fits above the fold without
+     having to scroll inside the card. User feedback: "vo vsetky
+     vonavky su tie flase prejebane velke" — the portrait 160% aspect
+     dominated the card and pushed the match-card off-screen. Square
+     image leaves room for the match panel below. */
+  .prod-card__image {
+    padding-bottom: 100%;
+  }
+
   /* GREEN-TINTED panel matching the hero carousel's "Perfektná zhoda"
      styling — user wants the same visual treatment everywhere the
      match-card appears (catalog "Všetky vonavky" modal + Bestsellers
