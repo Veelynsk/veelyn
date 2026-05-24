@@ -7005,10 +7005,12 @@ body.has-promo-popup .proof-toast { display: none !important; }
    gets pushed further down by the bigger content + the trust margin
    formula below.
    ============================================================= */
-/* Big desktop ≥941vh: same slide proportions as 870-940 (no link
-   means match-card is shorter, fits same 582 slide with breathing
-   room). CTAs scaled up to use the extra vertical space. */
+/* Big desktop ≥941vh: bigger CTAs + bigger title. */
 @media (min-width: 1000px) and (min-height: 941px) {
+  .hero__title {
+    font-size: clamp(1.5rem, 2.2vw, 2rem);
+    margin: 0 0 0.35rem;
+  }
   .hero__ctas { margin-top: 1.4rem; margin-bottom: 0.5rem; gap: 1rem; }
   .hero__ctas .btn {
     padding: 1.35rem 3.2rem;
@@ -7016,6 +7018,33 @@ body.has-promo-popup .proof-toast { display: none !important; }
     font-weight: 900;
     letter-spacing: 0.1em;
   }
+}
+
+/* HUGE desktop ≥1050vh: grow the carousel to fill the empty space
+   that otherwise sits between the CTAs and the below-fold trust
+   badge. User: "na velkom monitore je to napicu a je tam miesto pod
+   tymi cta buttons". Bigger slide, bigger bottle, bigger title. */
+@media (min-width: 1000px) and (min-height: 1050px) {
+  .hero__title {
+    font-size: clamp(1.7rem, 2.6vw, 2.4rem);
+    margin: 0 0 0.5rem;
+  }
+
+  .carousel__stage { height: 700px; }
+  .carousel__slide {
+    width: 360px;
+    height: 690px;
+    padding: 0 1.2rem 0.8rem;
+  }
+  .carousel__slide.is-prev  { transform: translate(calc(-50% - 310px), -50%) scale(0.78); }
+  .carousel__slide.is-next  { transform: translate(calc(-50% + 310px), -50%) scale(0.78); }
+  .carousel__slide.is-far-prev { transform: translate(calc(-50% - 530px), -50%) scale(0.6); }
+  .carousel__slide.is-far-next { transform: translate(calc(-50% + 530px), -50%) scale(0.6); }
+
+  /* Bigger Veelyn bottle on huge monitors */
+  .carousel__bottles { min-height: 230px; }
+  .bottle-veelyn { width: 230px; height: 345px; top: -115px; }
+  .bottle-original { width: 180px; height: 225px; top: -25px; }
 }
 
 /* =============================================================
