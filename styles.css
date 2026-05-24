@@ -6942,21 +6942,20 @@ body.has-promo-popup .proof-toast { display: none !important; }
    title, taller carousel stage, larger bottle photos.
    ============================================================= */
 @media (min-width: 1000px) and (min-height: 870px) {
-  .hero { padding: 0.2rem 2rem 0.4rem; }
+  .hero { padding: 0.15rem 2rem 0.3rem; }
   .hero__title {
-    font-size: clamp(1.3rem, 2vw, 1.85rem);
-    margin: 0 0 0.25rem;
+    font-size: clamp(1.2rem, 1.8vw, 1.7rem);
+    margin: 0 0 0.2rem;
     line-height: 0.95;
   }
 
-  /* TALL-LAPTOP DEFAULT (870-940 viewport range): slide is sized
-     conservatively so bigger CTAs + match-card with link still fit
-     above the fold on a 900px viewport. Bigger monitors (≥941px)
-     get an upgrade via the inner @media further down. */
-  .carousel__stage { height: 590px; }
+  /* Slide tall enough to fit: bottle 175 + name 26 + 2-line inspired
+     ~50 + price box ~120 + bigger match-card (130×130 thumb) ~195 +
+     bottom pad ~10 ≈ 576px. Slide 605 leaves ~30px breathing room. */
+  .carousel__stage { height: 615px; }
   .carousel__slide {
     width: 345px;
-    height: 582px;
+    height: 605px;
     padding: 0 1.1rem 0.6rem;
   }
   .carousel__slide.is-prev  { transform: translate(calc(-50% - 290px), -50%) scale(0.78); }
@@ -8781,20 +8780,22 @@ input, select, textarea, label {
      match-card appears (catalog "Všetky vonavky" modal + Bestsellers
      grid + carousel). */
   .prod-card__match {
-    padding: 16px 18px;
+    padding: 14px 16px;
     margin-top: 4px;
     background: rgba(74, 222, 128, 0.05);
     border: 1px solid rgba(74, 222, 128, 0.22);
     border-radius: 14px;
-    gap: 12px;
+    gap: 10px;
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
   }
+  /* MUCH bigger "Perfektná zhoda vôňových nôt" title — user asked:
+     "ten text perfektna zhoda tiez by mat byt co najvacsi". */
   .prod-card__match .match-card__title {
-    font-size: 14px !important;
+    font-size: 18px !important;
     font-weight: 800;
-    letter-spacing: 0.02em;
-    line-height: 1.3;
-    gap: 8px;
+    letter-spacing: 0.01em;
+    line-height: 1.25;
+    gap: 9px;
     padding-bottom: 10px;
     margin-bottom: 10px;
     border-bottom: 1px solid rgba(74, 222, 128, 0.18);
@@ -8802,26 +8803,27 @@ input, select, textarea, label {
     color: #4ade80;
   }
   .prod-card__match .match-card__title svg {
-    width: 18px;
-    height: 18px;
+    width: 22px;
+    height: 22px;
   }
-  /* Bigger original-bottle thumb (110×110) to fill the match-card
-     section vertically — user explicitly asked: "vidim miesto, daj
-     ju vacsiu". Brand + price sit to the right, vertically centered. */
+  /* MUCH bigger original-bottle thumb to fill the match-card section
+     vertically — user: "ta fotka vonavky proste moze byt vacsia".
+     Square thumb 160×160 (was 110×110) gives the bottle photo room
+     to be the dominant element of the match panel. */
   .prod-card__match .match-card__row {
     display: grid;
-    grid-template-columns: 110px 1fr;
+    grid-template-columns: 160px 1fr;
     gap: 16px;
     align-items: center;
     text-align: left;
   }
   .prod-card__match .match-card__thumb {
-    width: 110px;
-    height: 110px;
-    border-radius: 12px;
+    width: 160px;
+    height: 160px;
+    border-radius: 14px;
   }
   .prod-card__match .match-card__thumb img {
-    padding: 4px;
+    padding: 6px;
   }
   .prod-card__match .match-card__body {
     width: auto;
@@ -8833,7 +8835,7 @@ input, select, textarea, label {
      name both rendered white + 800 weight per user request:
      "nech je bold aj nazov aj znacka". */
   .prod-card__match .match-card__brand {
-    font-size: 16px !important;
+    font-size: 17px !important;
     font-weight: 800 !important;
     line-height: 1.3;
     text-align: left;
@@ -8845,12 +8847,12 @@ input, select, textarea, label {
     color: #fff !important;
   }
   .prod-card__match .match-card__price {
-    margin-top: 3px;
+    margin-top: 4px;
     justify-content: flex-start;
     gap: 6px;
   }
   .prod-card__match .match-card__price strong {
-    font-size: 18px !important;
+    font-size: 20px !important;
     font-weight: 800 !important;
     color: #fff;
   }
@@ -8999,45 +9001,50 @@ input, select, textarea, label {
 @media (min-width: 1000px) and (min-height: 870px) {
   .carousel__slide .carousel__match {
     padding: 0.75rem 0.85rem;
-    gap: 0.45rem;
+    gap: 0.5rem;
   }
+  /* Bigger "Perfektná zhoda vôňových nôt" title — user wants it
+     "co najvacsi" without changing the panel size. */
   .carousel__slide .carousel__match .match-card__title {
-    font-size: 0.85rem;
-    padding-bottom: 0.4rem;
-    gap: 0.45rem;
+    font-size: 1rem;
+    padding-bottom: 0.5rem;
+    gap: 0.5rem;
   }
   .carousel__slide .carousel__match .match-card__title-text {
-    font-size: 0.85rem;
+    font-size: 1rem;
   }
   .carousel__slide .carousel__match .match-card__title svg {
-    width: 16px;
-    height: 16px;
+    width: 18px;
+    height: 18px;
   }
+  /* Bigger thumb so the bottle photo fills the match panel — user:
+     "ta fotka vonavky proste moze byt vacsia". 130×130 instead of
+     108×108. Brand + price stay vertically centred next to it. */
   .carousel__slide .carousel__match .match-card__row {
-    grid-template-columns: 108px 1fr;
-    gap: 0.95rem;
+    grid-template-columns: 130px 1fr;
+    gap: 1rem;
     align-items: center;
   }
   .carousel__slide .carousel__match .match-card__thumb {
-    width: 108px;
-    height: 108px;
-    border-radius: 10px;
+    width: 130px;
+    height: 130px;
+    border-radius: 12px;
   }
   .carousel__slide .carousel__match .match-card__thumb img {
-    padding: 4px;
+    padding: 5px;
   }
   .carousel__slide .carousel__match .match-card__thumb-fallback {
-    font-size: 16px;
+    font-size: 18px;
   }
-  .carousel__slide .carousel__match .match-card__body { gap: 0.35rem; }
+  .carousel__slide .carousel__match .match-card__body { gap: 0.4rem; }
   .carousel__slide .carousel__match .match-card__brand {
-    font-size: 0.95rem;
+    font-size: 1rem;
     line-height: 1.25;
     -webkit-line-clamp: 2;
     line-clamp: 2;
   }
   .carousel__slide .carousel__match .match-card__price strong {
-    font-size: 1.15rem;
+    font-size: 1.25rem;
   }
 }
 
