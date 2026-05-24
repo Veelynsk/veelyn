@@ -8841,6 +8841,14 @@ input, select, textarea, label {
     text-align: left;
     min-height: 0;
     color: #fff;
+    /* Allow long names like "Maison Francis Kurkdjian | Baccarat
+       Rouge 540" to wrap to 3 lines so the full name is readable
+       instead of getting truncated mid-word. */
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
   .prod-card__match .match-card__brand span {
     font-weight: 800 !important;
@@ -9036,12 +9044,15 @@ input, select, textarea, label {
   .carousel__slide .carousel__match .match-card__thumb-fallback {
     font-size: 18px;
   }
-  .carousel__slide .carousel__match .match-card__body { gap: 0.4rem; }
+  .carousel__slide .carousel__match .match-card__body { gap: 0.35rem; }
   .carousel__slide .carousel__match .match-card__brand {
-    font-size: 1rem;
+    font-size: 0.95rem;
     line-height: 1.25;
-    -webkit-line-clamp: 2;
-    line-clamp: 2;
+    /* Allow long names like "Maison Francis Kurkdjian | Baccarat
+       Rouge 540" to wrap to 3 lines so the full name is readable
+       instead of getting "Maison Francis Kurkdjian I..." truncated. */
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
   }
   .carousel__slide .carousel__match .match-card__price strong {
     font-size: 1.25rem;
