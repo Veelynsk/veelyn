@@ -252,17 +252,23 @@ body.lock {
   border-bottom: 1px solid var(--line);
 }
 
-/* Top row: vertical nav stack on left, BIG logo center, search+cart right */
+/* Top row: vertical nav stack on left, BIG logo center, search+cart right.
+   grid-template-columns: 1fr auto 1fr keeps the logo PHYSICALLY centered
+   in the viewport regardless of how wide the left/right sections grow
+   (otherwise wider left-nav shifted the logo right). */
 .nav {
   max-width: var(--container);
   margin: 0 auto;
   padding: 0.3rem 1rem;
   display: grid;
-  grid-template-columns: auto 1fr auto;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
   gap: 0.75rem;
   min-height: 56px;
 }
+.nav__left { justify-self: start; }
+.nav__center { justify-self: center; }
+.nav__right { justify-self: end; }
 
 /* LEFT: 2+3 symmetrical pill layout — top row is the 2 filled CTAs
    (3+1 ZADARMO + Všetky vonavky), bottom row is the 3 outline pills
@@ -9091,6 +9097,11 @@ input, select, textarea, label {
     max-height: 232px;
     box-sizing: border-box;
     overflow: hidden;
+    /* Pin to bottom of slide with consistent breathing room — user:
+       "kazde to pole musi vyzerat rovnako tak ze tam je kusok medzera
+       medzi tym zelenym perfektna zhoda polom a koncom karuselu". */
+    margin-top: auto;
+    margin-bottom: 14px;
   }
   /* Bigger "Perfektná zhoda vôňových nôt" title — user wants it
      "co najvacsi" without changing the panel size. */
