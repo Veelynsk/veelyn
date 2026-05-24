@@ -7036,10 +7036,10 @@ body.has-promo-popup .proof-toast { display: none !important; }
     height: 690px;
     padding: 0 1.2rem 0.8rem;
   }
-  .carousel__slide.is-prev  { transform: translate(calc(-50% - 310px), -50%) scale(0.78); }
-  .carousel__slide.is-next  { transform: translate(calc(-50% + 310px), -50%) scale(0.78); }
-  .carousel__slide.is-far-prev { transform: translate(calc(-50% - 530px), -50%) scale(0.6); }
-  .carousel__slide.is-far-next { transform: translate(calc(-50% + 530px), -50%) scale(0.6); }
+  .carousel__slide.is-prev  { transform: translate(calc(-50% - 340px), -50%) scale(0.78); }
+  .carousel__slide.is-next  { transform: translate(calc(-50% + 340px), -50%) scale(0.78); }
+  .carousel__slide.is-far-prev { transform: translate(calc(-50% - 570px), -50%) scale(0.6); }
+  .carousel__slide.is-far-next { transform: translate(calc(-50% + 570px), -50%) scale(0.6); }
 
   /* Bigger Veelyn bottle on huge monitors */
   .carousel__bottles { min-height: 230px; }
@@ -9011,15 +9011,30 @@ input, select, textarea, label {
    narrow viewports.
    ============================================================= */
 @media (min-width: 1000px) and (min-height: 921px) {
-  /* Hero stays its natural block layout (don't use flex — it breaks
-     the carousel's horizontal centering on big monitors). Trust badge
-     lives in its own sibling .trust-section AFTER .hero, with the
-     hero's min-height + small trust padding making trust appear right
-     after the CTAs without a huge gap. */
+  /* Hero fills viewport with CTAs pushed to the bottom edge — trust
+     badge then sits IMMEDIATELY after, no huge dead space. Flex
+     column on hero__content with align-items: center keeps the
+     carousel horizontally centered (max-width 1100 is honoured).
+     CTAs get margin-top: auto so they consume the leftover height. */
   .hero {
     padding-bottom: 1rem;
     min-height: calc(100vh - 150px); /* viewport minus marquee+header */
   }
+  .hero__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* horizontal centering — keeps carousel + arrows in the middle */
+    min-height: calc(100vh - 165px); /* minus marquee+header+hero padding */
+    width: 100%;
+  }
+  .hero__content > .carousel,
+  .hero__content > .hero__title,
+  .hero__content > .hero__ctas {
+    width: 100%;
+    max-width: 1100px;
+  }
+  /* Push CTAs to the bottom of the hero (just inside the fold). */
+  .hero__ctas { margin-top: auto; }
   .trust-section {
     padding: 1.5rem 1rem 1rem;
   }
