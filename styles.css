@@ -9106,13 +9106,30 @@ input, select, textarea, label {
   }
 }
 
-/* "Zobraziť produkt →" link is hidden everywhere in the hero carousel.
-   The whole .carousel__slide is the click target — having the link
-   ALSO inside the match-card duplicates the affordance AND eats ~30px
-   of vertical space that pushed the match-card past the slide bounds
-   on the user's monitor. Keep the markup in the DOM (for accessibility
-   on the catalog/bestsellers grid where it IS shown), just hide it
-   visually inside the carousel context. */
+/* "Zobraziť produkt →" link in the carousel match-card — accent purple,
+   right-aligned, clickable. Sits below the price. User wants this
+   visible on every monitor as a clear click target for the original
+   bottle product page. */
 .carousel__slide .carousel__match .match-card__link {
-  display: none !important;
+  display: inline-flex !important;
+  align-items: center;
+  gap: 0.3rem;
+  margin: 0.4rem 0 0;
+  padding: 0;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #a78bfa;
+  text-decoration: none;
+  align-self: flex-end;
+  pointer-events: auto;
+  transition: color 0.15s ease, gap 0.15s ease;
+  line-height: 1.1;
+}
+.carousel__slide .carousel__match .match-card__link:hover {
+  color: #c4b5fd;
+  gap: 0.5rem;
+}
+.carousel__slide .carousel__match .match-card__link span {
+  font-size: 0.95rem;
+  line-height: 1;
 }
