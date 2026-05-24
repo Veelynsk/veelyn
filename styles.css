@@ -8077,8 +8077,8 @@ body.has-promo-popup .proof-toast { display: none !important; }
   width: 100%;
   margin: 0.5rem 0 0;
   padding: 0.4rem 0.35rem;
-  background: rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(74, 222, 128, 0.05);
+  border: 1px solid rgba(74, 222, 128, 0.22);
   border-radius: 8px;
   display: flex;
   flex-direction: column;
@@ -8204,8 +8204,8 @@ body.has-promo-popup .proof-toast { display: none !important; }
   word-break: break-word;
 }
 .prod-card__match .match-card__brand span {
-  font-weight: 500;
-  color: var(--text-dim);
+  font-weight: 800;
+  color: #fff;
   margin-right: 0.1rem;
 }
 .prod-card__match .match-card__price {
@@ -8727,25 +8727,28 @@ input, select, textarea, label {
   .prod-card__info > .prod-card__rating   { order: 4; }
   .prod-card__info > .prod-card__price-row { order: 5; }
   .prod-card__info > .prod-card__cta      { order: 6; }
+  /* GREEN-TINTED panel matching the hero carousel's "Perfektná zhoda"
+     styling — user wants the same visual treatment everywhere the
+     match-card appears (catalog "Všetky vonavky" modal + Bestsellers
+     grid + carousel). */
   .prod-card__match {
-    padding: 18px 18px;
+    padding: 16px 18px;
     margin-top: 4px;
-    background: rgba(0, 0, 0, 0.4);
-    border: 1px solid rgba(212, 162, 71, 0.28);
+    background: rgba(74, 222, 128, 0.05);
+    border: 1px solid rgba(74, 222, 128, 0.22);
     border-radius: 14px;
     gap: 12px;
-    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.02) inset,
-                0 6px 18px rgba(0, 0, 0, 0.35);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
   }
   .prod-card__match .match-card__title {
     font-size: 14px !important;
-    font-weight: 700;
+    font-weight: 800;
     letter-spacing: 0.02em;
     line-height: 1.3;
     gap: 8px;
     padding-bottom: 10px;
     margin-bottom: 10px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(74, 222, 128, 0.18);
     white-space: normal;
     color: #4ade80;
   }
@@ -8753,31 +8756,44 @@ input, select, textarea, label {
     width: 18px;
     height: 18px;
   }
+  /* Bigger original-bottle thumb (110×110) to fill the match-card
+     section vertically — user explicitly asked: "vidim miesto, daj
+     ju vacsiu". Brand + price sit to the right, vertically centered. */
   .prod-card__match .match-card__row {
     display: grid;
-    grid-template-columns: 64px 1fr;
-    gap: 14px;
+    grid-template-columns: 110px 1fr;
+    gap: 16px;
     align-items: center;
     text-align: left;
   }
   .prod-card__match .match-card__thumb {
-    width: 64px;
-    height: 64px;
-    border-radius: 10px;
+    width: 110px;
+    height: 110px;
+    border-radius: 12px;
+  }
+  .prod-card__match .match-card__thumb img {
+    padding: 4px;
   }
   .prod-card__match .match-card__body {
     width: auto;
     align-items: flex-start;
     text-align: left;
-    gap: 4px;
+    gap: 6px;
   }
+  /* Bigger + bold brand + name. Brand <span> AND the trailing original
+     name both rendered white + 800 weight per user request:
+     "nech je bold aj nazov aj znacka". */
   .prod-card__match .match-card__brand {
-    font-size: 14px !important;
-    font-weight: 700;
+    font-size: 16px !important;
+    font-weight: 800 !important;
     line-height: 1.3;
     text-align: left;
     min-height: 0;
     color: #fff;
+  }
+  .prod-card__match .match-card__brand span {
+    font-weight: 800 !important;
+    color: #fff !important;
   }
   .prod-card__match .match-card__price {
     margin-top: 3px;
@@ -8785,7 +8801,8 @@ input, select, textarea, label {
     gap: 6px;
   }
   .prod-card__match .match-card__price strong {
-    font-size: 17px !important;
+    font-size: 18px !important;
+    font-weight: 800 !important;
     color: #fff;
   }
   .prod-card__match .match-card__price small {
