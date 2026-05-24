@@ -647,6 +647,16 @@ function renderAllFragrances() {
   }
   grid.innerHTML = list.map(f => productCardHTML(f, false, true)).join('');
   wireProductCards(grid);
+
+  // On the home page, scroll the window to the top of the catalog
+  // grid whenever a filter changes so the user lands at the start
+  // of the new brand/gender/sort, not mid-scroll in a different one.
+  const section = grid.closest('section') || grid;
+  if (section && typeof section.getBoundingClientRect === 'function') {
+    // Use a small offset (~80px) so the filters row is still visible.
+    const top = section.getBoundingClientRect().top + window.scrollY - 80;
+    window.scrollTo({ top, behavior: 'instant' });
+  }
 }
 
 function productCardHTML(f, isBest, showMatch) {
@@ -852,6 +862,12 @@ function renderCatalog() {
   const grid = $('#catalogGrid');
   grid.innerHTML = list.map(f => productCardHTML(f, false, true)).join('');
   wireProductCards(grid);
+
+  // Scroll the catalog modal back to the top whenever the filter
+  // changes — user shouldn't end up mid-list of a new brand. Works
+  // on both mobile and desktop (the modal panel is the scroll host).
+  const panel = document.querySelector('#modal-catalog .modal__panel');
+  if (panel) panel.scrollTo({ top: 0, behavior: 'instant' });
 }
 
 // --- PRODUCT MODAL ---
