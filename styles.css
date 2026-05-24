@@ -6969,6 +6969,17 @@ body.has-promo-popup .proof-toast { display: none !important; }
   .bottle-veelyn { width: 195px; height: 290px; top: -100px; }
   .bottle-original { width: 150px; height: 190px; top: -22px; }
 
+  /* COMPACT price box — the base @media (min-width: 700px) ships
+     huge price fonts (1.55-1.85rem) that blow the price box up to
+     ~155px tall on desktop and push the match-card past the slide
+     bottom. Override here so the price box stays ~100px tall. */
+  .carousel__price-box { padding: 0.45rem 0.85rem; }
+  .carousel__price-row { font-size: 0.78rem; }
+  .carousel__price-row--orig .price  { font-size: 1.1rem; }
+  .carousel__price-row--ours .price  { font-size: 1.3rem; }
+  .carousel__price-row--saving .price { font-size: 1rem; }
+  .carousel__price-divider { margin: 0.25rem 0; }
+
   /* Conservative CTAs for tall laptops 870-940 (e.g. 1440x900 Mac).
      Bigger CTAs live in the dedicated min-height ≥941px @media below. */
   .hero__ctas { margin-top: 0.6rem; margin-bottom: 0.4rem; gap: 0.8rem; }
@@ -6986,17 +6997,10 @@ body.has-promo-popup .proof-toast { display: none !important; }
    gets pushed further down by the bigger content + the trust margin
    formula below.
    ============================================================= */
-/* Big desktop ≥941vh: same slide proportions as 870-940 but slide
-   slightly TALLER so the extra "Zobraziť produkt" link fits inside.
-   Bigger CTAs come along too. User wants visual consistency, so the
-   sizing is intentionally close to the smaller range. */
+/* Big desktop ≥941vh: same slide proportions as 870-940 (no link
+   means match-card is shorter, fits same 582 slide with breathing
+   room). CTAs scaled up to use the extra vertical space. */
 @media (min-width: 1000px) and (min-height: 941px) {
-  /* Slide +50px taller so the match-card with the now-visible link
-     fits inside the slide bounds. */
-  .carousel__stage { height: 640px; }
-  .carousel__slide { height: 632px; }
-
-  /* CTAs scaled up to fill the extra vertical room. */
   .hero__ctas { margin-top: 1.4rem; margin-bottom: 0.5rem; gap: 1rem; }
   .hero__ctas .btn {
     padding: 1.35rem 3.2rem;
@@ -9037,33 +9041,13 @@ input, select, textarea, label {
   }
 }
 
-/* "Zobraziť produkt →" link below the price — only shown on TALL
-   desktop viewports (≥941px) where the slide has room for the extra
-   ~30px without the match-card overflowing the slide. On 870-940
-   laptops the whole slide is the click target so the link is just
-   visual noise. */
-@media (min-width: 1000px) and (min-height: 941px) {
-  .carousel__slide .carousel__match .match-card__link {
-    display: inline-flex !important;
-    align-items: center;
-    gap: 0.25rem;
-    margin: 0.3rem 0 0;
-    padding: 0;
-    font-size: 0.72rem;
-    font-weight: 700;
-    color: #a78bfa;
-    text-decoration: none;
-    align-self: flex-end;
-    pointer-events: auto;
-    transition: color 0.15s ease, gap 0.15s ease;
-    line-height: 1.1;
-  }
-  .carousel__slide .carousel__match .match-card__link:hover {
-    color: #c4b5fd;
-    gap: 0.4rem;
-  }
-  .carousel__slide .carousel__match .match-card__link span {
-    font-size: 0.85rem;
-    line-height: 1;
-  }
+/* "Zobraziť produkt →" link is hidden everywhere in the hero carousel.
+   The whole .carousel__slide is the click target — having the link
+   ALSO inside the match-card duplicates the affordance AND eats ~30px
+   of vertical space that pushed the match-card past the slide bounds
+   on the user's monitor. Keep the markup in the DOM (for accessibility
+   on the catalog/bestsellers grid where it IS shown), just hide it
+   visually inside the carousel context. */
+.carousel__slide .carousel__match .match-card__link {
+  display: none !important;
 }
