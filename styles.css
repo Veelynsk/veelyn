@@ -9086,20 +9086,21 @@ input, select, textarea, label {
     height: 18px;
   }
   /* Bigger thumb so the bottle photo fills the match panel — user:
-     "ta fotka vonavky proste moze byt vacsia". 130×130 instead of
-     108×108. Brand + price stay vertically centred next to it. */
+     "fotky proste maju par pixelov pod sebou este medzeru, mohla by
+     tam byt ta fotka vacsia tak aby vyplnila medzeru". 150×150 now
+     possible because Zobraziť produkt link is absolute-positioned. */
   .carousel__slide .carousel__match .match-card__row {
-    grid-template-columns: 130px 1fr;
+    grid-template-columns: 150px 1fr;
     gap: 1rem;
     align-items: center;
   }
   .carousel__slide .carousel__match .match-card__thumb {
-    width: 130px;
-    height: 130px;
-    border-radius: 12px;
+    width: 150px;
+    height: 150px;
+    border-radius: 14px;
   }
   .carousel__slide .carousel__match .match-card__thumb img {
-    padding: 5px;
+    padding: 6px;
   }
   .carousel__slide .carousel__match .match-card__thumb-fallback {
     font-size: 18px;
@@ -9121,30 +9122,40 @@ input, select, textarea, label {
   }
 }
 
-/* "Zobraziť produkt →" link in the carousel match-card — accent purple,
-   right-aligned, clickable. Sits below the price. User wants this
-   visible on every monitor as a clear click target for the original
-   bottle product page. */
+/* "Zobraziť produkt →" link in the carousel match-card — pinned to
+   the bottom-right corner via absolute positioning so it doesn't grow
+   the match-card panel height. User: "ma to byt tak akurat v rohu v
+   pravo". The thumb can then be bigger because the link no longer
+   eats a vertical row. */
+.carousel__slide .carousel__match {
+  position: relative;
+}
 .carousel__slide .carousel__match .match-card__link {
   display: inline-flex !important;
   align-items: center;
-  gap: 0.3rem;
-  margin: 0.4rem 0 0;
+  gap: 0.25rem;
+  position: absolute;
+  bottom: 0.5rem;
+  right: 0.85rem;
   padding: 0;
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   font-weight: 700;
   color: #a78bfa;
   text-decoration: none;
-  align-self: flex-end;
   pointer-events: auto;
   transition: color 0.15s ease, gap 0.15s ease;
   line-height: 1.1;
 }
 .carousel__slide .carousel__match .match-card__link:hover {
   color: #c4b5fd;
-  gap: 0.5rem;
+  gap: 0.4rem;
 }
 .carousel__slide .carousel__match .match-card__link span {
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   line-height: 1;
+}
+/* Body needs bottom padding so brand/price don't overlap the
+   absolute-positioned link. */
+.carousel__slide .carousel__match .match-card__body {
+  padding-bottom: 1.5rem;
 }
