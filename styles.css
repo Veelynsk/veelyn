@@ -291,9 +291,9 @@ body.lock {
 /* Equal-width pills in both rows — each .nav__link gets the SAME
    min-width so the 2 buttons in row 1 and the 3 buttons in row 2
    look balanced. User: "zarovnaj tie 3 buttons nech su rovnako velke
-   ako tie 2 nad nimi". */
+   ako tie 2 nad nimi". 50% bigger than before. */
 .nav__row > .nav__link {
-  min-width: 150px;
+  min-width: 225px;
 }
 /* Legacy inline wrapper — kept as flex row in case old markup still
    references it (e.g. cached pages mid-rollout). */
@@ -312,8 +312,9 @@ body.lock {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 7px 18px;
-  font-size: 0.62rem;
+  /* 50% bigger pills per user request — taller padding + bigger font */
+  padding: 11px 28px;
+  font-size: 0.95rem;
   font-weight: 800;
   letter-spacing: 0.14em;
   text-transform: uppercase;
