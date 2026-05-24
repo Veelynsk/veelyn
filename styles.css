@@ -5091,9 +5091,12 @@ body.has-promo-popup .proof-toast { display: none !important; }
 }
 .bundle__lead {
   color: var(--text);
-  margin: 0 0 1rem;
-  line-height: 1.4;
-  font-size: 0.95rem;
+  /* Bigger bottom margin since the "Ako to funguje" steps + features
+     section below were removed — gives the slot picker some breathing
+     room from the lead text. */
+  margin: 0 0 1.6rem;
+  line-height: 1.45;
+  font-size: 1rem;
   font-weight: 600;
   text-align: center;
   width: 100%;
