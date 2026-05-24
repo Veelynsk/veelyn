@@ -6949,11 +6949,10 @@ body.has-promo-popup .proof-toast { display: none !important; }
     line-height: 0.95;
   }
 
-  /* Slide tall enough to fit: bottle area (~185px) + name (~30px) +
-     2-LINE inspired pill (~48px, worst case) + 3-row price box
-     (~104px) + match-card with link (~155px) + bottom pad (~10px)
-     ≈ 580px. Used as the SAME canonical desktop layout for all
-     viewports ≥870px tall — user wants visual consistency. */
+  /* TALL-LAPTOP DEFAULT (870-940 viewport range): slide is sized
+     conservatively so bigger CTAs + match-card with link still fit
+     above the fold on a 900px viewport. Bigger monitors (≥941px)
+     get an upgrade via the inner @media further down. */
   .carousel__stage { height: 590px; }
   .carousel__slide {
     width: 345px;
@@ -6965,17 +6964,40 @@ body.has-promo-popup .proof-toast { display: none !important; }
   .carousel__slide.is-far-prev { transform: translate(calc(-50% - 490px), -50%) scale(0.6); }
   .carousel__slide.is-far-next { transform: translate(calc(-50% + 490px), -50%) scale(0.6); }
 
-  /* Bottles sized so the price card + match card sit comfortably below.
-     min-height reduced from 195 to 175 to give the bigger match-card
-     thumb (108px) room without overflowing the slide. */
+  /* Bottles sized so the price card + match card sit comfortably below. */
   .carousel__bottles { min-height: 175px; }
   .bottle-veelyn { width: 195px; height: 290px; top: -100px; }
   .bottle-original { width: 150px; height: 190px; top: -22px; }
 
-  /* BIGGER hero CTAs — user wants the bottom CTAs to fill the empty
-     space between the carousel and the (below-fold) trust badge.
-     Same sizing as the laptop @media above so the visual is unified. */
-  .hero__ctas { margin-top: 1.6rem; margin-bottom: 0.5rem; gap: 1rem; }
+  /* Conservative CTAs for tall laptops 870-940 (e.g. 1440x900 Mac).
+     Bigger CTAs live in the dedicated min-height ≥941px @media below. */
+  .hero__ctas { margin-top: 0.6rem; margin-bottom: 0.4rem; gap: 0.8rem; }
+  .hero__ctas .btn {
+    padding: 0.9rem 2.2rem;
+    font-size: 0.95rem;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+  }
+}
+
+/* =============================================================
+   BIG DESKTOP (≥1000px wide AND ≥941px tall) — bigger carousel +
+   bigger CTAs to use the extra vertical room. Trust badge naturally
+   gets pushed further down by the bigger content + the trust margin
+   formula below.
+   ============================================================= */
+/* Big desktop ≥941vh: same slide proportions as 870-940 but slide
+   slightly TALLER so the extra "Zobraziť produkt" link fits inside.
+   Bigger CTAs come along too. User wants visual consistency, so the
+   sizing is intentionally close to the smaller range. */
+@media (min-width: 1000px) and (min-height: 941px) {
+  /* Slide +50px taller so the match-card with the now-visible link
+     fits inside the slide bounds. */
+  .carousel__stage { height: 640px; }
+  .carousel__slide { height: 632px; }
+
+  /* CTAs scaled up to fill the extra vertical room. */
+  .hero__ctas { margin-top: 1.4rem; margin-bottom: 0.5rem; gap: 1rem; }
   .hero__ctas .btn {
     padding: 1.35rem 3.2rem;
     font-size: 1.1rem;
@@ -9013,10 +9035,14 @@ input, select, textarea, label {
   .carousel__slide .carousel__match .match-card__price strong {
     font-size: 1.15rem;
   }
-  /* Show the "Zobraziť produkt →" link below the price on viewports
-     with room. Compact: small font + tight margin so the match-card
-     stays inside the slide even on the worst-case 2-line inspired
-     pill. */
+}
+
+/* "Zobraziť produkt →" link below the price — only shown on TALL
+   desktop viewports (≥941px) where the slide has room for the extra
+   ~30px without the match-card overflowing the slide. On 870-940
+   laptops the whole slide is the click target so the link is just
+   visual noise. */
+@media (min-width: 1000px) and (min-height: 941px) {
   .carousel__slide .carousel__match .match-card__link {
     display: inline-flex !important;
     align-items: center;
