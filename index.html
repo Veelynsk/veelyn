@@ -128,7 +128,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="preconnect" href="https://widget.packeta.com">
 <link rel="dns-prefetch" href="https://widget.packeta.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..900;1,9..144,400..900&family=Manrope:wght@300..800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=20260522-046">
+<link rel="stylesheet" href="styles.css?v=20260522-047">
 
 <!-- JSON-LD Structured Data -->
 <script type="application/ld+json">
@@ -275,12 +275,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </button>
 
     <div class="nav__left">
-      <button class="nav__link nav__link--gold" data-open="bundle">★ 3+1 ZADARMO</button>
-      <button class="nav__link nav__link--accent" data-open="catalog">Všetky vonavky</button>
-      <button class="nav__link" data-open="wholesale">Veľkoobchod / Whitelabel značka</button>
-      <!-- Affiliate + Kontakt share a single row so the nav saves a line.
-           Wrapper is a flex row inside the vertical .nav__left stack. -->
-      <div class="nav__inline">
+      <!-- Symmetrical 2+3 stack: filled CTAs on top row, outline links
+           on bottom row. Both rows left-aligned, smaller vertical gap
+           between rows than horizontal gap between buttons. -->
+      <div class="nav__row">
+        <button class="nav__link nav__link--gold" data-open="bundle">★ 3+1 ZADARMO</button>
+        <button class="nav__link nav__link--accent" data-open="catalog">Všetky vonavky</button>
+      </div>
+      <div class="nav__row">
+        <button class="nav__link" data-open="wholesale">Veľkoobchod / Whitelabel značka</button>
         <button class="nav__link" data-open="affiliate">Affiliate</button>
         <button class="nav__link" data-open="contact">Kontakt</button>
       </div>
@@ -1375,7 +1378,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- Packeta widget v6 (https://docs.packetery.com/03-creating-shipments/05-widget-v6.html) -->
 <script src="https://widget.packeta.com/v6/www/js/library.js" async></script>
 
-<script src="data.js?v=20260522-046"></script>
-<script src="script.js?v=20260522-046"></script>
+<script src="data.js?v=20260522-047"></script>
+<script src="script.js?v=20260522-047"></script>
 </body>
 </html>
