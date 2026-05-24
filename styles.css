@@ -9011,13 +9011,28 @@ input, select, textarea, label {
    narrow viewports.
    ============================================================= */
 @media (min-width: 1000px) and (min-height: 921px) {
-  /* Push the trust badge well below the fold. After the recent bigger
-     CTAs, the calc() baseline needed to bump from 11rem → 14rem so
-     trust stays clearly below the fold even on 1200vh monitors. */
-  .hero { padding-bottom: 1.5rem; }
-  .trust-grid.trust-row--top {
-    margin-top: max(14rem, calc(100vh - 940px));
+  /* Hero fills viewport. Trust-grid is now a SIBLING section after
+     .hero, so it naturally appears immediately below the fold without
+     any margin trick. Hero uses flex to push CTAs to the bottom of
+     the viewport. */
+  .hero {
+    padding-bottom: 1rem;
+    min-height: calc(100vh - 150px); /* viewport minus marquee+header */
+    display: flex;
+    flex-direction: column;
   }
+  .hero__content {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+  }
+  /* CTAs at the bottom of the hero (just inside the fold) */
+  .hero__ctas { margin-top: auto; }
+  /* New trust-section wrapper — sits immediately after .hero. */
+  .trust-section {
+    padding: 1.5rem 1rem 1rem;
+  }
+  .trust-grid.trust-row--top { margin-top: 0; margin-bottom: 0; }
 
   /* Slightly tighter trust badge — less padding, smaller text/icons. */
   .trust-grid {
