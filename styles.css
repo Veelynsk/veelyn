@@ -282,6 +282,13 @@ body.lock {
   gap: 10px;
   flex-wrap: wrap;
 }
+/* Equal-width pills in both rows — each .nav__link gets the SAME
+   min-width so the 2 buttons in row 1 and the 3 buttons in row 2
+   look balanced. User: "zarovnaj tie 3 buttons nech su rovnako velke
+   ako tie 2 nad nimi". */
+.nav__row > .nav__link {
+  min-width: 150px;
+}
 /* Legacy inline wrapper — kept as flex row in case old markup still
    references it (e.g. cached pages mid-rollout). */
 .nav__inline {
@@ -7011,10 +7018,10 @@ body.has-promo-popup .proof-toast { display: none !important; }
     font-size: clamp(1.5rem, 2.2vw, 2rem);
     margin: 0 0 0.35rem;
   }
-  .hero__ctas { margin-top: 1.4rem; margin-bottom: 0.5rem; gap: 1rem; }
+  .hero__ctas { margin-top: 0.8rem; margin-bottom: 0; gap: 1rem; }
   .hero__ctas .btn {
-    padding: 1.35rem 3.2rem;
-    font-size: 1.1rem;
+    padding: 1.95rem 3.4rem;
+    font-size: 1.2rem;
     font-weight: 900;
     letter-spacing: 0.1em;
   }
@@ -9017,7 +9024,7 @@ input, select, textarea, label {
      carousel horizontally centered (max-width 1100 is honoured).
      CTAs get margin-top: auto so they consume the leftover height. */
   .hero {
-    padding-bottom: 1rem;
+    padding-bottom: 0.2rem;
     min-height: calc(100vh - 150px); /* viewport minus marquee+header */
   }
   .hero__content {
@@ -9036,7 +9043,7 @@ input, select, textarea, label {
   /* Push CTAs to the bottom of the hero (just inside the fold). */
   .hero__ctas { margin-top: auto; }
   .trust-section {
-    padding: 1.5rem 1rem 1rem;
+    padding: 0.6rem 1rem 1rem;
   }
   .trust-grid.trust-row--top { margin-top: 0; margin-bottom: 0; }
 
