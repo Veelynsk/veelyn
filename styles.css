@@ -10012,10 +10012,11 @@ input, select, textarea, label {
    BIG-MONITOR CAROUSEL SCALING — slides + offsets scale up on
    1700+ and 2200+ viewports so ultrawide / 4K / 5K monitors don't
    show a narrow strip of cards in the middle of a huge empty canvas.
-   MacBook 13"/14"/16" (≤1640px viewport) is NOT affected — these
-   queries kick in only on truly big monitors.
+   MacBook 13"/14"/16" (default scaling ≤1728px) is NOT affected —
+   breakpoints raised to 2000px / 2400px so only external 4K / 5K
+   monitors trigger the larger carousel slides.
    ================================================================ */
-@media (min-width: 1700px) {
+@media (min-width: 2000px) {
   .carousel__stage { height: 720px; }
   .carousel__slide {
     width: 380px;
@@ -10039,7 +10040,7 @@ input, select, textarea, label {
   .carousel__slide .carousel__price-row--ours .price { font-size: 1.35rem; }
 }
 
-@media (min-width: 2200px) {
+@media (min-width: 2400px) {
   .carousel__stage { height: 840px; }
   .carousel__slide {
     width: 460px;
@@ -10063,14 +10064,14 @@ input, select, textarea, label {
 
 /* Bestsellers / All-Fragrances grid — bigger card minimum on big
    monitors so a 5K display fits 5-6 cards per row, not 8+ tiny ones. */
-@media (min-width: 1700px) {
+@media (min-width: 2000px) {
   .bestsellers__grid,
   .all-fragrances__grid {
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
     gap: 1.1rem;
   }
 }
-@media (min-width: 2200px) {
+@media (min-width: 2400px) {
   .bestsellers__grid,
   .all-fragrances__grid {
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
