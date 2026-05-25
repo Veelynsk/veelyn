@@ -9666,7 +9666,7 @@ input, select, textarea, label {
    many .match-card / .prod-card__match rules above.
    ============================================================= */
 .carousel__slide .carousel__match {
-  margin: 0.5rem 0 0;
+  margin: 1rem 0 0;
   padding: 0.4rem 0.5rem;
   background: rgba(74,222,128,0.05);
   border: 1px solid rgba(74,222,128,0.2);
