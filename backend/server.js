@@ -16,13 +16,25 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 // ---- CONFIG ----
 const PORT = process.env.PORT || 3001;
 const SELLER_EMAIL = process.env.SELLER_EMAIL || 'info@veelyn.sk';
-// Strip wrapping quotes / whitespace that creep in when copy-pasting the
-// env var into Railway. Resend rejects "Veelyn <x@y>" (with quotes) as
-// invalid format even though the inner value is fine.
-const FROM_EMAIL = (process.env.FROM_EMAIL || 'Veelyn <objednavky@veelyn.sk>')
-  .trim()
-  .replace(/^['"]|['"]$/g, '')
-  .trim();
+// Hard-coded default the FROM_EMAIL falls back to if the env var is
+// missing, empty, or in a format Resend rejects. We've had recurring
+// "Invalid `from` field" failures because Railway env var values get
+// wrapped in quotes / contain stray chars.
+const FROM_EMAIL_DEFAULT = 'Veelyn <objednavky@veelyn.sk>';
+function sanitizeFromEmail(raw) {
+  if (!raw) return FROM_EMAIL_DEFAULT;
+  // Strip wrapping quotes (single + double) and whitespace
+  let v = String(raw).trim();
+  v = v.replace(/^['"]+|['"]+$/g, '').trim();
+  // Resend accepts either `user@domain` or `Display Name <user@domain>`
+  const plain = /^[^\s<>@]+@[^\s<>@]+\.[^\s<>@]+$/;
+  const named = /^[^<>]+<\s*[^\s<>@]+@[^\s<>@]+\.[^\s<>@]+\s*>$/;
+  if (plain.test(v) || named.test(v)) return v;
+  console.warn(`[CONFIG] FROM_EMAIL invalid format ("${raw}"), falling back to default`);
+  return FROM_EMAIL_DEFAULT;
+}
+const FROM_EMAIL = sanitizeFromEmail(process.env.FROM_EMAIL);
+console.log(`[CONFIG] FROM_EMAIL resolved to: ${FROM_EMAIL}`);
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'change-me';
 const RESEND_API_KEY = process.env.RESEND_API_KEY || '';
 
