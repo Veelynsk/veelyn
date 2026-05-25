@@ -6646,7 +6646,7 @@ body.has-promo-popup .proof-toast { display: none !important; }
      the match-card bottom on the left column. Pyramid distributes its
      three rows evenly across the available space. */
   :is(#modal-product, #modal-origin) .product__col-right .product__notes {
-    padding: 0.95rem 1.1rem 1.1rem;
+    padding: 1rem 1.4rem 1.8rem;
     border-radius: 12px;
     margin-top: 0;
     flex: 1 1 auto;
