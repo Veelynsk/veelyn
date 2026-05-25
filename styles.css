@@ -10056,10 +10056,12 @@ input, select, textarea, label {
     height: 710px;
     padding: 0 1.4rem 1rem;
   }
-  .carousel__slide.is-prev    { transform: translate(calc(-50% - 380px), -50%) scale(0.8); }
-  .carousel__slide.is-next    { transform: translate(calc(-50% + 380px), -50%) scale(0.8); }
-  .carousel__slide.is-far-prev{ transform: translate(calc(-50% - 640px), -50%) scale(0.62); }
-  .carousel__slide.is-far-next{ transform: translate(calc(-50% + 640px), -50%) scale(0.62); }
+  /* Tighter offsets — side cards sit flush against active (zero gap)
+     for the coverflow look. Was 380/640px which created ~40px gaps. */
+  .carousel__slide.is-prev    { transform: translate(calc(-50% - 342px), -50%) scale(0.8); }
+  .carousel__slide.is-next    { transform: translate(calc(-50% + 342px), -50%) scale(0.8); }
+  .carousel__slide.is-far-prev{ transform: translate(calc(-50% - 580px), -50%) scale(0.62); }
+  .carousel__slide.is-far-next{ transform: translate(calc(-50% + 580px), -50%) scale(0.62); }
 
   /* Bigger bottles inside the slides */
   .carousel__bottles { min-height: 250px; }
@@ -10080,10 +10082,11 @@ input, select, textarea, label {
     height: 820px;
     padding: 0 1.7rem 1.2rem;
   }
-  .carousel__slide.is-prev    { transform: translate(calc(-50% - 460px), -50%) scale(0.82); }
-  .carousel__slide.is-next    { transform: translate(calc(-50% + 460px), -50%) scale(0.82); }
-  .carousel__slide.is-far-prev{ transform: translate(calc(-50% - 780px), -50%) scale(0.65); }
-  .carousel__slide.is-far-next{ transform: translate(calc(-50% + 780px), -50%) scale(0.65); }
+  /* Tighter offsets — side cards adjacent to active card. */
+  .carousel__slide.is-prev    { transform: translate(calc(-50% - 418px), -50%) scale(0.82); }
+  .carousel__slide.is-next    { transform: translate(calc(-50% + 418px), -50%) scale(0.82); }
+  .carousel__slide.is-far-prev{ transform: translate(calc(-50% - 710px), -50%) scale(0.65); }
+  .carousel__slide.is-far-next{ transform: translate(calc(-50% + 710px), -50%) scale(0.65); }
 
   .carousel__bottles { min-height: 290px; }
   .bottle-veelyn  { width: 290px; height: 435px; top: -145px; }
