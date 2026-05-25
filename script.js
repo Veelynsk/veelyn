@@ -2400,7 +2400,7 @@ async function finishOrder() {
         <h3>Čo bude ďalej?</h3>
         <ol>
           <li>Potvrdíme objednávku e-mailom</li>
-          <li>Vytvoríme zásielku v Packete (sledovanie pošleme)</li>
+          <li>Tvoju objednávku starostlivo zabalíme a pošleme — sledovacie číslo dostaneš mailom</li>
           <li>Doručíme do 1–2 prac. dní</li>
         </ol>
       </div>
