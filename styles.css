@@ -6619,15 +6619,15 @@ body.has-promo-popup .proof-toast { display: none !important; }
     line-height: 1.25;
     letter-spacing: 0.01em;
   }
-  /* Compare table */
-  :is(#modal-product, #modal-origin) .product__compare { padding: 0.55rem 0.8rem; border-radius: 12px; }
-  :is(#modal-product, #modal-origin) .product__compare-title { font-size: 0.66rem; margin: 0 0 0.3rem; }
-  :is(#modal-product, #modal-origin) .product__compare table { font-size: 0.78rem; }
+  /* Compare table — väčšie čitateľné texty per user 2026-05-25 */
+  :is(#modal-product, #modal-origin) .product__compare { padding: 0.85rem 1rem; border-radius: 12px; }
+  :is(#modal-product, #modal-origin) .product__compare-title { font-size: 0.82rem; margin: 0 0 0.55rem; letter-spacing: 0.18em; }
+  :is(#modal-product, #modal-origin) .product__compare table { font-size: 1rem; }
   :is(#modal-product, #modal-origin) .product__compare td,
-  :is(#modal-product, #modal-origin) .product__compare th { padding: 0.25rem 0.5rem; }
-  :is(#modal-product, #modal-origin) .product__compare th { font-size: 0.7rem; letter-spacing: 0.1em; }
+  :is(#modal-product, #modal-origin) .product__compare th { padding: 0.55rem 0.6rem; }
+  :is(#modal-product, #modal-origin) .product__compare th { font-size: 0.9rem; letter-spacing: 0.12em; }
   :is(#modal-product, #modal-origin) .product__compare td.we,
-  :is(#modal-product, #modal-origin) .product__compare td.them { font-size: 1.05rem; }
+  :is(#modal-product, #modal-origin) .product__compare td.them { font-size: 1.3rem; }
   /* CTA buttons */
   :is(#modal-product, #modal-origin) .product__col-right .product__buttons {
     flex: 0 0 auto;
@@ -6662,6 +6662,9 @@ body.has-promo-popup .proof-toast { display: none !important; }
     flex-direction: column;
     gap: 0;
     min-height: 0;
+    /* Push pyramid to the BOTTOM of the notes container so its base
+       row aligns with the match-card bottom on the left column. */
+    margin-top: auto;
   }
   :is(#modal-product, #modal-origin) .product__pyramid-row {
     grid-template-columns: 60px 1fr;
