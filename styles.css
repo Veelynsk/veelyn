@@ -35,6 +35,7 @@
   --font-body: 'Manrope', system-ui, -apple-system, sans-serif;
 
   --container: 1280px;
+  --carousel-max: 1100px;
 
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
   --t-fast: 180ms;
@@ -531,7 +532,7 @@ body.lock {
 .carousel {
   position: relative;
   margin: 0 auto 1rem;
-  max-width: 1100px;
+  max-width: var(--carousel-max);
   padding: 0 0.5rem;
 }
 .carousel__stage {
@@ -9917,4 +9918,100 @@ input, select, textarea, label {
    absolute-positioned link. */
 .carousel__slide .carousel__match .match-card__body {
   padding-bottom: 1.5rem;
+}
+
+/* ================================================================
+   BIG-SCREEN SCALING — homepage + sections grow proportionally on
+   larger monitors so a 27" / 4K / ultrawide doesn't show a tiny
+   narrow strip of content with massive empty side margins.
+   Per user 2026-05-22: na velkom monitore to vidim ako narrow strip,
+   chcem aby vyzeralo rovnako vsade.
+   Tier 1: 1600+ (typical 1440p)
+   Tier 2: 2000+ (4K / WQHD ultrawide)
+   Tier 3: 2400+ (5K studio display)
+   ================================================================ */
+@media (min-width: 1600px) {
+  :root {
+    --container: 1480px;
+    --carousel-max: 1320px;
+  }
+  .carousel__stage { height: 600px; }
+  .carousel__slide { padding: 1.5rem 1.7rem 1.7rem; }
+  .bestsellers,
+  .all-fragrances { padding: 4.5rem 1.5rem 1.5rem; }
+  .bestsellers__grid,
+  .all-fragrances__grid {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1rem;
+  }
+}
+
+@media (min-width: 2000px) {
+  :root {
+    --container: 1800px;
+    --carousel-max: 1620px;
+  }
+  .carousel__stage { height: 680px; }
+  .carousel__slide { padding: 1.8rem 2rem 2rem; }
+  .bestsellers,
+  .all-fragrances { padding: 5rem 2rem 2rem; }
+  .bestsellers__grid,
+  .all-fragrances__grid {
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.25rem;
+  }
+  /* Nav grows proportionally too */
+  .nav { padding-left: 2rem; padding-right: 2rem; }
+}
+
+@media (min-width: 2400px) {
+  :root {
+    --container: 2100px;
+    --carousel-max: 1900px;
+  }
+  .carousel__stage { height: 760px; }
+  .carousel__slide { padding: 2rem 2.4rem 2.2rem; }
+  .bestsellers,
+  .all-fragrances { padding: 6rem 2.5rem 2rem; }
+  .bestsellers__grid,
+  .all-fragrances__grid {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+  .nav { padding-left: 3rem; padding-right: 3rem; }
+}
+
+/* Modal panels also scale up for big screens so product / catalog /
+   affiliate fit the available canvas instead of looking dwarfed. */
+@media (min-width: 1600px) {
+  .modal__panel { max-width: 1080px; }
+  .modal__panel--wide { max-width: 1280px; }
+  .modal__panel--full { max-width: 1480px; }
+  #modal-product .product { max-width: 1380px; margin: 0 auto; }
+  #modal-affiliate .modal__panel { max-width: 1320px; }
+  #modal-wholesale .modal__panel { max-width: 1380px; }
+  #modal-catalog .modal__panel { max-width: 1480px; }
+  #modal-search .modal__panel { max-width: 1280px; }
+}
+
+@media (min-width: 2000px) {
+  .modal__panel { max-width: 1240px; }
+  .modal__panel--wide { max-width: 1500px; }
+  .modal__panel--full { max-width: 1720px; }
+  #modal-product .product { max-width: 1580px; }
+  #modal-affiliate .modal__panel { max-width: 1500px; }
+  #modal-wholesale .modal__panel { max-width: 1580px; }
+  #modal-catalog .modal__panel { max-width: 1720px; }
+  #modal-search .modal__panel { max-width: 1440px; }
+}
+
+@media (min-width: 2400px) {
+  .modal__panel { max-width: 1400px; }
+  .modal__panel--wide { max-width: 1700px; }
+  .modal__panel--full { max-width: 1980px; }
+  #modal-product .product { max-width: 1780px; }
+  #modal-affiliate .modal__panel { max-width: 1680px; }
+  #modal-wholesale .modal__panel { max-width: 1780px; }
+  #modal-catalog .modal__panel { max-width: 1980px; }
+  #modal-search .modal__panel { max-width: 1620px; }
 }
