@@ -814,10 +814,16 @@ function setupSearch() {
 
     results.innerHTML = matches.map(f => `
       <button class="search__result" data-id="${f.id}">
-        <div class="search__result-thumb"></div>
+        <div class="search__result-thumb">
+          <img src="images/veelyn/${f.id}.png?v=2" alt="${f.veelyn_name}" loading="lazy" decoding="async"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="search__result-thumb-fallback" style="display:none;">
+            <span>${(f.veelyn_name||'').slice(0,2).toUpperCase()}</span>
+          </div>
+        </div>
         <div class="search__result-info">
           <div class="search__result-name">${f.veelyn_name}</div>
-          <div class="search__result-inspired">Inspirované: ${f.original_name} · ${f.brand}</div>
+          <div class="search__result-inspired">„Inšpirované <strong>${f.brand}</strong> ${f.original_name}"</div>
         </div>
         <div class="search__result-price">${eur(f.veelyn_price)}</div>
       </button>
@@ -1290,9 +1296,23 @@ function renderCart() {
     const sub = unitPrice * item.qty;
     const displayName = isOriginal ? `${f.brand} ${f.original_name}` : f.veelyn_name;
     const displaySubtitle = isOriginal ? 'Originál' : f.original_name;
+    const origSlugCart = slugifyOriginal(f.original_name);
+    const thumbSrc = isOriginal
+      ? `images/originals/${origSlugCart}.png`
+      : `images/veelyn/${f.id}.png?v=2`;
+    const thumbAlt = isOriginal ? `${f.brand} ${f.original_name}` : f.veelyn_name;
+    const thumbFallback = isOriginal
+      ? (f.brand || '').slice(0, 2).toUpperCase()
+      : (f.veelyn_name || '').slice(0, 2).toUpperCase();
     return `
       <div class="cart-item${isOriginal ? ' cart-item--original' : ''}">
-        <div class="cart-item__thumb"></div>
+        <div class="cart-item__thumb">
+          <img src="${thumbSrc}" alt="${thumbAlt}" loading="lazy" decoding="async"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="cart-item__thumb-fallback" style="display:none;">
+            <span>${thumbFallback}</span>
+          </div>
+        </div>
         <div class="cart-item__info">
           <div class="cart-item__name">${displayName}</div>
           <div class="cart-item__inspired">${displaySubtitle}</div>

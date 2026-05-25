@@ -4132,21 +4132,49 @@ body.has-promo-popup .proof-toast { display: none !important; }
   background: var(--surface-2);
 }
 .search__result-thumb {
-  width: 50px; height: 60px;
-  background: linear-gradient(155deg, var(--accent-deep), #000);
-  border-radius: 4px;
+  width: 60px; height: 75px;
+  background: linear-gradient(155deg, rgba(124,58,237,0.15), rgba(0,0,0,0.5));
+  border-radius: 8px;
+  border: 1px solid rgba(167,139,250,0.18);
   flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+}
+.search__result-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 4px;
+  display: block;
+}
+.search__result-thumb-fallback {
+  position: absolute;
+  inset: 0;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-body);
+  font-weight: 800;
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.6);
 }
 .search__result-info { flex: 1; min-width: 0; }
 .search__result-name {
-  font-weight: 700;
-  font-size: 0.95rem;
+  font-weight: 800;
+  font-size: 1rem;
+  color: #fff;
   letter-spacing: 0.04em;
+  margin-bottom: 0.2rem;
 }
 .search__result-inspired {
-  font-size: 0.75rem;
-  color: var(--text-mute);
-  letter-spacing: 0.05em;
+  font-size: 0.8rem;
+  /* Gold accent so it matches the "Inšpirované" pill on product cards. */
+  color: #d4a247;
+  letter-spacing: 0.03em;
+  line-height: 1.3;
+}
+.search__result-inspired strong {
+  color: #f0d9a8;
+  font-weight: 800;
 }
 .search__result-price {
   font-family: var(--font-display);
@@ -4379,9 +4407,29 @@ body.has-promo-popup .proof-toast { display: none !important; }
 }
 .cart-item__thumb {
   width: 60px; height: 80px;
-  background: linear-gradient(155deg, var(--accent-deep), #000);
-  border-radius: 4px;
+  background: linear-gradient(155deg, rgba(124,58,237,0.15), rgba(0,0,0,0.5));
+  border-radius: 8px;
+  border: 1px solid rgba(167,139,250,0.18);
   flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+}
+.cart-item__thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 4px;
+  display: block;
+}
+.cart-item__thumb-fallback {
+  position: absolute;
+  inset: 0;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-body);
+  font-weight: 800;
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.6);
 }
 .cart-item__info { flex: 1; min-width: 0; }
 .cart-item__name { font-weight: 700; font-size: 0.9rem; letter-spacing: 0.04em; }
