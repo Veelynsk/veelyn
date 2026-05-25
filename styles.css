@@ -289,12 +289,10 @@ body.lock {
   /* Single row on desktop — no wrapping. */
   flex-wrap: nowrap;
 }
-/* Single-row layout per user request — buttons sized to fit a 4-pill
-   row on the left + 3+1 in the right group. Min-width keeps short
-   pills (Affiliate / Kontakt) from looking tiny next to the longer
-   ones (Všetky vonavky / Veľkoobchod). */
+/* Pills now sized to their TEXT — user: "buttons maju byt take dlhe
+   ako je text v nich". Remove the old min-width stretching. */
 .nav__row > .nav__link {
-  min-width: 200px;
+  min-width: 0;
 }
 /* Legacy inline wrapper — kept as flex row in case old markup still
    references it (e.g. cached pages mid-rollout). */
@@ -401,19 +399,21 @@ body.lock {
 .nav__search-bar {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 1rem 0.5rem 0.85rem;
+  gap: 0.6rem;
+  padding: 0.75rem 1.3rem 0.75rem 1.1rem;
   background: var(--surface);
   border: 1px solid var(--line-2);
   border-radius: 999px;
   color: var(--text-dim);
   font-family: var(--font-body);
-  font-size: 0.82rem;
+  font-size: 0.92rem;
   font-weight: 500;
   cursor: pointer;
   transition: border-color var(--t-fast) var(--ease), color var(--t-fast) var(--ease), background var(--t-fast) var(--ease), box-shadow var(--t-fast) var(--ease);
-  min-width: 200px;
-  min-height: 42px;
+  /* Wider search bar per user request — search can be longer than
+     pills. */
+  min-width: 320px;
+  min-height: 48px;
 }
 .nav__search-bar:hover {
   border-color: rgba(167,139,250,0.55);
@@ -458,13 +458,15 @@ body.lock {
 .nav__links { display: none !important; }
 
 @media (min-width: 700px) {
-  .nav { padding: 0.9rem 1rem; min-height: 100px; }
-  .nav__link { font-size: 1rem; padding: 18px 36px; }
+  .nav { padding: 0.7rem 1rem; min-height: 64px; }
+  .nav__link { font-size: 0.95rem; padding: 12px 20px; }
 }
 @media (min-width: 1000px) {
-  .nav { padding: 1rem 1rem; min-height: 120px; }
-  /* 100% bigger pills (was 9px 24px / 0.85rem) per user request. */
-  .nav__link { font-size: 1.1rem; padding: 22px 44px; }
+  .nav { padding: 0.8rem 1rem; min-height: 72px; }
+  /* Pills sized to MATCH the search bar height (~48px) but width is
+     content-only (no stretching). User: "buttons maju byt take dlhe
+     ako je text v nich, search bar moze byt dlhsi". */
+  .nav__link { font-size: 1.05rem; padding: 14px 22px; min-height: 48px; }
 }
 
 /* --- HERO --- */
