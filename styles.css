@@ -6852,16 +6852,40 @@ body.has-promo-popup .proof-toast { display: none !important; }
     font-size: 0.88rem;
   }
   #modal-wholesale .wholesale__form textarea {
-    min-height: 60px;
-    rows: 2;
+    min-height: 52px !important;
+    height: 52px !important;
+    resize: vertical;
   }
   #modal-wholesale .wholesale__form .btn {
-    padding: 0.75rem 1.4rem;
-    font-size: 0.9rem;
+    padding: 0.7rem 1.4rem;
+    font-size: 0.88rem;
   }
   #modal-wholesale .wholesale__form-hint {
     font-size: 0.7rem;
-    margin-top: 0.35rem;
+    margin-top: 0.3rem;
+  }
+  /* Side-by-side cards | form layout — cards on the left, contact
+     form on the right so the whole modal fits one viewport. */
+  #modal-wholesale .wholesale {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "head head"
+      "cards form";
+    column-gap: 1.1rem;
+    row-gap: 0;
+    align-items: start;
+  }
+  #modal-wholesale .wholesale__head { grid-area: head; }
+  #modal-wholesale .wholesale__grid--two {
+    grid-area: cards;
+    grid-template-columns: 1fr !important;
+    gap: 0.85rem !important;
+    margin-bottom: 0;
+  }
+  #modal-wholesale .wholesale__cta {
+    grid-area: form;
+    margin: 0;
   }
 }
 
