@@ -8567,30 +8567,32 @@ body.has-promo-popup .proof-toast { display: none !important; }
   .hero__title { margin-bottom: 0.4rem; }
   .carousel { padding: 0 0.25rem; margin: 0 auto 0.6rem; }
   .carousel__stage {
-    height: 460px;
-    /* match desktop default — let cards bleed past the stage edges cleanly */
+    /* Taller stage so the full Perfektná zhoda block (thumb + brand + price)
+       fits inside the active slide without being cropped. User 2026-05-25:
+       nech je perfektna zhoda vidno pekne cela. */
+    height: 580px;
     overflow: visible;
     touch-action: pan-y pinch-zoom;
   }
   .carousel__slide {
-    width: 235px;
-    height: 420px;
-    padding: 1rem 0.8rem 0.9rem;
+    width: 260px;
+    height: 540px;
+    padding: 1rem 0.85rem 0.9rem;
   }
   .carousel__slide.is-prev {
-    transform: translate(calc(-50% - 210px), -50%) scale(0.86);
+    transform: translate(calc(-50% - 225px), -50%) scale(0.86);
     opacity: 0.38;
     filter: blur(0.5px);
   }
   .carousel__slide.is-next {
-    transform: translate(calc(-50% + 210px), -50%) scale(0.86);
+    transform: translate(calc(-50% + 225px), -50%) scale(0.86);
     opacity: 0.38;
     filter: blur(0.5px);
   }
-  .carousel__slide.is-out-left { transform: translate(calc(-50% - 420px), -50%) scale(0.78); }
-  .carousel__slide.is-out-right { transform: translate(calc(-50% + 420px), -50%) scale(0.78); }
-  .carousel__bottles { height: 170px; margin-bottom: 0.5rem; }
-  .carousel__name { font-size: 1.1rem; }
+  .carousel__slide.is-out-left { transform: translate(calc(-50% - 450px), -50%) scale(0.78); }
+  .carousel__slide.is-out-right { transform: translate(calc(-50% + 450px), -50%) scale(0.78); }
+  .carousel__bottles { height: 200px; margin-bottom: 0.55rem; }
+  .carousel__name { font-size: 1.15rem; }
   .carousel__inspired-quote { font-size: 0.62rem; padding: 0.3rem 0.6rem; }
   .carousel__price-box { padding: 0.45rem 0.7rem; gap: 0.25rem; }
   .carousel__price-row .label { font-size: 0.55rem; }
@@ -8610,6 +8612,21 @@ body.has-promo-popup .proof-toast { display: none !important; }
   .carousel__dots { margin-top: 0.7rem; gap: 8px; }
   .carousel__dot { width: 9px; height: 9px; }
   .carousel__dot.is-active { width: 26px; }
+
+  /* Landing hero CTAs (Všetky vonavky + 3+1 ZADARMO) — ~30% menšie na
+     mobile per user 2026-05-25 aby väčší carousel ostal v centre. */
+  .hero__ctas {
+    gap: 0.55rem;
+    margin-top: 0.7rem;
+    margin-bottom: 0.4rem;
+  }
+  .hero__ctas .btn--big {
+    padding: 0.85rem 1.4rem;
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+    border-radius: 9px;
+    min-height: 44px;
+  }
 
   /* --- Search modal: compact placeholder, 2-col Top Sellers grid, subtle × --- */
   #modal-search .modal__close {
