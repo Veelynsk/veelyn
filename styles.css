@@ -6481,15 +6481,15 @@ body.has-promo-popup .proof-toast { display: none !important; }
    ma byt proporcne vacsia — povodne to bolo cele. Scoped to 1000px+.
    ================================================================ */
 @media (min-width: 1000px) {
-  #modal-product .product {
+  :is(#modal-product, #modal-origin) .product {
     max-height: 96vh;
     height: 96vh;
     padding: 0.9rem;
     gap: 0.9rem;
     overflow: hidden;
   }
-  #modal-product .product__col-left,
-  #modal-product .product__col-right {
+  :is(#modal-product, #modal-origin) .product__col-left,
+  :is(#modal-product, #modal-origin) .product__col-right {
     overflow: hidden;
     gap: 0.75rem;
     padding: 0.9rem;
@@ -6497,33 +6497,33 @@ body.has-promo-popup .proof-toast { display: none !important; }
     flex-direction: column;
   }
   /* Bottle stage — slightly bigger Veelyn bottle per user request */
-  #modal-product .product__bottles-wrap {
+  :is(#modal-product, #modal-origin) .product__bottles-wrap {
     height: 240px;
     flex: 0 0 240px;
   }
   /* Compact "Inšpirované" pill in left column */
-  #modal-product .product__col-left .product__inspired {
+  :is(#modal-product, #modal-origin) .product__col-left .product__inspired {
     margin: 0.35rem auto 0;
   }
-  #modal-product .product__col-left .product__inspired .product__inspired-quote {
+  :is(#modal-product, #modal-origin) .product__col-left .product__inspired .product__inspired-quote {
     font-size: 0.78rem;
     padding: 0.4rem 0.95rem;
     letter-spacing: 0.04em;
   }
   /* Price box — readable */
-  #modal-product .product__price-box {
+  :is(#modal-product, #modal-origin) .product__price-box {
     padding: 0.75rem 1rem;
   }
-  #modal-product .product__price-row {
+  :is(#modal-product, #modal-origin) .product__price-row {
     font-size: 0.82rem;
     padding: 0.25rem 0;
     letter-spacing: 0.07em;
   }
-  #modal-product .product__price-row--orig .price { font-size: 1.05rem; }
-  #modal-product .product__price-row--ours .price { font-size: 1.4rem; }
-  #modal-product .product__price-divider { margin: 0.3rem 0; }
+  :is(#modal-product, #modal-origin) .product__price-row--orig .price { font-size: 1.05rem; }
+  :is(#modal-product, #modal-origin) .product__price-row--ours .price { font-size: 1.4rem; }
+  :is(#modal-product, #modal-origin) .product__price-divider { margin: 0.3rem 0; }
   /* Cheaper line */
-  #modal-product .product__cheaper-line {
+  :is(#modal-product, #modal-origin) .product__cheaper-line {
     margin: 0.4rem 0 0;
     font-size: 0.92rem;
     line-height: 1.35;
@@ -6532,7 +6532,7 @@ body.has-promo-popup .proof-toast { display: none !important; }
      so its bottom edge lines up with the pyramid bottom on the right.
      Per user request 2026-05-22: thumb originalu nech je co najvacsia
      (vyplnuje cely match-card box), aj texty okolo vacsie. */
-  #modal-product .product__col-left > .match-card {
+  :is(#modal-product, #modal-origin) .product__col-left > .match-card {
     flex: 1 1 0;
     min-height: 0;
     margin-top: 0.55rem;
@@ -6543,109 +6543,109 @@ body.has-promo-popup .proof-toast { display: none !important; }
     flex-direction: column;
     overflow: hidden;
   }
-  #modal-product .match-card__title {
+  :is(#modal-product, #modal-origin) .match-card__title {
     font-size: 1.2rem;
     padding-bottom: 0.7rem;
     gap: 0.5rem;
     flex: 0 0 auto;
   }
-  #modal-product .match-card__title svg { width: 22px; height: 22px; }
+  :is(#modal-product, #modal-origin) .match-card__title svg { width: 22px; height: 22px; }
   /* Thumb stretches to fill ~45% of match-card width AND the full
      remaining vertical space so the original bottle dominates. */
-  #modal-product .match-card__row {
+  :is(#modal-product, #modal-origin) .match-card__row {
     grid-template-columns: minmax(140px, 45%) 1fr;
     gap: 1.2rem;
     flex: 1 1 0;
     min-height: 0;
     align-items: stretch;
   }
-  #modal-product .match-card__thumb {
+  :is(#modal-product, #modal-origin) .match-card__thumb {
     width: 100%;
     height: 100%;
     min-height: 0;
     border-radius: 14px;
   }
-  #modal-product .match-card__thumb img { padding: 10px; }
-  #modal-product .match-card__body {
+  :is(#modal-product, #modal-origin) .match-card__thumb img { padding: 10px; }
+  :is(#modal-product, #modal-origin) .match-card__body {
     justify-content: center;
     gap: 0.5rem;
   }
-  #modal-product .match-card__brand { font-size: 1.15rem; line-height: 1.3; }
-  #modal-product .match-card__price { margin: 0.35rem 0 0.5rem; gap: 0.65rem; }
-  #modal-product .match-card__price strong { font-size: 1.55rem; }
-  #modal-product .match-card__price small { font-size: 0.92rem; }
-  #modal-product .match-card__link { font-size: 1rem; }
+  :is(#modal-product, #modal-origin) .match-card__brand { font-size: 1.15rem; line-height: 1.3; }
+  :is(#modal-product, #modal-origin) .match-card__price { margin: 0.35rem 0 0.5rem; gap: 0.65rem; }
+  :is(#modal-product, #modal-origin) .match-card__price strong { font-size: 1.55rem; }
+  :is(#modal-product, #modal-origin) .match-card__price small { font-size: 0.92rem; }
+  :is(#modal-product, #modal-origin) .match-card__link { font-size: 1rem; }
 
   /* RIGHT column — readable but compressed */
-  #modal-product .product__col-right { gap: 0.5rem; }
-  #modal-product .product__header {
+  :is(#modal-product, #modal-origin) .product__col-right { gap: 0.5rem; }
+  :is(#modal-product, #modal-origin) .product__header {
     padding: 0.7rem 0.9rem;
     border-radius: 12px;
   }
-  #modal-product .product__inspired-label {
+  :is(#modal-product, #modal-origin) .product__inspired-label {
     margin: 0 auto 0.4rem;
   }
-  #modal-product .product__inspired-quote {
+  :is(#modal-product, #modal-origin) .product__inspired-quote {
     font-size: 0.78rem;
     padding: 0.35rem 0.85rem;
   }
-  #modal-product .product__name-veelyn {
+  :is(#modal-product, #modal-origin) .product__name-veelyn {
     font-size: clamp(1.5rem, 2.6vw, 2rem);
     margin: 0 0 0.35rem;
   }
-  #modal-product .product__rating {
+  :is(#modal-product, #modal-origin) .product__rating {
     padding: 0.25rem 0.75rem;
     font-size: 0.82rem;
   }
-  #modal-product .product__rating-text { font-size: 0.8rem; }
-  #modal-product .product__stars { font-size: 0.9rem; }
+  :is(#modal-product, #modal-origin) .product__rating-text { font-size: 0.8rem; }
+  :is(#modal-product, #modal-origin) .product__stars { font-size: 0.9rem; }
   /* Trust icons — readable */
-  #modal-product .product__col-right .product__header .product__icons {
+  :is(#modal-product, #modal-origin) .product__col-right .product__header .product__icons {
     margin-top: 0.4rem;
     gap: 0.4rem;
   }
-  #modal-product .product__col-right .product__header .product__icon {
+  :is(#modal-product, #modal-origin) .product__col-right .product__header .product__icon {
     padding: 0.45rem 0.35rem;
     gap: 0.3rem;
     border-radius: 9px;
   }
-  #modal-product .product__col-right .product__header .product__icon-symbol {
+  :is(#modal-product, #modal-origin) .product__col-right .product__header .product__icon-symbol {
     width: 26px;
     height: 26px;
     font-size: 0.9rem;
   }
-  #modal-product .product__col-right .product__header .product__icon-text {
+  :is(#modal-product, #modal-origin) .product__col-right .product__header .product__icon-text {
     font-size: 0.66rem;
     line-height: 1.18;
     letter-spacing: 0;
   }
   /* Compare table */
-  #modal-product .product__compare { padding: 0.55rem 0.8rem; border-radius: 12px; }
-  #modal-product .product__compare-title { font-size: 0.66rem; margin: 0 0 0.3rem; }
-  #modal-product .product__compare table { font-size: 0.78rem; }
-  #modal-product .product__compare td,
-  #modal-product .product__compare th { padding: 0.25rem 0.5rem; }
-  #modal-product .product__compare th { font-size: 0.7rem; letter-spacing: 0.1em; }
-  #modal-product .product__compare td.we,
-  #modal-product .product__compare td.them { font-size: 1.05rem; }
+  :is(#modal-product, #modal-origin) .product__compare { padding: 0.55rem 0.8rem; border-radius: 12px; }
+  :is(#modal-product, #modal-origin) .product__compare-title { font-size: 0.66rem; margin: 0 0 0.3rem; }
+  :is(#modal-product, #modal-origin) .product__compare table { font-size: 0.78rem; }
+  :is(#modal-product, #modal-origin) .product__compare td,
+  :is(#modal-product, #modal-origin) .product__compare th { padding: 0.25rem 0.5rem; }
+  :is(#modal-product, #modal-origin) .product__compare th { font-size: 0.7rem; letter-spacing: 0.1em; }
+  :is(#modal-product, #modal-origin) .product__compare td.we,
+  :is(#modal-product, #modal-origin) .product__compare td.them { font-size: 1.05rem; }
   /* CTA buttons */
-  #modal-product .product__col-right .product__buttons {
+  :is(#modal-product, #modal-origin) .product__col-right .product__buttons {
     flex: 0 0 auto;
     gap: 0.4rem;
   }
-  #modal-product .product__col-right .product__buttons > .btn {
+  :is(#modal-product, #modal-origin) .product__col-right .product__buttons > .btn {
     font-size: 0.85rem;
     padding: 0.55rem 1rem;
     min-height: 0;
   }
-  #modal-product .product__upsell {
+  :is(#modal-product, #modal-origin) .product__upsell {
     font-size: 0.78rem;
     padding: 0.55rem 1rem;
   }
   /* NOTES / PYRAMID — flex:1 stretches to fill so its bottom matches
      the match-card bottom on the left column. Pyramid distributes its
      three rows evenly across the available space. */
-  #modal-product .product__col-right .product__notes {
+  :is(#modal-product, #modal-origin) .product__col-right .product__notes {
     padding: 0.7rem 0.95rem 0.85rem;
     border-radius: 12px;
     margin-top: 0;
@@ -6654,9 +6654,9 @@ body.has-promo-popup .proof-toast { display: none !important; }
     flex-direction: column;
     min-height: 0;
   }
-  #modal-product .product__notes-title { font-size: 0.85rem; margin: 0 0 0.4rem; letter-spacing: 0.14em; }
-  #modal-product .product__notes-desc { font-size: 0.74rem; margin: 0 auto 0.5rem; line-height: 1.35; }
-  #modal-product .product__pyramid {
+  :is(#modal-product, #modal-origin) .product__notes-title { font-size: 0.85rem; margin: 0 0 0.4rem; letter-spacing: 0.14em; }
+  :is(#modal-product, #modal-origin) .product__notes-desc { font-size: 0.74rem; margin: 0 auto 0.5rem; line-height: 1.35; }
+  :is(#modal-product, #modal-origin) .product__pyramid {
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -6664,18 +6664,18 @@ body.has-promo-popup .proof-toast { display: none !important; }
     gap: 4px;
     min-height: 0;
   }
-  #modal-product .product__pyramid-row {
+  :is(#modal-product, #modal-origin) .product__pyramid-row {
     grid-template-columns: 50px 1fr;
     gap: 0.6rem;
     padding: 0.5rem 1.2rem;
     flex: 1;
     align-items: center;
   }
-  #modal-product .product__pyramid-row--top { padding: 0.5rem 1.6rem; }
-  #modal-product .product__pyramid-row--heart { padding: 0.5rem 1.4rem; }
-  #modal-product .product__pyramid-row--base { padding: 0.5rem 1.2rem; }
-  #modal-product .product__pyramid-label { font-size: 0.68rem; letter-spacing: 0.16em; }
-  #modal-product .product__pyramid-notes { font-size: 0.82rem; line-height: 1.2; }
+  :is(#modal-product, #modal-origin) .product__pyramid-row--top { padding: 0.5rem 1.6rem; }
+  :is(#modal-product, #modal-origin) .product__pyramid-row--heart { padding: 0.5rem 1.4rem; }
+  :is(#modal-product, #modal-origin) .product__pyramid-row--base { padding: 0.5rem 1.2rem; }
+  :is(#modal-product, #modal-origin) .product__pyramid-label { font-size: 0.68rem; letter-spacing: 0.16em; }
+  :is(#modal-product, #modal-origin) .product__pyramid-notes { font-size: 0.82rem; line-height: 1.2; }
 }
 
 /* --- CONTACT --- */
