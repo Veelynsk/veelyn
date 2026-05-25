@@ -8566,39 +8566,54 @@ body.has-promo-popup .proof-toast { display: none !important; }
   .hero { padding: 0.1rem 0.75rem 0.5rem; }
   .hero__title { margin-bottom: 0.4rem; }
   .carousel { padding: 0 0.25rem; margin: 0 auto 0.6rem; }
+  /* Carousel sized PROPORTIONALLY so it works on every mobile screen
+     from iPhone SE (320×568) to iPhone Pro Max (430×932). Stage + slide
+     heights are clamp(min, vh-based, max) so taller phones get more
+     room and shorter phones don't crop the Perfektná zhoda block.
+     User 2026-05-25: optimalizuj na vsetky typy mobilov. */
   .carousel__stage {
-    /* Taller stage so the full Perfektná zhoda block (thumb + brand + price)
-       fits inside the active slide without being cropped. User 2026-05-25:
-       nech je perfektna zhoda vidno pekne cela. */
-    height: 620px;
+    height: clamp(440px, 76vh, 640px);
     overflow: visible;
     touch-action: pan-y pinch-zoom;
   }
   .carousel__slide {
-    width: 260px;
-    height: 580px;
-    padding: 0.9rem 0.85rem 0.9rem;
+    width: clamp(220px, 70vw, 290px);
+    height: clamp(420px, 72vh, 600px);
+    padding: clamp(0.6rem, 1.2vh, 1rem) 0.85rem clamp(0.6rem, 1vh, 0.9rem);
   }
+  /* Side card peek — offset scales with viewport width so on tiny
+     phones the prev/next cards don't push way off, and on large phones
+     they stay nicely framed. */
   .carousel__slide.is-prev {
-    transform: translate(calc(-50% - 225px), -50%) scale(0.86);
+    transform: translate(calc(-50% - 62vw), -50%) scale(0.86);
     opacity: 0.38;
     filter: blur(0.5px);
   }
   .carousel__slide.is-next {
-    transform: translate(calc(-50% + 225px), -50%) scale(0.86);
+    transform: translate(calc(-50% + 62vw), -50%) scale(0.86);
     opacity: 0.38;
     filter: blur(0.5px);
   }
-  .carousel__slide.is-out-left { transform: translate(calc(-50% - 450px), -50%) scale(0.78); }
-  .carousel__slide.is-out-right { transform: translate(calc(-50% + 450px), -50%) scale(0.78); }
-  .carousel__bottles { height: 200px; margin-bottom: 0.55rem; }
-  .carousel__name { font-size: 1.15rem; }
-  .carousel__inspired-quote { font-size: 0.62rem; padding: 0.3rem 0.6rem; }
-  .carousel__price-box { padding: 0.45rem 0.7rem; gap: 0.25rem; }
-  .carousel__price-row .label { font-size: 0.55rem; }
-  .carousel__price-row--orig .price { font-size: 0.95rem; }
-  .carousel__price-row--ours .price { font-size: 1.2rem; }
-  .carousel__price-row--saving .price { font-size: 0.9rem; }
+  .carousel__slide.is-out-left  { transform: translate(calc(-50% - 120vw), -50%) scale(0.78); }
+  .carousel__slide.is-out-right { transform: translate(calc(-50% + 120vw), -50%) scale(0.78); }
+  /* Bottle photo proportional to slide height */
+  .carousel__bottles {
+    height: clamp(150px, 25vh, 220px);
+    margin-bottom: 0.5rem;
+  }
+  .carousel__name { font-size: clamp(0.95rem, 3.2vw, 1.2rem); }
+  .carousel__inspired-quote {
+    font-size: clamp(0.55rem, 1.7vw, 0.68rem);
+    padding: clamp(0.22rem, 0.7vw, 0.32rem) clamp(0.45rem, 1.6vw, 0.7rem);
+  }
+  .carousel__price-box {
+    padding: clamp(0.35rem, 1vh, 0.5rem) clamp(0.55rem, 1.8vw, 0.75rem);
+    gap: 0.25rem;
+  }
+  .carousel__price-row .label { font-size: clamp(0.5rem, 1.5vw, 0.6rem); }
+  .carousel__price-row--orig .price { font-size: clamp(0.85rem, 2.6vw, 1rem); }
+  .carousel__price-row--ours .price { font-size: clamp(1.05rem, 3.4vw, 1.3rem); }
+  .carousel__price-row--saving .price { font-size: clamp(0.8rem, 2.4vw, 0.95rem); }
   .carousel__cheaper-line { display: none; }
   .carousel__arrow {
     width: 38px;
@@ -8613,17 +8628,18 @@ body.has-promo-popup .proof-toast { display: none !important; }
   .carousel__dot { width: 9px; height: 9px; }
   .carousel__dot.is-active { width: 26px; }
 
-  /* Landing hero CTAs (Všetky vonavky + 3+1 ZADARMO) — ~30% menšie na
-     mobile per user 2026-05-25 aby väčší carousel ostal v centre. */
+  /* Landing hero CTAs (Všetky vonavky + 3+1 ZADARMO) — proporcionálne
+     pre všetky mobily, ~30% menšie ako default aby väčší karusel ostal
+     v centre per user 2026-05-25. */
   .hero__ctas {
-    gap: 0.55rem;
-    margin-top: 0.7rem;
-    margin-bottom: 0.4rem;
+    gap: clamp(0.4rem, 1.2vw, 0.7rem);
+    margin-top: clamp(0.5rem, 1.5vh, 1rem);
+    margin-bottom: clamp(0.3rem, 1vh, 0.6rem);
   }
   .hero__ctas .btn--big {
-    padding: 0.85rem 1.4rem;
-    font-size: 0.78rem;
-    letter-spacing: 0.14em;
+    padding: clamp(0.7rem, 2.2vw, 1rem) clamp(1.1rem, 4.5vw, 1.8rem);
+    font-size: clamp(0.7rem, 2.4vw, 0.88rem);
+    letter-spacing: 0.12em;
     border-radius: 9px;
     min-height: 44px;
   }
