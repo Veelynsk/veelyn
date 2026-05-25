@@ -2067,10 +2067,27 @@ function renderStepCustomer(t) {
 }
 
 function renderStepPayment(t) {
+  // Originál perfumes ship from external supplier — order is created
+  // only after the card payment clears (no cash-on-delivery / no bank
+  // transfer wait). Force card-only payment if the cart has any
+  // original-variant items.
+  const hasOriginal = t.items.some(it => it.variant === 'original');
+  if (hasOriginal && checkoutState.paymentId !== 'card') {
+    checkoutState.paymentId = 'card';
+  }
+  const visiblePayments = hasOriginal
+    ? Object.entries(PAYMENT_METHODS).filter(([id]) => id === 'card')
+    : Object.entries(PAYMENT_METHODS);
   return `
     <h2 class="checkout__title">Spôsob platby</h2>
+    ${hasOriginal ? `
+      <p class="checkout__payment-note">
+        Pri origináloch je platba <strong>iba kartou vopred</strong> —
+        objednávame ich až po pripísaní platby.
+      </p>
+    ` : ''}
     <div class="checkout__options" id="paymentOptions">
-      ${Object.entries(PAYMENT_METHODS).map(([id, m]) => `
+      ${visiblePayments.map(([id, m]) => `
         <label class="checkout__opt ${checkoutState.paymentId === id ? 'is-selected' : ''}">
           <input type="radio" name="payment" value="${id}" ${checkoutState.paymentId === id ? 'checked' : ''}>
           <span class="checkout__opt-body">

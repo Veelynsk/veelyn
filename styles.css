@@ -2669,6 +2669,24 @@ body.lock {
 
 .checkout__next { margin-top: 1rem; padding: 1rem 1.5rem; }
 
+/* Notice above the payment options when cart has an originál — informs
+   user that only card payment is available (and why). */
+.checkout__payment-note {
+  margin: 0 0 1rem;
+  padding: 0.7rem 1rem;
+  background: rgba(212, 162, 71, 0.08);
+  border: 1px solid rgba(212, 162, 71, 0.3);
+  border-radius: 8px;
+  color: #f0d9a8;
+  font-size: 0.88rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+.checkout__payment-note strong {
+  color: #fff;
+  font-weight: 800;
+}
+
 .checkout__final-summary {
   margin: 1.25rem 0;
   padding: 1rem 1.1rem;
