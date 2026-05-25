@@ -6383,6 +6383,174 @@ body.has-promo-popup .proof-toast { display: none !important; }
   }
 }
 
+/* ================================================================
+   DESKTOP PRODUCT MODAL — fit everything on ONE screen, no scroll.
+   Per user request 2026-05-22: zmensi vsetko nech to vidno naraz.
+   Scoped to min-width: 1000px so mobile/tablet layouts stay intact.
+   ================================================================ */
+@media (min-width: 1000px) {
+  #modal-product .product {
+    max-height: 96vh;
+    height: 96vh;
+    padding: 0.7rem;
+    gap: 0.7rem;
+    overflow: hidden;
+  }
+  #modal-product .product__col-left,
+  #modal-product .product__col-right {
+    overflow: hidden;
+    gap: 0.5rem;
+    padding: 0.7rem;
+  }
+  /* Smaller bottle stage so left column has room for match-card */
+  #modal-product .product__bottles-wrap {
+    height: 240px;
+    flex: 0 0 240px;
+  }
+  /* Compact "Inšpirované" pill in left column */
+  #modal-product .product__col-left .product__inspired {
+    margin: 0.25rem auto 0;
+  }
+  #modal-product .product__col-left .product__inspired .product__inspired-quote {
+    font-size: 0.7rem;
+    padding: 0.32rem 0.75rem;
+    letter-spacing: 0.03em;
+  }
+  /* Compact price box */
+  #modal-product .product__price-box {
+    padding: 0.55rem 0.8rem;
+  }
+  #modal-product .product__price-row {
+    font-size: 0.72rem;
+    padding: 0.15rem 0;
+    letter-spacing: 0.06em;
+  }
+  #modal-product .product__price-row--orig .price { font-size: 0.95rem; }
+  #modal-product .product__price-row--ours .price { font-size: 1.2rem; }
+  #modal-product .product__price-divider { margin: 0.25rem 0; }
+  /* Compact cheaper line */
+  #modal-product .product__cheaper-line {
+    margin: 0.3rem 0 0;
+    font-size: 0.82rem;
+    line-height: 1.3;
+  }
+  /* Compact match-card */
+  #modal-product .match-card {
+    padding: 0.75rem 0.9rem 0.85rem;
+    margin-top: 0.4rem;
+    gap: 0.55rem;
+    border-radius: 12px;
+    flex: 0 0 auto;
+  }
+  #modal-product .match-card__title {
+    font-size: 0.95rem;
+    padding-bottom: 0.5rem;
+    gap: 0.4rem;
+  }
+  #modal-product .match-card__title svg { width: 20px; height: 20px; }
+  #modal-product .match-card__row {
+    grid-template-columns: 78px 1fr;
+    gap: 0.7rem;
+  }
+  #modal-product .match-card__thumb {
+    width: 78px;
+    height: 78px;
+    border-radius: 10px;
+  }
+  #modal-product .match-card__thumb img { padding: 6px; }
+  #modal-product .match-card__brand { font-size: 0.85rem; line-height: 1.25; }
+  #modal-product .match-card__price { margin: 0.15rem 0 0.25rem; gap: 0.4rem; }
+  #modal-product .match-card__price strong { font-size: 1.05rem; }
+  #modal-product .match-card__price small { font-size: 0.7rem; }
+  #modal-product .match-card__link { font-size: 0.78rem; }
+
+  /* RIGHT column — compress everything */
+  #modal-product .product__col-right { gap: 0.5rem; }
+  #modal-product .product__header {
+    padding: 0.8rem 0.9rem;
+    border-radius: 10px;
+  }
+  #modal-product .product__inspired-label {
+    margin: 0 auto 0.4rem;
+  }
+  #modal-product .product__inspired-quote {
+    font-size: 0.72rem;
+    padding: 0.32rem 0.8rem;
+  }
+  #modal-product .product__name-veelyn {
+    font-size: clamp(1.4rem, 2.6vw, 2rem);
+    margin: 0 0 0.4rem;
+  }
+  #modal-product .product__rating {
+    padding: 0.25rem 0.7rem;
+    font-size: 0.8rem;
+  }
+  #modal-product .product__rating-text { font-size: 0.78rem; }
+  #modal-product .product__stars { font-size: 0.85rem; }
+  /* Trust icons — compact so all 3 fit one row tightly */
+  #modal-product .product__col-right .product__header .product__icons {
+    margin-top: 0.55rem;
+    gap: 0.4rem;
+  }
+  #modal-product .product__col-right .product__header .product__icon {
+    padding: 0.55rem 0.35rem;
+    gap: 0.35rem;
+    border-radius: 9px;
+  }
+  #modal-product .product__col-right .product__header .product__icon-symbol {
+    width: 30px;
+    height: 30px;
+    font-size: 1rem;
+  }
+  #modal-product .product__col-right .product__header .product__icon-text {
+    font-size: 0.68rem;
+    line-height: 1.2;
+    letter-spacing: 0;
+  }
+  /* Compare table — smaller padding/font */
+  #modal-product .product__compare { padding: 0.6rem 0.8rem; border-radius: 10px; }
+  #modal-product .product__compare-title { font-size: 0.65rem; margin: 0 0 0.45rem; }
+  #modal-product .product__compare table { font-size: 0.78rem; }
+  #modal-product .product__compare td,
+  #modal-product .product__compare th { padding: 0.35rem 0.4rem; }
+  #modal-product .product__compare th { font-size: 0.7rem; letter-spacing: 0.1em; }
+  #modal-product .product__compare td.we,
+  #modal-product .product__compare td.them { font-size: 1.05rem; }
+  /* CTA buttons — slimmer */
+  #modal-product .product__col-right .product__buttons {
+    flex: 0 0 auto;
+    gap: 0.45rem;
+  }
+  #modal-product .product__col-right .product__buttons > .btn {
+    font-size: 0.85rem;
+    padding: 0.7rem 1rem;
+    min-height: 0;
+  }
+  #modal-product .product__upsell {
+    font-size: 0.78rem;
+    padding: 0.7rem 1rem;
+  }
+  /* Notes / pyramid — compact */
+  #modal-product .product__notes {
+    padding: 0.7rem 0.9rem;
+    border-radius: 10px;
+    margin-top: 0;
+  }
+  #modal-product .product__notes-title { font-size: 0.85rem; margin: 0 0 0.4rem; letter-spacing: 0.14em; }
+  #modal-product .product__notes-desc { font-size: 0.75rem; margin: 0 auto 0.55rem; line-height: 1.35; }
+  #modal-product .product__pyramid { gap: 3px; }
+  #modal-product .product__pyramid-row {
+    grid-template-columns: 48px 1fr;
+    gap: 0.6rem;
+    padding: 0.5rem 1.2rem;
+  }
+  #modal-product .product__pyramid-row--top { padding: 0.5rem 1.6rem; }
+  #modal-product .product__pyramid-row--heart { padding: 0.5rem 1.4rem; }
+  #modal-product .product__pyramid-row--base { padding: 0.5rem 1.2rem; }
+  #modal-product .product__pyramid-label { font-size: 0.68rem; letter-spacing: 0.16em; }
+  #modal-product .product__pyramid-notes { font-size: 0.8rem; line-height: 1.2; }
+}
+
 /* --- CONTACT --- */
 .contact { padding: 3rem 1.5rem 2rem; }
 .contact__title {
