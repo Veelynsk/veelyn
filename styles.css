@@ -6662,19 +6662,20 @@ body.has-promo-popup .proof-toast { display: none !important; }
     flex: 0 1 auto;
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 0;
     min-height: 0;
   }
   :is(#modal-product, #modal-origin) .product__pyramid-row {
     grid-template-columns: 60px 1fr;
     gap: 0.7rem;
-    padding: 0.75rem 1.4rem;
     flex: 0 0 auto;
     align-items: center;
   }
-  :is(#modal-product, #modal-origin) .product__pyramid-row--top { padding: 0.5rem 1.6rem; }
-  :is(#modal-product, #modal-origin) .product__pyramid-row--heart { padding: 0.5rem 1.4rem; }
-  :is(#modal-product, #modal-origin) .product__pyramid-row--base { padding: 0.5rem 1.2rem; }
+  /* Tight stacking — riadky priliehavé bez vertikálnych medzier.
+     User 2026-05-25: medzeri medzi pyramid rows boli nepekné. */
+  :is(#modal-product, #modal-origin) .product__pyramid-row--top { padding: 0.55rem 1.6rem; }
+  :is(#modal-product, #modal-origin) .product__pyramid-row--heart { padding: 0.55rem 1.4rem; }
+  :is(#modal-product, #modal-origin) .product__pyramid-row--base { padding: 0.55rem 1.2rem; }
   :is(#modal-product, #modal-origin) .product__pyramid-label { font-size: 0.92rem; letter-spacing: 0.18em; }
   :is(#modal-product, #modal-origin) .product__pyramid-notes { font-size: 1.05rem; line-height: 1.25; font-weight: 700; }
 }
