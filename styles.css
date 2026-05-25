@@ -399,21 +399,21 @@ body.lock {
 .nav__search-bar {
   display: inline-flex;
   align-items: center;
-  gap: 0.6rem;
-  padding: 0.75rem 1.3rem 0.75rem 1.1rem;
-  background: var(--surface);
-  border: 1px solid var(--line-2);
+  gap: 0.7rem;
+  padding: 0.85rem 1.4rem 0.85rem 1.2rem;
+  background: var(--surface-2);
+  border: 1.5px solid rgba(167,139,250,0.45);
   border-radius: 999px;
-  color: var(--text-dim);
+  /* More legible — white-ish text + bold weight. User: "search bar
+     tiez je malo viditelny aj text aj cely". */
+  color: rgba(255,255,255,0.85);
   font-family: var(--font-body);
-  font-size: 0.92rem;
-  font-weight: 500;
+  font-size: 1rem;
+  font-weight: 700;
   cursor: pointer;
   transition: border-color var(--t-fast) var(--ease), color var(--t-fast) var(--ease), background var(--t-fast) var(--ease), box-shadow var(--t-fast) var(--ease);
-  /* Wider search bar per user request — search can be longer than
-     pills. */
-  min-width: 320px;
-  min-height: 48px;
+  min-width: 360px;
+  min-height: 52px;
 }
 .nav__search-bar:hover {
   border-color: rgba(167,139,250,0.55);
@@ -422,10 +422,11 @@ body.lock {
   box-shadow: 0 0 0 4px rgba(124,58,237,0.08);
 }
 .nav__search-icon {
-  width: 18px;
-  height: 18px;
+  width: 22px;
+  height: 22px;
   flex-shrink: 0;
   color: var(--accent-2);
+  stroke-width: 2.4;
 }
 .nav__search-text {
   line-height: 1;
@@ -459,14 +460,28 @@ body.lock {
 
 @media (min-width: 700px) {
   .nav { padding: 0.7rem 1rem; min-height: 64px; }
-  .nav__link { font-size: 0.95rem; padding: 12px 20px; }
+  .nav__link { font-size: 1rem; padding: 12px 22px; font-weight: 900; }
 }
 @media (min-width: 1000px) {
-  .nav { padding: 0.8rem 1rem; min-height: 72px; }
-  /* Pills sized to MATCH the search bar height (~48px) but width is
-     content-only (no stretching). User: "buttons maju byt take dlhe
-     ako je text v nich, search bar moze byt dlhsi". */
-  .nav__link { font-size: 1.05rem; padding: 14px 22px; min-height: 48px; }
+  .nav { padding: 0.8rem 1rem; min-height: 76px; }
+  /* All pills bumped per user feedback: "tie ostatne buttons niesu
+     skoro citatelne". Bigger text + 900 weight + more padding. */
+  .nav__link {
+    font-size: 1.15rem;
+    padding: 16px 28px;
+    min-height: 52px;
+    font-weight: 900;
+    letter-spacing: 0.1em;
+  }
+  /* Primary CTAs (Všetky vonavky + 3+1 ZADARMO) — bigger still
+     to dominate per user: "Všetky vonavky a 3+1 musi byt ten text
+     vacsi a bold". */
+  .nav__link--accent,
+  .nav__link--gold {
+    font-size: 1.25rem;
+    padding: 18px 36px;
+    letter-spacing: 0.12em;
+  }
 }
 
 /* --- HERO --- */
