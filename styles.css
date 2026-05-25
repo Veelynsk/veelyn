@@ -6533,10 +6533,10 @@ body.has-promo-popup .proof-toast { display: none !important; }
      Per user request 2026-05-22: thumb originalu nech je co najvacsia
      (vyplnuje cely match-card box), aj texty okolo vacsie. */
   :is(#modal-product, #modal-origin) .product__col-left > .match-card {
-    flex: 1 1 0;
+    flex: 0 1 auto;
     min-height: 0;
-    max-height: 320px;
-    margin-top: 0.55rem;
+    max-height: 360px;
+    margin-top: auto;
     padding: 1.1rem 1.3rem 1.3rem;
     gap: 0.9rem;
     border-radius: 14px;
@@ -6647,10 +6647,11 @@ body.has-promo-popup .proof-toast { display: none !important; }
      the match-card bottom on the left column. Pyramid distributes its
      three rows evenly across the available space. */
   :is(#modal-product, #modal-origin) .product__col-right .product__notes {
-    padding: 0.7rem 0.95rem 0.85rem;
+    padding: 0.95rem 1.1rem 1.1rem;
     border-radius: 12px;
-    margin-top: 0;
-    flex: 1 1 auto;
+    margin-top: auto;
+    flex: 0 1 auto;
+    max-height: 360px;
     display: flex;
     flex-direction: column;
     min-height: 0;
@@ -6658,20 +6659,18 @@ body.has-promo-popup .proof-toast { display: none !important; }
   :is(#modal-product, #modal-origin) .product__notes-title { font-size: 1.05rem; margin: 0 0 0.5rem; letter-spacing: 0.14em; }
   :is(#modal-product, #modal-origin) .product__notes-desc { font-size: 0.92rem; margin: 0 auto 0.6rem; line-height: 1.4; }
   :is(#modal-product, #modal-origin) .product__pyramid {
-    flex: 1;
+    flex: 0 1 auto;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    gap: 4px;
+    gap: 6px;
     min-height: 0;
   }
   :is(#modal-product, #modal-origin) .product__pyramid-row {
-    grid-template-columns: 50px 1fr;
-    gap: 0.6rem;
-    padding: 0.5rem 1.2rem;
-    flex: 1;
+    grid-template-columns: 60px 1fr;
+    gap: 0.7rem;
+    padding: 0.75rem 1.4rem;
+    flex: 0 0 auto;
     align-items: center;
-    max-height: 70px;
   }
   :is(#modal-product, #modal-origin) .product__pyramid-row--top { padding: 0.5rem 1.6rem; }
   :is(#modal-product, #modal-origin) .product__pyramid-row--heart { padding: 0.5rem 1.4rem; }
