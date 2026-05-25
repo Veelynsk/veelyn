@@ -464,30 +464,23 @@ body.lock {
 @media (min-width: 1000px) {
   /* Taller header per user: "rozsir ten header bar kusok". */
   .nav { padding: 1.2rem 1rem; min-height: 100px; }
-  /* Pills MUCH bigger + heavy text-stroke for OBVIOUS thickness
-     (Manrope tops at 800 weight; 1px text-stroke + 0 0 1px shadow
-     fakes a 900+ chunky look). User: "text v nich skurveny ma byt
-     proste tucnejsi, tucnost vacsia". */
+  /* Bigger pills with Manrope's max 800 weight. Removed text-stroke
+     because it was either invisible on Mac OR too thick on big
+     monitors — inconsistent. Just font-weight 800 + tight letter-
+     spacing for natural chunky look. */
   .nav__link {
     font-size: 1.3rem;
     padding: 20px 32px;
     min-height: 60px;
     font-weight: 800;
     letter-spacing: 0.04em;
-    -webkit-text-stroke: 0.8px currentColor;
-    text-shadow: 0 0 0.6px currentColor;
-    /* Counter the body's antialiased smoothing (makes text look
-       thinner). subpixel-antialiased renders text chunkier. */
-    -webkit-font-smoothing: subpixel-antialiased;
   }
-  /* Primary CTAs (Všetky vonavky + 3+1 ZADARMO) — biggest + chunkiest. */
+  /* Primary CTAs (Všetky vonavky + 3+1 ZADARMO) — biggest. */
   .nav__link--accent,
   .nav__link--gold {
     font-size: 1.4rem;
     padding: 22px 40px;
     letter-spacing: 0.06em;
-    -webkit-text-stroke: 1.2px currentColor;
-    text-shadow: 0 0 1.5px currentColor;
   }
 }
 
