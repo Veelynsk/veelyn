@@ -482,6 +482,16 @@ function renderCarousel() {
   $$('.carousel__dot').forEach(d => d.addEventListener('click', () => goToSlide(parseInt(d.dataset.idx))));
   $$('.carousel__slide').forEach(s => {
     s.addEventListener('click', (e) => {
+      // "Zobraziť produkt →" link inside the Perfektná zhoda match-card
+      // opens the ORIGINAL perfume preview (openMatchOrigin), not the
+      // Veelyn product modal.
+      const origLink = e.target.closest('[data-orig-link]');
+      if (origLink) {
+        e.preventDefault();
+        e.stopPropagation();
+        openMatchOrigin(origLink.dataset.origLink);
+        return;
+      }
       // CTA button click — handle separately
       if (e.target.closest('.carousel__cta')) {
         e.stopPropagation();
@@ -743,6 +753,15 @@ function wireProductCards(scope) {
       if (reviewsBtn) {
         e.stopPropagation();
         openReviews(reviewsBtn.dataset.reviews);
+        return;
+      }
+      // "Zobraziť produkt →" inside the prod-card Perfektná zhoda match-card
+      // opens the ORIGINAL perfume preview, not the Veelyn product.
+      const origLink = e.target.closest('[data-orig-link]');
+      if (origLink) {
+        e.preventDefault();
+        e.stopPropagation();
+        openMatchOrigin(origLink.dataset.origLink);
         return;
       }
       // The whole prod-card (including the "Perfektná zhoda" block) opens
