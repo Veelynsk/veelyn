@@ -6906,11 +6906,12 @@ body.has-promo-popup .proof-toast { display: none !important; }
   /* --- Nav compaction: keep the same 4-row pill stack the user signed
      off on, just denser. Smaller pill padding + tighter gap = ~70px
      saved out of the header. --- */
-  .nav { min-height: 0; padding: 0.25rem 1.5rem; }
+  /* Don't override pills here — the desktop @media (min-width: 1000px)
+     already sized them properly. Old rule shrunk to 3px/0.6rem which
+     made pills barely visible on MacBook viewports (height ≤ 920). */
   .nav__left { gap: 5px; }
   .nav__row { gap: 7px; }
   .nav__inline { gap: 3px; }
-  .nav__link { padding: 3px 13px; font-size: 0.6rem; }
 
   /* Slim down the hero padding */
   .hero { padding: 0.15rem 2rem 0.2rem; }
