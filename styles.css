@@ -6386,169 +6386,190 @@ body.has-promo-popup .proof-toast { display: none !important; }
 /* ================================================================
    DESKTOP PRODUCT MODAL — fit everything on ONE screen, no scroll.
    Per user request 2026-05-22: zmensi vsetko nech to vidno naraz.
-   Scoped to min-width: 1000px so mobile/tablet layouts stay intact.
+   Per user follow-up: musi byt zarovnane na koniec chvilevka (match-card
+   po koniec laveho stlpca, pyramida po koniec praveho), pricom velkost
+   ma byt proporcne vacsia — povodne to bolo cele. Scoped to 1000px+.
    ================================================================ */
 @media (min-width: 1000px) {
   #modal-product .product {
     max-height: 96vh;
     height: 96vh;
-    padding: 0.7rem;
-    gap: 0.7rem;
+    padding: 0.9rem;
+    gap: 0.9rem;
     overflow: hidden;
   }
   #modal-product .product__col-left,
   #modal-product .product__col-right {
     overflow: hidden;
-    gap: 0.5rem;
-    padding: 0.7rem;
+    gap: 0.75rem;
+    padding: 0.9rem;
+    display: flex;
+    flex-direction: column;
   }
-  /* Smaller bottle stage so left column has room for match-card */
+  /* Bottle stage — bigger but still leaves match-card room to stretch */
   #modal-product .product__bottles-wrap {
-    height: 240px;
-    flex: 0 0 240px;
+    height: 300px;
+    flex: 0 0 300px;
   }
   /* Compact "Inšpirované" pill in left column */
   #modal-product .product__col-left .product__inspired {
-    margin: 0.25rem auto 0;
+    margin: 0.35rem auto 0;
   }
   #modal-product .product__col-left .product__inspired .product__inspired-quote {
-    font-size: 0.7rem;
-    padding: 0.32rem 0.75rem;
-    letter-spacing: 0.03em;
+    font-size: 0.78rem;
+    padding: 0.4rem 0.95rem;
+    letter-spacing: 0.04em;
   }
-  /* Compact price box */
+  /* Price box — readable */
   #modal-product .product__price-box {
-    padding: 0.55rem 0.8rem;
+    padding: 0.75rem 1rem;
   }
   #modal-product .product__price-row {
-    font-size: 0.72rem;
-    padding: 0.15rem 0;
-    letter-spacing: 0.06em;
-  }
-  #modal-product .product__price-row--orig .price { font-size: 0.95rem; }
-  #modal-product .product__price-row--ours .price { font-size: 1.2rem; }
-  #modal-product .product__price-divider { margin: 0.25rem 0; }
-  /* Compact cheaper line */
-  #modal-product .product__cheaper-line {
-    margin: 0.3rem 0 0;
     font-size: 0.82rem;
-    line-height: 1.3;
+    padding: 0.25rem 0;
+    letter-spacing: 0.07em;
   }
-  /* Compact match-card */
-  #modal-product .match-card {
-    padding: 0.75rem 0.9rem 0.85rem;
-    margin-top: 0.4rem;
-    gap: 0.55rem;
-    border-radius: 12px;
-    flex: 0 0 auto;
+  #modal-product .product__price-row--orig .price { font-size: 1.05rem; }
+  #modal-product .product__price-row--ours .price { font-size: 1.4rem; }
+  #modal-product .product__price-divider { margin: 0.3rem 0; }
+  /* Cheaper line */
+  #modal-product .product__cheaper-line {
+    margin: 0.4rem 0 0;
+    font-size: 0.92rem;
+    line-height: 1.35;
+  }
+  /* MATCH-CARD — flex:1 stretches it to fill the rest of the left column
+     so its bottom edge lines up with the pyramid bottom on the right. */
+  #modal-product .product__col-left > .match-card {
+    flex: 1 1 auto;
+    margin-top: 0.55rem;
+    padding: 1.1rem 1.2rem 1.2rem;
+    gap: 0.85rem;
+    border-radius: 14px;
+    display: flex;
+    flex-direction: column;
   }
   #modal-product .match-card__title {
-    font-size: 0.95rem;
-    padding-bottom: 0.5rem;
-    gap: 0.4rem;
+    font-size: 1.1rem;
+    padding-bottom: 0.7rem;
+    gap: 0.5rem;
   }
-  #modal-product .match-card__title svg { width: 20px; height: 20px; }
+  #modal-product .match-card__title svg { width: 22px; height: 22px; }
   #modal-product .match-card__row {
-    grid-template-columns: 78px 1fr;
-    gap: 0.7rem;
+    grid-template-columns: 110px 1fr;
+    gap: 1rem;
+    flex: 1;
   }
   #modal-product .match-card__thumb {
-    width: 78px;
-    height: 78px;
-    border-radius: 10px;
+    width: 110px;
+    height: 110px;
+    border-radius: 12px;
   }
-  #modal-product .match-card__thumb img { padding: 6px; }
-  #modal-product .match-card__brand { font-size: 0.85rem; line-height: 1.25; }
-  #modal-product .match-card__price { margin: 0.15rem 0 0.25rem; gap: 0.4rem; }
-  #modal-product .match-card__price strong { font-size: 1.05rem; }
-  #modal-product .match-card__price small { font-size: 0.7rem; }
-  #modal-product .match-card__link { font-size: 0.78rem; }
+  #modal-product .match-card__thumb img { padding: 8px; }
+  #modal-product .match-card__brand { font-size: 0.98rem; line-height: 1.3; }
+  #modal-product .match-card__price { margin: 0.25rem 0 0.35rem; gap: 0.5rem; }
+  #modal-product .match-card__price strong { font-size: 1.2rem; }
+  #modal-product .match-card__price small { font-size: 0.78rem; }
+  #modal-product .match-card__link { font-size: 0.88rem; }
 
-  /* RIGHT column — compress everything */
-  #modal-product .product__col-right { gap: 0.5rem; }
+  /* RIGHT column — readable but compressed */
+  #modal-product .product__col-right { gap: 0.65rem; }
   #modal-product .product__header {
-    padding: 0.8rem 0.9rem;
-    border-radius: 10px;
+    padding: 1rem 1.1rem;
+    border-radius: 12px;
   }
   #modal-product .product__inspired-label {
-    margin: 0 auto 0.4rem;
+    margin: 0 auto 0.55rem;
   }
   #modal-product .product__inspired-quote {
-    font-size: 0.72rem;
-    padding: 0.32rem 0.8rem;
+    font-size: 0.82rem;
+    padding: 0.4rem 0.95rem;
   }
   #modal-product .product__name-veelyn {
-    font-size: clamp(1.4rem, 2.6vw, 2rem);
-    margin: 0 0 0.4rem;
+    font-size: clamp(1.7rem, 3vw, 2.3rem);
+    margin: 0 0 0.55rem;
   }
   #modal-product .product__rating {
-    padding: 0.25rem 0.7rem;
-    font-size: 0.8rem;
+    padding: 0.35rem 0.85rem;
+    font-size: 0.88rem;
   }
-  #modal-product .product__rating-text { font-size: 0.78rem; }
-  #modal-product .product__stars { font-size: 0.85rem; }
-  /* Trust icons — compact so all 3 fit one row tightly */
+  #modal-product .product__rating-text { font-size: 0.85rem; }
+  #modal-product .product__stars { font-size: 0.95rem; }
+  /* Trust icons — readable */
   #modal-product .product__col-right .product__header .product__icons {
-    margin-top: 0.55rem;
-    gap: 0.4rem;
+    margin-top: 0.75rem;
+    gap: 0.55rem;
   }
   #modal-product .product__col-right .product__header .product__icon {
-    padding: 0.55rem 0.35rem;
-    gap: 0.35rem;
-    border-radius: 9px;
+    padding: 0.75rem 0.5rem;
+    gap: 0.45rem;
+    border-radius: 10px;
   }
   #modal-product .product__col-right .product__header .product__icon-symbol {
-    width: 30px;
-    height: 30px;
-    font-size: 1rem;
+    width: 36px;
+    height: 36px;
+    font-size: 1.15rem;
   }
   #modal-product .product__col-right .product__header .product__icon-text {
-    font-size: 0.68rem;
-    line-height: 1.2;
-    letter-spacing: 0;
+    font-size: 0.78rem;
+    line-height: 1.25;
+    letter-spacing: 0.01em;
   }
-  /* Compare table — smaller padding/font */
-  #modal-product .product__compare { padding: 0.6rem 0.8rem; border-radius: 10px; }
-  #modal-product .product__compare-title { font-size: 0.65rem; margin: 0 0 0.45rem; }
-  #modal-product .product__compare table { font-size: 0.78rem; }
+  /* Compare table */
+  #modal-product .product__compare { padding: 0.85rem 1rem; border-radius: 12px; }
+  #modal-product .product__compare-title { font-size: 0.72rem; margin: 0 0 0.55rem; }
+  #modal-product .product__compare table { font-size: 0.88rem; }
   #modal-product .product__compare td,
-  #modal-product .product__compare th { padding: 0.35rem 0.4rem; }
-  #modal-product .product__compare th { font-size: 0.7rem; letter-spacing: 0.1em; }
+  #modal-product .product__compare th { padding: 0.5rem 0.5rem; }
+  #modal-product .product__compare th { font-size: 0.78rem; letter-spacing: 0.12em; }
   #modal-product .product__compare td.we,
-  #modal-product .product__compare td.them { font-size: 1.05rem; }
-  /* CTA buttons — slimmer */
+  #modal-product .product__compare td.them { font-size: 1.2rem; }
+  /* CTA buttons */
   #modal-product .product__col-right .product__buttons {
     flex: 0 0 auto;
-    gap: 0.45rem;
+    gap: 0.55rem;
   }
   #modal-product .product__col-right .product__buttons > .btn {
-    font-size: 0.85rem;
-    padding: 0.7rem 1rem;
+    font-size: 0.95rem;
+    padding: 0.85rem 1.2rem;
     min-height: 0;
   }
   #modal-product .product__upsell {
-    font-size: 0.78rem;
-    padding: 0.7rem 1rem;
+    font-size: 0.88rem;
+    padding: 0.85rem 1.2rem;
   }
-  /* Notes / pyramid — compact */
-  #modal-product .product__notes {
-    padding: 0.7rem 0.9rem;
-    border-radius: 10px;
+  /* NOTES / PYRAMID — flex:1 stretches to fill so its bottom matches
+     the match-card bottom on the left column. Pyramid distributes its
+     three rows evenly across the available space. */
+  #modal-product .product__col-right .product__notes {
+    padding: 0.95rem 1.1rem 1.1rem;
+    border-radius: 12px;
     margin-top: 0;
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
   }
-  #modal-product .product__notes-title { font-size: 0.85rem; margin: 0 0 0.4rem; letter-spacing: 0.14em; }
-  #modal-product .product__notes-desc { font-size: 0.75rem; margin: 0 auto 0.55rem; line-height: 1.35; }
-  #modal-product .product__pyramid { gap: 3px; }
+  #modal-product .product__notes-title { font-size: 0.95rem; margin: 0 0 0.5rem; letter-spacing: 0.14em; }
+  #modal-product .product__notes-desc { font-size: 0.82rem; margin: 0 auto 0.7rem; line-height: 1.4; }
+  #modal-product .product__pyramid {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 5px;
+  }
   #modal-product .product__pyramid-row {
-    grid-template-columns: 48px 1fr;
-    gap: 0.6rem;
-    padding: 0.5rem 1.2rem;
+    grid-template-columns: 56px 1fr;
+    gap: 0.7rem;
+    padding: 0.7rem 1.3rem;
+    flex: 1;
+    align-items: center;
   }
-  #modal-product .product__pyramid-row--top { padding: 0.5rem 1.6rem; }
-  #modal-product .product__pyramid-row--heart { padding: 0.5rem 1.4rem; }
-  #modal-product .product__pyramid-row--base { padding: 0.5rem 1.2rem; }
-  #modal-product .product__pyramid-label { font-size: 0.68rem; letter-spacing: 0.16em; }
-  #modal-product .product__pyramid-notes { font-size: 0.8rem; line-height: 1.2; }
+  #modal-product .product__pyramid-row--top { padding: 0.7rem 1.8rem; }
+  #modal-product .product__pyramid-row--heart { padding: 0.7rem 1.6rem; }
+  #modal-product .product__pyramid-row--base { padding: 0.7rem 1.3rem; }
+  #modal-product .product__pyramid-label { font-size: 0.74rem; letter-spacing: 0.18em; }
+  #modal-product .product__pyramid-notes { font-size: 0.92rem; line-height: 1.25; }
 }
 
 /* --- CONTACT --- */
@@ -6890,10 +6911,9 @@ body.has-promo-popup .proof-toast { display: none !important; }
 }
 
 /* ================================================================
-   DESKTOP CATALOG MODAL — single row of products must fit without
-   scroll. Per user 2026-05-22: jednu radu nech sa neda scrollovat,
-   viac riadkov nech sa scrolluje normalne (cards same size).
-   Compresses prod-card so 1 row fits in 90vh.
+   DESKTOP CATALOG MODAL — bigger readable cards, peek of next row
+   under the 1st row so user knows there's more to scroll.
+   Per user follow-up: zvacsi cards nech vidno hlavicku dalsej flasticky.
    ================================================================ */
 @media (min-width: 1000px) {
   #modal-catalog .modal__panel {
@@ -6903,86 +6923,163 @@ body.has-promo-popup .proof-toast { display: none !important; }
     padding: 1rem 1.25rem 0.85rem;
   }
   #modal-catalog .catalog__title {
-    font-size: 1.7rem;
+    font-size: 1.8rem;
     margin: 0 2rem 0.7rem 0;
   }
   #modal-catalog .catalog__filters .select {
-    padding: 0.7rem 2.4rem 0.7rem 1.1rem;
-    font-size: 0.88rem;
+    padding: 0.75rem 2.5rem 0.75rem 1.2rem;
+    font-size: 0.92rem;
   }
+  /* Cap grid height so 1 full card row + a peek of the next row's bottle
+     tops is what the user sees on initial open. ~620px shows row 1
+     entirely (~590px) + ~30px of row 2 image. Multi-row scrolls. */
   #modal-catalog .catalog__grid {
-    padding: 1rem 1.25rem 1.25rem;
-    gap: 0.85rem;
+    padding: 1.1rem 1.25rem 1.25rem;
+    gap: 1rem;
+    max-height: calc(92vh - 170px);
   }
-  /* Compress prod-card for catalog so one row fits in viewport */
+  /* Readable card sizing — bigger than the over-compressed version, but
+     still short enough that the next row's bottle top peeks through. */
   #modal-catalog .prod-card {
-    padding: 0.65rem 0.7rem 0.85rem;
-    gap: 0.3rem;
+    padding: 0.8rem 0.85rem 1rem;
+    gap: 0.45rem;
   }
-  /* Smaller bottle photo so card height drops dramatically */
+  /* Bottle photo square (100%) for nice presentation */
   #modal-catalog .prod-card__image {
-    padding-bottom: 75% !important;
+    padding-bottom: 100% !important;
   }
   #modal-catalog .prod-card__name {
-    font-size: 1.15rem;
-    margin: 0.1rem 0 0.1rem !important;
+    font-size: 1.35rem;
+    margin: 0.15rem 0 0.15rem !important;
   }
   #modal-catalog .prod-card__inspired-quote {
-    font-size: 0.66rem;
-    padding: 0.3rem 0.7rem;
-    letter-spacing: 0.03em;
+    font-size: 0.75rem;
+    padding: 0.4rem 0.85rem;
+    letter-spacing: 0.04em;
   }
-  /* Compact match-card inside catalog cards */
+  /* Match-card readable */
   #modal-catalog .prod-card__match {
-    padding: 8px 10px !important;
-    margin-top: 4px !important;
-    gap: 6px !important;
-    border-radius: 10px !important;
+    padding: 11px 13px !important;
+    margin-top: 6px !important;
+    gap: 8px !important;
+    border-radius: 12px !important;
   }
   #modal-catalog .prod-card__match .match-card__title {
-    font-size: 11px !important;
-    padding-bottom: 5px !important;
-    margin-bottom: 4px !important;
-    gap: 5px;
+    font-size: 13px !important;
+    padding-bottom: 6px !important;
+    margin-bottom: 6px !important;
+    gap: 6px;
   }
   #modal-catalog .prod-card__match .match-card__title svg {
-    width: 13px !important;
-    height: 13px !important;
+    width: 15px !important;
+    height: 15px !important;
   }
   #modal-catalog .prod-card__match .match-card__row {
-    grid-template-columns: 56px 1fr !important;
-    gap: 8px !important;
+    grid-template-columns: 72px 1fr !important;
+    gap: 10px !important;
   }
   #modal-catalog .prod-card__match .match-card__thumb {
-    width: 56px !important;
-    height: 56px !important;
+    width: 72px !important;
+    height: 72px !important;
   }
   #modal-catalog .prod-card__match .match-card__brand {
-    font-size: 11px !important;
-    line-height: 1.2;
+    font-size: 12.5px !important;
+    line-height: 1.25;
     -webkit-line-clamp: 2 !important;
     line-clamp: 2 !important;
   }
   #modal-catalog .prod-card__match .match-card__price {
-    margin-top: 2px !important;
-    gap: 4px;
+    margin-top: 3px !important;
+    gap: 5px;
   }
   #modal-catalog .prod-card__match .match-card__price strong {
-    font-size: 13px !important;
+    font-size: 14.5px !important;
   }
   #modal-catalog .prod-card__match .match-card__price small {
-    font-size: 10px !important;
+    font-size: 11px !important;
   }
-  #modal-catalog .prod-card__rating { padding: 0.15rem 0.4rem; }
-  #modal-catalog .prod-card__rating .prod-card__stars { font-size: 0.78rem; }
-  #modal-catalog .prod-card__rating .prod-card__count { font-size: 0.66rem; }
-  #modal-catalog .prod-card__price-row { margin-top: 0.15rem; gap: 0.45rem; }
-  #modal-catalog .prod-card__price-orig { font-size: 0.78rem; }
-  #modal-catalog .prod-card__price { font-size: 1.05rem; }
+  #modal-catalog .prod-card__rating { padding: 0.2rem 0.5rem; }
+  #modal-catalog .prod-card__rating .prod-card__stars { font-size: 0.88rem; }
+  #modal-catalog .prod-card__rating .prod-card__count { font-size: 0.74rem; }
+  #modal-catalog .prod-card__price-row { margin-top: 0.25rem; gap: 0.55rem; }
+  #modal-catalog .prod-card__price-orig { font-size: 0.88rem; }
+  #modal-catalog .prod-card__price { font-size: 1.2rem; }
   #modal-catalog .prod-card__cta {
-    margin-top: 0.3rem;
-    padding: 0.5rem 0.9rem;
+    margin-top: 0.4rem;
+    padding: 0.6rem 1rem;
+    font-size: 0.78rem;
+  }
+}
+
+/* ================================================================
+   DESKTOP SEARCH MODAL TOP SELLERS — show peek of next row.
+   Per user 2026-05-22: top sellers pod searchom nech vidno hlavicku
+   dalsej flasticky tiez.
+   ================================================================ */
+@media (min-width: 1000px) {
+  /* Cap the top-sellers grid so 1 row + bottle-top peek of the 2nd
+     row fits in the modal viewport. 4 cards per row at 200px+ each. */
+  #modal-search .search__sellers-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1rem;
+    max-height: calc(92vh - 230px);
+    overflow-y: auto;
+    padding-bottom: 0.5rem;
+  }
+  /* Compact prod-card inside top sellers so a full card (~480px)
+     plus a 30-40px image peek of the next row's bottle fits. */
+  #modal-search .search__sellers-grid .prod-card {
+    padding: 0.75rem 0.8rem 0.9rem;
+    gap: 0.4rem;
+  }
+  #modal-search .search__sellers-grid .prod-card__image {
+    padding-bottom: 95% !important;
+  }
+  #modal-search .search__sellers-grid .prod-card__name {
+    font-size: 1.25rem;
+    margin: 0.15rem 0 0.15rem !important;
+  }
+  #modal-search .search__sellers-grid .prod-card__inspired-quote {
     font-size: 0.72rem;
+    padding: 0.38rem 0.8rem;
+  }
+  #modal-search .search__sellers-grid .prod-card__match {
+    padding: 10px 12px !important;
+    margin-top: 5px !important;
+    gap: 7px !important;
+    border-radius: 11px !important;
+  }
+  #modal-search .search__sellers-grid .prod-card__match .match-card__title {
+    font-size: 12px !important;
+    padding-bottom: 5px !important;
+    margin-bottom: 5px !important;
+  }
+  #modal-search .search__sellers-grid .prod-card__match .match-card__row {
+    grid-template-columns: 64px 1fr !important;
+    gap: 9px !important;
+  }
+  #modal-search .search__sellers-grid .prod-card__match .match-card__thumb {
+    width: 64px !important;
+    height: 64px !important;
+  }
+  #modal-search .search__sellers-grid .prod-card__match .match-card__brand {
+    font-size: 12px !important;
+    -webkit-line-clamp: 2 !important;
+    line-clamp: 2 !important;
+  }
+  #modal-search .search__sellers-grid .prod-card__match .match-card__price strong {
+    font-size: 14px !important;
+  }
+  #modal-search .search__sellers-grid .prod-card__rating { padding: 0.2rem 0.5rem; }
+  #modal-search .search__sellers-grid .prod-card__rating .prod-card__stars { font-size: 0.85rem; }
+  #modal-search .search__sellers-grid .prod-card__rating .prod-card__count { font-size: 0.72rem; }
+  #modal-search .search__sellers-grid .prod-card__price-row { margin-top: 0.2rem; }
+  #modal-search .search__sellers-grid .prod-card__price-orig { font-size: 0.85rem; }
+  #modal-search .search__sellers-grid .prod-card__price { font-size: 1.15rem; }
+  #modal-search .search__sellers-grid .prod-card__cta {
+    margin-top: 0.35rem;
+    padding: 0.55rem 0.95rem;
+    font-size: 0.76rem;
   }
 }
 
