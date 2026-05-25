@@ -7566,13 +7566,16 @@ body.has-promo-popup .proof-toast { display: none !important; }
   .product .product__inspired { order: 4; }
   /* Hide the duplicate inspired pill in col-right header (col-left already has it) */
   .product .product__col-right .product__header .product__inspired-label { display: none !important; }
-  .product .product__buttons { order: 5; display: flex; flex-direction: column; gap: 0.6rem; }
+  /* Perfektná zhoda match-card — moved DIRECTLY under Inšpirované pill per user
+     request 2026-05-22 so the trust badges (Voňaj rovnako / Silná a dlhotrvácna /
+     Made in SK) remain visible without scrolling. Was order:9, now 5. */
+  .product .product__col-left > .match-card { order: 5; }
+  /* Trust icons follow the match-card so they stay visible above the fold */
   .product .product__col-right .product__header .product__icons { order: 6; }
+  .product .product__buttons { order: 7; display: flex; flex-direction: column; gap: 0.6rem; }
   /* Then the price comparison + cheaper line */
-  .product .product__price-box { order: 7; }
-  .product .product__cheaper-line { order: 8; }
-  /* Perfektná zhoda match card */
-  .product .product__col-left > .match-card { order: 9; }
+  .product .product__price-box { order: 8; }
+  .product .product__cheaper-line { order: 9; }
   /* Pyramid + compare-table at the bottom */
   .product .product__notes { order: 10; }
   .product .product__compare { order: 11; }
@@ -7585,11 +7588,33 @@ body.has-promo-popup .proof-toast { display: none !important; }
     gap: 0.55rem;
   }
   .product .product__col-left { padding: 0.6rem; }
-  /* Shrink the bottle stage container so the bottle photo (object-fit: contain) scales down too */
+  /* Shrink the bottle stage container so the bottle photo (object-fit: contain) scales down too.
+     Smaller on mobile so match-card + trust badges fit above the fold once the
+     Perfektná zhoda is bumped up directly under Inšpirované. */
   .product .product__bottles-wrap {
-    height: 200px;
-    flex: 0 0 200px;
+    height: 170px;
+    flex: 0 0 170px;
     overflow: hidden;
+  }
+  /* Trust icons compact for mobile so all three fit above the fold next to Perfektná zhoda */
+  .product .product__col-right .product__header .product__icons {
+    margin-top: 0.5rem;
+    gap: 0.4rem;
+  }
+  .product .product__col-right .product__header .product__icon {
+    padding: 0.55rem 0.35rem;
+    gap: 0.35rem;
+    border-radius: 9px;
+  }
+  .product .product__col-right .product__header .product__icon-symbol {
+    width: 28px;
+    height: 28px;
+    font-size: 0.95rem;
+  }
+  .product .product__col-right .product__header .product__icon-text {
+    font-size: 0.62rem;
+    line-height: 1.15;
+    letter-spacing: 0;
   }
   /* Dual variant (Veelyn + original): position bottles more tightly within the smaller stage */
   .product .product__bottles-wrap .bottle-veelyn {
