@@ -16,7 +16,13 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 // ---- CONFIG ----
 const PORT = process.env.PORT || 3001;
 const SELLER_EMAIL = process.env.SELLER_EMAIL || 'info@veelyn.sk';
-const FROM_EMAIL = process.env.FROM_EMAIL || 'Veelyn <objednavky@veelyn.sk>';
+// Strip wrapping quotes / whitespace that creep in when copy-pasting the
+// env var into Railway. Resend rejects "Veelyn <x@y>" (with quotes) as
+// invalid format even though the inner value is fine.
+const FROM_EMAIL = (process.env.FROM_EMAIL || 'Veelyn <objednavky@veelyn.sk>')
+  .trim()
+  .replace(/^['"]|['"]$/g, '')
+  .trim();
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'change-me';
 const RESEND_API_KEY = process.env.RESEND_API_KEY || '';
 
