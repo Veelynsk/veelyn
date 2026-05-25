@@ -464,16 +464,20 @@ body.lock {
 @media (min-width: 1000px) {
   /* Taller header per user: "rozsir ten header bar kusok". */
   .nav { padding: 1.2rem 1rem; min-height: 100px; }
-  /* Bigger pills with Manrope's max 800 weight. Removed text-stroke
-     because it was either invisible on Mac OR too thick on big
-     monitors — inconsistent. Just font-weight 800 + tight letter-
-     spacing for natural chunky look. */
+  /* Bigger pills with Manrope's max 800 weight. Counter the body's
+     -webkit-font-smoothing: antialiased (which renders thinner on
+     Mac) with `auto` so glyphs paint at their native chunky weight.
+     Plus explicit bright text color for outline pills (was --text
+     which on dark bg looked dim). */
   .nav__link {
     font-size: 1.3rem;
     padding: 20px 32px;
     min-height: 60px;
     font-weight: 800;
     letter-spacing: 0.04em;
+    color: #fff;
+    -webkit-font-smoothing: auto;
+    -moz-osx-font-smoothing: auto;
   }
   /* Primary CTAs (Všetky vonavky + 3+1 ZADARMO) — biggest. */
   .nav__link--accent,
@@ -482,6 +486,7 @@ body.lock {
     padding: 22px 40px;
     letter-spacing: 0.06em;
   }
+  .nav__link--gold { color: #1a1208 !important; } /* keep dark on gold fill */
 }
 
 /* --- HERO --- */
