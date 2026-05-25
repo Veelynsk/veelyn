@@ -8570,14 +8570,14 @@ body.has-promo-popup .proof-toast { display: none !important; }
     /* Taller stage so the full Perfektná zhoda block (thumb + brand + price)
        fits inside the active slide without being cropped. User 2026-05-25:
        nech je perfektna zhoda vidno pekne cela. */
-    height: 580px;
+    height: 620px;
     overflow: visible;
     touch-action: pan-y pinch-zoom;
   }
   .carousel__slide {
     width: 260px;
-    height: 540px;
-    padding: 1rem 0.85rem 0.9rem;
+    height: 580px;
+    padding: 0.9rem 0.85rem 0.9rem;
   }
   .carousel__slide.is-prev {
     transform: translate(calc(-50% - 225px), -50%) scale(0.86);
