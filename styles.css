@@ -2207,9 +2207,11 @@ body.lock {
   gap: 1.5rem;
 }
 .checkout__title {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-size: clamp(1.6rem, 4vw, 2.2rem);
+  font-family: var(--font-body);
+  font-style: normal;
+  font-weight: 800;
+  font-size: clamp(1.3rem, 2.6vw, 1.6rem);
+  letter-spacing: -0.005em;
   margin: 0 0 1rem;
 }
 .checkout__section-title {

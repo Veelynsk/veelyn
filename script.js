@@ -1764,10 +1764,9 @@ function setupEvents() {
 // creating shipments + generating labels.
 const PACKETA_API_KEY = '3486767127ceef1f';
 const SHIPPING_METHODS = {
+  'packeta-kurier': { label: 'Packeta na adresu',     note: 'Doručenie domov · 1–2 dni',     price: 4.49, packeta: false },
   'packeta-zbox':   { label: 'Packeta Z-BOX',         note: 'Vyzdvihnutie 24/7 · 1–2 dni',   price: 2.99, packeta: true,  vendors: 'czzpoint,zbox' },
   'packeta-pobocka':{ label: 'Packeta výdajné miesto',note: 'Pobočka · 2–3 dni',             price: 3.49, packeta: true,  vendors: 'czzpoint,packeta' },
-  'packeta-kurier': { label: 'Packeta HD kuriér',     note: 'Doručenie domov · 1–2 dni',     price: 4.49, packeta: false },
-  'sps-kurier':     { label: 'SPS kuriér na adresu',  note: 'Doručenie domov · 1–2 dni',     price: 4.99, packeta: false },
 };
 const PAYMENT_METHODS = {
   'card':    { label: 'Karta · Apple Pay · Google Pay', note: 'Visa, Mastercard, Maestro',     fee: 0 },
@@ -1777,7 +1776,7 @@ const PAYMENT_METHODS = {
 
 const checkoutState = {
   step: 1,
-  shippingId: 'packeta-zbox',
+  shippingId: 'packeta-kurier',
   paymentId: 'card',
   pickupPoint: null, // { id, name, street, city, zip }
   customer: {},
