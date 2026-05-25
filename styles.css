@@ -653,6 +653,13 @@ body.lock {
   height: 100%;
   object-fit: contain;
   display: block;
+  /* Browser's default behaviour drags <img> as a ghost when the user
+     mousedowns + moves on it — looks broken in the carousel. Disable. */
+  -webkit-user-drag: none;
+  user-drag: none;
+  pointer-events: none;
+  user-select: none;
+  -webkit-touch-callout: none;
 }
 .bottle-photo--missing { display: none; }
 /* When photo loads successfully, hide CSS fallback */
@@ -10069,4 +10076,24 @@ input, select, textarea, label {
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 1.4rem;
   }
+}
+
+/* ================================================================
+   GLOBAL: prevent native image dragging on product photos.
+   When the user mousedowns on an <img> and starts dragging, the
+   browser shows a translucent ghost of the image — looks like
+   a bug on the carousel + product modal + cart thumbs.
+   ================================================================ */
+.prod-card__image img,
+.match-card__thumb img,
+.cart-item__thumb img,
+.search__result-thumb img,
+.checkout__item-thumb img,
+.bottle-photo,
+.bottle-veelyn img,
+.bottle-original img {
+  -webkit-user-drag: none;
+  user-drag: none;
+  user-select: none;
+  -webkit-touch-callout: none;
 }
