@@ -464,16 +464,16 @@ body.lock {
 @media (min-width: 1000px) {
   /* Taller header per user: "rozsir ten header bar kusok". */
   .nav { padding: 1.2rem 1rem; min-height: 100px; }
-  /* Pills MUCH bigger + denser letter-spacing so text reads chunky
-     (Manrope tops out at 800 weight, narrower spacing makes glyphs
-     look thicker visually). User: "buttons vacsie o vela, text v nich
-     je chudy musi byt tucny a bold aby bol pekne citatelny". */
+  /* Pills MUCH bigger + text-stroke for visual chunkiness (Manrope
+     tops at 800 weight; text-stroke fakes a heavier weight). User:
+     "text v nich skurveny ma byt proste tucnejsi". */
   .nav__link {
     font-size: 1.3rem;
     padding: 20px 32px;
     min-height: 60px;
     font-weight: 800;
     letter-spacing: 0.04em;
+    -webkit-text-stroke: 0.4px currentColor;
   }
   /* Primary CTAs (Všetky vonavky + 3+1 ZADARMO) — biggest. */
   .nav__link--accent,
@@ -481,6 +481,7 @@ body.lock {
     font-size: 1.4rem;
     padding: 22px 40px;
     letter-spacing: 0.06em;
+    -webkit-text-stroke: 0.5px currentColor;
   }
 }
 
@@ -7267,8 +7268,10 @@ body.has-promo-popup .proof-toast { display: none !important; }
     padding: 0.35rem 0.75rem;
     min-height: 56px;
   }
-  /* Hide the 4-link vertical stack — replaced by drawer */
+  /* Hide all desktop nav pills on mobile — replaced by burger drawer.
+     User: "na mobile ma byt iba hamburger a serach bar a logo". */
   .nav__left { display: none; }
+  .nav__right .nav__link { display: none !important; }
   /* Burger button — first grid column */
   .nav__burger {
     display: inline-flex !important;

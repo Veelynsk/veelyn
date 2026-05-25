@@ -775,7 +775,10 @@ function renderTopSellers() {
   const grid = $('#topSellersGrid');
   if (!grid) return;
   const sellers = TOP_SELLERS.map(id => FRAGRANCES.find(f => f.id === id)).filter(Boolean);
-  grid.innerHTML = sellers.map(f => productCardHTML(f, true)).join('');
+  // Pass showMatch=true so each top-seller card in the search modal
+  // renders the "Perfektná zhoda vôňových nôt" original-fragrance
+  // reference (matches catalog + bestsellers).
+  grid.innerHTML = sellers.map(f => productCardHTML(f, true, true)).join('');
   wireProductCards(grid);
 }
 
