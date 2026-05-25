@@ -10041,6 +10041,76 @@ input, select, textarea, label {
   --carousel-max: clamp(1100px, 70vw, 2000px);
 }
 
+/* ================================================================
+   BIG-MONITOR CAROUSEL SCALING — slides + offsets scale up on
+   1700+ and 2200+ viewports so ultrawide / 4K / 5K monitors don't
+   show a narrow strip of cards in the middle of a huge empty canvas.
+   MacBook 13"/14"/16" (default scaling ≤1728px) is NOT affected —
+   breakpoints raised to 2000px / 2400px so only external 4K / 5K
+   monitors trigger the larger carousel slides.
+   ================================================================ */
+@media (min-width: 2000px) {
+  .carousel__stage { height: 720px; }
+  .carousel__slide {
+    width: 380px;
+    height: 710px;
+    padding: 0 1.4rem 1rem;
+  }
+  .carousel__slide.is-prev    { transform: translate(calc(-50% - 380px), -50%) scale(0.8); }
+  .carousel__slide.is-next    { transform: translate(calc(-50% + 380px), -50%) scale(0.8); }
+  .carousel__slide.is-far-prev{ transform: translate(calc(-50% - 640px), -50%) scale(0.62); }
+  .carousel__slide.is-far-next{ transform: translate(calc(-50% + 640px), -50%) scale(0.62); }
+
+  /* Bigger bottles inside the slides */
+  .carousel__bottles { min-height: 250px; }
+  .bottle-veelyn  { width: 250px; height: 375px; top: -125px; }
+  .bottle-original { width: 200px; height: 250px; top: -30px; }
+
+  /* Bump slide internal text proportionally */
+  .carousel__slide .carousel__name { font-size: 1.45rem; }
+  .carousel__slide .carousel__inspired-quote { font-size: 0.85rem; padding: 0.55rem 1rem; }
+  .carousel__slide .carousel__price-row .price { font-size: 1rem; }
+  .carousel__slide .carousel__price-row--ours .price { font-size: 1.35rem; }
+}
+
+@media (min-width: 2400px) {
+  .carousel__stage { height: 840px; }
+  .carousel__slide {
+    width: 460px;
+    height: 820px;
+    padding: 0 1.7rem 1.2rem;
+  }
+  .carousel__slide.is-prev    { transform: translate(calc(-50% - 460px), -50%) scale(0.82); }
+  .carousel__slide.is-next    { transform: translate(calc(-50% + 460px), -50%) scale(0.82); }
+  .carousel__slide.is-far-prev{ transform: translate(calc(-50% - 780px), -50%) scale(0.65); }
+  .carousel__slide.is-far-next{ transform: translate(calc(-50% + 780px), -50%) scale(0.65); }
+
+  .carousel__bottles { min-height: 290px; }
+  .bottle-veelyn  { width: 290px; height: 435px; top: -145px; }
+  .bottle-original { width: 230px; height: 290px; top: -35px; }
+
+  .carousel__slide .carousel__name { font-size: 1.7rem; }
+  .carousel__slide .carousel__inspired-quote { font-size: 1rem; padding: 0.65rem 1.2rem; }
+  .carousel__slide .carousel__price-row .price { font-size: 1.15rem; }
+  .carousel__slide .carousel__price-row--ours .price { font-size: 1.55rem; }
+}
+
+/* Bestsellers / All-Fragrances grid — bigger card minimum on big
+   monitors so a 5K display fits 5-6 cards per row, not 8+ tiny ones. */
+@media (min-width: 2000px) {
+  .bestsellers__grid,
+  .all-fragrances__grid {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1.1rem;
+  }
+}
+@media (min-width: 2400px) {
+  .bestsellers__grid,
+  .all-fragrances__grid {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.4rem;
+  }
+}
 
 /* ================================================================
    GLOBAL: prevent native image dragging on product photos.
