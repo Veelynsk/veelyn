@@ -8585,17 +8585,17 @@ body.has-promo-popup .proof-toast { display: none !important; }
      phones the prev/next cards don't push way off, and on large phones
      they stay nicely framed. */
   .carousel__slide.is-prev {
-    transform: translate(calc(-50% - 62vw), -50%) scale(0.86);
-    opacity: 0.38;
+    transform: translate(calc(-50% - 70vw), -50%) scale(0.82);
+    opacity: 0.32;
     filter: blur(0.5px);
   }
   .carousel__slide.is-next {
-    transform: translate(calc(-50% + 62vw), -50%) scale(0.86);
-    opacity: 0.38;
+    transform: translate(calc(-50% + 70vw), -50%) scale(0.82);
+    opacity: 0.32;
     filter: blur(0.5px);
   }
-  .carousel__slide.is-out-left  { transform: translate(calc(-50% - 120vw), -50%) scale(0.78); }
-  .carousel__slide.is-out-right { transform: translate(calc(-50% + 120vw), -50%) scale(0.78); }
+  .carousel__slide.is-out-left  { transform: translate(calc(-50% - 130vw), -50%) scale(0.72); }
+  .carousel__slide.is-out-right { transform: translate(calc(-50% + 130vw), -50%) scale(0.72); }
   /* Bottle photo proportional to slide height */
   .carousel__bottles {
     height: clamp(150px, 25vh, 220px);
