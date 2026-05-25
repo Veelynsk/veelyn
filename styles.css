@@ -2314,7 +2314,12 @@ body.lock {
   border: 1px solid var(--line);
   border-radius: 12px;
   padding: 1.25rem;
-  align-self: start;
+  /* Align bottom with the form column on desktop — height matches the
+     taller of the two columns so both .checkout__summary-col and
+     .checkout__form-col end at the same vertical line. */
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
 }
 .checkout__items {
   list-style: none;
@@ -2323,12 +2328,26 @@ body.lock {
 }
 .checkout__item {
   display: grid;
-  grid-template-columns: auto 1fr auto;
+  grid-template-columns: auto 56px 1fr auto;
   gap: 0.75rem;
   align-items: center;
   padding: 0.6rem 0;
   border-bottom: 1px solid var(--line);
   font-size: 0.88rem;
+  /* Whole row is clickable (opens product modal) */
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background 120ms ease;
+  margin: 0 -0.5rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+.checkout__item:hover {
+  background: rgba(124, 58, 237, 0.08);
+}
+.checkout__item:focus-visible {
+  outline: 2px solid var(--accent-2);
+  outline-offset: 2px;
 }
 .checkout__item:last-child { border-bottom: none; }
 .checkout__item-qty {
@@ -2339,9 +2358,52 @@ body.lock {
   border-radius: 4px;
   font-size: 0.78rem;
 }
-.checkout__item-info { display: flex; flex-direction: column; }
-.checkout__item-info strong { color: #fff; font-weight: 700; }
-.checkout__item-info span { color: var(--text-mute); font-size: 0.78rem; }
+/* Product thumb — same style as cart-item thumb */
+.checkout__item-thumb {
+  width: 56px;
+  height: 56px;
+  background: linear-gradient(135deg, #1a151c, #28202d);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+}
+.checkout__item-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 4px;
+}
+.checkout__item-thumb-fallback {
+  position: absolute;
+  inset: 0;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-2);
+  font-family: var(--font-body);
+  font-weight: 800;
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+}
+.checkout__item-info { display: flex; flex-direction: column; min-width: 0; }
+.checkout__item-info strong {
+  color: #fff;
+  font-weight: 700;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.checkout__item-info span {
+  color: var(--text-mute);
+  font-size: 0.78rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 .checkout__item-price { font-weight: 700; color: #fff; }
 
 .checkout__totals { font-size: 0.9rem; }

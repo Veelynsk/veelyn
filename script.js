@@ -1870,9 +1870,29 @@ function renderCheckoutSummary(t) {
         const isOrig = it.variant === 'original';
         const name = isOrig ? `${it.frag.brand} ${it.frag.original_name}` : it.frag.veelyn_name;
         const sub = isOrig ? 'Originál' : it.frag.original_name;
+        const slugOrig = slugifyOriginal(it.frag.original_name);
+        const thumbSrc = isOrig
+          ? `images/originals/${slugOrig}.png`
+          : `images/veelyn/${it.frag.id}.png?v=2`;
+        const thumbFallback = isOrig
+          ? (it.frag.brand || '').slice(0, 2).toUpperCase()
+          : (it.frag.veelyn_name || '').slice(0, 2).toUpperCase();
+        const openCall = isOrig
+          ? `openMatchOrigin('${it.frag.id}')`
+          : `closeAllModals(); openProduct('${it.frag.id}')`;
         return `
-        <li class="checkout__item${isOrig ? ' checkout__item--original' : ''}">
+        <li class="checkout__item${isOrig ? ' checkout__item--original' : ''}"
+            role="button" tabindex="0"
+            onclick="${openCall}"
+            onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();${openCall};}">
           <span class="checkout__item-qty">${it.qty}×</span>
+          <div class="checkout__item-thumb">
+            <img src="${thumbSrc}" alt="${name}" loading="lazy" decoding="async"
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <div class="checkout__item-thumb-fallback" style="display:none;">
+              <span>${thumbFallback}</span>
+            </div>
+          </div>
           <div class="checkout__item-info">
             <strong>${name}</strong>
             <span>${sub}</span>
@@ -2058,7 +2078,7 @@ function renderStepPayment(t) {
     </label>
     <label class="checkout__consent">
       <input type="checkbox" id="newsletterOptIn">
-      <span>Chcem dostávať akcie a novinky e-mailom (môžem sa kedykoľvek odhlásiť).</span>
+      <span>Hoď mi občas zľavu na e-mail — bez spamu, sľubujeme. 💌 (odhlásiť sa môžeš kedykoľvek)</span>
     </label>
 
     <button type="button" class="btn btn--primary btn--block checkout__submit" id="finishOrderBtn">
