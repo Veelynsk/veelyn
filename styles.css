@@ -286,14 +286,15 @@ body.lock {
   display: flex;
   align-items: center;
   gap: 10px;
-  flex-wrap: wrap;
+  /* Single row on desktop — no wrapping. */
+  flex-wrap: nowrap;
 }
-/* Equal-width pills in both rows — each .nav__link gets the SAME
-   min-width so the 2 buttons in row 1 and the 3 buttons in row 2
-   look balanced. User: "zarovnaj tie 3 buttons nech su rovnako velke
-   ako tie 2 nad nimi". 50% bigger than before. */
+/* Single-row layout per user request — buttons sized to fit a 4-pill
+   row on the left + 3+1 in the right group. Min-width keeps short
+   pills (Affiliate / Kontakt) from looking tiny next to the longer
+   ones (Všetky vonavky / Veľkoobchod). */
 .nav__row > .nav__link {
-  min-width: 225px;
+  min-width: 145px;
 }
 /* Legacy inline wrapper — kept as flex row in case old markup still
    references it (e.g. cached pages mid-rollout). */
@@ -312,11 +313,12 @@ body.lock {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  /* 50% bigger pills per user request — taller padding + bigger font */
-  padding: 11px 28px;
-  font-size: 0.95rem;
+  /* Single-row pills — generous padding/font so they have presence
+     alongside the centered logo. */
+  padding: 14px 24px;
+  font-size: 0.92rem;
   font-weight: 800;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--text);
   background: transparent;
