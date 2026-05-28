@@ -10019,7 +10019,9 @@ input, select, textarea, label {
     overflow: hidden;
   }
   .carousel__slide .carousel__match .match-card__row {
-    grid-template-columns: 60% 1fr;
+    display: grid !important;
+    grid-template-columns: 60% 1fr !important;
+    flex-direction: row !important;
     gap: 0.55rem;
     align-items: center;
     overflow: hidden;
