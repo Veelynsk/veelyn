@@ -9991,21 +9991,24 @@ input, select, textarea, label {
   /* Panel s jasnou green border + tmavým pozadím aby to vyzeralo ako
      samostatné pole. User 2026-05-28: ta perfektna zhoda neni ako
      keby v policku vlastnom. */
+  /* "Window in window" - jasná panelová karta vnútri slide so
+     pravidelnými marginmi a vizuálne uzavretá zo všetkých strán.
+     User 2026-05-28: ma to byt ukoncene ako okno v okne. */
   .carousel__slide .carousel__match {
-    padding: 0.65rem 0.7rem 0.7rem;
-    gap: 0.4rem;
-    margin-top: 0.55rem;
-    background: rgba(74,222,128,0.07);
-    border: 1.5px solid rgba(74,222,128,0.35);
-    border-radius: 10px;
-    box-shadow: 0 0 0 1px rgba(74,222,128,0.08) inset;
-    /* Fixná výška aby všetky karty mali rovnaký panel bez ohľadu na
-       dĺžku brand textu (long Maison Francis Kurkdjian | Baccarat
-       Rouge 540 vs short Tom Ford | Oud Wood). */
-    height: clamp(225px, 31vh, 260px);
+    padding: 0.7rem 0.85rem 0.85rem;
+    gap: 0.45rem;
+    margin: 0.6rem 0.25rem 0.4rem;
+    background: linear-gradient(180deg, rgba(74,222,128,0.08), rgba(74,222,128,0.03));
+    border: 1.5px solid rgba(74,222,128,0.42);
+    border-radius: 12px;
+    box-shadow:
+      0 0 0 1px rgba(74,222,128,0.06) inset,
+      0 4px 14px rgba(0,0,0,0.25);
+    height: clamp(235px, 32vh, 270px);
     box-sizing: border-box;
     display: flex !important;
     flex-direction: column;
+    justify-content: space-between;
   }
   .carousel__slide .carousel__match .match-card__title {
     font-size: 0.78rem;
