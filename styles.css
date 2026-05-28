@@ -6660,31 +6660,33 @@ body.has-promo-popup .proof-toast { display: none !important; }
   }
   :is(#modal-product, #modal-origin) .product__notes-title { font-size: 1.05rem; margin: 0 0 0.5rem; letter-spacing: 0.14em; }
   :is(#modal-product, #modal-origin) .product__notes-desc { font-size: 0.92rem; margin: 0 auto 0.6rem; line-height: 1.4; }
+  /* Pyramid stretches proportionally — fills the remaining space in
+     notes container so no gap above and no overflow below, na kazdom
+     type rozlisenia. User 2026-05-28. */
   :is(#modal-product, #modal-origin) .product__pyramid {
-    flex: 0 1 auto;
+    flex: 1 1 0;
     display: flex;
     flex-direction: column;
     gap: 0;
     min-height: 0;
-    /* Push pyramid to the BOTTOM of the notes container so its base
-       row aligns with the match-card bottom on the left column. */
-    margin-top: auto;
+    margin-top: 0;
   }
   :is(#modal-product, #modal-origin) .product__pyramid-row {
     grid-template-columns: 60px 1fr;
     gap: 0.7rem;
-    flex: 0 0 auto;
+    flex: 1 1 0;
+    min-height: 0;
     align-items: center;
   }
-  /* Tight stacking — riadky priliehavé bez vertikálnych medzier.
-     User 2026-05-25: medzeri medzi pyramid rows boli nepekné. */
-  /* Trapezoidy musia fitnut do notes containera na MacBook výškach.
-     0.55rem padding = celá pyramída ~150px (3 rows × 50). User
-     2026-05-28: cela pyramida sa musi vmestit do toho pola, najprv
-     dôležitejšie že base je vidno. */
-  :is(#modal-product, #modal-origin) .product__pyramid-row--top { padding: 0.55rem 1.6rem; }
-  :is(#modal-product, #modal-origin) .product__pyramid-row--heart { padding: 0.55rem 1.4rem; }
-  :is(#modal-product, #modal-origin) .product__pyramid-row--base { padding: 0.55rem 1.2rem; }
+  /* Padding minimálny — trapezoidy rastú primárne cez flex:1. */
+  :is(#modal-product, #modal-origin) .product__pyramid-row--top { padding: 0.4rem 1.6rem; }
+  :is(#modal-product, #modal-origin) .product__pyramid-row--heart { padding: 0.4rem 1.4rem; }
+  :is(#modal-product, #modal-origin) .product__pyramid-row--base { padding: 0.4rem 1.2rem; }
+  /* Notes container overflow:hidden ako safety net aby pyramid nikdy
+     nevyšla mimo svojho boxu. */
+  :is(#modal-product, #modal-origin) .product__col-right .product__notes {
+    overflow: hidden;
+  }
   :is(#modal-product, #modal-origin) .product__pyramid-label { font-size: 0.92rem; letter-spacing: 0.18em; }
   :is(#modal-product, #modal-origin) .product__pyramid-notes { font-size: 1.05rem; line-height: 1.25; font-weight: 700; }
 }
@@ -10179,23 +10181,9 @@ input, select, textarea, label {
   .prod-card__match .match-card__title-long { display: inline !important; }
 }
 
-/* Truly big monitor (≥2200px): origin / product modal pyramid stretch.
-   Prah zdvihnutý z 2000 → 2200 lebo MacBook 16" "More Space" mode má
-   2056px a rozjebal sa mu pyramid (BASE prerasla pod modal). User
-   2026-05-28. */
-@media (min-width: 2200px) {
-  :is(#modal-product, #modal-origin) .product__pyramid {
-    margin-top: 0 !important;
-    flex: 1 1 auto !important;
-    display: flex !important;
-    flex-direction: column;
-    justify-content: stretch;
-  }
-  :is(#modal-product, #modal-origin) .product__pyramid-row {
-    flex: 1 1 0 !important;
-    min-height: 0;
-  }
-}
+/* Pyramid stretch je teraz default vo všetkých desktop @media
+   (min-width: 1000px) bloku — nepotrebujeme špeciálny big-monitor
+   override. */
 
 /* ================================================================
    GLOBAL: prevent native image dragging on product photos.
