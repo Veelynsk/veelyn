@@ -10177,6 +10177,26 @@ input, select, textarea, label {
   .prod-card__match .match-card__title-long { display: inline !important; }
 }
 
+/* Big monitor (≥2000px): origin / product modal — na big monitore bola
+   veľká medzera medzi popisom pyramídy a TOP rowom (pyramid bola pinned
+   na bottom cez margin-top:auto, ale notes container bol vysoký).
+   Riešenie: pyramid sedí hneď za popisom + jeho rows rastú cez flex:1
+   aby vyplnili zvyšok notes containera (rovnako ako match-card na ľavej
+   strane). Texty vnútri sa nemenia. User 2026-05-28. */
+@media (min-width: 2000px) {
+  :is(#modal-product, #modal-origin) .product__pyramid {
+    margin-top: 0 !important;
+    flex: 1 1 auto !important;
+    display: flex !important;
+    flex-direction: column;
+    justify-content: stretch;
+  }
+  :is(#modal-product, #modal-origin) .product__pyramid-row {
+    flex: 1 1 0 !important;
+    min-height: 0;
+  }
+}
+
 /* ================================================================
    GLOBAL: prevent native image dragging on product photos.
    When the user mousedowns on an <img> and starts dragging, the
