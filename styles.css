@@ -8698,16 +8698,14 @@ body.has-promo-popup .proof-toast { display: none !important; }
      room and shorter phones don't crop the Perfektná zhoda block.
      User 2026-05-25: optimalizuj na vsetky typy mobilov. */
   .carousel__stage {
-    /* Stiahnuté aby landing končil presne pri CTA buttons na 1. fold.
-       User 2026-05-28: ma to byt ukoncene cta buttons. */
-    height: clamp(440px, 62vh, 580px);
+    height: clamp(480px, 70vh, 640px);
     overflow: visible;
     touch-action: pan-y pinch-zoom;
   }
   .carousel__slide {
     width: clamp(200px, 62vw, 260px);
-    height: clamp(420px, 60vh, 560px);
-    padding: 0.8rem 0.85rem 0.7rem;
+    height: clamp(460px, 68vh, 620px);
+    padding: 0.7rem 0.8rem 0.65rem;
   }
   /* Side card peek väčší — užší offset + jasnejšie viditeľné side cards. */
   .carousel__slide.is-prev {
@@ -10030,7 +10028,7 @@ input, select, textarea, label {
   }
   .carousel__slide .carousel__match .match-card__thumb {
     width: 100% !important;
-    height: clamp(120px, 30vw, 160px) !important;
+    height: clamp(95px, 26vw, 130px) !important;
     aspect-ratio: auto !important;
     border-radius: 10px;
     overflow: hidden;
