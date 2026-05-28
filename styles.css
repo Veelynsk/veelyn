@@ -10407,3 +10407,17 @@ input, select, textarea, label {
   user-select: none;
   -webkit-touch-callout: none;
 }
+
+/* Mobile: Zobraziť produkt link skrytý (preplaca neskorší global
+   inline-flex !important rule). User 2026-05-28. */
+@media (max-width: 699px) {
+  .carousel__slide .carousel__match .match-card__link,
+  .carousel__slide .carousel__match a.match-card__link,
+  .carousel__match-link {
+    display: none !important;
+  }
+  /* Telo nepotrebuje miesto na link */
+  .carousel__slide .carousel__match .match-card__body {
+    padding-bottom: 0 !important;
+  }
+}
