@@ -8722,11 +8722,11 @@ body.has-promo-popup .proof-toast { display: none !important; }
   }
   .carousel__slide.is-out-left  { transform: translate(calc(-50% - 100vw), -50%) scale(0.6); }
   .carousel__slide.is-out-right { transform: translate(calc(-50% + 100vw), -50%) scale(0.6); }
-  /* Bottle photo proportional to slide height — menšia aby match-card
-     dostala miesto na celý obsah. */
+  /* Bottle photo menšia aby match-card mala miesto pre vertikálny
+     thumb + brand + cena + link. */
   .carousel__bottles {
-    height: clamp(130px, 20vh, 180px);
-    margin-bottom: 0.4rem;
+    height: clamp(105px, 16vh, 145px);
+    margin-bottom: 0.35rem;
   }
   .carousel__name { font-size: clamp(0.95rem, 3.2vw, 1.2rem); }
   .carousel__inspired-quote {
@@ -10018,20 +10018,23 @@ input, select, textarea, label {
   .carousel__slide .carousel__match {
     overflow: hidden;
   }
+  /* Thumb na vrchu plnej šírky, brand+cena+link pod ňou. Vertikálny
+     layout = thumb maximalna sirka karty, telo pod nim, nič nevytýna. */
   .carousel__slide .carousel__match .match-card__row {
-    display: grid !important;
-    grid-template-columns: clamp(110px, 32vw, 150px) 1fr !important;
-    flex-direction: row !important;
-    gap: 0.55rem;
-    align-items: center;
+    display: flex !important;
+    flex-direction: column !important;
+    grid-template-columns: none !important;
+    gap: 0.55rem !important;
+    align-items: stretch !important;
     overflow: hidden;
   }
   .carousel__slide .carousel__match .match-card__thumb {
-    width: clamp(110px, 32vw, 150px) !important;
-    height: clamp(110px, 32vw, 150px) !important;
-    aspect-ratio: 1 / 1;
+    width: 100% !important;
+    height: clamp(120px, 30vw, 160px) !important;
+    aspect-ratio: auto !important;
     border-radius: 10px;
     overflow: hidden;
+    align-self: stretch;
   }
   .carousel__slide .carousel__match .match-card__thumb img {
     padding: 6px;
@@ -10040,27 +10043,51 @@ input, select, textarea, label {
     object-fit: contain;
   }
   .carousel__slide .carousel__match .match-card__body {
-    gap: 0.15rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.25rem;
     overflow: hidden;
     min-width: 0;
+    width: 100%;
   }
   .carousel__slide .carousel__match .match-card__brand {
-    font-size: 0.72rem;
-    line-height: 1.18;
+    font-size: 0.82rem;
+    line-height: 1.2;
     font-weight: 800;
     color: #fff;
-    -webkit-line-clamp: 3;
-    line-clamp: 3;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
     overflow: hidden;
     word-break: break-word;
+    text-align: center;
+    width: 100%;
+    max-width: 100%;
   }
   .carousel__slide .carousel__match .match-card__brand span {
     color: #fff;
     font-weight: 800;
   }
+  .carousel__slide .carousel__match .match-card__price {
+    justify-content: center !important;
+    width: 100%;
+    text-align: center;
+  }
   .carousel__slide .carousel__match .match-card__price strong {
-    font-size: 0.98rem;
+    font-size: 1.05rem;
     font-weight: 900;
+  }
+  /* Show Zobraziť produkt link on mobile (was hidden globally) */
+  .carousel__slide .carousel__match .match-card__link {
+    display: inline-flex !important;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.78rem;
+    color: #4ade80;
+    font-weight: 700;
+    text-decoration: none;
+    margin-top: 0.15rem;
   }
 }
 
