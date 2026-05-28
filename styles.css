@@ -6675,35 +6675,69 @@ body.has-promo-popup .proof-toast { display: none !important; }
     grid-template-columns: 60px 1fr;
     gap: 0.7rem;
     flex: 1 1 0;
-    /* Minimum 50px aby aj na MacBook Default scaling boli rows
-       viditeľne hrubé — flex:1 ich roztiahne ďalej ak je priestor. */
-    min-height: 50px;
+    min-height: 40px;
     align-items: center;
   }
-  :is(#modal-product, #modal-origin) .product__pyramid-row--top { padding: 0.55rem 1.6rem; }
-  :is(#modal-product, #modal-origin) .product__pyramid-row--heart { padding: 0.55rem 1.4rem; }
-  :is(#modal-product, #modal-origin) .product__pyramid-row--base { padding: 0.55rem 1.2rem; }
-  /* Aby pyramid mala dostatočný priestor, kompresne ostatné prvky
-     v pravom stĺpci — header padding, compare table, buttons. */
-  :is(#modal-product, #modal-origin) .product__col-right {
-    gap: 0.4rem;
-  }
+  :is(#modal-product, #modal-origin) .product__pyramid-row--top { padding: 0.4rem 1.6rem; }
+  :is(#modal-product, #modal-origin) .product__pyramid-row--heart { padding: 0.4rem 1.4rem; }
+  :is(#modal-product, #modal-origin) .product__pyramid-row--base { padding: 0.4rem 1.2rem; }
+  /* Aggressive compression aby všetko fitlo aj na malých MacBook
+     viewportoch (1456×945). User 2026-05-28: BASE row + match-card
+     link nesmie byť orezaný. */
+  :is(#modal-product, #modal-origin) .product__col-right { gap: 0.35rem; }
+  :is(#modal-product, #modal-origin) .product__col-left { gap: 0.5rem; }
   :is(#modal-product, #modal-origin) .product__col-right .product__header {
-    padding: 0.6rem 0.85rem;
+    padding: 0.55rem 0.85rem;
   }
   :is(#modal-product, #modal-origin) .product__col-right .product__notes {
-    padding: 0.65rem 0.95rem 0.8rem;
+    padding: 0.55rem 0.95rem 0.7rem;
+  }
+  :is(#modal-product, #modal-origin) .product__notes-title {
+    font-size: 0.92rem;
+    margin: 0 0 0.3rem;
   }
   :is(#modal-product, #modal-origin) .product__notes-desc {
-    margin: 0 auto 0.4rem;
-    font-size: 0.85rem;
-    line-height: 1.3;
+    margin: 0 auto 0.35rem;
+    font-size: 0.78rem;
+    line-height: 1.25;
   }
-  /* Match-card tiež nech má reálny obsah viditeľný bez orezania -
-     znížený minimum thumb veľkosti a tighter spacing. */
+  :is(#modal-product, #modal-origin) .product__bottles-wrap {
+    height: 240px;
+    flex: 0 0 240px;
+  }
   :is(#modal-product, #modal-origin) .product__col-left > .match-card {
-    padding: 0.9rem 1.1rem 1rem;
-    gap: 0.65rem;
+    padding: 0.8rem 1rem 0.9rem;
+    gap: 0.55rem;
+  }
+  :is(#modal-product, #modal-origin) .product__compare {
+    padding: 0.5rem 0.8rem;
+  }
+  :is(#modal-product, #modal-origin) .product__compare td,
+  :is(#modal-product, #modal-origin) .product__compare th {
+    padding: 0.3rem 0.5rem;
+  }
+  :is(#modal-product, #modal-origin) .product__buttons {
+    gap: 0.35rem;
+  }
+  :is(#modal-product, #modal-origin) .product__buttons > .btn {
+    padding: 0.65rem 1rem;
+    font-size: 0.88rem;
+  }
+  :is(#modal-product, #modal-origin) .product__col-right .product__header .product__icon {
+    padding: 0.55rem 0.4rem;
+    gap: 0.3rem;
+  }
+  :is(#modal-product, #modal-origin) .product__col-right .product__header .product__icon-symbol {
+    width: 32px;
+    height: 32px;
+    font-size: 1rem;
+  }
+  :is(#modal-product, #modal-origin) .product__col-right .product__header .product__icon-text {
+    font-size: 0.72rem;
+  }
+  :is(#modal-product, #modal-origin) .product__col-right .product__header .product__icons {
+    margin-top: 0.4rem;
+    gap: 0.4rem;
   }
   /* Notes container overflow:hidden ako safety net aby pyramid nikdy
      nevyšla mimo svojho boxu. */
