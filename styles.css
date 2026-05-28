@@ -6678,12 +6678,13 @@ body.has-promo-popup .proof-toast { display: none !important; }
   }
   /* Tight stacking — riadky priliehavé bez vertikálnych medzier.
      User 2026-05-25: medzeri medzi pyramid rows boli nepekné. */
-  /* Vyššie trapezoidy aby pyramida vyplnila vertikálny priestor notes
-     containera bez veľkej "fugy" medzi popisom a TOP rowom. User
-     2026-05-28: zvačsi pyramidu samotnu TOP/HEART/BASE bez zmeny inych. */
-  :is(#modal-product, #modal-origin) .product__pyramid-row--top { padding: 1rem 1.6rem; }
-  :is(#modal-product, #modal-origin) .product__pyramid-row--heart { padding: 1rem 1.4rem; }
-  :is(#modal-product, #modal-origin) .product__pyramid-row--base { padding: 1rem 1.2rem; }
+  /* Trapezoidy musia fitnut do notes containera na MacBook výškach.
+     0.55rem padding = celá pyramída ~150px (3 rows × 50). User
+     2026-05-28: cela pyramida sa musi vmestit do toho pola, najprv
+     dôležitejšie že base je vidno. */
+  :is(#modal-product, #modal-origin) .product__pyramid-row--top { padding: 0.55rem 1.6rem; }
+  :is(#modal-product, #modal-origin) .product__pyramid-row--heart { padding: 0.55rem 1.4rem; }
+  :is(#modal-product, #modal-origin) .product__pyramid-row--base { padding: 0.55rem 1.2rem; }
   :is(#modal-product, #modal-origin) .product__pyramid-label { font-size: 0.92rem; letter-spacing: 0.18em; }
   :is(#modal-product, #modal-origin) .product__pyramid-notes { font-size: 1.05rem; line-height: 1.25; font-weight: 700; }
 }
