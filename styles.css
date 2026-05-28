@@ -8698,15 +8698,16 @@ body.has-promo-popup .proof-toast { display: none !important; }
      room and shorter phones don't crop the Perfektná zhoda block.
      User 2026-05-25: optimalizuj na vsetky typy mobilov. */
   .carousel__stage {
-    height: clamp(440px, 76vh, 640px);
+    /* Stiahnuté aby landing končil presne pri CTA buttons na 1. fold.
+       User 2026-05-28: ma to byt ukoncene cta buttons. */
+    height: clamp(440px, 62vh, 580px);
     overflow: visible;
     touch-action: pan-y pinch-zoom;
   }
   .carousel__slide {
-    /* Užšie active card (62vw) aby side cards peekli viditeľne. */
     width: clamp(200px, 62vw, 260px);
-    height: clamp(420px, 72vh, 600px);
-    padding: clamp(0.6rem, 1.2vh, 1rem) 0.85rem clamp(0.6rem, 1vh, 0.9rem);
+    height: clamp(420px, 60vh, 560px);
+    padding: 0.8rem 0.85rem 0.7rem;
   }
   /* Side card peek väčší — užší offset + jasnejšie viditeľné side cards. */
   .carousel__slide.is-prev {
@@ -9981,55 +9982,63 @@ input, select, textarea, label {
 }
 
 /* Mobile (≤699px): MAXIMÁLNE veľká Perfektná zhoda thumb + texts.
-   User 2026-05-28: fotky original vonaviek + texty co najvacsie. */
+   Layout: thumb HORIZONTÁLNE ale vyplňuje 50% šírky karty, brand
+   a cena vedľa nej v stĺpci. User 2026-05-28: fotka vonavky
+   originalu co najvacsia + text prisposobeny. */
 @media (max-width: 699px) {
   .carousel__slide .carousel__match {
-    padding: 0.85rem 0.95rem 1rem;
-    gap: 0.7rem;
-    margin-top: 0.9rem;
+    padding: 0.65rem 0.7rem 0.75rem;
+    gap: 0.5rem;
+    margin-top: 0.7rem;
   }
   .carousel__slide .carousel__match .match-card__title {
-    font-size: 0.95rem;
-    padding-bottom: 0.55rem;
-    margin-bottom: 0.55rem;
-    gap: 0.45rem;
+    font-size: 0.78rem;
+    padding-bottom: 0.4rem;
+    margin-bottom: 0.4rem;
+    gap: 0.35rem;
   }
   .carousel__slide .carousel__match .match-card__title svg {
-    width: 18px;
-    height: 18px;
+    width: 14px;
+    height: 14px;
   }
   .carousel__slide .carousel__match .match-card__title-text {
-    font-size: 0.95rem;
+    font-size: 0.78rem;
   }
-  /* Full long version even on mobile */
+  /* Long verzia */
   .carousel__slide .carousel__match .match-card__title-short { display: none; }
   .carousel__slide .carousel__match .match-card__title-long { display: inline; }
-  /* Thumb maximalne velka — vyplnuje cca 36% sirky slide */
+  /* Thumb cca 45% šírky karty — maximum proporčné */
   .carousel__slide .carousel__match .match-card__row {
-    grid-template-columns: 95px 1fr;
-    gap: 0.85rem;
+    grid-template-columns: 42% 1fr;
+    gap: 0.65rem;
     align-items: center;
   }
   .carousel__slide .carousel__match .match-card__thumb {
-    width: 95px;
-    height: 95px;
+    width: 100%;
+    aspect-ratio: 1;
+    height: auto;
     border-radius: 10px;
   }
   .carousel__slide .carousel__match .match-card__thumb img {
-    padding: 7px;
+    padding: 6px;
+  }
+  .carousel__slide .carousel__match .match-card__body {
+    gap: 0.25rem;
   }
   .carousel__slide .carousel__match .match-card__brand {
-    font-size: 1rem;
+    font-size: 0.78rem;
     line-height: 1.2;
     font-weight: 800;
     color: #fff;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
   }
   .carousel__slide .carousel__match .match-card__brand span {
     color: #fff;
     font-weight: 800;
   }
   .carousel__slide .carousel__match .match-card__price strong {
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-weight: 900;
   }
 }
