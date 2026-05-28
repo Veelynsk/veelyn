@@ -10168,6 +10168,15 @@ input, select, textarea, label {
   }
 }
 
+/* Big monitor (≥2000px): prod-card match-card má v compact verzii
+   text len "Perfektná zhoda". Na big monitore je dosť miesta na celý
+   "Perfektná zhoda vôňových nôt" — prepínam viditeľnosť spanov.
+   User 2026-05-28. */
+@media (min-width: 2000px) {
+  .prod-card__match .match-card__title-short { display: none !important; }
+  .prod-card__match .match-card__title-long { display: inline !important; }
+}
+
 /* ================================================================
    GLOBAL: prevent native image dragging on product photos.
    When the user mousedowns on an <img> and starts dragging, the
