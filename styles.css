@@ -8707,21 +8707,20 @@ body.has-promo-popup .proof-toast { display: none !important; }
     height: clamp(420px, 72vh, 600px);
     padding: clamp(0.6rem, 1.2vh, 1rem) 0.85rem clamp(0.6rem, 1vh, 0.9rem);
   }
-  /* Side card peek — offset scales with viewport width so on tiny
-     phones the prev/next cards don't push way off, and on large phones
-     they stay nicely framed. */
+  /* Side card peek — offsets stiahnuté aby prev/next cards reálne
+     peekli z bokov (predtým bolo 70vw → mimo screen). User 2026-05-28. */
   .carousel__slide.is-prev {
-    transform: translate(calc(-50% - 70vw), -50%) scale(0.82);
-    opacity: 0.32;
+    transform: translate(calc(-50% - 58vw), -50%) scale(0.78);
+    opacity: 0.45;
     filter: blur(0.5px);
   }
   .carousel__slide.is-next {
-    transform: translate(calc(-50% + 70vw), -50%) scale(0.82);
-    opacity: 0.32;
+    transform: translate(calc(-50% + 58vw), -50%) scale(0.78);
+    opacity: 0.45;
     filter: blur(0.5px);
   }
-  .carousel__slide.is-out-left  { transform: translate(calc(-50% - 130vw), -50%) scale(0.72); }
-  .carousel__slide.is-out-right { transform: translate(calc(-50% + 130vw), -50%) scale(0.72); }
+  .carousel__slide.is-out-left  { transform: translate(calc(-50% - 110vw), -50%) scale(0.65); }
+  .carousel__slide.is-out-right { transform: translate(calc(-50% + 110vw), -50%) scale(0.65); }
   /* Bottle photo proportional to slide height */
   .carousel__bottles {
     height: clamp(150px, 25vh, 220px);
@@ -9979,6 +9978,51 @@ input, select, textarea, label {
 @media (min-width: 1000px) and (min-height: 870px) {
   .carousel__slide .carousel__match .match-card__title-short { display: none; }
   .carousel__slide .carousel__match .match-card__title-long  { display: inline; }
+}
+
+/* Mobile (≤699px): bigger Perfektná zhoda thumb + texts per user
+   2026-05-28: thumb aj text malé, zvačsi. */
+@media (max-width: 699px) {
+  .carousel__slide .carousel__match {
+    padding: 0.7rem 0.85rem;
+    gap: 0.55rem;
+    margin-top: 0.85rem;
+  }
+  .carousel__slide .carousel__match .match-card__title {
+    font-size: 0.85rem;
+    padding-bottom: 0.4rem;
+    gap: 0.4rem;
+  }
+  .carousel__slide .carousel__match .match-card__title svg {
+    width: 16px;
+    height: 16px;
+  }
+  .carousel__slide .carousel__match .match-card__title-text {
+    font-size: 0.85rem;
+  }
+  /* Full long version even on mobile — viac priestoru po offset fixe */
+  .carousel__slide .carousel__match .match-card__title-short { display: none; }
+  .carousel__slide .carousel__match .match-card__title-long { display: inline; }
+  .carousel__slide .carousel__match .match-card__row {
+    grid-template-columns: 60px 1fr;
+    gap: 0.7rem;
+  }
+  .carousel__slide .carousel__match .match-card__thumb {
+    width: 60px;
+    height: 60px;
+    border-radius: 8px;
+  }
+  .carousel__slide .carousel__match .match-card__thumb img {
+    padding: 5px;
+  }
+  .carousel__slide .carousel__match .match-card__brand {
+    font-size: 0.92rem;
+    line-height: 1.2;
+    font-weight: 700;
+  }
+  .carousel__slide .carousel__match .match-card__price strong {
+    font-size: 1.05rem;
+  }
 }
 
 /* =============================================================
