@@ -8755,20 +8755,24 @@ body.has-promo-popup .proof-toast { display: none !important; }
   .carousel__dot { width: 9px; height: 9px; }
   .carousel__dot.is-active { width: 26px; }
 
-  /* Landing hero CTAs (Všetky vonavky + 3+1 ZADARMO) — proporcionálne
-     pre všetky mobily, ~30% menšie ako default aby väčší karusel ostal
-     v centre per user 2026-05-25. */
+  /* Landing hero CTAs (Všetky vonavky + 3+1 ZADARMO) — širšie buttony
+     user 2026-05-28. Skoro full-width na mobile. */
   .hero__ctas {
-    gap: clamp(0.4rem, 1.2vw, 0.7rem);
+    gap: clamp(0.5rem, 1.5vw, 0.8rem);
     margin-top: clamp(0.5rem, 1.5vh, 1rem);
     margin-bottom: clamp(0.3rem, 1vh, 0.6rem);
+    padding: 0 1.25rem;
+    width: 100%;
+    box-sizing: border-box;
   }
   .hero__ctas .btn--big {
-    padding: clamp(0.7rem, 2.2vw, 1rem) clamp(1.1rem, 4.5vw, 1.8rem);
-    font-size: clamp(0.7rem, 2.4vw, 0.88rem);
+    padding: clamp(0.85rem, 2.5vw, 1.1rem) 1rem;
+    font-size: clamp(0.78rem, 2.6vw, 0.95rem);
     letter-spacing: 0.12em;
-    border-radius: 9px;
-    min-height: 44px;
+    border-radius: 10px;
+    min-height: 50px;
+    width: 100%;
+    box-sizing: border-box;
   }
 
   /* --- Search modal: compact placeholder, 2-col Top Sellers grid, subtle × --- */
@@ -10008,9 +10012,9 @@ input, select, textarea, label {
   /* Long verzia */
   .carousel__slide .carousel__match .match-card__title-short { display: none; }
   .carousel__slide .carousel__match .match-card__title-long { display: inline; }
-  /* Thumb cca 45% šírky karty — maximum proporčné */
+  /* Thumb 52% šírky karty — fotka originálu maximálna */
   .carousel__slide .carousel__match .match-card__row {
-    grid-template-columns: 42% 1fr;
+    grid-template-columns: 52% 1fr;
     gap: 0.65rem;
     align-items: center;
   }
