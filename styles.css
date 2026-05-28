@@ -10125,19 +10125,44 @@ input, select, textarea, label {
   .carousel__slide .carousel__price-row--ours .price { font-size: 1.55rem; }
 }
 
-/* Bestsellers / All-Fragrances grid — bigger card minimum on big
-   monitors so a 5K display fits 5-6 cards per row, not 8+ tiny ones. */
+/* Bestsellers / All-Fragrances grid — fixed 6 columns on big monitors
+   so we get predictable orphan-hiding. User 2026-05-28: na veľkom
+   monitore vymaž tie 3 posledné vonavky nech sú len celé riadky. */
 @media (min-width: 2000px) {
   .bestsellers__grid,
   .all-fragrances__grid {
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    grid-template-columns: repeat(6, minmax(0, 1fr));
     gap: 1.1rem;
   }
+  /* Hide orphan cards in the last row (1-5 leftovers, when row is
+     incomplete). Both grids use the same 6-col layout at this width. */
+  .bestsellers__grid > .prod-card:last-child:nth-child(6n+1),
+  .all-fragrances__grid > .prod-card:last-child:nth-child(6n+1) { display: none; }
+
+  .bestsellers__grid > .prod-card:nth-last-child(2):nth-child(6n+1),
+  .bestsellers__grid > .prod-card:nth-last-child(2):nth-child(6n+1) ~ .prod-card,
+  .all-fragrances__grid > .prod-card:nth-last-child(2):nth-child(6n+1),
+  .all-fragrances__grid > .prod-card:nth-last-child(2):nth-child(6n+1) ~ .prod-card { display: none; }
+
+  .bestsellers__grid > .prod-card:nth-last-child(3):nth-child(6n+1),
+  .bestsellers__grid > .prod-card:nth-last-child(3):nth-child(6n+1) ~ .prod-card,
+  .all-fragrances__grid > .prod-card:nth-last-child(3):nth-child(6n+1),
+  .all-fragrances__grid > .prod-card:nth-last-child(3):nth-child(6n+1) ~ .prod-card { display: none; }
+
+  .bestsellers__grid > .prod-card:nth-last-child(4):nth-child(6n+1),
+  .bestsellers__grid > .prod-card:nth-last-child(4):nth-child(6n+1) ~ .prod-card,
+  .all-fragrances__grid > .prod-card:nth-last-child(4):nth-child(6n+1),
+  .all-fragrances__grid > .prod-card:nth-last-child(4):nth-child(6n+1) ~ .prod-card { display: none; }
+
+  .bestsellers__grid > .prod-card:nth-last-child(5):nth-child(6n+1),
+  .bestsellers__grid > .prod-card:nth-last-child(5):nth-child(6n+1) ~ .prod-card,
+  .all-fragrances__grid > .prod-card:nth-last-child(5):nth-child(6n+1),
+  .all-fragrances__grid > .prod-card:nth-last-child(5):nth-child(6n+1) ~ .prod-card { display: none; }
 }
 @media (min-width: 2400px) {
   .bestsellers__grid,
   .all-fragrances__grid {
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    /* Still 6 cols, just bigger gap on truly huge displays */
     gap: 1.4rem;
   }
 }
