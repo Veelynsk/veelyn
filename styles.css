@@ -2421,13 +2421,51 @@ body.lock {
   color: var(--text-dim);
 }
 .checkout__totals strong { color: #fff; font-weight: 700; }
+/* Free shipping hint — slim message-style notification s ikonkou,
+   pravidlom + číslom v inom (tabular) fonte. User 2026-05-28: chcel
+   to viac ako "sprava" než ako placeholder line. */
 .checkout__free-hint {
-  font-size: 0.78rem;
-  color: #d4a247;
-  padding: 0.5rem 0.7rem !important;
-  background: rgba(212,162,71,0.1);
-  border-radius: 6px;
-  margin: 0.5rem 0;
+  display: flex !important;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.55rem 0.85rem !important;
+  margin: 0.6rem 0 !important;
+  background: linear-gradient(90deg, rgba(212,162,71,0.16), rgba(212,162,71,0.06));
+  border-left: 3px solid #d4a247;
+  border-radius: 0 8px 8px 0;
+  color: #f0d9a8;
+  font-size: 0.85rem;
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: 0.01em;
+  box-shadow: 0 1px 0 rgba(0,0,0,0.25);
+}
+.checkout__free-hint-icon {
+  flex: 0 0 auto;
+  font-size: 1.05rem;
+  line-height: 1;
+}
+.checkout__free-hint-text {
+  flex: 1 1 auto;
+}
+.checkout__free-hint-text strong {
+  color: #fff;
+  font-weight: 800;
+}
+/* Cenové číslo v tabular numerickom fonte — odlišný look od textu */
+.checkout__free-hint-price {
+  font-family: 'SF Mono', 'JetBrains Mono', 'Menlo', ui-monospace, monospace;
+  font-feature-settings: 'tnum' 1, 'lnum' 1;
+  font-size: 0.95rem;
+  font-weight: 900;
+  color: #fff;
+  background: rgba(0,0,0,0.35);
+  padding: 0.1rem 0.45rem;
+  border-radius: 5px;
+  letter-spacing: -0.005em;
+  margin: 0 0.1rem;
+  display: inline-block;
+  white-space: nowrap;
 }
 .checkout__totals-final {
   border-top: 1px solid var(--line);

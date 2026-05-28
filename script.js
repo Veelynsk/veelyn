@@ -1927,7 +1927,7 @@ function renderCheckoutSummary(t) {
       ${t.codeDiscount > 0 ? `<div class="checkout__totals-bundle"><span>✦ Zľavový kód <em>(${t.discountCode})</em></span><strong>−${eur(t.codeDiscount)}</strong></div>` : ''}
       <div><span>Doprava</span><strong>${t.freeShipping ? 'ZDARMA' : eur(t.shipPrice)}</strong></div>
       ${t.fee > 0 ? `<div><span>Poplatok</span><strong>${eur(t.fee)}</strong></div>` : ''}
-      ${!t.freeShipping ? `<div class="checkout__free-hint">Pridaj ešte <strong>${eur(FREE_SHIPPING_THRESHOLD - t.productsTotal)}</strong> a doprava bude ZDARMA</div>` : ''}
+      ${!t.freeShipping ? `<aside class="checkout__free-hint" role="status"><span class="checkout__free-hint-icon" aria-hidden="true">🚚</span><span class="checkout__free-hint-text">Pridaj ešte <strong class="checkout__free-hint-price">${eur(FREE_SHIPPING_THRESHOLD - t.productsTotal)}</strong> a <strong>dopravu máš zadarmo</strong></span></aside>` : ''}
       <div class="checkout__totals-final"><span>Spolu</span><strong>${eur(t.total)}</strong></div>
     </div>
 
