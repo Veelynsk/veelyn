@@ -10012,38 +10012,52 @@ input, select, textarea, label {
   /* Long verzia */
   .carousel__slide .carousel__match .match-card__title-short { display: none; }
   .carousel__slide .carousel__match .match-card__title-long { display: inline; }
-  /* Thumb 52% šírky karty — fotka originálu maximálna */
+  /* Horizontálny layout s maximalnym thumb (60% karty) — fotka
+     originalu co najvacsia, brand + cena vedľa. User 2026-05-28:
+     nesmie nič pretiecť cez pole. */
+  .carousel__slide .carousel__match {
+    overflow: hidden;
+  }
   .carousel__slide .carousel__match .match-card__row {
-    grid-template-columns: 52% 1fr;
-    gap: 0.65rem;
+    grid-template-columns: 60% 1fr;
+    gap: 0.55rem;
     align-items: center;
+    overflow: hidden;
   }
   .carousel__slide .carousel__match .match-card__thumb {
     width: 100%;
     aspect-ratio: 1;
     height: auto;
     border-radius: 10px;
+    overflow: hidden;
   }
   .carousel__slide .carousel__match .match-card__thumb img {
     padding: 6px;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
   }
   .carousel__slide .carousel__match .match-card__body {
-    gap: 0.25rem;
+    gap: 0.15rem;
+    overflow: hidden;
+    min-width: 0;
   }
   .carousel__slide .carousel__match .match-card__brand {
-    font-size: 0.78rem;
-    line-height: 1.2;
+    font-size: 0.72rem;
+    line-height: 1.18;
     font-weight: 800;
     color: #fff;
     -webkit-line-clamp: 3;
     line-clamp: 3;
+    overflow: hidden;
+    word-break: break-word;
   }
   .carousel__slide .carousel__match .match-card__brand span {
     color: #fff;
     font-weight: 800;
   }
   .carousel__slide .carousel__match .match-card__price strong {
-    font-size: 1rem;
+    font-size: 0.98rem;
     font-weight: 900;
   }
 }
