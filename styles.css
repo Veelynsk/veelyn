@@ -9999,6 +9999,13 @@ input, select, textarea, label {
     border: 1.5px solid rgba(74,222,128,0.35);
     border-radius: 10px;
     box-shadow: 0 0 0 1px rgba(74,222,128,0.08) inset;
+    /* Fixná výška aby všetky karty mali rovnaký panel bez ohľadu na
+       dĺžku brand textu (long Maison Francis Kurkdjian | Baccarat
+       Rouge 540 vs short Tom Ford | Oud Wood). */
+    height: clamp(225px, 31vh, 260px);
+    box-sizing: border-box;
+    display: flex !important;
+    flex-direction: column;
   }
   .carousel__slide .carousel__match .match-card__title {
     font-size: 0.78rem;
@@ -10061,13 +10068,17 @@ input, select, textarea, label {
     line-height: 1.2;
     font-weight: 800;
     color: #fff;
+    display: -webkit-box;
     -webkit-line-clamp: 2;
     line-clamp: 2;
+    -webkit-box-orient: vertical;
     overflow: hidden;
     word-break: break-word;
     text-align: center;
     width: 100%;
     max-width: 100%;
+    /* Reserve 2 lines vždy aby short brands nemali vyšší panel */
+    min-height: calc(0.82rem * 1.2 * 2);
   }
   .carousel__slide .carousel__match .match-card__brand span {
     color: #fff;
