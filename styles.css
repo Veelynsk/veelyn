@@ -8722,10 +8722,11 @@ body.has-promo-popup .proof-toast { display: none !important; }
   }
   .carousel__slide.is-out-left  { transform: translate(calc(-50% - 100vw), -50%) scale(0.6); }
   .carousel__slide.is-out-right { transform: translate(calc(-50% + 100vw), -50%) scale(0.6); }
-  /* Bottle photo proportional to slide height */
+  /* Bottle photo proportional to slide height — menšia aby match-card
+     dostala miesto na celý obsah. */
   .carousel__bottles {
-    height: clamp(150px, 25vh, 220px);
-    margin-bottom: 0.5rem;
+    height: clamp(130px, 20vh, 180px);
+    margin-bottom: 0.4rem;
   }
   .carousel__name { font-size: clamp(0.95rem, 3.2vw, 1.2rem); }
   .carousel__inspired-quote {
