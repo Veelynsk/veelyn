@@ -10168,11 +10168,12 @@ input, select, textarea, label {
   }
 }
 
-/* Big monitor (≥2000px): prod-card match-card má v compact verzii
+/* Big monitor (≥1700px): prod-card match-card má v compact verzii
    text len "Perfektná zhoda". Na big monitore je dosť miesta na celý
    "Perfektná zhoda vôňových nôt" — prepínam viditeľnosť spanov.
+   Prah znížený z 2000 → 1700 lebo aj menšie big monitory majú miesto.
    User 2026-05-28. */
-@media (min-width: 2000px) {
+@media (min-width: 1700px) {
   .prod-card__match .match-card__title-short { display: none !important; }
   .prod-card__match .match-card__title-long { display: inline !important; }
 }
