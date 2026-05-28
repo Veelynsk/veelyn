@@ -10020,16 +10020,16 @@ input, select, textarea, label {
   }
   .carousel__slide .carousel__match .match-card__row {
     display: grid !important;
-    grid-template-columns: 60% 1fr !important;
+    grid-template-columns: clamp(110px, 32vw, 150px) 1fr !important;
     flex-direction: row !important;
     gap: 0.55rem;
     align-items: center;
     overflow: hidden;
   }
   .carousel__slide .carousel__match .match-card__thumb {
-    width: 100%;
-    aspect-ratio: 1;
-    height: auto;
+    width: clamp(110px, 32vw, 150px) !important;
+    height: clamp(110px, 32vw, 150px) !important;
+    aspect-ratio: 1 / 1;
     border-radius: 10px;
     overflow: hidden;
   }
