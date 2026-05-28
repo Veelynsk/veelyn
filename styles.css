@@ -6496,10 +6496,14 @@ body.has-promo-popup .proof-toast { display: none !important; }
     display: flex;
     flex-direction: column;
   }
-  /* Bottle stage — slightly bigger Veelyn bottle per user request */
+  /* Bottle stage — square dark backdrop ako má match-card thumb,
+     aby fľašku bolo vidno proti pozadiu. Per user 2026-05-25. */
   :is(#modal-product, #modal-origin) .product__bottles-wrap {
-    height: 240px;
-    flex: 0 0 240px;
+    height: 280px;
+    flex: 0 0 280px;
+    background: linear-gradient(135deg, #1a151c, #28202d);
+    border: 1px solid var(--line);
+    border-radius: 14px;
   }
   /* Compact "Inšpirované" pill in left column */
   :is(#modal-product, #modal-origin) .product__col-left .product__inspired {
@@ -6674,9 +6678,11 @@ body.has-promo-popup .proof-toast { display: none !important; }
   }
   /* Tight stacking — riadky priliehavé bez vertikálnych medzier.
      User 2026-05-25: medzeri medzi pyramid rows boli nepekné. */
-  :is(#modal-product, #modal-origin) .product__pyramid-row--top { padding: 0.55rem 1.6rem; }
-  :is(#modal-product, #modal-origin) .product__pyramid-row--heart { padding: 0.55rem 1.4rem; }
-  :is(#modal-product, #modal-origin) .product__pyramid-row--base { padding: 0.55rem 1.2rem; }
+  /* Užšie rows aby celá pyramída pekne fitla vnútri notes containera
+     bez prekročenia. Texty (font sizes) sa nemenia, len padding/height. */
+  :is(#modal-product, #modal-origin) .product__pyramid-row--top { padding: 0.4rem 1.6rem; }
+  :is(#modal-product, #modal-origin) .product__pyramid-row--heart { padding: 0.4rem 1.4rem; }
+  :is(#modal-product, #modal-origin) .product__pyramid-row--base { padding: 0.4rem 1.2rem; }
   :is(#modal-product, #modal-origin) .product__pyramid-label { font-size: 0.92rem; letter-spacing: 0.18em; }
   :is(#modal-product, #modal-origin) .product__pyramid-notes { font-size: 1.05rem; line-height: 1.25; font-weight: 700; }
 }
