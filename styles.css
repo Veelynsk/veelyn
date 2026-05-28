@@ -8698,14 +8698,14 @@ body.has-promo-popup .proof-toast { display: none !important; }
      room and shorter phones don't crop the Perfektná zhoda block.
      User 2026-05-25: optimalizuj na vsetky typy mobilov. */
   .carousel__stage {
-    height: clamp(480px, 70vh, 640px);
+    height: clamp(450px, 62vh, 580px);
     overflow: visible;
     touch-action: pan-y pinch-zoom;
   }
   .carousel__slide {
     width: clamp(200px, 62vw, 260px);
-    height: clamp(460px, 68vh, 620px);
-    padding: 0.7rem 0.8rem 0.65rem;
+    height: clamp(430px, 60vh, 560px);
+    padding: 0.6rem 0.75rem 0.55rem;
   }
   /* Side card peek väčší — užší offset + jasnejšie viditeľné side cards. */
   .carousel__slide.is-prev {
@@ -8720,11 +8720,10 @@ body.has-promo-popup .proof-toast { display: none !important; }
   }
   .carousel__slide.is-out-left  { transform: translate(calc(-50% - 100vw), -50%) scale(0.6); }
   .carousel__slide.is-out-right { transform: translate(calc(-50% + 100vw), -50%) scale(0.6); }
-  /* Bottle photo menšia aby match-card mala miesto pre vertikálny
-     thumb + brand + cena + link. */
+  /* Bottle photo malá aby všetko vrátane match-card + CTAs fitlo. */
   .carousel__bottles {
-    height: clamp(105px, 16vh, 145px);
-    margin-bottom: 0.35rem;
+    height: clamp(85px, 12vh, 115px);
+    margin-bottom: 0.3rem;
   }
   .carousel__name { font-size: clamp(0.95rem, 3.2vw, 1.2rem); }
   .carousel__inspired-quote {
@@ -9990,9 +9989,9 @@ input, select, textarea, label {
    originalu co najvacsia + text prisposobeny. */
 @media (max-width: 699px) {
   .carousel__slide .carousel__match {
-    padding: 0.65rem 0.7rem 0.75rem;
-    gap: 0.5rem;
-    margin-top: 0.7rem;
+    padding: 0.55rem 0.65rem 0.6rem;
+    gap: 0.4rem;
+    margin-top: 0.55rem;
   }
   .carousel__slide .carousel__match .match-card__title {
     font-size: 0.78rem;
@@ -10028,7 +10027,7 @@ input, select, textarea, label {
   }
   .carousel__slide .carousel__match .match-card__thumb {
     width: 100% !important;
-    height: clamp(95px, 26vw, 130px) !important;
+    height: clamp(80px, 22vw, 110px) !important;
     aspect-ratio: auto !important;
     border-radius: 10px;
     overflow: hidden;
