@@ -9995,9 +9995,11 @@ input, select, textarea, label {
      pravidelnými marginmi a vizuálne uzavretá zo všetkých strán.
      User 2026-05-28: ma to byt ukoncene ako okno v okne. */
   .carousel__slide .carousel__match {
-    padding: 0.75rem 0.95rem 0.9rem !important;
+    padding: 0.75rem 0.95rem 1rem !important;
     gap: 0.5rem !important;
-    margin: 0.8rem 0.35rem 0.55rem !important;
+    /* Panel končí jasne NAD slide bottom borderom - margin-bottom
+       1.2rem zaisťuje viditeľný gap. User 2026-05-28: tesne nad. */
+    margin: 0.8rem 0.4rem 1.2rem !important;
     background: linear-gradient(180deg, rgba(15,40,25,0.85), rgba(8,22,15,0.95)) !important;
     border: 2px solid rgba(74,222,128,0.55) !important;
     border-radius: 14px !important;
@@ -10005,7 +10007,11 @@ input, select, textarea, label {
       0 0 0 1px rgba(74,222,128,0.12) inset,
       0 0 18px rgba(74,222,128,0.18),
       0 6px 16px rgba(0,0,0,0.35) !important;
-    height: clamp(235px, 32vh, 270px) !important;
+    /* Fixná výška — vždy rovnaká bez ohľadu na dĺžku brand textu.
+       Jas zarezervujme miesto na 2 riadky pre brand vždy. */
+    height: clamp(240px, 32vh, 275px) !important;
+    min-height: clamp(240px, 32vh, 275px) !important;
+    max-height: clamp(240px, 32vh, 275px) !important;
     box-sizing: border-box;
     display: flex !important;
     flex-direction: column;
