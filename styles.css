@@ -103,9 +103,17 @@ body.lock .modal__backdrop {
   touch-action: none;
   overscroll-behavior: none;
 }
-body.lock .modal__panel {
+body.lock .modal__panel,
+body.lock .cart-drawer__panel,
+body.lock .cart-drawer__items {
   touch-action: pan-y;
   overscroll-behavior: contain;
+}
+/* When the locked body's touch-action:none is in effect, the cart
+   drawer wrapper itself must opt back into pan-y too — otherwise iOS
+   can't scroll the panel contents. */
+body.lock .cart-drawer {
+  touch-action: pan-y;
 }
 
 /* --- LOGO --- */
@@ -4431,12 +4439,22 @@ body.has-promo-popup .proof-toast { display: none !important; }
   position: absolute;
   top: 0; right: 0;
   height: 100vh;
+  /* Use 100dvh on mobile/Safari so the panel respects the dynamic
+     viewport (URL bar) and the sticky footer doesn't cover the upsell
+     CTA. Falls back to 100vh when dvh isn't supported. */
+  height: 100dvh;
   width: 100%;
   max-width: 420px;
   background: var(--bg-2);
   border-left: 1px solid var(--line-2);
   display: flex;
   flex-direction: column;
+  /* Allow the whole panel to scroll when the sum of trust + upsell +
+     footer + items overflows the viewport. Sticky footer stays pinned
+     to the panel bottom. */
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
   animation: drawerIn var(--t-base) var(--ease);
 }
 @keyframes drawerIn {
@@ -8761,17 +8779,20 @@ body.has-promo-popup .proof-toast { display: none !important; }
     overflow: hidden !important;
   }
   .carousel__slide.is-prev {
-    transform: translate(calc(-50% - 48vw), -50%) scale(0.74);
+    /* Offsets reduced from 48vw → 39vw to match the 0.82 slide shrink
+       (otherwise the gap between the active and side slides looked
+       a few px wider than before). */
+    transform: translate(calc(-50% - 39vw), -50%) scale(0.74);
     opacity: 0.55;
     filter: blur(0.5px);
   }
   .carousel__slide.is-next {
-    transform: translate(calc(-50% + 48vw), -50%) scale(0.74);
+    transform: translate(calc(-50% + 39vw), -50%) scale(0.74);
     opacity: 0.55;
     filter: blur(0.5px);
   }
-  .carousel__slide.is-out-left  { transform: translate(calc(-50% - 100vw), -50%) scale(0.6); }
-  .carousel__slide.is-out-right { transform: translate(calc(-50% + 100vw), -50%) scale(0.6); }
+  .carousel__slide.is-out-left  { transform: translate(calc(-50% - 82vw), -50%) scale(0.6); }
+  .carousel__slide.is-out-right { transform: translate(calc(-50% + 82vw), -50%) scale(0.6); }
 
   /* TOP SECTIONS — natural flow, match-card má aspect-ratio 1/1 */
   .carousel__bottles {
@@ -10180,6 +10201,20 @@ input, select, textarea, label {
   /* Long verzia */
   .carousel__slide .carousel__match .match-card__title-short { display: none; }
   .carousel__slide .carousel__match .match-card__title-long { display: inline; }
+  /* Allow the long title to wrap to 2 lines on narrower phones so the
+     final letter is never cropped (slide width shrank to 51vw which
+     was too tight for "Perfektná zhoda vôňových nôt" on one line). */
+  .carousel__slide .carousel__match .match-card__title {
+    flex-wrap: wrap;
+    row-gap: 0;
+  }
+  .carousel__slide .carousel__match .match-card__title-text,
+  .carousel__slide .carousel__match .match-card__title-long {
+    white-space: normal !important;
+    line-height: 1.15;
+    word-break: normal;
+    overflow-wrap: break-word;
+  }
   /* Horizontálny layout s maximalnym thumb (60% karty) — fotka
      originalu co najvacsia, brand + cena vedľa. User 2026-05-28:
      nesmie nič pretiecť cez pole. */
