@@ -581,10 +581,20 @@ function stopCarousel() {
 }
 
 // --- MODALS ---
+// Saved scroll position so we can restore it after closing the modal.
+// body.lock + html.lock use position:fixed which is the only reliable
+// way to stop iOS Safari from scrolling the page behind the modal.
+let __savedScrollY = 0;
 function openModal(id) {
   const el = document.getElementById('modal-' + id);
   if (!el) return;
   el.hidden = false;
+  if (!document.body.classList.contains('lock')) {
+    __savedScrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0;
+    document.documentElement.style.top = `-${__savedScrollY}px`;
+    document.body.style.top = `-${__savedScrollY}px`;
+  }
+  document.documentElement.classList.add('lock');
   document.body.classList.add('lock');
   // GA4 view_cart fires when the cart drawer is opened by any path
   // (header button, "added to cart" toast, bundle complete, …).
@@ -597,7 +607,16 @@ function openModal(id) {
 }
 function closeAllModals() {
   $$('.modal, .cart-drawer').forEach(m => m.hidden = true);
+  const wasLocked = document.body.classList.contains('lock');
+  document.documentElement.classList.remove('lock');
   document.body.classList.remove('lock');
+  if (wasLocked) {
+    document.documentElement.style.top = '';
+    document.body.style.top = '';
+    // Restore scroll position synchronously (jumping back to the place
+    // the user was before they opened the modal).
+    window.scrollTo(0, __savedScrollY);
+  }
   // Clean up bundle-picking state — if user closes catalog mid-pick, the
   // is-bundle-picking class would otherwise persist and hide every "Pridaj
   // do kosika" CTA the next time catalog is opened normally.

@@ -78,14 +78,34 @@ h1, h2, h3, h4 {
 
 [hidden] { display: none !important; }
 
+html.lock,
 body.lock {
+  /* Fully lock background scrolling while a modal is open.
+     overflow:hidden alone leaks on iOS Safari (scroll chains to the
+     document under the modal); position:fixed + saved scrollY (set
+     in JS via inline `top: -Npx`) traps it completely. The modal
+     panel itself is the only scrollable container. */
+  position: fixed;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
   overflow: hidden;
-  /* Prevent iOS Safari from chaining scroll up from the modal panel
-     to the document when the panel reaches its top/bottom. Combined
-     with overflow-y:auto + overscroll-behavior:contain on .modal__panel
-     this fully traps the scroll inside the modal. */
   overscroll-behavior: none;
   touch-action: none;
+}
+/* When body is fixed, the modal backdrop must also block touch scroll
+   so that swiping the dimmed area outside the panel can't bleed through
+   either. The panel itself opts back into `touch-action: pan-y` so its
+   own content remains scrollable. */
+body.lock .modal,
+body.lock .modal__backdrop {
+  touch-action: none;
+  overscroll-behavior: none;
+}
+body.lock .modal__panel {
+  touch-action: pan-y;
+  overscroll-behavior: contain;
 }
 
 /* --- LOGO --- */
@@ -8491,6 +8511,11 @@ body.has-promo-popup .proof-toast { display: none !important; }
      hide it so the section ends cleanly on a row of 3 followed by the CTA */
   .bestsellers__grid > .prod-card:last-child:nth-child(3n+1) {
     display: none;
+  }
+  /* User 2026-05-29: na mobile zobrazujeme len 3 rady (9 produktov)
+     namiesto 5 radov / 15 produktov. Desktop ostáva nezmenený. */
+  .bestsellers__grid > .prod-card:nth-child(n+10) {
+    display: none !important;
   }
   /* At 3-per-row each card is ~105px wide — slim down internals so a bottle + name + price fits */
   .prod-card__image { padding-bottom: 120%; }
