@@ -8706,6 +8706,16 @@ body.has-promo-popup .proof-toast { display: none !important; }
     width: clamp(200px, 62vw, 260px);
     height: clamp(470px, 67vh, 620px);
     padding: 0.6rem 0.75rem 0.55rem;
+    /* Slide is flex column — match-card sa pushne na bottom cez
+       margin-top: auto, takže panel Perfektná zhoda je vždy
+       v rovnakej pozícii od slide bottom bez ohľadu na to či
+       title/pill vyše 1 alebo 2 riadky. */
+    display: flex !important;
+    flex-direction: column;
+  }
+  /* Match-card pushed to slide bottom — uniformná pozícia. */
+  .carousel__slide .carousel__match {
+    margin-top: auto !important;
   }
   /* Side card peek väčší — užší offset + jasnejšie viditeľné side cards. */
   .carousel__slide.is-prev {
@@ -8728,32 +8738,11 @@ body.has-promo-popup .proof-toast { display: none !important; }
   .carousel__name {
     font-size: clamp(0.95rem, 3.2vw, 1.2rem);
     line-height: 1.15;
-    /* Title nech vždy zaberá 2-line space (50px) aby pozícia
-       Perfektná zhoda panela bola rovnaká aj pri 1-line aj 2-line
-       názvoch (FORBIDDEN CHERRIES vs IMAGINE THIS).
-       User 2026-05-29: nie všetky karty vyzerajú rovnako. */
-    height: 50px !important;
-    min-height: 50px !important;
-    display: flex !important;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 0 0.3rem;
-    overflow: hidden;
   }
   .carousel__inspired-quote {
     font-size: clamp(0.55rem, 1.7vw, 0.68rem);
     padding: clamp(0.22rem, 0.7vw, 0.32rem) clamp(0.45rem, 1.6vw, 0.7rem);
     line-height: 1.15;
-  }
-  /* Wrapper rezervuje height pre 2-line pill text aby všetky karty
-     mali rovnakú vertikálnu pozíciu Perfektná zhoda panelu. */
-  .carousel__inspired {
-    height: 46px !important;
-    min-height: 46px !important;
-    display: flex;
-    align-items: center;
-    justify-content: center;
   }
   .carousel__price-box {
     padding: clamp(0.35rem, 1vh, 0.5rem) clamp(0.55rem, 1.8vw, 0.75rem);
