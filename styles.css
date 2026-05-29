@@ -10060,8 +10060,8 @@ input, select, textarea, label {
     height: auto !important;
     min-height: auto !important;
     max-height: none !important;
-    margin: 0.3rem 0.2rem 1.25rem !important;
-    padding: 0.45rem 0.6rem 0.75rem !important;
+    margin: 0.3rem 0.2rem 0.5rem !important;
+    padding: 0.4rem 0.55rem 0.55rem !important;
     gap: 0.25rem !important;
     background: linear-gradient(180deg, rgba(15,40,25,0.85), rgba(8,22,15,0.95)) !important;
     border: 2px solid rgba(74,222,128,0.55) !important;
