@@ -8763,7 +8763,10 @@ body.has-promo-popup .proof-toast { display: none !important; }
        karty sa nemenia (flex % + aspect-ratio 1/1 zachované). */
     height: clamp(450px, 62vh, 540px);
     overflow: visible;
-    touch-action: pan-y pinch-zoom;
+    /* pan-y so vertical swipes still scroll the page; horizontal
+       swipes are handled by the JS touchmove handler which calls
+       preventDefault() as soon as the gesture is x-dominant. */
+    touch-action: pan-y;
   }
   /* Slide proporcionálne zmenšená (~0.82) — všetky vnútorné sekcie
      používajú flex %, aspect-ratio 1/1 (match-card) alebo min-height

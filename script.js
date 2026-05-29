@@ -1761,31 +1761,64 @@ function setupEvents() {
   carousel.addEventListener('mouseenter', stopCarousel);
   carousel.addEventListener('mouseleave', startCarousel);
 
-  // Touch swipe — horizontal drag on the stage moves between slides
+  // Touch swipe — horizontal drag on the stage moves between slides.
+  // We deliberately lock the gesture to *horizontal* as soon as we see
+  // x-dominant motion: touchmove with passive:false + preventDefault()
+  // stops the browser from also pan-y'ing the page (which on iOS
+  // looked like the whole page jumping up while swiping, plus a
+  // rubber-band bounce when the user was already at the top).
   const stage = $('#carouselStage');
   if (stage) {
     let startX = 0, startY = 0, dragging = false;
+    let lockedAxis = null; // null | 'x' | 'y'
+    const AXIS_LOCK_PX = 6;
     stage.addEventListener('touchstart', (e) => {
       if (!e.touches || e.touches.length === 0) return;
       startX = e.touches[0].clientX;
       startY = e.touches[0].clientY;
       dragging = true;
+      lockedAxis = null;
       stopCarousel();
     }, { passive: true });
+    // Needs passive:false so preventDefault() actually blocks the
+    // browser's scroll once we've decided the gesture is horizontal.
+    stage.addEventListener('touchmove', (e) => {
+      if (!dragging || !e.touches || e.touches.length === 0) return;
+      const dx = e.touches[0].clientX - startX;
+      const dy = e.touches[0].clientY - startY;
+      if (lockedAxis === null) {
+        const ax = Math.abs(dx), ay = Math.abs(dy);
+        // Decide axis once we've moved at least a few px. Horizontal
+        // wins when x dominates clearly — otherwise let the browser
+        // pan-y normally.
+        if (ax > AXIS_LOCK_PX || ay > AXIS_LOCK_PX) {
+          lockedAxis = ax > ay ? 'x' : 'y';
+        }
+      }
+      if (lockedAxis === 'x') {
+        // Cancel the browser's would-be vertical scroll so the page
+        // doesn't jump while the user is swiping the carousel.
+        e.preventDefault();
+      }
+    }, { passive: false });
     stage.addEventListener('touchend', (e) => {
       if (!dragging) return;
       dragging = false;
+      const wasHorizontal = lockedAxis === 'x';
+      lockedAxis = null;
       const t = e.changedTouches && e.changedTouches[0];
       if (!t) { startCarousel(); return; }
       const dx = t.clientX - startX;
       const dy = t.clientY - startY;
-      // Only treat as a swipe if predominantly horizontal and far enough
-      if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.2) {
+      // Only treat as a swipe if predominantly horizontal and far enough.
+      // wasHorizontal short-circuits the y-ratio check for gestures we
+      // already locked.
+      if (Math.abs(dx) > 40 && (wasHorizontal || Math.abs(dx) > Math.abs(dy) * 1.2)) {
         goToSlide(state.carouselIdx + (dx < 0 ? 1 : -1));
       }
       startCarousel();
     });
-    stage.addEventListener('touchcancel', () => { dragging = false; startCarousel(); });
+    stage.addEventListener('touchcancel', () => { dragging = false; lockedAxis = null; startCarousel(); });
   }
 
   // checkout button
