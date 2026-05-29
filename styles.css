@@ -9995,11 +9995,11 @@ input, select, textarea, label {
      pravidelnými marginmi a vizuálne uzavretá zo všetkých strán.
      User 2026-05-28: ma to byt ukoncene ako okno v okne. */
   .carousel__slide .carousel__match {
-    /* Viac dýchania pod cenou INSIDE panela + väčší gap k slide
-       bottom. User 2026-05-28: ma to koncit kusok od spodu karusela. */
-    padding: 0.85rem 1rem 1.8rem !important;
-    gap: 0.55rem !important;
-    margin: 0.8rem 0.4rem 2rem !important;
+    /* Kompaktný panel - menej empty space pod cenou, panel "zatvorí"
+       sa hneď za obsahom. User 2026-05-29. */
+    padding: 0.75rem 0.95rem 0.9rem !important;
+    gap: 0.5rem !important;
+    margin: 0.7rem 0.4rem 1.8rem !important;
     background: linear-gradient(180deg, rgba(15,40,25,0.85), rgba(8,22,15,0.95)) !important;
     border: 2px solid rgba(74,222,128,0.55) !important;
     border-radius: 14px !important;
@@ -10007,11 +10007,10 @@ input, select, textarea, label {
       0 0 0 1px rgba(74,222,128,0.12) inset,
       0 0 18px rgba(74,222,128,0.18),
       0 6px 16px rgba(0,0,0,0.35) !important;
-    /* Vyššia fixed height aby obsah (thumb + 2-line brand + cena +
-       breathing) bezpečne fitol vnútri bez orezania textu. */
-    height: clamp(265px, 36vh, 300px) !important;
-    min-height: clamp(265px, 36vh, 300px) !important;
-    max-height: clamp(265px, 36vh, 300px) !important;
+    /* Kompaktná fixed height - presne na content + breathing. */
+    height: clamp(235px, 31vh, 270px) !important;
+    min-height: clamp(235px, 31vh, 270px) !important;
+    max-height: clamp(235px, 31vh, 270px) !important;
     box-sizing: border-box;
     display: flex !important;
     flex-direction: column;
