@@ -10185,39 +10185,37 @@ input, select, textarea, label {
     width: 100%;
   }
   .carousel__slide .carousel__match .match-card__title {
-    font-size: 0.7rem;
+    /* Single-line title starting with the checkmark icon. Font scales
+       with viewport so "Perfektná zhoda vôňových nôt" fits on one
+       line from iPhone SE (320) up to Pro Max (430+) without wrapping
+       or clipping. !important required because an earlier .carousel__match
+       rule at the same specificity sets 0.62rem and was winning. */
+    font-size: clamp(0.38rem, 2.1vw, 0.62rem) !important;
     font-weight: 900 !important;
-    letter-spacing: 0.005em;
+    letter-spacing: -0.01em;
     padding-bottom: 0.25rem;
     margin-bottom: 0.25rem;
-    gap: 0.3rem;
+    gap: 0.2rem;
     flex: 0 0 auto !important;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+    min-width: 0;
   }
   .carousel__slide .carousel__match .match-card__title svg {
-    width: 12px;
-    height: 12px;
+    width: 9px;
+    height: 9px;
+    flex-shrink: 0;
   }
-  .carousel__slide .carousel__match .match-card__title-text {
-    font-size: 0.7rem;
+  .carousel__slide .carousel__match .match-card__title-text,
+  .carousel__slide .carousel__match .match-card__title-long {
+    font-size: inherit !important;
     font-weight: 900 !important;
+    white-space: nowrap !important;
+    line-height: 1.15;
   }
   /* Long verzia */
   .carousel__slide .carousel__match .match-card__title-short { display: none; }
   .carousel__slide .carousel__match .match-card__title-long { display: inline; }
-  /* Allow the long title to wrap to 2 lines on narrower phones so the
-     final letter is never cropped (slide width shrank to 51vw which
-     was too tight for "Perfektná zhoda vôňových nôt" on one line). */
-  .carousel__slide .carousel__match .match-card__title {
-    flex-wrap: wrap;
-    row-gap: 0;
-  }
-  .carousel__slide .carousel__match .match-card__title-text,
-  .carousel__slide .carousel__match .match-card__title-long {
-    white-space: normal !important;
-    line-height: 1.15;
-    word-break: normal;
-    overflow-wrap: break-word;
-  }
   /* Horizontálny layout s maximalnym thumb (60% karty) — fotka
      originalu co najvacsia, brand + cena vedľa. User 2026-05-28:
      nesmie nič pretiecť cez pole. */
