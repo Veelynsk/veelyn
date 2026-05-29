@@ -10032,7 +10032,9 @@ input, select, textarea, label {
     overflow: hidden !important;
   }
   .carousel__slide .carousel__match .match-card__title {
-    font-size: 0.78rem;
+    font-size: 0.85rem;
+    font-weight: 900 !important;
+    letter-spacing: 0.005em;
     padding-bottom: 0.4rem;
     margin-bottom: 0.4rem;
     gap: 0.35rem;
@@ -10042,7 +10044,8 @@ input, select, textarea, label {
     height: 14px;
   }
   .carousel__slide .carousel__match .match-card__title-text {
-    font-size: 0.78rem;
+    font-size: 0.85rem;
+    font-weight: 900 !important;
   }
   /* Long verzia */
   .carousel__slide .carousel__match .match-card__title-short { display: none; }
