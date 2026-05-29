@@ -8741,14 +8741,11 @@ body.has-promo-popup .proof-toast { display: none !important; }
     font-size: clamp(0.55rem, 1.7vw, 0.68rem);
     padding: clamp(0.22rem, 0.7vw, 0.32rem) clamp(0.45rem, 1.6vw, 0.7rem);
     line-height: 1.15;
-    /* Reserve 2 lines pre pill text — niektoré majú dlhšie texty */
-    min-height: calc(0.68rem * 1.15 * 2 + 0.65rem);
-    display: inline-flex;
-    align-items: center;
   }
-  /* Wrapper pill div aby min-height fungoval */
+  /* Wrapper rezervuje height pre 2-line pill text aby všetky karty
+     mali rovnakú vertikálnu pozíciu Perfektná zhoda panelu. */
   .carousel__inspired {
-    min-height: calc(0.68rem * 1.15 * 2 + 0.85rem);
+    min-height: calc(0.68rem * 1.15 * 2 + 1.2rem);
     display: flex;
     align-items: center;
     justify-content: center;
