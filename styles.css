@@ -8713,10 +8713,13 @@ body.has-promo-popup .proof-toast { display: none !important; }
   .carousel__slide {
     width: clamp(200px, 62vw, 260px);
     height: clamp(530px, 73vh, 660px);
-    padding: 0.6rem 0.75rem 0.55rem;
+    padding: 0.6rem 0.75rem 0.5rem;
     display: flex !important;
     flex-direction: column;
     box-sizing: border-box;
+    /* overflow visible aby border match-card panela bol viditeľný
+       aj keď siaha na okraj. */
+    overflow: visible !important;
   }
   .carousel__slide.is-prev {
     transform: translate(calc(-50% - 48vw), -50%) scale(0.74);
@@ -10050,17 +10053,24 @@ input, select, textarea, label {
      pravidelnými marginmi a vizuálne uzavretá zo všetkých strán.
      User 2026-05-28: ma to byt ukoncene ako okno v okne. */
   /* SECTION C — Perfektná zhoda 35% slide. Layout identický
-     na všetkých slidoch. */
+     na všetkých slidoch. Border zo všetkých 4 strán + odsadenie. */
   .carousel__slide .carousel__match {
-    flex: 0 0 35% !important;
+    flex: 0 0 32% !important;
     height: auto !important;
     min-height: auto !important;
     max-height: none !important;
-    margin: 0.4rem 0.2rem 0.4rem !important;
-    padding: 0.55rem 0.7rem 0.65rem !important;
-    gap: 0.35rem !important;
+    /* Margin-bottom 1rem aby border dole nebol orezaný + bol
+       odsadený od slide bottom. */
+    margin: 0.4rem 0.25rem 1rem !important;
+    /* Padding-bottom väčší aby cena nebola prilepená k borderu. */
+    padding: 0.6rem 0.7rem 0.95rem !important;
+    gap: 0.3rem !important;
     background: linear-gradient(180deg, rgba(15,40,25,0.85), rgba(8,22,15,0.95)) !important;
-    border: 2px solid rgba(74,222,128,0.55) !important;
+    /* Border explicitne na všetky 4 strany. */
+    border-top: 2px solid rgba(74,222,128,0.55) !important;
+    border-right: 2px solid rgba(74,222,128,0.55) !important;
+    border-bottom: 2px solid rgba(74,222,128,0.55) !important;
+    border-left: 2px solid rgba(74,222,128,0.55) !important;
     border-radius: 14px !important;
     box-shadow:
       0 0 0 1px rgba(74,222,128,0.12) inset,
@@ -10069,7 +10079,7 @@ input, select, textarea, label {
     box-sizing: border-box;
     display: flex !important;
     flex-direction: column;
-    overflow: hidden !important;
+    overflow: visible !important;
   }
   /* Match header (Perfektná zhoda title) — fixed compact */
   .carousel__slide .carousel__match .match-card__title {
