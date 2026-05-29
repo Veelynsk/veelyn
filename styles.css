@@ -8697,27 +8697,27 @@ body.has-promo-popup .proof-toast { display: none !important; }
      heights are clamp(min, vh-based, max) so taller phones get more
      room and shorter phones don't crop the Perfektná zhoda block.
      User 2026-05-25: optimalizuj na vsetky typy mobilov. */
+  /* ============================================================
+     MOBILE CAROUSEL — Pevné proporcie podľa špecifikácie
+     User 2026-05-29:
+     Section A (bottle + name + inspired): 45%
+     Section B (price box):                 20%
+     Section C (Perfektná zhoda):           35%
+     Layout identický na všetkých slidoch.
+     ============================================================ */
   .carousel__stage {
-    height: clamp(490px, 70vh, 640px);
+    height: clamp(550px, 76vh, 680px);
     overflow: visible;
     touch-action: pan-y pinch-zoom;
   }
   .carousel__slide {
     width: clamp(200px, 62vw, 260px);
-    height: clamp(470px, 67vh, 620px);
+    height: clamp(530px, 73vh, 660px);
     padding: 0.6rem 0.75rem 0.55rem;
-    /* Slide is flex column — match-card sa pushne na bottom cez
-       margin-top: auto, takže panel Perfektná zhoda je vždy
-       v rovnakej pozícii od slide bottom bez ohľadu na to či
-       title/pill vyše 1 alebo 2 riadky. */
     display: flex !important;
     flex-direction: column;
+    box-sizing: border-box;
   }
-  /* Match-card pushed to slide bottom — uniformná pozícia. */
-  .carousel__slide .carousel__match {
-    margin-top: auto !important;
-  }
-  /* Side card peek väčší — užší offset + jasnejšie viditeľné side cards. */
   .carousel__slide.is-prev {
     transform: translate(calc(-50% - 48vw), -50%) scale(0.74);
     opacity: 0.55;
@@ -8730,42 +8730,64 @@ body.has-promo-popup .proof-toast { display: none !important; }
   }
   .carousel__slide.is-out-left  { transform: translate(calc(-50% - 100vw), -50%) scale(0.6); }
   .carousel__slide.is-out-right { transform: translate(calc(-50% + 100vw), -50%) scale(0.6); }
-  /* Bottle photo malá aby všetko vrátane match-card + CTAs fitlo. */
+
+  /* SECTION A (~45%): bottles + name + inspired
+     Bottle vyplní ~65% sekcie, name + pill cca 35%. */
   .carousel__bottles {
-    height: clamp(85px, 12vh, 115px);
-    margin-bottom: 0.3rem;
+    flex: 0 0 28%;
+    height: auto;
+    width: 100%;
+    margin: 0 0 0.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+  }
+  .carousel__bottles .bottle-veelyn {
+    height: 100%;
+    width: auto;
+    max-width: 100%;
+    object-fit: contain;
   }
   .carousel__name {
+    flex: 0 0 8%;
     font-size: clamp(0.95rem, 3.2vw, 1.2rem);
     line-height: 1.15;
-    /* Reserve space pre 2 riadky aby short names (HARD CASH) aj
-       long names (FORBIDDEN CHERRIES, MOULIN ROUGE) zaberali rovnaký
-       priestor → layout je identický. User 2026-05-29. */
-    min-height: 2.6em;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
     margin: 0;
     padding: 0.2rem 0.3rem;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+  .carousel__slide .carousel__inspired {
+    flex: 0 0 9%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0.15rem 0.2rem;
+    box-sizing: border-box;
+    overflow: hidden;
   }
   .carousel__inspired-quote {
     font-size: clamp(0.55rem, 1.7vw, 0.68rem);
     padding: clamp(0.22rem, 0.7vw, 0.32rem) clamp(0.45rem, 1.6vw, 0.7rem);
     line-height: 1.15;
+    text-align: center;
   }
-  /* Wrapper rezervuje height pre 2-line pill bez rozbíjania textu
-     samotného pillu. Pill stays inline-block normally inside flex. */
-  .carousel__slide .carousel__inspired {
-    min-height: calc(0.68rem * 1.15 * 2 + 0.85rem);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0.25rem 0;
-  }
+
+  /* SECTION B (~20%): price box — fixná výška */
   .carousel__price-box {
+    flex: 0 0 20%;
     padding: clamp(0.35rem, 1vh, 0.5rem) clamp(0.55rem, 1.8vw, 0.75rem);
-    gap: 0.25rem;
+    gap: 0.2rem;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
   .carousel__price-row .label { font-size: clamp(0.5rem, 1.5vw, 0.6rem); }
   .carousel__price-row--orig .price { font-size: clamp(0.85rem, 2.6vw, 1rem); }
@@ -10027,12 +10049,16 @@ input, select, textarea, label {
   /* "Window in window" - jasná panelová karta vnútri slide so
      pravidelnými marginmi a vizuálne uzavretá zo všetkých strán.
      User 2026-05-28: ma to byt ukoncene ako okno v okne. */
+  /* SECTION C — Perfektná zhoda 35% slide. Layout identický
+     na všetkých slidoch. */
   .carousel__slide .carousel__match {
-    /* Kompaktný panel - menej empty space pod cenou, panel "zatvorí"
-       sa hneď za obsahom. User 2026-05-29. */
-    padding: 0.75rem 0.95rem 0.9rem !important;
-    gap: 0.5rem !important;
-    margin: 0.7rem 0.4rem 1.8rem !important;
+    flex: 0 0 35% !important;
+    height: auto !important;
+    min-height: auto !important;
+    max-height: none !important;
+    margin: 0.4rem 0.2rem 0.4rem !important;
+    padding: 0.55rem 0.7rem 0.65rem !important;
+    gap: 0.35rem !important;
     background: linear-gradient(180deg, rgba(15,40,25,0.85), rgba(8,22,15,0.95)) !important;
     border: 2px solid rgba(74,222,128,0.55) !important;
     border-radius: 14px !important;
@@ -10040,15 +10066,52 @@ input, select, textarea, label {
       0 0 0 1px rgba(74,222,128,0.12) inset,
       0 0 18px rgba(74,222,128,0.18),
       0 6px 16px rgba(0,0,0,0.35) !important;
-    /* Kompaktná fixed height - presne na content + breathing. */
-    height: clamp(235px, 31vh, 270px) !important;
-    min-height: clamp(235px, 31vh, 270px) !important;
-    max-height: clamp(235px, 31vh, 270px) !important;
     box-sizing: border-box;
     display: flex !important;
     flex-direction: column;
-    justify-content: space-between;
     overflow: hidden !important;
+  }
+  /* Match header (Perfektná zhoda title) — fixed compact */
+  .carousel__slide .carousel__match .match-card__title {
+    flex: 0 0 auto !important;
+  }
+  /* Match content row — bigger thumb + body below, vertical */
+  .carousel__slide .carousel__match .match-card__row {
+    flex: 1 1 auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    justify-content: center !important;
+    gap: 0.3rem !important;
+    min-height: 0 !important;
+    overflow: hidden !important;
+  }
+  .carousel__slide .carousel__match .match-card__thumb {
+    flex: 0 0 60% !important;
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: auto !important;
+    min-height: 0 !important;
+    border-radius: 10px !important;
+    box-sizing: border-box;
+  }
+  .carousel__slide .carousel__match .match-card__thumb img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+    padding: 6px !important;
+  }
+  .carousel__slide .carousel__match .match-card__body {
+    flex: 0 0 auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    gap: 0.15rem !important;
+    overflow: hidden;
+    min-width: 0;
+    width: 100%;
   }
   .carousel__slide .carousel__match .match-card__title {
     font-size: 0.85rem;
