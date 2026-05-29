@@ -8706,17 +8706,18 @@ body.has-promo-popup .proof-toast { display: none !important; }
      Layout identický na všetkých slidoch.
      ============================================================ */
   .carousel__stage {
-    height: clamp(460px, 65vh, 580px);
+    height: clamp(550px, 75vh, 660px);
     overflow: visible;
     touch-action: pan-y pinch-zoom;
   }
-  /* Slide má FIXNÚ výšku + overflow hidden — žiadne pretekanie.
-     User 2026-05-29: krita nesmie prekrývať CTAs. */
+  /* Slide vyššia per user spec — viac priestoru pre všetok obsah
+     vrátane ceny originálu 380,00 €. CTAs ostávajú viditeľné lebo
+     hero CTAs sú v hero__ctas a stage prispôsobená. */
   .carousel__slide {
     width: clamp(200px, 62vw, 260px);
-    height: clamp(450px, 63vh, 560px) !important;
-    max-height: clamp(450px, 63vh, 560px) !important;
-    padding: 0.5rem 0.7rem 0.55rem;
+    height: clamp(530px, 72vh, 640px) !important;
+    max-height: clamp(530px, 72vh, 640px) !important;
+    padding: 0.55rem 0.7rem 0.6rem;
     display: flex !important;
     flex-direction: column;
     box-sizing: border-box;
@@ -10056,12 +10057,13 @@ input, select, textarea, label {
   /* SECTION C — Perfektná zhoda. Border 4 strany + 20px gap pred
      slide bottom. */
   .carousel__slide .carousel__match {
-    flex: 0 0 30% !important;
+    flex: 0 0 35% !important;
     height: auto !important;
     min-height: auto !important;
     max-height: none !important;
-    margin: 0.3rem 0.2rem 0.45rem !important;
-    padding: 0.4rem 0.55rem 0.55rem !important;
+    margin: 0.3rem 0.2rem 0.6rem !important;
+    /* Padding-bottom 20px aby cena nebola prilepená k borderu */
+    padding: 0.45rem 0.6rem 1.25rem !important;
     gap: 0.25rem !important;
     background: linear-gradient(180deg, rgba(15,40,25,0.85), rgba(8,22,15,0.95)) !important;
     border: 2px solid rgba(74,222,128,0.55) !important;
