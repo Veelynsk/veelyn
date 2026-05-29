@@ -8710,14 +8710,17 @@ body.has-promo-popup .proof-toast { display: none !important; }
     overflow: visible;
     touch-action: pan-y pinch-zoom;
   }
+  /* Slide má FIXNÚ výšku + overflow hidden — žiadne pretekanie.
+     User 2026-05-29: krita nesmie prekrývať CTAs. */
   .carousel__slide {
     width: clamp(200px, 62vw, 260px);
-    height: clamp(450px, 63vh, 560px);
-    padding: 0.5rem 0.75rem 0.4rem;
+    height: clamp(450px, 63vh, 560px) !important;
+    max-height: clamp(450px, 63vh, 560px) !important;
+    padding: 0.5rem 0.7rem 0.55rem;
     display: flex !important;
     flex-direction: column;
     box-sizing: border-box;
-    overflow: visible !important;
+    overflow: hidden !important;
   }
   .carousel__slide.is-prev {
     transform: translate(calc(-50% - 48vw), -50%) scale(0.74);
@@ -10050,34 +10053,27 @@ input, select, textarea, label {
   /* "Window in window" - jasná panelová karta vnútri slide so
      pravidelnými marginmi a vizuálne uzavretá zo všetkých strán.
      User 2026-05-28: ma to byt ukoncene ako okno v okne. */
-  /* SECTION C — Perfektná zhoda 35% slide. Layout identický
-     na všetkých slidoch. Border zo všetkých 4 strán + odsadenie. */
+  /* SECTION C — Perfektná zhoda. Border 4 strany + 20px gap pred
+     slide bottom. */
   .carousel__slide .carousel__match {
     flex: 0 0 32% !important;
     height: auto !important;
     min-height: auto !important;
     max-height: none !important;
-    /* Margin-bottom 1rem aby border dole nebol orezaný + bol
-       odsadený od slide bottom. */
-    margin: 0.4rem 0.25rem 1rem !important;
-    /* Padding-bottom väčší aby cena nebola prilepená k borderu. */
-    padding: 0.6rem 0.7rem 0.95rem !important;
-    gap: 0.3rem !important;
+    margin: 0.3rem 0.2rem 1.25rem !important;
+    padding: 0.45rem 0.6rem 0.75rem !important;
+    gap: 0.25rem !important;
     background: linear-gradient(180deg, rgba(15,40,25,0.85), rgba(8,22,15,0.95)) !important;
-    /* Border explicitne na všetky 4 strany. */
-    border-top: 2px solid rgba(74,222,128,0.55) !important;
-    border-right: 2px solid rgba(74,222,128,0.55) !important;
-    border-bottom: 2px solid rgba(74,222,128,0.55) !important;
-    border-left: 2px solid rgba(74,222,128,0.55) !important;
-    border-radius: 14px !important;
+    border: 2px solid rgba(74,222,128,0.55) !important;
+    border-radius: 12px !important;
     box-shadow:
       0 0 0 1px rgba(74,222,128,0.12) inset,
-      0 0 18px rgba(74,222,128,0.18),
-      0 6px 16px rgba(0,0,0,0.35) !important;
+      0 0 14px rgba(74,222,128,0.18),
+      0 4px 12px rgba(0,0,0,0.3) !important;
     box-sizing: border-box;
     display: flex !important;
     flex-direction: column;
-    overflow: visible !important;
+    overflow: hidden !important;
   }
   /* Match header (Perfektná zhoda title) — fixed compact */
   .carousel__slide .carousel__match .match-card__title {
@@ -10122,19 +10118,20 @@ input, select, textarea, label {
     width: 100%;
   }
   .carousel__slide .carousel__match .match-card__title {
-    font-size: 0.85rem;
+    font-size: 0.7rem;
     font-weight: 900 !important;
     letter-spacing: 0.005em;
-    padding-bottom: 0.4rem;
-    margin-bottom: 0.4rem;
-    gap: 0.35rem;
+    padding-bottom: 0.25rem;
+    margin-bottom: 0.25rem;
+    gap: 0.3rem;
+    flex: 0 0 auto !important;
   }
   .carousel__slide .carousel__match .match-card__title svg {
-    width: 14px;
-    height: 14px;
+    width: 12px;
+    height: 12px;
   }
   .carousel__slide .carousel__match .match-card__title-text {
-    font-size: 0.85rem;
+    font-size: 0.7rem;
     font-weight: 900 !important;
   }
   /* Long verzia */
@@ -10181,8 +10178,8 @@ input, select, textarea, label {
     width: 100%;
   }
   .carousel__slide .carousel__match .match-card__brand {
-    font-size: 0.82rem;
-    line-height: 1.25;
+    font-size: 0.7rem;
+    line-height: 1.2;
     font-weight: 800;
     color: #fff;
     display: -webkit-box !important;
@@ -10195,10 +10192,9 @@ input, select, textarea, label {
     text-align: center;
     width: 100%;
     max-width: 100%;
-    padding: 0 0.15rem;
-    /* Reserve 2 lines vždy — short brands aj long brands rovnaký space */
-    min-height: calc(0.82rem * 1.25 * 2);
-    max-height: calc(0.82rem * 1.25 * 2);
+    padding: 0 0.1rem;
+    min-height: calc(0.7rem * 1.2 * 2);
+    max-height: calc(0.7rem * 1.2 * 2);
   }
   .carousel__slide .carousel__match .match-card__brand span {
     color: #fff;
@@ -10208,9 +10204,10 @@ input, select, textarea, label {
     justify-content: center !important;
     width: 100%;
     text-align: center;
+    margin: 0 !important;
   }
   .carousel__slide .carousel__match .match-card__price strong {
-    font-size: 1.05rem;
+    font-size: 0.85rem;
     font-weight: 900;
   }
   /* Zobraziť produkt link skrytý na mobile — nezmestí sa, panel
