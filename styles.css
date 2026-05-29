@@ -8706,19 +8706,17 @@ body.has-promo-popup .proof-toast { display: none !important; }
      Layout identický na všetkých slidoch.
      ============================================================ */
   .carousel__stage {
-    height: clamp(550px, 76vh, 680px);
+    height: clamp(460px, 65vh, 580px);
     overflow: visible;
     touch-action: pan-y pinch-zoom;
   }
   .carousel__slide {
     width: clamp(200px, 62vw, 260px);
-    height: clamp(530px, 73vh, 660px);
-    padding: 0.6rem 0.75rem 0.5rem;
+    height: clamp(450px, 63vh, 560px);
+    padding: 0.5rem 0.75rem 0.4rem;
     display: flex !important;
     flex-direction: column;
     box-sizing: border-box;
-    /* overflow visible aby border match-card panela bol viditeľný
-       aj keď siaha na okraj. */
     overflow: visible !important;
   }
   .carousel__slide.is-prev {
