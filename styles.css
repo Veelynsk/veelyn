@@ -8706,17 +8706,20 @@ body.has-promo-popup .proof-toast { display: none !important; }
      Layout identický na všetkých slidoch.
      ============================================================ */
   .carousel__stage {
-    height: clamp(550px, 75vh, 660px);
+    /* User 2026-05-29: proporcionálne zmenšené ~0.82 aby sa hero CTA
+       tlačidlá zmestili do first view bez scrollovania. Pomery vnútri
+       karty sa nemenia (flex % + aspect-ratio 1/1 zachované). */
+    height: clamp(450px, 62vh, 540px);
     overflow: visible;
     touch-action: pan-y pinch-zoom;
   }
-  /* Slide vyššia per user spec — viac priestoru pre všetok obsah
-     vrátane ceny originálu 380,00 €. CTAs ostávajú viditeľné lebo
-     hero CTAs sú v hero__ctas a stage prispôsobená. */
+  /* Slide proporcionálne zmenšená (~0.82) — všetky vnútorné sekcie
+     používajú flex %, aspect-ratio 1/1 (match-card) alebo min-height
+     em, takže pomery zostávajú identické. */
   .carousel__slide {
-    width: clamp(200px, 62vw, 260px);
-    height: clamp(530px, 72vh, 640px) !important;
-    max-height: clamp(530px, 72vh, 640px) !important;
+    width: clamp(164px, 51vw, 213px);
+    height: clamp(434px, 59vh, 525px) !important;
+    max-height: clamp(434px, 59vh, 525px) !important;
     padding: 0.55rem 0.7rem 0.6rem;
     display: flex !important;
     flex-direction: column;
