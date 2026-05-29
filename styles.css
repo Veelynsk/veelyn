@@ -8738,11 +8738,30 @@ body.has-promo-popup .proof-toast { display: none !important; }
   .carousel__name {
     font-size: clamp(0.95rem, 3.2vw, 1.2rem);
     line-height: 1.15;
+    /* Reserve space pre 2 riadky aby short names (HARD CASH) aj
+       long names (FORBIDDEN CHERRIES, MOULIN ROUGE) zaberali rovnaký
+       priestor → layout je identický. User 2026-05-29. */
+    min-height: 2.6em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin: 0;
+    padding: 0.2rem 0.3rem;
   }
   .carousel__inspired-quote {
     font-size: clamp(0.55rem, 1.7vw, 0.68rem);
     padding: clamp(0.22rem, 0.7vw, 0.32rem) clamp(0.45rem, 1.6vw, 0.7rem);
     line-height: 1.15;
+  }
+  /* Wrapper rezervuje height pre 2-line pill bez rozbíjania textu
+     samotného pillu. Pill stays inline-block normally inside flex. */
+  .carousel__slide .carousel__inspired {
+    min-height: calc(0.68rem * 1.15 * 2 + 0.85rem);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0.25rem 0;
   }
   .carousel__price-box {
     padding: clamp(0.35rem, 1vh, 0.5rem) clamp(0.55rem, 1.8vw, 0.75rem);
