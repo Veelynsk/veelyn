@@ -4464,12 +4464,14 @@ body.has-promo-popup .proof-toast { display: none !important; }
   color: var(--accent-2);
   flex-shrink: 0;
 }
-/* Subtle close button without the white-circle hit pad — just the X glyph */
+/* Subtle close button without the white-circle hit pad — just the X glyph.
+   Hit area enlarged to 44×44 (Apple HIG min tap target) so the X feels
+   reactive on touch — previously taps that grazed the SVG could miss. */
 .cart-drawer__close {
-  width: 36px;
-  height: 36px;
-  min-width: 36px;
-  min-height: 36px;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -4480,6 +4482,13 @@ body.has-promo-popup .proof-toast { display: none !important; }
   cursor: pointer;
   transition: color 0.15s ease, background 0.15s ease;
   -webkit-tap-highlight-color: transparent;
+}
+/* Make the inner SVG transparent to pointer events so the button itself
+   always receives the click (avoids "tap on SVG path" missing the
+   data-close handler). */
+.cart-drawer__close svg,
+.cart-drawer__close svg * {
+  pointer-events: none;
 }
 .cart-drawer__close:hover,
 .cart-drawer__close:focus-visible {

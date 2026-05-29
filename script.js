@@ -1735,9 +1735,12 @@ function setupEvents() {
     }
   });
 
-  // close
+  // close — use .closest() so taps that land on a child element (e.g.
+  // the <svg> or <path> inside the X button) still resolve to the
+  // button itself. Plain .matches() failed when the user tapped the
+  // exact pixel of the SVG path → the cart's X felt unresponsive.
   document.addEventListener('click', (e) => {
-    if (e.target.matches('[data-close], .modal__backdrop, .cart-drawer .modal__backdrop')) {
+    if (e.target.closest('[data-close], .modal__backdrop')) {
       closeAllModals();
     }
   });
