@@ -8725,10 +8725,33 @@ body.has-promo-popup .proof-toast { display: none !important; }
     height: clamp(85px, 12vh, 115px);
     margin-bottom: 0.3rem;
   }
-  .carousel__name { font-size: clamp(0.95rem, 3.2vw, 1.2rem); }
+  .carousel__name {
+    font-size: clamp(0.95rem, 3.2vw, 1.2rem);
+    line-height: 1.1;
+    /* Reserve 2 lines vždy aby short names (IMAGINE THIS) a long names
+       (FORBIDDEN CHERRIES / MOULIN ROUGE) zaberali rovnakú výšku.
+       User 2026-05-29: nie vsetky vyzeraju rovnako. */
+    min-height: calc(1.2rem * 1.1 * 2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
   .carousel__inspired-quote {
     font-size: clamp(0.55rem, 1.7vw, 0.68rem);
     padding: clamp(0.22rem, 0.7vw, 0.32rem) clamp(0.45rem, 1.6vw, 0.7rem);
+    line-height: 1.15;
+    /* Reserve 2 lines pre pill text — niektoré majú dlhšie texty */
+    min-height: calc(0.68rem * 1.15 * 2 + 0.65rem);
+    display: inline-flex;
+    align-items: center;
+  }
+  /* Wrapper pill div aby min-height fungoval */
+  .carousel__inspired {
+    min-height: calc(0.68rem * 1.15 * 2 + 0.85rem);
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   .carousel__price-box {
     padding: clamp(0.35rem, 1vh, 0.5rem) clamp(0.55rem, 1.8vw, 0.75rem);
