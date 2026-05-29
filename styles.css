@@ -8727,15 +8727,19 @@ body.has-promo-popup .proof-toast { display: none !important; }
   }
   .carousel__name {
     font-size: clamp(0.95rem, 3.2vw, 1.2rem);
-    line-height: 1.1;
-    /* Reserve 2 lines vždy aby short names (IMAGINE THIS) a long names
-       (FORBIDDEN CHERRIES / MOULIN ROUGE) zaberali rovnakú výšku.
-       User 2026-05-29: nie vsetky vyzeraju rovnako. */
-    min-height: calc(1.2rem * 1.1 * 2);
-    display: flex;
+    line-height: 1.15;
+    /* Title nech vždy zaberá 2-line space (50px) aby pozícia
+       Perfektná zhoda panela bola rovnaká aj pri 1-line aj 2-line
+       názvoch (FORBIDDEN CHERRIES vs IMAGINE THIS).
+       User 2026-05-29: nie všetky karty vyzerajú rovnako. */
+    height: 50px !important;
+    min-height: 50px !important;
+    display: flex !important;
     align-items: center;
     justify-content: center;
     text-align: center;
+    padding: 0 0.3rem;
+    overflow: hidden;
   }
   .carousel__inspired-quote {
     font-size: clamp(0.55rem, 1.7vw, 0.68rem);
@@ -8745,7 +8749,8 @@ body.has-promo-popup .proof-toast { display: none !important; }
   /* Wrapper rezervuje height pre 2-line pill text aby všetky karty
      mali rovnakú vertikálnu pozíciu Perfektná zhoda panelu. */
   .carousel__inspired {
-    min-height: calc(0.68rem * 1.15 * 2 + 1.2rem);
+    height: 46px !important;
+    min-height: 46px !important;
     display: flex;
     align-items: center;
     justify-content: center;
