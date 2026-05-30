@@ -3870,8 +3870,10 @@ body.lock .cart-drawer {
 
 .promo-popup__copy {
   display: block;
-  width: calc(100% - 1rem);
-  margin: 0.5rem auto 0;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  margin: 0.5rem 0 0;
   padding: 0.5rem 0.9rem;
   background: linear-gradient(90deg, #7c3aed 0%, #a78bfa 100%);
   border: none;
@@ -3886,6 +3888,12 @@ body.lock .cart-drawer {
   transition: filter 0.18s ease, transform 0.12s ease;
   animation: promoCopyIn 0.4s ease;
   box-shadow: 0 4px 22px rgba(124,58,237,0.45);
+  /* Keep before/after states identical in size: never grow on longer
+     text, truncate with ellipsis if it ever does (defensive). */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-height: 28px;
 }
 .promo-popup__copy:hover { filter: brightness(1.08); }
 .promo-popup__copy:active { transform: scale(0.98); }
@@ -3893,6 +3901,13 @@ body.lock .cart-drawer {
 .promo-popup__copy.is-copied {
   background: linear-gradient(90deg, #16a34a 0%, #4ade80 100%);
   color: #fff;
+  /* Keep the exact same dimensions as the default state — only the
+     background and text change. */
+  width: 100%;
+  max-width: 100%;
+  margin: 0.5rem 0 0;
+  padding: 0.5rem 0.9rem;
+  min-height: 28px;
 }
 @keyframes promoCopyIn {
   from { opacity: 0; transform: translateY(8px); }
@@ -3930,7 +3945,10 @@ body.lock .cart-drawer {
   }
   .promo-popup__top-side { font-size: 0.65rem; }
   .promo-popup__zone {
-    height: 96px;
+    /* Slightly taller on mobile so the prize stack + copy button fit
+       cleanly inside the bordered rim (button was overflowing the
+       bottom edge by ~2 px). */
+    height: 120px;
     margin: 7px;
   }
   .promo-popup__close {
@@ -3954,11 +3972,21 @@ body.lock .cart-drawer {
     font-size: 0.62rem;
     letter-spacing: 0.16em;
   }
-  .promo-popup__copy {
-    padding: 0.4rem 0.65rem;
-    font-size: 0.56rem;
-    margin-top: 0.3rem;
-    letter-spacing: 0.16em;
+  .promo-popup__copy,
+  .promo-popup__copy.is-copied {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    padding: 0.4rem 0.4rem;
+    /* Font + letter-spacing + lowercase tuned so both "Kopírovať kód"
+       and "✓ Skopírované" fit on a single line without ellipsis at
+       the popup's 188px mobile width. */
+    font-size: 0.58rem;
+    margin: 0.3rem 0 0;
+    letter-spacing: 0.02em;
+    text-transform: none;
+    min-height: 22px;
+    line-height: 1.15;
   }
   .promo-popup__eyes { font-size: 1.5rem; }
   /* Calmer shake on tiny popup so it doesn't fly around */

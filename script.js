@@ -2955,7 +2955,7 @@ function setupPromoPopup() {
 
   copyBtn && copyBtn.addEventListener('click', () => {
     const finish = () => {
-      copyBtn.textContent = '✓ Skopírované — môžeš použiť';
+      copyBtn.textContent = '✓ Skopírované';
       copyBtn.classList.add('is-copied');
       persist();
       setTimeout(() => hide(true), 1100);
