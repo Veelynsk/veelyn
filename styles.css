@@ -41,6 +41,21 @@
   --t-fast: 180ms;
   --t-base: 320ms;
   --t-slow: 600ms;
+
+  /* "Perfektná zhoda vôňových nôt" panel — unified across hero
+     carousel, bestsellers grid, all-fragrances grid, product detail
+     modal etc. Picks up the saturated neon-green + dark gradient +
+     glow look that the hero carousel already uses (mobile) so every
+     Perfektná-zhoda block looks identical wherever it appears. */
+  --pm-bg: linear-gradient(180deg, rgba(15,40,25,0.85), rgba(8,22,15,0.95));
+  --pm-border: 2px solid rgba(74,222,128,0.55);
+  --pm-radius: 12px;
+  --pm-shadow:
+    0 0 0 1px rgba(74,222,128,0.12) inset,
+    0 0 14px rgba(74,222,128,0.18),
+    0 4px 12px rgba(0,0,0,0.3);
+  --pm-title-color: #4ade80;
+  --pm-divider: 1px solid rgba(74,222,128,0.18);
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -5704,13 +5719,13 @@ body.has-promo-popup .proof-toast { display: none !important; }
   width: 100%;
   margin-top: 1.25rem;
   padding: 1.75rem 1.75rem 1.85rem;
-  /* Green-tinted "Perfektná zhoda" panel — same visual treatment as
-     the .prod-card__match (catalog + bestsellers) and .carousel__match
-     (hero carousel) so the Perfektná zhoda block looks consistent
-     wherever it appears. */
-  background: rgba(74, 222, 128, 0.05);
-  border: 1px solid rgba(74, 222, 128, 0.22);
-  border-radius: 14px;
+  /* Unified "Perfektná zhoda" panel — identical visual treatment as
+     .prod-card__match (catalog + bestsellers) and the hero carousel
+     match panel so the block looks the same wherever it appears. */
+  background: var(--pm-bg);
+  border: var(--pm-border);
+  border-radius: var(--pm-radius);
+  box-shadow: var(--pm-shadow);
   display: flex;
   flex-direction: column;
   gap: 1.4rem;
@@ -5724,12 +5739,12 @@ body.has-promo-popup .proof-toast { display: none !important; }
   justify-content: center;
   gap: 0.6rem;
   padding-bottom: 1.25rem;
-  /* Green-tinted divider matching the panel border. */
-  border-bottom: 1px solid rgba(74, 222, 128, 0.18);
+  /* Divider matches the unified Perfektná zhoda panel. */
+  border-bottom: var(--pm-divider);
   font-family: var(--font-body);
   font-size: 1.2rem;
   font-weight: 700;
-  color: #4ade80;
+  color: var(--pm-title-color);
   letter-spacing: 0.01em;
   text-align: center;
 }
@@ -9247,14 +9262,17 @@ body.has-promo-popup .proof-toast { display: none !important; }
 }
 
 /* "Perfektná zhoda" mini block when embedded inside a small prod-card
-   (bestsellers + catalog grids — 3-per-row on mobile, more on desktop) */
+   (bestsellers + catalog grids — 3-per-row on mobile, more on desktop).
+   Uses the unified --pm-* variables so the styling matches the hero
+   carousel panel and product-detail .match-card exactly. */
 .prod-card__match {
   width: 100%;
   margin: 0.5rem 0 0;
   padding: 0.4rem 0.35rem;
-  background: rgba(74, 222, 128, 0.05);
-  border: 1px solid rgba(74, 222, 128, 0.22);
-  border-radius: 8px;
+  background: var(--pm-bg);
+  border: var(--pm-border);
+  border-radius: var(--pm-radius);
+  box-shadow: var(--pm-shadow);
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
@@ -9266,7 +9284,8 @@ body.has-promo-popup .proof-toast { display: none !important; }
 .prod-card__match .match-card__title {
   margin: 0;
   padding: 0 0 0.2rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  /* Divider matches the unified Perfektná-zhoda panel. */
+  border-bottom: var(--pm-divider);
   display: flex;
   align-items: center;
   gap: 0.2rem;
@@ -9274,7 +9293,7 @@ body.has-promo-popup .proof-toast { display: none !important; }
   font-size: 0.5rem;
   font-weight: 700;
   letter-spacing: -0.01em;
-  color: #4ade80;
+  color: var(--pm-title-color);
   line-height: 1.2;
   text-align: left;
   justify-content: flex-start;
@@ -10022,21 +10041,24 @@ input, select, textarea, label {
 .carousel__slide .carousel__match {
   margin: 1rem 0 0;
   padding: 0.4rem 0.5rem;
-  background: rgba(74,222,128,0.05);
-  border: 1px solid rgba(74,222,128,0.2);
-  border-radius: 8px;
+  /* Desktop hero carousel — same unified --pm-* panel as everywhere
+     else (bestsellers, all-fragrances, product detail, mobile carousel). */
+  background: var(--pm-bg);
+  border: var(--pm-border);
+  border-radius: var(--pm-radius);
+  box-shadow: var(--pm-shadow);
   gap: 0.25rem;
   pointer-events: none; /* whole slide is the click target, not the match block */
 }
 .carousel__slide .carousel__match .match-card__title {
   margin: 0;
   padding: 0 0 0.2rem;
-  border-bottom: 1px solid rgba(74,222,128,0.15);
+  border-bottom: var(--pm-divider);
   font-size: 0.62rem;
   font-weight: 800;
   letter-spacing: 0.02em;
   gap: 0.3rem;
-  color: #4ade80;
+  color: var(--pm-title-color);
   text-transform: none;
   justify-content: flex-start;
   white-space: nowrap;
@@ -10130,13 +10152,12 @@ input, select, textarea, label {
     margin: 0.3rem auto 0.5rem !important;
     padding: 0.5rem 0.6rem 0.6rem !important;
     gap: 0.25rem !important;
-    background: linear-gradient(180deg, rgba(15,40,25,0.85), rgba(8,22,15,0.95)) !important;
-    border: 2px solid rgba(74,222,128,0.55) !important;
-    border-radius: 12px !important;
-    box-shadow:
-      0 0 0 1px rgba(74,222,128,0.12) inset,
-      0 0 14px rgba(74,222,128,0.18),
-      0 4px 12px rgba(0,0,0,0.3) !important;
+    /* Use unified --pm-* vars so this hero carousel panel and the
+       prod-card / match-card panels stay visually identical. */
+    background: var(--pm-bg) !important;
+    border: var(--pm-border) !important;
+    border-radius: var(--pm-radius) !important;
+    box-shadow: var(--pm-shadow) !important;
     box-sizing: border-box;
     display: flex !important;
     flex-direction: column;
