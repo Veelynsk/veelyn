@@ -664,6 +664,9 @@ function renderAllFragrances() {
     list.sort((a, b) => (state.ratings[b.id]?.avg || 0) - (state.ratings[a.id]?.avg || 0));
   } else if (homeState.sort === 'newest') {
     list.reverse();
+  } else if (homeState.sort === 'price-desc') {
+    // Najdrahšie — sort by ORIGINAL perfume price, descending.
+    list.sort((a, b) => (b.original_price || 0) - (a.original_price || 0));
   } else {
     list.sort((a, b) => {
       const ai = TOP_SELLERS.indexOf(a.id);
@@ -901,6 +904,11 @@ function renderCatalog() {
     list.sort((a, b) => state.ratings[b.id].avg - state.ratings[a.id].avg);
   } else if (sortBy === 'newest') {
     list.reverse();
+  } else if (sortBy === 'price-desc') {
+    // Najdrahšie — by ORIGINAL perfume price, descending. New fragrances
+    // added to FRAGRANCES with their original_price are picked up
+    // automatically (no manual list to maintain).
+    list.sort((a, b) => (b.original_price || 0) - (a.original_price || 0));
   } else {
     // bestsellers — by review count
     list.sort((a, b) => state.ratings[b.id].count - state.ratings[a.id].count);
