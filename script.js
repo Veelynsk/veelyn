@@ -510,6 +510,9 @@ function renderCarousel() {
 
   goToSlide(0);
   startCarousel();
+  // Carousel images that are already cached won't fire `load` again —
+  // mark them so the skeleton shimmer goes away immediately.
+  markLoadedImages(stage);
 }
 
 function goToSlide(idx) {
@@ -757,7 +760,39 @@ function productCardHTML(f, isBest, showMatch) {
   `;
 }
 
+// Skeleton screen: flip the .is-loaded class on each image wrapper
+// once its <img> finishes loading. We attach in the capture phase
+// because the `load` event doesn't bubble.
+document.addEventListener('load', (e) => {
+  const t = e.target;
+  if (!t || t.tagName !== 'IMG') return;
+  const wrap = t.closest('.prod-card__image, .match-card__thumb');
+  if (wrap) wrap.classList.add('is-loaded');
+}, true);
+// Same on error — we don't want a broken image to shimmer forever
+// (the .prod-card__placeholder fallback takes over).
+document.addEventListener('error', (e) => {
+  const t = e.target;
+  if (!t || t.tagName !== 'IMG') return;
+  const wrap = t.closest('.prod-card__image, .match-card__thumb');
+  if (wrap) wrap.classList.add('is-loaded');
+}, true);
+// Helper for images already in cache by the time their wrapper renders
+// (the `load` event has already fired and won't fire again).
+function markLoadedImages(scope) {
+  const root = scope || document;
+  root.querySelectorAll('.prod-card__image img, .match-card__thumb img').forEach(img => {
+    if (img.complete && img.naturalWidth > 0) {
+      const wrap = img.closest('.prod-card__image, .match-card__thumb');
+      if (wrap) wrap.classList.add('is-loaded');
+    }
+  });
+}
+
 function wireProductCards(scope) {
+  // Surface any already-loaded images so they don't sit behind the
+  // shimmer placeholder.
+  markLoadedImages(scope);
   $$('.prod-card', scope).forEach(card => {
     card.addEventListener('click', (e) => {
       // The "Pridaj do košíka" button has <span> children — if the user

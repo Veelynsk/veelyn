@@ -128,7 +128,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="preconnect" href="https://widget.packeta.com">
 <link rel="dns-prefetch" href="https://widget.packeta.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..900;1,9..144,400..900&family=Manrope:wght@300..800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=20260528-035">
+<link rel="stylesheet" href="styles.css?v=20260528-036">
 
 <!-- JSON-LD Structured Data -->
 <script type="application/ld+json">
@@ -450,7 +450,53 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <h2 class="bestsellers__title">Najobľúbenejšie vône</h2>
     <p class="bestsellers__sub">Toto si zákazníci kupujú najčastejšie.</p>
   </header>
-  <div class="bestsellers__grid" id="bestsellersGrid"></div>
+  <div class="bestsellers__grid" id="bestsellersGrid">
+    <!-- Skeleton placeholders — replaced by renderBestsellers() once JS
+         finishes parsing. Visible on slow phones / cold cache, otherwise
+         flashes briefly. -->
+    <div class="skeleton-card" aria-hidden="true">
+      <div class="skeleton-card__thumb"></div>
+      <div class="skeleton-card__pill"></div>
+      <div class="skeleton-card__line skeleton-card__line--name"></div>
+      <div class="skeleton-card__line skeleton-card__line--rating"></div>
+      <div class="skeleton-card__line skeleton-card__line--price"></div>
+    </div>
+    <div class="skeleton-card" aria-hidden="true">
+      <div class="skeleton-card__thumb"></div>
+      <div class="skeleton-card__pill"></div>
+      <div class="skeleton-card__line skeleton-card__line--name"></div>
+      <div class="skeleton-card__line skeleton-card__line--rating"></div>
+      <div class="skeleton-card__line skeleton-card__line--price"></div>
+    </div>
+    <div class="skeleton-card" aria-hidden="true">
+      <div class="skeleton-card__thumb"></div>
+      <div class="skeleton-card__pill"></div>
+      <div class="skeleton-card__line skeleton-card__line--name"></div>
+      <div class="skeleton-card__line skeleton-card__line--rating"></div>
+      <div class="skeleton-card__line skeleton-card__line--price"></div>
+    </div>
+    <div class="skeleton-card" aria-hidden="true">
+      <div class="skeleton-card__thumb"></div>
+      <div class="skeleton-card__pill"></div>
+      <div class="skeleton-card__line skeleton-card__line--name"></div>
+      <div class="skeleton-card__line skeleton-card__line--rating"></div>
+      <div class="skeleton-card__line skeleton-card__line--price"></div>
+    </div>
+    <div class="skeleton-card" aria-hidden="true">
+      <div class="skeleton-card__thumb"></div>
+      <div class="skeleton-card__pill"></div>
+      <div class="skeleton-card__line skeleton-card__line--name"></div>
+      <div class="skeleton-card__line skeleton-card__line--rating"></div>
+      <div class="skeleton-card__line skeleton-card__line--price"></div>
+    </div>
+    <div class="skeleton-card" aria-hidden="true">
+      <div class="skeleton-card__thumb"></div>
+      <div class="skeleton-card__pill"></div>
+      <div class="skeleton-card__line skeleton-card__line--name"></div>
+      <div class="skeleton-card__line skeleton-card__line--rating"></div>
+      <div class="skeleton-card__line skeleton-card__line--price"></div>
+    </div>
+  </div>
   <div class="bestsellers__cta-wrap">
     <button class="btn btn--primary bestsellers__cta" data-open="catalog">
       Pozri si všetky vône →
@@ -1345,7 +1391,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- Packeta widget v6 (https://docs.packetery.com/03-creating-shipments/05-widget-v6.html) -->
 <script src="https://widget.packeta.com/v6/www/js/library.js" async></script>
 
-<script src="data.js?v=20260528-035"></script>
-<script src="script.js?v=20260528-035"></script>
+<script src="data.js?v=20260528-036"></script>
+<script src="script.js?v=20260528-036"></script>
 </body>
 </html>
