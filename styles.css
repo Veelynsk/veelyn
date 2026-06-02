@@ -10743,12 +10743,11 @@ input, select, textarea, label {
   border-radius: 999px;
 }
 
-/* Image loading state — shimmer behind the image, image fades in on load. */
-.prod-card__image,
-.match-card__thumb,
-.carousel__bottles {
-  position: relative;
-}
+/* Image loading state — passive shimmer behind every image. The image
+   stays fully opaque (we don't toggle opacity via JS) so that no matter
+   what happens to the load event the bottle photo is always visible
+   the moment the browser paints it. The shimmer sits underneath and
+   gets covered by the image once it arrives. */
 .prod-card__image:not(.is-loaded)::before,
 .match-card__thumb:not(.is-loaded)::before {
   content: '';
@@ -10766,17 +10765,6 @@ input, select, textarea, label {
   border-radius: inherit;
   z-index: 0;
   pointer-events: none;
-}
-.prod-card__image img,
-.match-card__thumb img {
-  position: relative;
-  z-index: 1;
-  opacity: 0;
-  transition: opacity 0.35s ease;
-}
-.prod-card__image.is-loaded img,
-.match-card__thumb.is-loaded img {
-  opacity: 1;
 }
 
 /* Respect reduced-motion: skip the shimmer animation. */
