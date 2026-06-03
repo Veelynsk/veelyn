@@ -37,8 +37,108 @@ const FROM_EMAIL = sanitizeFromEmail(process.env.FROM_EMAIL);
 console.log(`[CONFIG] FROM_EMAIL resolved to: ${FROM_EMAIL}`);
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'change-me';
 const RESEND_API_KEY = process.env.RESEND_API_KEY || '';
+const NODE_ENV = process.env.NODE_ENV || 'development';
+const IS_PROD = NODE_ENV === 'production';
+
+// Refuse to start in production with the default placeholder password.
+// Without this, anyone who has read the source on GitHub could log in.
+if (IS_PROD && (ADMIN_PASSWORD === 'change-me' || ADMIN_PASSWORD.length < 12)) {
+  console.error('[FATAL] ADMIN_PASSWORD is unset / too weak (<12 chars). Refusing to boot in production.');
+  process.exit(1);
+}
 
 const resend = RESEND_API_KEY ? new Resend(RESEND_API_KEY) : null;
+
+// ---- PASSWORD HASHING (scrypt — built into Node, no extra deps) ----
+// Stored format: "scrypt$<saltHex>$<keyHex>". Legacy plaintext rows from
+// before this change still verify via direct constant-time compare and
+// get transparently upgraded to a scrypt hash on next successful login.
+const SCRYPT_KEYLEN = 64;
+const SCRYPT_OPTS = { N: 16384, r: 8, p: 1, maxmem: 64 * 1024 * 1024 };
+function hashPassword(plain) {
+  return new Promise((res, rej) => {
+    const salt = crypto.randomBytes(16);
+    crypto.scrypt(String(plain), salt, SCRYPT_KEYLEN, SCRYPT_OPTS, (err, key) => {
+      if (err) return rej(err);
+      res(`scrypt$${salt.toString('hex')}$${key.toString('hex')}`);
+    });
+  });
+}
+function verifyPassword(plain, stored) {
+  if (!stored) return Promise.resolve(false);
+  if (!stored.startsWith('scrypt$')) {
+    // Legacy plaintext fallback (constant-time compare). Only ever fires
+    // for accounts that existed before scrypt was added.
+    const a = Buffer.from(String(plain));
+    const b = Buffer.from(String(stored));
+    if (a.length !== b.length) return Promise.resolve(false);
+    try { return Promise.resolve(crypto.timingSafeEqual(a, b)); }
+    catch { return Promise.resolve(false); }
+  }
+  const [, saltHex, keyHex] = stored.split('$');
+  if (!saltHex || !keyHex) return Promise.resolve(false);
+  const salt = Buffer.from(saltHex, 'hex');
+  const expected = Buffer.from(keyHex, 'hex');
+  return new Promise((res, rej) => {
+    crypto.scrypt(String(plain), salt, expected.length, SCRYPT_OPTS, (err, key) => {
+      if (err) return rej(err);
+      try { res(crypto.timingSafeEqual(key, expected)); }
+      catch { res(false); }
+    });
+  });
+}
+function isLegacyHash(stored) {
+  return stored && !stored.startsWith('scrypt$');
+}
+
+// ---- CANONICAL PRICE TABLE ----
+// Source of truth for prices the server uses to recompute every order
+// (so a client can't tamper the cart in DevTools and pay €0.01). Loaded
+// from the live frontend's data.js so prices stay in sync; refreshed
+// every 5 min. We refuse to accept orders if the table is empty.
+const PRODUCTS_URL = process.env.PRODUCTS_URL || 'https://www.veelyn.sk/data.js';
+let PRODUCTS = new Map();
+async function refreshProducts() {
+  try {
+    const r = await fetch(PRODUCTS_URL, { headers: { 'cache-control': 'no-cache' } });
+    if (!r.ok) throw new Error(`HTTP ${r.status}`);
+    const text = await r.text();
+    const m = text.match(/const\s+FRAGRANCES\s*=\s*(\[[\s\S]*?\])\s*;/);
+    if (!m) throw new Error('FRAGRANCES array not found in data.js');
+    const arr = JSON.parse(m[1]);
+    const map = new Map();
+    for (const p of arr) {
+      if (!p || typeof p.id !== 'string') continue;
+      map.set(p.id, {
+        id: p.id,
+        veelyn_name: p.veelyn_name || '',
+        original_name: p.original_name || '',
+        brand: p.brand || '',
+        veelyn_price: Number(p.veelyn_price) || 0,
+        original_price: Number(p.original_price) || 0,
+      });
+    }
+    if (map.size > 0) PRODUCTS = map;
+    console.log(`[PRODUCTS] Loaded ${PRODUCTS.size} products from ${PRODUCTS_URL}`);
+  } catch (e) {
+    console.error(`[PRODUCTS] refresh failed (${e.message}). Keeping last known table of size ${PRODUCTS.size}.`);
+  }
+}
+await refreshProducts();
+setInterval(refreshProducts, 5 * 60_000).unref();
+
+// ---- SHIPPING / PAYMENT (mirrors frontend SHIPPING_METHODS + PAYMENT_METHODS) ----
+const SHIPPING_METHODS = {
+  'packeta-kurier':  { label: 'Packeta na adresu',      price: 4.49 },
+  'packeta-zbox':    { label: 'Packeta Z-BOX',          price: 2.99 },
+  'packeta-pobocka': { label: 'Packeta výdajné miesto', price: 3.49 },
+};
+const PAYMENT_METHODS = {
+  'card':     { label: 'Karta · Apple Pay · Google Pay', fee: 0 },
+  'transfer': { label: 'Bankový prevod',                 fee: 0 },
+  'cod':      { label: 'Dobierka',                       fee: 1.50 },
+};
+const FREE_SHIPPING_THRESHOLD = 40;
 
 // ---- DB ----
 const DB_PATH = resolve(__dirname, 'orders.sqlite');
@@ -128,16 +228,23 @@ db.exec(`
   );
 `);
 
-// Seed default users (admin + warehouse) if none exist
+// Seed default users (admin + warehouse) if none exist.
+// Passwords are stored as scrypt hashes from day one.
 const userCount = db.prepare('SELECT COUNT(*) as c FROM users').get().c;
 if (userCount === 0) {
+  const seedDefaultWarehousePw = process.env.WAREHOUSE_PASSWORD || crypto.randomBytes(9).toString('base64url');
+  const adminHash = await hashPassword(ADMIN_PASSWORD);
+  const warehouseHash = await hashPassword(seedDefaultWarehousePw);
   db.prepare(`INSERT INTO users (username, password, role, name, created_at) VALUES (?, ?, ?, ?, ?)`).run(
-    'admin', ADMIN_PASSWORD, 'admin', 'Administrátor', Date.now()
+    'admin', adminHash, 'admin', 'Administrátor', Date.now()
   );
   db.prepare(`INSERT INTO users (username, password, role, name, created_at) VALUES (?, ?, ?, ?, ?)`).run(
-    'sklad', 'sklad123', 'warehouse', 'Skladník', Date.now()
+    'sklad', warehouseHash, 'warehouse', 'Skladník', Date.now()
   );
-  console.log('[INIT] Vytvorení defaultní useri: admin / sklad');
+  console.log('[INIT] Vytvorení defaultní useri: admin + sklad (passwords stored as scrypt hashes).');
+  if (!process.env.WAREHOUSE_PASSWORD) {
+    console.log(`[INIT] Warehouse temporary password: ${seedDefaultWarehousePw} — change it from the admin UI ASAP.`);
+  }
 }
 
 // fallback log dir (when Resend isn't configured)
@@ -146,20 +253,53 @@ if (!existsSync(LOG_DIR)) mkdirSync(LOG_DIR, { recursive: true });
 
 // ---- APP ----
 const app = express();
-app.use(cors());
-app.use(express.json({ limit: '256kb' }));
+// Express sits behind Railway's edge proxy + Cloudflare. `trust proxy`
+// tells Express to read the client's real IP from X-Forwarded-For so
+// the rate limiter actually buckets per real user instead of bucketing
+// every visitor under the same upstream proxy IP.
+app.set('trust proxy', 1);
 
-// Security headers — minimal set without pulling helmet as a dependency.
-// Applied to every response. Tweak via setHeader on specific routes if
-// some endpoint needs different CSP / framing rules.
+// CORS allowlist. Anonymous origins (file://, curl) still hit public
+// endpoints — they don't send an Origin header so the CORS check is
+// skipped. But scripts running on other sites can't read responses
+// from /api/admin/* anymore.
+const ALLOWED_ORIGINS = new Set([
+  'https://veelyn.sk',
+  'https://www.veelyn.sk',
+  'http://localhost:8765',
+  'http://localhost:3001',
+  'http://127.0.0.1:8765',
+  'http://127.0.0.1:3001',
+]);
+app.use(cors({
+  origin: (origin, cb) => {
+    if (!origin) return cb(null, true); // server-to-server or curl
+    if (ALLOWED_ORIGINS.has(origin)) return cb(null, true);
+    return cb(new Error('CORS: origin not allowed'));
+  },
+  credentials: false,
+  maxAge: 86400,
+}));
+app.use(express.json({ limit: '32kb' }));
+
+// Security headers — minimal hardened set without pulling helmet as a
+// dependency. Applied to every response.
 app.use((req, res, next) => {
   res.setHeader('X-Content-Type-Options', 'nosniff');
   res.setHeader('X-Frame-Options', 'DENY');
+  res.setHeader('X-XSS-Protection', '0');
   res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
-  res.setHeader('Permissions-Policy', 'geolocation=(), microphone=(), camera=()');
+  res.setHeader('Permissions-Policy', 'geolocation=(), microphone=(), camera=(), interest-cohort=()');
+  res.setHeader('Cross-Origin-Opener-Policy', 'same-origin');
+  res.setHeader('Cross-Origin-Resource-Policy', 'same-site');
   // HSTS only kicks in over HTTPS (Railway terminates HTTPS upstream
   // so the connection is HTTPS from the client's POV).
   res.setHeader('Strict-Transport-Security', 'max-age=15552000; includeSubDomains');
+  // CSP for API responses — admin frontend has its own CSP via the
+  // Cloudflare Pages headers file. This one only ensures responses
+  // can't be embedded / framed / scripted from a hostile origin.
+  res.setHeader('Content-Security-Policy', "default-src 'none'; frame-ancestors 'none'");
+  res.removeHeader('X-Powered-By');
   next();
 });
 
@@ -391,11 +531,27 @@ function requireAuth(roles = null) {
   };
 }
 
-app.post('/api/admin/login', rateLimit({ windowMs: 5 * 60_000, max: 10 }), (req, res) => {
+app.post('/api/admin/login', rateLimit({ windowMs: 5 * 60_000, max: 10 }), async (req, res) => {
   const { username, password } = req.body || {};
   if (!username || !password) return res.status(400).json({ error: 'username + password required' });
   const u = db.prepare(`SELECT * FROM users WHERE username = ?`).get(String(username).toLowerCase());
-  if (!u || u.password !== password) return res.status(401).json({ error: 'wrong credentials' });
+  // Always do a verify against SOMETHING so the response time is
+  // identical for "user not found" vs "wrong password" — kills
+  // username-enumeration via timing.
+  const stored = u ? u.password : 'scrypt$00$00';
+  const ok = await verifyPassword(password, stored).catch(() => false);
+  if (!u || !ok) return res.status(401).json({ error: 'wrong credentials' });
+  // Transparent migration: upgrade legacy plaintext passwords to scrypt
+  // on the first successful login so the DB stops holding plaintext.
+  if (isLegacyHash(u.password)) {
+    try {
+      const upgraded = await hashPassword(password);
+      db.prepare(`UPDATE users SET password = ? WHERE username = ?`).run(upgraded, u.username);
+      console.log(`[AUTH] Upgraded legacy plaintext password for "${u.username}" → scrypt`);
+    } catch (e) {
+      console.warn(`[AUTH] Failed to upgrade password for "${u.username}":`, e.message);
+    }
+  }
   const token = randomToken();
   sessions.set(token, { username: u.username, role: u.role, name: u.name, expiresAt: Date.now() + SESSION_TTL_MS });
   res.json({ ok: true, token, expiresIn: SESSION_TTL_MS / 1000, user: { username: u.username, role: u.role, name: u.name } });
@@ -494,42 +650,125 @@ app.post('/api/order', rateLimit({ windowMs: 60_000, max: 10 }), async (req, res
     if (!body.customer?.email || !body.items?.length) {
       return res.status(400).json({ error: 'Missing customer.email or items' });
     }
+    if (!Array.isArray(body.items) || body.items.length > 50) {
+      return res.status(400).json({ error: 'Invalid items' });
+    }
+    if (PRODUCTS.size === 0) {
+      return res.status(503).json({ error: 'Price table not loaded yet — try again in a few seconds.' });
+    }
+
+    // ---- SERVER-SIDE RECOMPUTE OF EVERY TOTAL ----
+    // The client's `price`, `subtotal`, `bundleDiscount`, `couponDiscount`,
+    // `shipping`, `fee` and `total` are completely IGNORED for storage.
+    // They're only used (much later, after we compute our own numbers)
+    // to detect tampering attempts for logging.
+    const validatedItems = [];
+    let subtotal = 0;
+    const veelynUnitPrices = []; // for 3+1 bundle discount
+
+    for (const it of body.items) {
+      if (!it || typeof it.id !== 'string') return res.status(400).json({ error: 'Invalid item' });
+      const p = PRODUCTS.get(it.id);
+      if (!p) return res.status(400).json({ error: `Unknown product: ${it.id}` });
+      const qty = Math.max(1, Math.min(99, parseInt(it.qty, 10) || 0));
+      const variant = it.variant === 'original' ? 'original' : 'veelyn';
+      const unitPrice = variant === 'original' ? p.original_price : p.veelyn_price;
+      if (!Number.isFinite(unitPrice) || unitPrice <= 0) {
+        return res.status(400).json({ error: `Invalid price for product: ${it.id}` });
+      }
+      subtotal += unitPrice * qty;
+      if (variant === 'veelyn') for (let i = 0; i < qty; i++) veelynUnitPrices.push(unitPrice);
+      validatedItems.push({
+        id: p.id,
+        variant,
+        name: variant === 'original' ? `${p.brand} ${p.original_name}` : p.veelyn_name,
+        originalName: p.original_name,
+        qty,
+        price: unitPrice,
+      });
+    }
+    subtotal = Math.round(subtotal * 100) / 100;
+
+    // 3+1 ZADARMO: every 4th Veelyn item free (cheapest in each pack).
+    const freeQty = Math.floor(veelynUnitPrices.length / 4);
+    const sortedAsc = veelynUnitPrices.slice().sort((a, b) => a - b);
+    let bundleDiscount = 0;
+    for (let i = 0; i < freeQty; i++) bundleDiscount += sortedAsc[i] || 0;
+    bundleDiscount = Math.round(bundleDiscount * 100) / 100;
+
+    // ---- COUPON: atomic validate + increment in a single transaction.
+    // Server is the only source of truth; client-supplied couponDiscount
+    // is ignored entirely.
+    let couponCode = null;
+    let couponDiscount = 0;
+    if (body.couponCode) {
+      const code = String(body.couponCode).toUpperCase().trim().slice(0, 32);
+      const applied = db.transaction((codeKey, afterBundle) => {
+        const d = db.prepare(`SELECT * FROM discount_codes WHERE code = ?`).get(codeKey);
+        if (!d) return null;
+        const now = Date.now();
+        if (!d.active) return null;
+        if (d.valid_from && now < d.valid_from) return null;
+        if (d.valid_to && now > d.valid_to) return null;
+        if (d.max_uses > 0 && d.used_count >= d.max_uses) return null;
+        if (d.min_subtotal > 0 && afterBundle < d.min_subtotal) return null;
+        const r = db.prepare(`
+          UPDATE discount_codes
+          SET used_count = used_count + 1
+          WHERE code = ?
+            AND active = 1
+            AND (max_uses = 0 OR used_count < max_uses)
+        `).run(codeKey);
+        if (r.changes !== 1) return null; // lost the race
+        return d;
+      })(code, subtotal - bundleDiscount);
+      if (applied) {
+        couponCode = applied.code;
+        const base = subtotal - bundleDiscount;
+        if (applied.type === 'percent') couponDiscount = Math.round(base * (applied.value / 100) * 100) / 100;
+        else couponDiscount = Math.min(applied.value, base);
+        couponDiscount = Math.round(couponDiscount * 100) / 100;
+      }
+    }
+
+    // ---- SHIPPING + PAYMENT FEE (from server-side canonical maps).
+    const ship = SHIPPING_METHODS[String(body.shippingId || '')] || null;
+    const pay = PAYMENT_METHODS[String(body.paymentId || '')] || null;
+    if (!ship) return res.status(400).json({ error: 'Invalid shipping method' });
+    if (!pay)  return res.status(400).json({ error: 'Invalid payment method' });
+    const productsTotal = Math.max(0, subtotal - bundleDiscount - couponDiscount);
+    const freeShipping = productsTotal >= FREE_SHIPPING_THRESHOLD;
+    const shipping = freeShipping ? 0 : ship.price;
+    const fee = pay.fee;
+    const total = Math.round((productsTotal + shipping + fee) * 100) / 100;
+
+    // ---- TAMPERING SIGNAL: log loudly if client total ≠ server total.
+    const clientTotal = Number(body.total) || 0;
+    if (Math.abs(clientTotal - total) > 0.02) {
+      console.warn(`[ORDER] price tampering attempt — client_total=${clientTotal} server_total=${total} email=${body.customer?.email}`);
+    }
 
     const order = {
       id: nextOrderId(),
       ts: Date.now(),
       customer: body.customer,
-      items: body.items,
-      subtotal: Number(body.subtotal) || 0,
-      bundleDiscount: Number(body.bundleDiscount) || 0,
-      freeQty: Number(body.freeQty) || 0,
-      couponCode: body.couponCode || null,
-      couponDiscount: Number(body.couponDiscount) || 0,
-      shipping: Number(body.shipping) || 0,
-      fee: Number(body.fee) || 0,
-      total: Number(body.total) || 0,
+      items: validatedItems,
+      subtotal,
+      bundleDiscount,
+      freeQty,
+      couponCode,
+      couponDiscount,
+      shipping,
+      fee,
+      total,
       status: 'pending',
-      shippingMethod: body.shippingMethod || '',
-      shippingId: body.shippingId || '',
-      paymentMethod: body.paymentMethod || '',
-      paymentId: body.paymentId || '',
+      shippingMethod: ship.label,
+      shippingId: String(body.shippingId || ''),
+      paymentMethod: pay.label,
+      paymentId: String(body.paymentId || ''),
       pickupPoint: body.pickupPoint || null,
       newsletterOptIn: !!body.newsletterOptIn,
     };
-
-    // Increment used_count on the discount code (best-effort — failure
-    // doesn't block the order). Idempotent enough: code is locked when
-    // max_uses is reached via /api/discount/validate, so even concurrent
-    // orders past the cap will still increment but won't be applied
-    // because validate already returned valid:false.
-    if (order.couponCode) {
-      try {
-        db.prepare(`UPDATE discount_codes SET used_count = used_count + 1 WHERE code = ?`)
-          .run(String(order.couponCode).toUpperCase());
-      } catch (e) {
-        console.warn('[DISCOUNT] used_count increment failed:', e.message);
-      }
-    }
 
     db.prepare(`
       INSERT INTO orders (id, ts, customer_json, items_json, subtotal, bundle_discount, free_qty, shipping, fee, total, status, shipping_method, shipping_id, payment_method, payment_id, pickup_point_json, newsletter_opt_in, raw_json)
@@ -615,7 +854,9 @@ app.post('/api/order', rateLimit({ windowMs: 60_000, max: 10 }), async (req, res
     res.json({ ok: true, orderId: order.id, mail, invoice: sfResult });
   } catch (e) {
     console.error('Order error:', e);
-    res.status(500).json({ error: e.message });
+    // Don't leak internal error details (SQLite constraints, file paths,
+    // stack traces). Generic message to the client.
+    res.status(500).json({ error: 'Server error — please retry. If it persists contact support.' });
   }
 });
 
@@ -903,7 +1144,9 @@ app.post('/api/admin/discounts', requireAuth(['admin']), (req, res) => {
     );
     res.json({ ok: true, code: codeUp });
   } catch (e) {
-    res.status(400).json({ error: e.message });
+    if (/UNIQUE/.test(e.message)) return res.status(409).json({ error: 'code already exists' });
+    console.error('[DISCOUNT] insert failed:', e.message);
+    res.status(400).json({ error: 'invalid input' });
   }
 });
 
@@ -967,23 +1210,33 @@ app.get('/api/admin/users', requireAuth(['admin']), (req, res) => {
   res.json(rows);
 });
 
-app.post('/api/admin/users', requireAuth(['admin']), (req, res) => {
+app.post('/api/admin/users', requireAuth(['admin']), async (req, res) => {
   const { username, password, role, name } = req.body || {};
   if (!username || !password || !['admin','warehouse'].includes(role)) {
     return res.status(400).json({ error: 'username + password + role(admin|warehouse) required' });
   }
+  if (String(password).length < 8) return res.status(400).json({ error: 'password must be at least 8 chars' });
   try {
+    const hash = await hashPassword(password);
     db.prepare(`INSERT INTO users (username, password, role, name, created_at) VALUES (?, ?, ?, ?, ?)`).run(
-      String(username).toLowerCase(), password, role, name || username, Date.now()
+      String(username).toLowerCase(), hash, role, name || username, Date.now()
     );
     res.json({ ok: true });
-  } catch (e) { res.status(400).json({ error: e.message }); }
+  } catch (e) {
+    if (/UNIQUE/.test(e.message)) return res.status(409).json({ error: 'username already exists' });
+    console.error('[USERS] insert failed:', e.message);
+    res.status(400).json({ error: 'invalid input' });
+  }
 });
 
-app.patch('/api/admin/users/:username', requireAuth(['admin']), (req, res) => {
+app.patch('/api/admin/users/:username', requireAuth(['admin']), async (req, res) => {
   const { password, role, name } = req.body || {};
   const updates = [], values = [];
-  if (password) { updates.push('password = ?'); values.push(password); }
+  if (password) {
+    if (String(password).length < 8) return res.status(400).json({ error: 'password must be at least 8 chars' });
+    try { updates.push('password = ?'); values.push(await hashPassword(password)); }
+    catch { return res.status(500).json({ error: 'hash failed' }); }
+  }
   if (role && ['admin','warehouse'].includes(role)) { updates.push('role = ?'); values.push(role); }
   if (name != null) { updates.push('name = ?'); values.push(name); }
   if (!updates.length) return res.status(400).json({ error: 'nothing to update' });

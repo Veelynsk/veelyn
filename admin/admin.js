@@ -931,13 +931,31 @@ function renderHBars(selector, data, fallbackLabel) {
 
 // === SETTINGS ===
 function setupSettings() {
-  $('#changePasswordForm').addEventListener('submit', (e) => {
+  $('#changePasswordForm').addEventListener('submit', async (e) => {
     e.preventDefault();
     const pw = $('#newPassword').value.trim();
-    if (pw.length < 6) { alert('Heslo aspoň 6 znakov.'); return; }
-    localStorage.setItem(STORE.password, pw);
-    $('#newPassword').value = '';
-    alert('Heslo zmenené.');
+    if (pw.length < 8) { alert('Heslo aspoň 8 znakov.'); return; }
+    if (!CURRENT_USER?.username) { alert('Nepodarilo sa zistiť používateľa — odhlás sa a prihlás znova.'); return; }
+    const form = e.target;
+    const btn = form.querySelector('button[type="submit"]');
+    const orig = btn ? btn.textContent : '';
+    if (btn) { btn.disabled = true; btn.textContent = 'Mením…'; }
+    try {
+      // Persist to the backend so the change actually takes effect on the
+      // server. Previously this only wrote to localStorage, which gave a
+      // false sense of security — the password on the server stayed the
+      // same and the user could still log in with the old one anywhere else.
+      await apiPatch('/api/admin/users/' + encodeURIComponent(CURRENT_USER.username), { password: pw });
+      $('#newPassword').value = '';
+      alert('Heslo zmenené. Na všetkých zariadeniach sa prihlás znova.');
+      // Force re-login so the new password gets a fresh token.
+      logout();
+    } catch (err) {
+      console.error('change password failed', err);
+      alert('Zmena hesla zlyhala: ' + (err?.message || 'unknown'));
+    } finally {
+      if (btn) { btn.disabled = false; btn.textContent = orig; }
+    }
   });
   $('#resetDataBtn').addEventListener('click', resetAllData);
 }
