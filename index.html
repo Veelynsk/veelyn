@@ -5,6 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
 
 <!-- ====================================================================
+     SCROLL RESTORATION — disable the browser's auto scroll-restore on
+     reload / bfcache wake-up. Without this, mobile reloads sometimes
+     landed below the trust badges instead of the hero. Must run BEFORE
+     any other script so it wins the race with the browser's restore.
+     ==================================================================== -->
+<script>
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  // pageshow fires for both fresh loads and bfcache restores (back/fwd).
+  window.addEventListener('pageshow', function () { window.scrollTo(0, 0); });
+</script>
+
+<!-- ====================================================================
      GOOGLE CONSENT MODE V2 — defaults BEFORE GTM loads.
      EU GDPR/ePrivacy requires all marketing+analytics signals to start
      in 'denied' state. The cookie banner accept handler later calls
