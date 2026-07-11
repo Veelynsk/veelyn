@@ -662,7 +662,10 @@ function renderAllFragrances() {
 
   let list = [...FRAGRANCES];
   if (homeState.brand) list = list.filter(f => f.brand === homeState.brand);
-  if (homeState.gender) list = list.filter(f => f.gender === homeState.gender);
+  // Same convention as renderCatalog(): gendered filters include Unisex.
+  if (homeState.gender === 'M') list = list.filter(f => f.gender === 'M' || f.gender === 'U');
+  else if (homeState.gender === 'Z') list = list.filter(f => f.gender === 'Z' || f.gender === 'U');
+  else if (homeState.gender === 'U') list = list.filter(f => f.gender === 'U');
   if (homeState.sort === 'rating') {
     list.sort((a, b) => (state.ratings[b.id]?.avg || 0) - (state.ratings[a.id]?.avg || 0));
   } else if (homeState.sort === 'newest') {
@@ -933,7 +936,13 @@ function renderCatalog() {
 
   let list = [...FRAGRANCES];
   if (brand) list = list.filter(f => f.brand === brand);
-  if (gender) list = list.filter(f => f.gender === gender);
+  // Perfume-shop convention: "Pánske" shows men's + unisex, "Dámske"
+  // shows women's + unisex, "Unisex" shows unisex only. Otherwise many
+  // brands (Tom Ford Private Blend, Louis Vuitton, MFK) that are 100 %
+  // unisex would return 0 hits under "Pánske" / "Dámske".
+  if (gender === 'M') list = list.filter(f => f.gender === 'M' || f.gender === 'U');
+  else if (gender === 'Z') list = list.filter(f => f.gender === 'Z' || f.gender === 'U');
+  else if (gender === 'U') list = list.filter(f => f.gender === 'U');
 
   if (sortBy === 'rating') {
     list.sort((a, b) => state.ratings[b.id].avg - state.ratings[a.id].avg);
