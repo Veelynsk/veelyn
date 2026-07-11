@@ -843,6 +843,7 @@ function setupHomeCatalog() {
     });
   }
   brandSel?.addEventListener('change', e => { homeState.brand = e.target.value; renderAllFragrances(); });
+  if (brandSel) enhanceSelectTypeahead(brandSel);
   $('#homeFilterGender')?.addEventListener('change', e => { homeState.gender = e.target.value; renderAllFragrances(); });
   $('#homeSortBy')?.addEventListener('change', e => { homeState.sort = e.target.value; renderAllFragrances(); });
 }
@@ -862,6 +863,36 @@ function renderTopSellers() {
 }
 
 // --- SEARCH ---
+// Ranking helper — score how strongly a fragrance matches the query so
+// brand hits ("dior") float to the top instead of getting mixed with
+// unrelated substring hits ("adore", "candy"). Higher score = better.
+function scoreFragranceMatch(f, q) {
+  if (!q) return 0;
+  const brand = (f.brand || '').toLowerCase();
+  const orig = (f.original_name || '').toLowerCase();
+  const veelyn = (f.veelyn_name || '').toLowerCase();
+  let score = 0;
+  // Brand match dominates — "dior" should land on the Dior brand
+  // whether or not the query is a whole word.
+  if (brand === q) score += 200;
+  else if (brand.startsWith(q)) score += 120;
+  else if (brand.includes(q)) score += 50;
+  // Original perfume name (what the user is inspired by).
+  if (orig.startsWith(q)) score += 40;
+  else if (orig.includes(q)) score += 20;
+  // Veelyn's own name — lower weight since users usually search by brand.
+  if (veelyn.startsWith(q)) score += 30;
+  else if (veelyn.includes(q)) score += 12;
+  // Multi-word queries: require every token to appear somewhere.
+  const tokens = q.split(/\s+/).filter(Boolean);
+  if (tokens.length > 1) {
+    const hay = brand + ' ' + orig + ' ' + veelyn;
+    if (!tokens.every(t => hay.includes(t))) return 0;
+    score += 5;
+  }
+  return score;
+}
+
 function setupSearch() {
   const input = $('#searchInput');
   const results = $('#searchResults');
@@ -876,15 +907,12 @@ function setupSearch() {
     }
     if (searchTimer) clearTimeout(searchTimer);
     searchTimer = setTimeout(() => trackSearch(q), 700);
-    const tokens = q.split(/\s+/).filter(Boolean);
-    const matches = FRAGRANCES.filter(f => {
-      const haystack = (
-        f.veelyn_name + ' ' +
-        f.original_name + ' ' +
-        f.brand
-      ).toLowerCase();
-      return tokens.every(t => haystack.includes(t));
-    }).slice(0, 8);
+    const matches = FRAGRANCES
+      .map(f => ({ f, s: scoreFragranceMatch(f, q) }))
+      .filter(x => x.s > 0)
+      .sort((a, b) => b.s - a.s)
+      .slice(0, 8)
+      .map(x => x.f);
 
     if (matches.length === 0) {
       results.innerHTML = `<p style="color:var(--text-mute); padding:1rem; text-align:center;">Nič sa nenašlo. Skús inú značku alebo originál.</p>`;
@@ -912,6 +940,45 @@ function setupSearch() {
   });
 }
 
+// Multi-letter typeahead for a native <select>. The browser's built-in
+// typeahead resets its buffer after ~500 ms and behaves inconsistently
+// across Chromium builds — typing "DIOR" often lands on some other D-
+// brand mid-way. This wrapper accumulates keystrokes within an 900 ms
+// window and prefers startsWith matches (falls back to includes), then
+// fires the native `change` event so downstream re-renders fire once.
+function enhanceSelectTypeahead(sel) {
+  if (!sel) return;
+  let buf = '';
+  let last = 0;
+  const reset = () => { buf = ''; last = 0; };
+  // Fresh buffer whenever the user opens the select — so a follow-up
+  // search doesn't get stuck concatenating to the previous one. We
+  // deliberately DON'T reset on `change` because we fire change ourselves
+  // whenever the match advances, and that would clobber the buffer
+  // mid-word (e.g. "D" → Dior, change resets → "I" starts fresh).
+  sel.addEventListener('focus', reset);
+  sel.addEventListener('blur', reset);
+  sel.addEventListener('keydown', (e) => {
+    if (!e.key || e.key.length !== 1) return;
+    if (e.ctrlKey || e.metaKey || e.altKey) return;
+    const now = Date.now();
+    if (now - last > 900) buf = '';
+    last = now;
+    buf += e.key.toLowerCase();
+    const opts = Array.from(sel.options);
+    // Prefer options whose visible text starts with the buffer; fall
+    // back to substring so partial typing like "vuit" still finds
+    // "Louis Vuitton".
+    let match = opts.find(o => o.value && o.textContent.toLowerCase().startsWith(buf));
+    if (!match) match = opts.find(o => o.value && o.textContent.toLowerCase().includes(buf));
+    if (match && match.value !== sel.value) {
+      sel.value = match.value;
+      sel.dispatchEvent(new Event('change', { bubbles: true }));
+    }
+    e.preventDefault();
+  });
+}
+
 // --- CATALOG ---
 function setupCatalog() {
   const brandSel = $('#filterBrand');
@@ -924,6 +991,7 @@ function setupCatalog() {
   });
 
   brandSel.addEventListener('change', renderCatalog);
+  enhanceSelectTypeahead(brandSel);
   $('#filterGender').addEventListener('change', renderCatalog);
   $('#sortBy').addEventListener('change', renderCatalog);
   renderCatalog();
