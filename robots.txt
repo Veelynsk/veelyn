@@ -1,22 +1,61 @@
 # Veelyn — robots.txt
+# Canonical host: https://www.veelyn.sk (apex 301 → www)
+
 User-agent: *
 Allow: /
+Allow: /produkt/
+Allow: /faq/
 Disallow: /admin/
 Disallow: /scripts/
 Disallow: /*?cart=*
 Disallow: /*?checkout=*
+Disallow: /*?q=*
 
-# AI training opt-out (volitelne — odstrante ak chcete povolit AI tréning)
+# ---- AI / answer-engine crawlers (GEO) ----
+# Explicitly ALLOWED so ChatGPT, Claude, Perplexity, Google AI Overviews
+# etc. can read and cite veelyn.sk. Machine-readable summary for them:
+#   https://www.veelyn.sk/llms.txt
+#   https://www.veelyn.sk/llms-full.txt
 User-agent: GPTBot
-Disallow: /
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
 
 User-agent: ClaudeBot
-Disallow: /
+Allow: /
 
-User-agent: CCBot
-Disallow: /
+User-agent: Claude-Web
+Allow: /
 
 User-agent: anthropic-ai
-Disallow: /
+Allow: /
 
-Sitemap: https://veelyn.sk/sitemap.xml
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: meta-externalagent
+Allow: /
+
+User-agent: DuckAssistBot
+Allow: /
+
+Sitemap: https://www.veelyn.sk/sitemap.xml

@@ -123,6 +123,18 @@ const $ = (s, p=document) => p.querySelector(s);
 const $$ = (s, p=document) => Array.from(p.querySelectorAll(s));
 const eur = (v) => v.toFixed(2).replace('.', ',') + ' €';
 const genderLabel = { M: 'Pánska', Z: 'Dámska', U: 'Unisex' };
+// Canonical site host (apex veelyn.sk 301s here).
+const SITE_URL = 'https://www.veelyn.sk';
+// Slug of the static SEO landing page for a fragrance:
+//   /produkt/<brand>-<original_name>/   (e.g. /produkt/tom-ford-lost-cherry/)
+// MUST stay identical to slugify() in scripts/build-product-pages.js.
+function productSlug(f) {
+  return String(`${f.brand}-${f.original_name}`).toLowerCase()
+    .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
+function productPageUrl(f) { return `${SITE_URL}/produkt/${productSlug(f)}/`; }
 // Strips diacritics + apostrophes, returns kebab-case slug. Matches scripts/process-originals.py
 const slugifyOriginal = (s) => (s || '')
   .normalize('NFD').replace(/[̀-ͯ]/g, '')
@@ -466,7 +478,7 @@ function renderCarousel() {
             </p>
           </div>
         </div>
-        <a class="match-card__link carousel__match-link" href="#" data-orig-link="${f.id}">Zobraziť produkt <span aria-hidden="true">→</span></a>
+        <a class="match-card__link carousel__match-link" href="/produkt/${productSlug(f)}/" data-orig-link="${f.id}">Zobraziť produkt <span aria-hidden="true">→</span></a>
       </article>
       <p class="carousel__cheaper-line">
         Lacnejšia o <strong>${eur(f.original_price - f.veelyn_price)}</strong> ako <strong>${f.original_name}</strong>
@@ -730,7 +742,7 @@ function productCardHTML(f, isBest, showMatch) {
               </p>
             </div>
           </div>
-          <a class="match-card__link" href="#" data-orig-link="${f.id}">Zobraziť produkt <span aria-hidden="true">→</span></a>
+          <a class="match-card__link" href="/produkt/${productSlug(f)}/" data-orig-link="${f.id}">Zobraziť produkt <span aria-hidden="true">→</span></a>
         </article>` : '';
   return `
     <article class="prod-card${isBest ? ' prod-card--best' : ''}" data-id="${f.id}">
@@ -1098,7 +1110,7 @@ function openProduct(id) {
               <strong>${eur(f.original_price)}</strong>
               <small>${eur(f.original_price / 50)} / 1 ml</small>
             </p>
-            <a class="match-card__link" href="#" onclick="event.preventDefault(); openMatchOrigin('${f.id}');">
+            <a class="match-card__link" href="/produkt/${productSlug(f)}/" onclick="event.preventDefault(); openMatchOrigin('${f.id}');">
               Zobraziť produkt <span aria-hidden="true">→</span>
             </a>
           </div>
@@ -1245,7 +1257,7 @@ function openMatchOrigin(fragId) {
                 <strong>${eur(f.veelyn_price)}</strong>
                 <small>${eur(f.veelyn_price / 50)} / 1 ml</small>
               </p>
-              <a class="match-card__link" href="#" onclick="event.preventDefault(); closeAllModals(); openProduct('${f.id}');">
+              <a class="match-card__link" href="/?vona=${encodeURIComponent(f.id)}" onclick="event.preventDefault(); closeAllModals(); openProduct('${f.id}');">
                 Zobraziť produkt <span aria-hidden="true">→</span>
               </a>
             </div>
@@ -2805,16 +2817,15 @@ function init() {
 // Googlebot renders JS so this is indexed alongside the static head schema.
 function injectProductSchemas() {
   if (!Array.isArray(FRAGRANCES) || !FRAGRANCES.length) return;
-  const SITE = 'https://veelyn.sk';
+  const SITE = SITE_URL;
   const products = FRAGRANCES.map((f, i) => {
-    const rating = (state?.ratings || {})[f.id];
-    const slug = encodeURIComponent(f.id);
-    const url = `${SITE}/?vona=${slug}`;
+    // Canonical SEO surface for each fragrance is its static landing page.
+    const url = productPageUrl(f);
     const image = `${SITE}/images/veelyn/${f.id}.png`;
     const genderLabel = f.gender === 'M' ? 'pánska' : f.gender === 'Z' ? 'dámska' : 'unisex';
     const node = {
       '@type': 'Product',
-      '@id': `${SITE}/#product-${f.id}`,
+      '@id': `${url}#product`,
       name: `Dupé ${f.brand} ${f.original_name} — VEELYN ${f.veelyn_name}`,
       alternateName: [
         `VEELYN ${f.veelyn_name}`,
@@ -2847,7 +2858,7 @@ function injectProductSchemas() {
         shippingDetails: {
           '@type': 'OfferShippingDetails',
           shippingDestination: { '@type': 'DefinedRegion', addressCountry: 'SK' },
-          shippingRate: { '@type': 'MonetaryAmount', value: '4.99', currency: 'EUR' },
+          shippingRate: { '@type': 'MonetaryAmount', value: '2.99', currency: 'EUR' },
         },
         hasMerchantReturnPolicy: {
           '@type': 'MerchantReturnPolicy',
@@ -2855,26 +2866,21 @@ function injectProductSchemas() {
           returnPolicyCategory: 'https://schema.org/MerchantReturnFiniteReturnWindow',
           merchantReturnDays: 14,
           returnMethod: 'https://schema.org/ReturnByMail',
-          returnFees: 'https://schema.org/FreeReturn',
+          returnFees: 'https://schema.org/ReturnFeesCustomerResponsibility',
         },
       },
     };
-    if (rating && rating.count > 0) {
-      node.aggregateRating = {
-        '@type': 'AggregateRating',
-        ratingValue: Number(rating.avg).toFixed(2),
-        reviewCount: rating.count,
-        bestRating: '5',
-        worstRating: '1',
-      };
-    }
+    // NOTE: deliberately NO aggregateRating — on-site ratings are not
+    // verified third-party reviews and must not be pushed into structured
+    // data (Google review-snippet policy → manual action risk).
     return node;
   });
 
   const itemList = {
     '@type': 'ItemList',
-    '@id': `${SITE}/#all-fragrances`,
-    name: 'Všetky vône Veelyn',
+    '@id': `${SITE}/produkt/#list`,
+    name: 'Všetky dupé parfumy Veelyn',
+    url: `${SITE}/produkt/`,
     numberOfItems: products.length,
     itemListElement: products.map((p, i) => ({
       '@type': 'ListItem',
@@ -2883,17 +2889,9 @@ function injectProductSchemas() {
     })),
   };
 
-  const breadcrumbs = {
-    '@type': 'BreadcrumbList',
-    itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Domov', item: `${SITE}/` },
-      { '@type': 'ListItem', position: 2, name: 'Všetky vône', item: `${SITE}/#vsetky-vonavky` },
-    ],
-  };
-
   const payload = {
     '@context': 'https://schema.org',
-    '@graph': [...products, itemList, breadcrumbs],
+    '@graph': [...products, itemList],
   };
 
   const tag = document.createElement('script');
@@ -2922,7 +2920,7 @@ function setupDeepLinks() {
   // see a dupé-targeted page per fragrance.
   const ORIG_TITLE = document.title;
   const canonical = document.querySelector('link[rel="canonical"]');
-  const ORIG_CANONICAL = canonical?.href || 'https://veelyn.sk/';
+  const ORIG_CANONICAL = canonical?.href || `${SITE_URL}/`;
   const metaDesc = document.querySelector('meta[name="description"]');
   const ORIG_DESC = metaDesc?.content || '';
   const ogTitle = document.querySelector('meta[property="og:title"]');
@@ -2931,8 +2929,20 @@ function setupDeepLinks() {
   const ogImg = document.querySelector('meta[property="og:image"]');
   const ORIG_OG_TITLE = ogTitle?.content || '';
   const ORIG_OG_DESC = ogDesc?.content || '';
-  const ORIG_OG_URL = ogUrl?.content || 'https://veelyn.sk/';
-  const ORIG_OG_IMG = ogImg?.content || 'https://veelyn.sk/og-image.jpg';
+  const ORIG_OG_URL = ogUrl?.content || `${SITE_URL}/`;
+  const ORIG_OG_IMG = ogImg?.content || `${SITE_URL}/og-image.jpg`;
+
+  // Sitelinks-searchbox target: ?q=<term> opens the search modal prefilled.
+  const q = params.get('q');
+  if (q && !id) {
+    setTimeout(() => {
+      try {
+        openModal('search');
+        const inp = document.getElementById('searchInput');
+        if (inp) { inp.value = q; inp.dispatchEvent(new Event('input', { bubbles: true })); inp.focus(); }
+      } catch (e) {}
+    }, 80);
+  }
 
   const _open = openProduct;
   openProduct = function patchedOpenProduct(pid) {
@@ -2946,10 +2956,13 @@ function setupDeepLinks() {
     history.replaceState({ vona: pid }, '', url.toString());
     const newTitle = `Dupé ${f.brand} ${f.original_name} — VEELYN ${f.veelyn_name} | 24,99 €`;
     const newDesc = `Dupé na ${f.brand} ${f.original_name}. VEELYN ${f.veelyn_name} — eau de parfum 50 ml za 24,99 € namiesto ${Number(f.original_price).toFixed(0)} €. Slovenský parfumársky brand, doprava zdarma nad 40 €.`;
-    const productUrl = `https://veelyn.sk/?vona=${encodeURIComponent(pid)}`;
-    const productImg = `https://veelyn.sk/images/veelyn/${pid}.png`;
+    // Shareable URL keeps ?vona= (opens the modal), but the SEO canonical
+    // points at the static /produkt/<slug>/ page so ranking signals
+    // consolidate there instead of splitting across ?vona= duplicates.
+    const productUrl = `${SITE_URL}/?vona=${encodeURIComponent(pid)}`;
+    const productImg = `${SITE_URL}/images/veelyn/${pid}.png`;
     document.title = newTitle;
-    if (canonical) canonical.href = productUrl;
+    if (canonical) canonical.href = productPageUrl(f);
     if (metaDesc) metaDesc.content = newDesc;
     if (ogTitle) ogTitle.content = newTitle;
     if (ogDesc) ogDesc.content = newDesc;

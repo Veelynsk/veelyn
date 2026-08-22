@@ -21,7 +21,7 @@ import { fileURLToPath } from 'node:url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, '..');
-const SITE = 'https://veelyn.sk';
+const SITE = 'https://www.veelyn.sk';
 
 const fragrances = JSON.parse(readFileSync(resolve(ROOT, 'fragrances.json'), 'utf8'));
 

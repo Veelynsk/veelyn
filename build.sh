@@ -7,6 +7,7 @@ set -euo pipefail
 node scripts/build-product-pages.js
 node scripts/build-sitemap.js
 node scripts/build-feeds.js
+node scripts/build-llms.js
 
 rm -rf public
 mkdir -p public/images
@@ -14,6 +15,9 @@ mkdir -p public/images
 cp index.html script.js styles.css data.js 404.html public/
 cp favicon-16.png favicon-32.png favicon.svg apple-touch-icon.png og-image.jpg public/
 cp robots.txt sitemap.xml heureka.xml merchant.xml site.webmanifest public/
+# SEO / GEO / Cloudflare config
+cp _headers llms.txt llms-full.txt logo.png public/
+cp -r faq public/
 cp GTM_SETUP.md public/ 2>/dev/null || true
 
 cp -r admin public/
