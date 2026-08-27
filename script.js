@@ -1563,11 +1563,15 @@ function renderCartUpsell(qty) {
 
   // Hide upsell when cart is empty (use bundle modal instead)
   if (qty === 0) { wrap.hidden = true; return; }
+  // Deal fully redeemed (4, 8, 12 … items): there is nothing left to
+  // upsell — the green "3+1 ZADARMO −…€" row in the totals already says
+  // it. Showing "Vyber si 3+1" here confused users (2026-08-25).
+  if (qty % 4 === 0) { wrap.hidden = true; return; }
   wrap.hidden = false;
 
   const target = 4;
-  const filled = Math.min(qty, target);
-  const pct = (filled / target) * 100;
+  const inPack = qty % 4; // progress within the current 4-pack (1–3 here)
+  const pct = (inPack / target) * 100;
   const remaining = Math.max(0, 3 - qty); // need 3 paid to unlock the 4th free
 
   if (qty < 3) {
@@ -1577,7 +1581,10 @@ function renderCartUpsell(qty) {
     msg.innerHTML = `Si <strong>1 krok</strong> od bonusu — pridaj <strong>4. vôňu</strong> a získaš ju <strong>ZADARMO</strong>.`;
     wrap.classList.remove('cart-upsell--unlocked');
   } else {
-    msg.innerHTML = `★ <strong>3+1 deal aktívny</strong> — máš ${qty} ${vonaPlural(qty)}, každá 4. ide zadarmo.`;
+    // Deal active with a partly-built next pack (5–7, 9–11 …): push
+    // toward the NEXT free bottle; the picker CTA is hidden via CSS.
+    const toNext = target - inPack;
+    msg.innerHTML = `★ <strong>3+1 deal aktívny</strong> — pridaj ešte <strong>${toNext} ${vonaPlural(toNext)}</strong> a ďalšia je <strong>ZADARMO</strong>.`;
     wrap.classList.add('cart-upsell--unlocked');
   }
   fill.style.width = pct + '%';

@@ -10778,3 +10778,8 @@ input, select, textarea, label {
     animation: none;
   }
 }
+
+/* 3+1 upsell v košíku: keď je deal už aktívny (5.–7. vôňa rozrobená),
+   CTA „Vyber si 3+1" nedáva zmysel — schovaj ho; box pri presne 4/8/12
+   vôňach skrýva JS celý (user 2026-08-25). */
+.cart-upsell--unlocked .cart-upsell__cta { display: none; }
