@@ -4231,14 +4231,15 @@ body.has-promo-popup .proof-toast { display: none !important; }
   top: 0.85rem;
   right: 0.85rem;
   left: auto;
-  width: 42px; height: 42px;
+  /* Menšie, decentnejšie × (user 2026-08-29); na hover narastie o 25 %. */
+  width: 30px; height: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
   background: #fff;
   border: 1px solid rgba(0,0,0,0.08);
   border-radius: 50%;
-  font-size: 1.6rem;
+  font-size: 1.1rem;
   line-height: 1;
   color: #111;
   font-weight: 900;
@@ -4246,17 +4247,17 @@ body.has-promo-popup .proof-toast { display: none !important; }
   z-index: 10;
   cursor: pointer;
   text-shadow: none;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.65);
-  transition: transform 120ms ease, background 120ms ease, box-shadow 120ms ease;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.32), inset 0 1px 0 rgba(255,255,255,0.65);
+  transition: transform 140ms ease, background 140ms ease, box-shadow 140ms ease;
 }
 .modal__close:hover {
   background: #f4f4f4;
-  transform: scale(1.05);
+  transform: scale(1.25);
   box-shadow: 0 6px 18px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.8);
 }
 .modal__close:active {
   background: #e6e6e6;
-  transform: scale(0.96);
+  transform: scale(1.1);
 }
 @keyframes modalIn {
   from { opacity: 0; }
@@ -10802,3 +10803,26 @@ input, select, textarea, label {
 }
 .carousel__stage.is-dragging { cursor: grabbing; }
 .carousel__stage.is-dragging .carousel__slide { pointer-events: none; }
+
+/* 3+1 sloty: náhľad vybranej vonavky (user 2026-08-29). Fotka je
+   absolútne pozicovaná → nemení rozmery ani pomer strán slotu.
+   Číslo + názov sa vo vyplnenom slote presunú do spodného pruhu. */
+.bundle__slot { overflow: hidden; }
+.bundle__slot-thumb {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 8% 12% 30%;
+  z-index: 0;
+  pointer-events: none;
+  filter: drop-shadow(0 6px 14px rgba(0,0,0,0.45));
+}
+.bundle__slot.is-filled { align-items: flex-end; }
+.bundle__slot.is-filled .bundle__slot-num,
+.bundle__slot.is-filled .bundle__slot-label {
+  position: relative;
+  z-index: 1;
+}
+.bundle__slot--free::after { z-index: 2; }

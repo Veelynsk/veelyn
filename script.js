@@ -1687,13 +1687,26 @@ function pickForBundle(slotIdx) {
 function renderBundleSlots() {
   $$('.bundle__slot').forEach((slot, i) => {
     const id = state.bundleSlots[i];
+    let thumb = slot.querySelector('.bundle__slot-thumb');
     if (id) {
       const f = FRAGRANCES.find(x => x.id === id);
       slot.classList.add('is-filled');
       slot.querySelector('.bundle__slot-num').textContent = (i + 1);
       slot.querySelector('.bundle__slot-label').textContent = f.veelyn_name;
+      // Náhľad flaštičky v slote — absolútne pozicovaný, takže nemení
+      // rozmery ani pomer strán štvorca (user 2026-08-29).
+      if (!thumb) {
+        thumb = document.createElement('img');
+        thumb.className = 'bundle__slot-thumb';
+        thumb.alt = '';
+        thumb.decoding = 'async';
+        slot.prepend(thumb);
+      }
+      const src = `images/veelyn/${id}.png?v=2`;
+      if (thumb.getAttribute('src') !== src) thumb.src = src;
     } else {
       slot.classList.remove('is-filled');
+      if (thumb) thumb.remove();
       slot.querySelector('.bundle__slot-num').textContent = (i + 1);
       slot.querySelector('.bundle__slot-label').textContent = i === 3 ? '+ Vyber si vonavku' : '+ Vyber si vonavku';
     }
