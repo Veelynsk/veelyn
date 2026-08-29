@@ -1713,6 +1713,47 @@ function renderBundleSlots() {
   });
 }
 
+// --- PHONE AUTO-FORMAT (prediktívne formátovanie SK čísla) ---
+// Počas písania automaticky vkladá medzery: 0950 890 098 alebo
+// +421 950 890 098. Funguje na každom <input name="phone"> (checkout,
+// veľkoobchod). Validácia medzery strippuje, takže formát prejde.
+function formatSkPhoneWhileTyping(raw) {
+  const plus = String(raw).trim().startsWith('+');
+  let d = String(raw).replace(/\D/g, '');
+  if (plus) {
+    if (!d.startsWith('421')) d = '421' + d;
+    d = d.slice(0, 12); // 421 + 9 cifier
+    const rest = d.slice(3);
+    const parts = [rest.slice(0, 3), rest.slice(3, 6), rest.slice(6, 9)].filter(Boolean);
+    return '+421' + (parts.length ? ' ' + parts.join(' ') : '');
+  }
+  d = d.slice(0, 10); // 0950 890 098
+  const parts = [d.slice(0, 4), d.slice(4, 7), d.slice(7, 10)].filter(Boolean);
+  return parts.join(' ');
+}
+document.addEventListener('input', (e) => {
+  const t = e.target;
+  if (!t || t.tagName !== 'INPUT' || t.name !== 'phone') return;
+  const before = t.value;
+  const caret = t.selectionStart != null ? t.selectionStart : before.length;
+  let sigLeft = before.slice(0, caret).replace(/[^\d+]/g, '').length;
+  let formatted = formatSkPhoneWhileTyping(before);
+  // Backspace cez medzeru: preformátovanie by medzeru vrátilo a caret by
+  // sa zasekol — v tom prípade zmaž aj číslicu pred medzerou.
+  const prev = t.dataset.prevPhone || '';
+  if (e.inputType === 'deleteContentBackward' && formatted === prev && sigLeft > 0) {
+    const sig = before.replace(/[^\d+]/g, '');
+    formatted = formatSkPhoneWhileTyping(sig.slice(0, sigLeft - 1) + sig.slice(sigLeft));
+    sigLeft -= 1;
+  }
+  t.dataset.prevPhone = formatted;
+  if (formatted === before) return;
+  t.value = formatted;
+  let pos = 0, seen = 0;
+  while (pos < formatted.length && seen < sigLeft) { if (/[\d+]/.test(formatted[pos])) seen++; pos++; }
+  try { t.setSelectionRange(pos, pos); } catch (err) {}
+});
+
 // --- CONTACT FORM ---
 function setupContactForm() {
   const form = $('#contactForm');
