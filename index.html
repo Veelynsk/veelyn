@@ -37,19 +37,18 @@
     security_storage:      'granted',
     wait_for_update:       500
   });
-  // Restore previously saved consent (set by setupCookieBanner on click)
-  try {
-    const saved = JSON.parse(localStorage.getItem('veelyn_cookie_consent') || 'null');
-    if (saved) {
-      gtag('consent', 'update', {
-        ad_storage:         saved.marketing ? 'granted' : 'denied',
-        ad_user_data:       saved.marketing ? 'granted' : 'denied',
-        ad_personalization: saved.marketing ? 'granted' : 'denied',
-        analytics_storage:  saved.analytics ? 'granted' : 'denied',
-      });
-    }
-  } catch (e) {}
+  // Consent restore + updates rieši Cookiebot (GCM v2 integrácia).
 </script>
+
+<!-- ====================================================================
+     COOKIEBOT — GDPR consent banner + auto-blocking (rovnaké nasadenie
+     ako na epoxidovo.sk). Musí byť PRED GTM/analytics, aby
+     blockingmode=auto vedel zablokovať trackery do udelenia súhlasu.
+     Cookiebot má natívnu integráciu Google Consent Mode v2 — defaulty
+     nastavuje snippet vyššie, Cookiebot posiela consent update podľa
+     voľby používateľa.
+     ==================================================================== -->
+<script id="Cookiebot" src="https://consent.cookiebot.com/uc.js" data-cbid="4f9c479d-c24b-4e27-82b7-2062743b7ce2" data-blockingmode="auto" data-culture="sk"></script>
 
 <!-- ====================================================================
      GOOGLE TAG MANAGER — single container that holds GA4, Meta Pixel,
@@ -83,16 +82,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
       })(window, document, 'clarity', 'script', 'wunupe0nxe');
     }
-    try {
-      var saved = JSON.parse(localStorage.getItem('veelyn_cookie_consent') || 'null');
-      if (saved && saved.analytics) { loadClarity(); return; }
-    } catch (e) {}
-    document.addEventListener('veelyn:cookie-consent', function () {
+    function checkCookiebot() {
       try {
-        var p = JSON.parse(localStorage.getItem('veelyn_cookie_consent') || 'null');
-        if (p && p.analytics) loadClarity();
+        if (window.Cookiebot && window.Cookiebot.consent && window.Cookiebot.consent.statistics) loadClarity();
       } catch (e) {}
-    });
+    }
+    window.addEventListener('CookiebotOnConsentReady', checkCookiebot);
+    window.addEventListener('CookiebotOnAccept', checkCookiebot);
   })();
 </script>
 <!-- End Microsoft Clarity -->
@@ -143,7 +139,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="preconnect" href="https://widget.packeta.com">
 <link rel="dns-prefetch" href="https://widget.packeta.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..900;1,9..144,400..900&family=Manrope:wght@300..800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=20260528-041">
+<link rel="stylesheet" href="styles.css?v=20260528-042">
 
 <!-- JSON-LD Structured Data (Organization / WebSite / OnlineStore / WebPage).
      Product + ItemList nodes are injected at runtime by script.js
@@ -708,19 +704,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </aside>
 
-<!-- COOKIE BANNER -->
-<div class="cookie-banner" id="cookieBanner" hidden>
-  <div class="cookie-banner__content">
-    <div class="cookie-banner__text">
-      <strong>🍪 Používame cookies</strong>
-      <p>Tieto stránky používajú cookies na zabezpečenie funkcionality a meranie návštevnosti. <button class="cookie-banner__more" data-open="cookies">Viac info</button></p>
-    </div>
-    <div class="cookie-banner__buttons">
-      <button class="btn btn--ghost cookie-banner__btn" id="cookieReject">Iba nevyhnutné</button>
-      <button class="btn btn--primary cookie-banner__btn" id="cookieAccept">Prijať všetko</button>
-    </div>
-  </div>
-</div>
+<!-- Cookie banner: Cookiebot (script v <head>), custom banner odstránený. -->
 
 <!-- ==================== MODALS ==================== -->
 
@@ -1335,10 +1319,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <p>Pri prvej návšteve sa vám zobrazí banner so súhlasom — máte na výber buď všetky cookies prijať, všetky odmietnuť (okrem nevyhnutných), alebo zvoliť si individuálne, ktoré kategórie aktivovať. Svoj súhlas môžete kedykoľvek <strong>zmeniť alebo odvolať</strong> nasledujúcim spôsobom:</p>
       <div class="legal__cookie-toggles">
         <label><input type="checkbox" checked disabled> Nevyhnutné (vždy aktívne)</label>
-        <label><input type="checkbox" id="cookieAnalytics"> Analytické</label>
-        <label><input type="checkbox" id="cookieMarketing"> Marketingové</label>
       </div>
-      <button class="btn btn--primary" id="cookieSave">Uložiť nastavenia</button>
+      <button class="btn btn--primary" id="cookieSave">Zmeniť súhlas s cookies</button>
       <p>Cookies môžete spravovať aj priamo v nastaveniach vášho prehliadača. Tam ich môžete prezerať, mazať alebo blokovať. Upozorňujeme, že vypnutie nevyhnutných cookies môže obmedziť funkčnosť stránky (napr. zlyhanie košíka pri nákupe).</p>
 
       <h3>Prenos údajov mimo EÚ</h3>
@@ -1448,7 +1430,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- Packeta widget v6 (https://docs.packetery.com/03-creating-shipments/05-widget-v6.html) -->
 <script src="https://widget.packeta.com/v6/www/js/library.js" async></script>
 
-<script src="data.js?v=20260528-041"></script>
-<script src="script.js?v=20260528-041"></script>
+<script src="data.js?v=20260528-042"></script>
+<script src="script.js?v=20260528-042"></script>
 </body>
 </html>

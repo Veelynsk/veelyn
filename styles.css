@@ -10783,3 +10783,22 @@ input, select, textarea, label {
    CTA „Vyber si 3+1" nedáva zmysel — schovaj ho; box pri presne 4/8/12
    vôňach skrýva JS celý (user 2026-08-25). */
 .cart-upsell--unlocked .cart-upsell__cta { display: none; }
+
+/* Cookiebot — skryť plávajúci "renew consent" widget vpravo dole (rovnako
+   ako na epoxidovo.sk). Súhlas sa mení cez footer link „Nastavenia
+   cookies" alebo tlačidlo v cookies modáli (obe volajú Cookiebot.renew()). */
+#CookiebotWidget,
+.CookiebotWidget,
+[id^="CybotCookiebotWidget"] {
+  display: none !important;
+}
+
+/* Desktop drag-to-swipe na karuseli: žiadne označovanie textu pri ťahaní,
+   grab kurzor signalizuje že sa dá ťahať (user 2026-08-28). */
+.carousel__stage {
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: grab;
+}
+.carousel__stage.is-dragging { cursor: grabbing; }
+.carousel__stage.is-dragging .carousel__slide { pointer-events: none; }

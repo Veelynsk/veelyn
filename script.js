@@ -491,7 +491,7 @@ function renderCarousel() {
     `<button class="carousel__dot ${i === 0 ? 'is-active' : ''}" data-idx="${i}" aria-label="Slide ${i+1}"></button>`
   ).join('');
 
-  $$('.carousel__dot').forEach(d => d.addEventListener('click', () => goToSlide(parseInt(d.dataset.idx))));
+  $$('.carousel__dot').forEach(d => d.addEventListener('click', () => { goToSlide(parseInt(d.dataset.idx)); pauseCarouselAfterManualNav(); }));
   $$('.carousel__slide').forEach(s => {
     s.addEventListener('click', (e) => {
       // "Zobraziť produkt →" link inside the Perfektná zhoda match-card
@@ -593,6 +593,15 @@ function startCarousel() {
 }
 function stopCarousel() {
   if (state.carouselInterval) clearInterval(state.carouselInterval);
+}
+// Manuálna navigácia (šípky, bodky, swipe, drag): autoplay sa zastaví a
+// znova nabehne až po 15 s nečinnosti — nech užívateľovi neuteká slide,
+// ktorý si práve sám vybral.
+let __carouselResumeTimer = null;
+function pauseCarouselAfterManualNav() {
+  stopCarousel();
+  if (__carouselResumeTimer) clearTimeout(__carouselResumeTimer);
+  __carouselResumeTimer = setTimeout(startCarousel, 15000);
 }
 
 // --- MODALS ---
@@ -1892,8 +1901,8 @@ function setupEvents() {
   // (no burger anymore — bottom nav is always visible on mobile)
 
   // arrows
-  $('#prevBtn').addEventListener('click', () => goToSlide(state.carouselIdx - 1));
-  $('#nextBtn').addEventListener('click', () => goToSlide(state.carouselIdx + 1));
+  $('#prevBtn').addEventListener('click', () => { goToSlide(state.carouselIdx - 1); pauseCarouselAfterManualNav(); });
+  $('#nextBtn').addEventListener('click', () => { goToSlide(state.carouselIdx + 1); pauseCarouselAfterManualNav(); });
 
   // pause carousel on hover
   const carousel = $('.carousel');
@@ -1954,10 +1963,47 @@ function setupEvents() {
       // already locked.
       if (Math.abs(dx) > 40 && (wasHorizontal || Math.abs(dx) > Math.abs(dy) * 1.2)) {
         goToSlide(state.carouselIdx + (dx < 0 ? 1 : -1));
+        pauseCarouselAfterManualNav();
+      } else {
+        startCarousel();
       }
-      startCarousel();
     });
     stage.addEventListener('touchcancel', () => { dragging = false; lockedAxis = null; startCarousel(); });
+  }
+
+  // Desktop: drag myšou prepína slidy (ako swipe na mobile). Klik bez
+  // ťahania (< 8 px) ďalej normálne otvára produkt — po skutočnom dragu
+  // najbližší click potlačíme, aby sa neotvoril modal.
+  if (stage) {
+    let mDown = false, mStartX = 0, mStartY = 0, mDragged = false;
+    stage.addEventListener('pointerdown', (e) => {
+      if (e.pointerType !== 'mouse' || e.button !== 0) return;
+      mDown = true; mDragged = false;
+      mStartX = e.clientX; mStartY = e.clientY;
+    });
+    window.addEventListener('pointermove', (e) => {
+      if (!mDown || e.pointerType !== 'mouse') return;
+      if (!mDragged && Math.abs(e.clientX - mStartX) > 8 && Math.abs(e.clientX - mStartX) > Math.abs(e.clientY - mStartY)) {
+        mDragged = true;
+        stage.classList.add('is-dragging');
+        stopCarousel();
+      }
+    });
+    window.addEventListener('pointerup', (e) => {
+      if (!mDown || e.pointerType !== 'mouse') return;
+      mDown = false;
+      stage.classList.remove('is-dragging');
+      if (!mDragged) return;
+      const dx = e.clientX - mStartX;
+      if (Math.abs(dx) > 40) {
+        goToSlide(state.carouselIdx + (dx < 0 ? 1 : -1));
+      }
+      pauseCarouselAfterManualNav();
+    });
+    // Po dragu zožer najbližší click v capture fáze, nech sa neotvorí produkt.
+    stage.addEventListener('click', (e) => {
+      if (mDragged) { e.stopPropagation(); e.preventDefault(); mDragged = false; }
+    }, true);
   }
 
   // checkout button
@@ -2649,75 +2695,45 @@ function saveCart() {
 }
 
 // --- COOKIE CONSENT ---
+// --- COOKIES (Cookiebot) ---
+// Banner + consent UI dodáva Cookiebot (script v <head>, rovnako ako na
+// epoxidovo.sk). Tu len: (a) prepojíme footer link a tlačidlo v cookies
+// modáli na Cookiebot.renew(), (b) po voľbe používateľa pushneme
+// consent_update do dataLayer (GTM triggery) a vystrelíme legacy event
+// 'veelyn:cookie-consent' + zapíšeme legacy localStorage kľúč, na ktorý
+// čaká promo popup.
 function setupCookieBanner() {
-  const banner = $('#cookieBanner');
-  const acceptBtn = $('#cookieAccept');
-  const rejectBtn = $('#cookieReject');
   const reopenBtn = $('#cookieReopen');
   const saveBtn = $('#cookieSave');
-  const analyticsToggle = $('#cookieAnalytics');
-  const marketingToggle = $('#cookieMarketing');
+  const renew = (e) => {
+    if (e) e.preventDefault();
+    closeAllModals();
+    if (window.Cookiebot && typeof window.Cookiebot.renew === 'function') window.Cookiebot.renew();
+  };
+  reopenBtn?.addEventListener('click', renew);
+  saveBtn?.addEventListener('click', renew);
 
-  const STORE_KEY = 'veelyn_cookie_consent';
-  const stored = localStorage.getItem(STORE_KEY);
-
-  function save(prefs) {
-    localStorage.setItem(STORE_KEY, JSON.stringify({ ...prefs, ts: Date.now() }));
-    banner.hidden = true;
-    // Sync toggles in modal
-    if (analyticsToggle) analyticsToggle.checked = !!prefs.analytics;
-    if (marketingToggle) marketingToggle.checked = !!prefs.marketing;
-
-    // Google Consent Mode v2 update — flips GTM tags (GA4, Meta CAPI, Ads)
-    // from queued/cookieless state to fully tracking based on user choice.
-    if (typeof window.gtag === 'function') {
-      window.gtag('consent', 'update', {
-        ad_storage:         prefs.marketing ? 'granted' : 'denied',
-        ad_user_data:       prefs.marketing ? 'granted' : 'denied',
-        ad_personalization: prefs.marketing ? 'granted' : 'denied',
-        analytics_storage:  prefs.analytics ? 'granted' : 'denied',
-      });
-    }
-    // Also push the user's choice as a dataLayer event so GTM tags can
-    // fire any "consent_update" triggers configured in GTM UI.
+  const onChoice = () => {
+    const c = window.Cookiebot?.consent;
+    if (!c) return;
+    try {
+      localStorage.setItem('veelyn_cookie_consent', JSON.stringify({
+        necessary: true,
+        analytics: !!c.statistics,
+        marketing: !!c.marketing,
+        ts: Date.now(),
+        src: 'cookiebot',
+      }));
+    } catch (err) {}
     (window.dataLayer = window.dataLayer || []).push({
       event: 'consent_update',
-      analytics_granted: !!prefs.analytics,
-      marketing_granted: !!prefs.marketing,
+      analytics_granted: !!c.statistics,
+      marketing_granted: !!c.marketing,
     });
-
-    // Notify other features (e.g. the scratch-ticket promo popup) that they
-    // can now show themselves — it would be rude to overlay them on top of
-    // a cookie banner that the user hadn't engaged with yet.
     document.dispatchEvent(new CustomEvent('veelyn:cookie-consent'));
-  }
-
-  if (!stored) {
-    // Show banner after small delay so it doesn't slam in immediately
-    setTimeout(() => { banner.hidden = false; }, 800);
-  } else {
-    try {
-      const prefs = JSON.parse(stored);
-      if (analyticsToggle) analyticsToggle.checked = !!prefs.analytics;
-      if (marketingToggle) marketingToggle.checked = !!prefs.marketing;
-    } catch {}
-  }
-
-  acceptBtn?.addEventListener('click', () => save({ necessary: true, analytics: true, marketing: true }));
-  rejectBtn?.addEventListener('click', () => save({ necessary: true, analytics: false, marketing: false }));
-  saveBtn?.addEventListener('click', () => {
-    save({
-      necessary: true,
-      analytics: !!analyticsToggle?.checked,
-      marketing: !!marketingToggle?.checked
-    });
-    closeAllModals();
-  });
-  reopenBtn?.addEventListener('click', (e) => {
-    e.preventDefault();
-    closeAllModals();
-    openModal('cookies');
-  });
+  };
+  window.addEventListener('CookiebotOnAccept', onChoice);
+  window.addEventListener('CookiebotOnDecline', onChoice);
 }
 
 // --- NEWSLETTER ---
