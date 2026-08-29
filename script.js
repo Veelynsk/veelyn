@@ -594,14 +594,14 @@ function startCarousel() {
 function stopCarousel() {
   if (state.carouselInterval) clearInterval(state.carouselInterval);
 }
-// Manuálna navigácia (šípky, bodky, swipe, drag): autoplay sa zastaví a
-// znova nabehne až po 15 s nečinnosti — nech užívateľovi neuteká slide,
-// ktorý si práve sám vybral.
+// Manuálna navigácia (šípky, bodky, swipe, drag): autoplay sa na 1 s
+// zastaví a potom nabehne odznova — timer ide od 0, takže ďalší
+// auto-flip príde ~6 s po interakcii (1 s pauza + 5 s interval).
 let __carouselResumeTimer = null;
 function pauseCarouselAfterManualNav() {
   stopCarousel();
   if (__carouselResumeTimer) clearTimeout(__carouselResumeTimer);
-  __carouselResumeTimer = setTimeout(startCarousel, 15000);
+  __carouselResumeTimer = setTimeout(startCarousel, 1000);
 }
 
 // --- MODALS ---
