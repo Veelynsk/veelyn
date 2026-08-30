@@ -63,7 +63,14 @@ const urlOf  = (f) => `${SITE}/produkt/${slugOf(f)}/`;
 function descriptionParagraph(f) {
   const top = joinSk(f.top_notes), heart = joinSk(f.heart_notes), base = joinSk(f.base_notes);
   const parts = [];
-  parts.push(`Veelyn ${f.veelyn_name} je slovenské dupé inšpirované vôňou ${f.brand} ${f.original_name} — ${genderAdj(f.gender)} eau de parfum s 20 % koncentráciou parfumovej kompozície, rovnakou, akú používajú originály.`);
+  // Ručne písaná charakteristika originálu (fragrances.json → description)
+  // robí každú stránku obsahovo unikátnou; generický úvod je len fallback.
+  if (f.description) {
+    parts.push(f.description);
+    parts.push(`Veelyn ${f.veelyn_name} je slovenské dupé tejto vône — ${genderAdj(f.gender)} eau de parfum s 20 % koncentráciou parfumovej kompozície, rovnakou, akú používajú originály.`);
+  } else {
+    parts.push(`Veelyn ${f.veelyn_name} je slovenské dupé inšpirované vôňou ${f.brand} ${f.original_name} — ${genderAdj(f.gender)} eau de parfum s 20 % koncentráciou parfumovej kompozície, rovnakou, akú používajú originály.`);
+  }
   if (top || heart || base) {
     const seq = [];
     if (top) seq.push(`sa otvára tónmi ${top}`);
