@@ -10826,3 +10826,11 @@ input, select, textarea, label {
   z-index: 1;
 }
 .bundle__slot--free::after { z-index: 2; }
+
+/* Poznámka v thanks__transfer bloku (zálohová faktúra mailom). */
+.thanks__transfer-note {
+  margin: 0.6rem 0 0;
+  font-size: 0.85rem;
+  line-height: 1.55;
+  color: var(--text-dim);
+}

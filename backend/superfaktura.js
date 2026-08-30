@@ -90,8 +90,17 @@ function toInvoiceItem(item, vatRate) {
 
 // Create a new invoice for an order. Returns the SF response with the new
 // invoice's id, token, public PDF/HTML URLs, and invoice_no_formatted.
-export async function createInvoice(order) {
+//
+// opts:
+//   type       'regular' | 'proforma'   (default 'regular')
+//   number     explicit invoice number (RRRRMMCCCC číselník) — sent as
+//              Invoice.number AND as the variable symbol so the payment
+//              pairs even if SF applies its own sequence
+//   dueDays    override splatnosti (default: 7 pre proformu, 14 inak)
+//   comment    extra comment line (e.g. odkaz na zálohovú faktúru)
+export async function createInvoice(order, opts = {}) {
   const c = getConfig();
+  const docType = opts.type === 'proforma' ? 'proforma' : 'regular';
   const customer = order.customer || {};
   const items = (order.items || []).map(i => toInvoiceItem(i, c.vatRate));
 
@@ -119,26 +128,37 @@ export async function createInvoice(order) {
     });
   }
 
-  const issuedAt = new Date(order.ts || Date.now()).toISOString().slice(0, 10);
-  // 14-day default due date for bank transfer; gateways/cash get same-day
-  const dueDate = new Date((order.ts || Date.now()) + 14 * 86400 * 1000)
+  const issuedAt = new Date().toISOString().slice(0, 10);
+  const dueDays = Number(opts.dueDays ?? (docType === 'proforma' ? 7 : 14));
+  const dueDate = new Date(Date.now() + dueDays * 86400 * 1000)
     .toISOString().slice(0, 10);
+  // Platobný typ podľa zvolenej platby v objednávke.
+  const payMap = { card: 'card', transfer: 'transfer', cod: 'cod' };
+  const paymentType = payMap[order.paymentId] || c.paymentType;
 
+  const commentLines = [
+    `Objednávka ${order.id}`,
+    order.pickupPoint?.name ? `Doručenie na výdajné miesto: ${order.pickupPoint.name}` : '',
+    opts.comment || '',
+  ].filter(Boolean);
   const body = {
     Invoice: {
       name: `Objednávka ${order.id}`,
-      variable: String(order.id).replace(/\D/g, '') || String(Date.now()),
+      // VS = naše číslo faktúry (RRRRMMCCCC) — 10 číslic, páruje platbu
+      // aj keby SF interne použila vlastnú sekvenciu.
+      variable: opts.number
+        ? String(opts.number).replace(/\D/g, '')
+        : (String(order.id).replace(/\D/g, '') || String(Date.now())),
+      ...(opts.number ? { number: String(opts.number) } : {}),
       issued: issuedAt,
       delivery: issuedAt,
       due: dueDate,
-      payment_type: c.paymentType,
+      payment_type: paymentType,
       invoice_currency: 'EUR',
       lang: 'slo',
-      type: 'regular',
+      type: docType,
       header_comment: 'Ďakujeme za nákup vo Veelyn ❤️',
-      comment: order.pickupPoint?.name
-        ? `Doručenie na výdajné miesto: ${order.pickupPoint.name}`
-        : '',
+      comment: commentLines.join('\n'),
       rounding: 'math',
     },
     InvoiceItem: items,

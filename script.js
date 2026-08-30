@@ -2716,14 +2716,12 @@ async function finishOrder() {
       ${isTransfer ? `
         <div class="thanks__transfer">
           <h3>Údaje na platbu</h3>
-          <div><span>Číslo účtu (IBAN)</span><strong>SK00 0000 0000 0000 0000 0000</strong></div>
           <div><span>Suma</span><strong>${eur(t.total)}</strong></div>
-          <div><span>Variabilný symbol</span><strong>${orderId.replace(/\D/g,'')}</strong></div>
-          <div><span>Správa pre prijímateľa</span><strong>${orderId}</strong></div>
+          <p class="thanks__transfer-note">📩 Zálohovú faktúru s číslom účtu, variabilným symbolom a QR kódom na platbu sme ti práve poslali e-mailom. Objednávku odošleme hneď po pripísaní platby.</p>
         </div>
       ` : ''}
       ${isCard ? `
-        <p class="thanks__card-note">💳 V reálnej prevádzke by ťa Stripe presmeroval na zabezpečenú platobnú bránu. (Demo mode)</p>
+        <p class="thanks__card-note">💳 Faktúru k objednávke sme ti poslali e-mailom.</p>
       ` : ''}
 
       <div class="thanks__next">

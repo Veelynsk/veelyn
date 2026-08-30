@@ -183,6 +183,36 @@ db.exec(`
     raw_json     TEXT
   );
 
+  -- Fakturačné doklady (v2): objednávka môže mať VIAC dokladov
+  -- (zálohová faktúra pri prevode + ostrá faktúra po úhrade), preto
+  -- samostatná tabuľka namiesto 1:1 sf_invoices (tá ostáva kvôli
+  -- spätnej kompatibilite admin UI a drží posledný ostrý doklad).
+  CREATE TABLE IF NOT EXISTS invoices (
+    id            INTEGER PRIMARY KEY AUTOINCREMENT,
+    order_id      TEXT NOT NULL,
+    kind          TEXT NOT NULL,             -- 'proforma' | 'regular'
+    number        TEXT NOT NULL,             -- RRRRMMCCCC (náš číselník)
+    sf_invoice_id INTEGER,
+    token         TEXT,
+    pdf_url       TEXT,
+    public_url    TEXT,
+    paid_at       INTEGER,
+    emailed_at    INTEGER,
+    created_at    INTEGER NOT NULL,
+    error         TEXT,
+    raw_json      TEXT
+  );
+  CREATE INDEX IF NOT EXISTS idx_invoices_order ON invoices(order_id);
+
+  -- Mesačný číselník faktúr: RRRRMMCCCC, reset každý mesiac, samostatný
+  -- rad pre zálohové (proforma) a ostré (regular) doklady.
+  CREATE TABLE IF NOT EXISTS invoice_counters (
+    kind   TEXT NOT NULL,
+    period TEXT NOT NULL,                    -- 'RRRRMM'
+    last   INTEGER NOT NULL DEFAULT 0,
+    PRIMARY KEY (kind, period)
+  );
+
   -- Packeta shipments: same sidecar pattern. Created automatically when
   -- an order transitions to "paid" (or admin manually marks "shipped")
   -- and PACKETA_API_PASSWORD is configured. Holds tracking number +
@@ -250,6 +280,39 @@ if (userCount === 0) {
 // fallback log dir (when Resend isn't configured)
 const LOG_DIR = resolve(__dirname, 'logs');
 if (!existsSync(LOG_DIR)) mkdirSync(LOG_DIR, { recursive: true });
+
+// ---- ČÍSELNÍK FAKTÚR (RRRRMMCCCC, mesačný reset) ----
+// Obdobie sa berie podľa Europe/Bratislava, nie UTC — faktúra vystavená
+// 1. v mesiaci o 00:30 SK času musí patriť do nového mesiaca.
+function skPeriod(ts = Date.now()) {
+  const parts = new Intl.DateTimeFormat('sk-SK', {
+    timeZone: 'Europe/Bratislava', year: 'numeric', month: '2-digit',
+  }).formatToParts(new Date(ts));
+  const y = parts.find(p => p.type === 'year').value;
+  const m = parts.find(p => p.type === 'month').value;
+  return `${y}${m}`;
+}
+const _bumpCounter = db.transaction((kind, period) => {
+  db.prepare(`INSERT INTO invoice_counters (kind, period, last) VALUES (?, ?, 0)
+              ON CONFLICT(kind, period) DO NOTHING`).run(kind, period);
+  db.prepare(`UPDATE invoice_counters SET last = last + 1 WHERE kind = ? AND period = ?`).run(kind, period);
+  return db.prepare(`SELECT last FROM invoice_counters WHERE kind = ? AND period = ?`).get(kind, period).last;
+});
+function nextInvoiceNumber(kind) {
+  const period = skPeriod();
+  const n = _bumpCounter(kind, period);
+  return `${period}${String(n).padStart(4, '0')}`;
+}
+// Ak SF vytvorenie zlyhá, číslo vrátime (len ak je stále posledné) —
+// číselník tak nemá diery po chybách.
+function releaseInvoiceNumber(kind, number) {
+  try {
+    const period = String(number).slice(0, 6);
+    const n = parseInt(String(number).slice(6), 10);
+    db.prepare(`UPDATE invoice_counters SET last = last - 1 WHERE kind = ? AND period = ? AND last = ?`)
+      .run(kind, period, n);
+  } catch (e) { console.warn('[INVOICE] release failed:', e.message); }
+}
 
 // ---- APP ----
 const app = express();
@@ -411,6 +474,116 @@ function customerEmailHTML(order) {
 
 function escape(s) {
   return String(s ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+}
+
+// ---- FAKTURAČNÉ EMAILY (s PDF prílohou) ----
+async function fetchPdfBase64(url) {
+  const r = await fetch(url);
+  if (!r.ok) throw new Error(`PDF fetch ${r.status}`);
+  return Buffer.from(await r.arrayBuffer()).toString('base64');
+}
+
+function invoiceEmailHTML(order, number, kind) {
+  const proforma = kind === 'proforma';
+  const title = proforma ? 'ZÁLOHOVÁ FAKTÚRA' : 'FAKTÚRA';
+  const bank = process.env.BANK_IBAN || '';
+  const payBlock = proforma ? `
+      <div style="margin:20px 0;padding:16px 20px;background:#f4f0ff;border:1px solid #ddd0ff;border-radius:10px;font-size:14px;line-height:1.7">
+        <strong style="letter-spacing:.06em">ÚDAJE NA PLATBU PREVODOM</strong><br>
+        Suma: <strong>${eur(order.total)}</strong><br>
+        Variabilný symbol: <strong>${escape(number)}</strong><br>
+        ${bank ? `IBAN: <strong>${escape(bank)}</strong><br>` : ''}
+        Splatnosť: 7 dní<br>
+        <span style="color:#666">Všetky údaje vrátane QR kódu na platbu (PAY by square) nájdeš v priloženom PDF. Objednávku odošleme hneď po pripísaní platby.</span>
+      </div>` : `
+      <p style="margin:16px 0;font-size:14px;line-height:1.6;color:#333">V prílohe posielame faktúru <strong>č. ${escape(number)}</strong> k tvojej objednávke <strong>${escape(order.id)}</strong>. Odlož si ju — je to daňový doklad.</p>`;
+  return `<!doctype html><html><body style="font-family:system-ui,sans-serif;background:#f7f7f9;padding:24px;color:#111">
+  <div style="max-width:600px;margin:0 auto;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.06)">
+    <div style="background:#1a0c2e;color:#fff;padding:24px 28px;text-align:center">
+      <div style="font-family:Georgia,serif;font-style:italic;font-size:28px;letter-spacing:.06em">VEELYN</div>
+      <h1 style="margin:14px 0 0;font-size:18px;letter-spacing:.08em;font-weight:800">${title} ${escape(number)}</h1>
+    </div>
+    <div style="padding:24px 28px">
+      <p style="margin:0;font-size:15px;line-height:1.5">Ahoj ${escape(order.customer?.firstName || '')},</p>
+      ${payBlock}
+      <div style="text-align:right;font-size:16px;margin-top:8px"><strong>Spolu: ${eur(order.total)}</strong></div>
+      <p style="margin:24px 0 0;font-size:13px;color:#666;line-height:1.5">Otázky? Napíš nám na <a href="mailto:info@veelyn.sk" style="color:#7c3aed">info@veelyn.sk</a>.</p>
+    </div>
+  </div></body></html>`;
+}
+
+// Pošle zákazníkovi doklad s PDF prílohou. inv = { number, kind, pdf_url }.
+async function sendInvoiceEmail(order, inv) {
+  const proforma = inv.kind === 'proforma';
+  const subject = proforma
+    ? `Veelyn — zálohová faktúra ${inv.number} + údaje na platbu (${order.id})`
+    : `Veelyn — faktúra ${inv.number} k objednávke ${order.id}`;
+  const filename = proforma ? `Zalohova-faktura-${inv.number}.pdf` : `Faktura-${inv.number}.pdf`;
+  if (!resend) {
+    console.log(`[INVOICE] Resend off — ${subject} (not sent)`);
+    return 'logged';
+  }
+  let attachments;
+  try {
+    if (inv.pdf_url) attachments = [{ filename, content: await fetchPdfBase64(inv.pdf_url) }];
+  } catch (e) {
+    console.warn(`[INVOICE] PDF attach failed for ${inv.number}: ${e.message} — sending without attachment`);
+  }
+  try {
+    const r = await resend.emails.send({
+      from: FROM_EMAIL,
+      to: order.customer.email,
+      subject,
+      html: invoiceEmailHTML(order, inv.number, inv.kind),
+      ...(attachments ? { attachments } : {}),
+    });
+    return r?.data?.id || 'ok';
+  } catch (e) {
+    console.error(`[INVOICE] email failed for ${inv.number}:`, e.message);
+    return 'error: ' + e.message;
+  }
+}
+
+// Vytvorí doklad v SF s naším číslom, uloží do DB a pošle email s PDF.
+// kind: 'proforma' | 'regular'. Vracia uložený riadok alebo { error }.
+async function issueInvoice(order, kind, extra = {}) {
+  const number = nextInvoiceNumber(kind);
+  try {
+    const resp = await sf.createInvoice(order, {
+      type: kind, number, dueDays: extra.dueDays, comment: extra.comment,
+    });
+    const inv = resp?.data?.Invoice || resp?.Invoice || {};
+    const row = {
+      order_id: order.id,
+      kind,
+      number,
+      sf_invoice_id: inv.id || null,
+      token: inv.token || null,
+      pdf_url: sf.publicPdfUrl(inv),
+      public_url: sf.publicHtmlUrl(inv),
+    };
+    const sfNo = inv.invoice_no_formatted || inv.invoice_no || '';
+    if (sfNo && String(sfNo) !== String(number)) {
+      console.warn(`[INVOICE] SF si prečíslovala doklad: naše ${number}, SF ${sfNo} — párovanie drží VS=${number}`);
+    }
+    db.prepare(`INSERT INTO invoices (order_id, kind, number, sf_invoice_id, token, pdf_url, public_url, created_at, raw_json)
+                VALUES (@order_id, @kind, @number, @sf_invoice_id, @token, @pdf_url, @public_url, @created_at, @raw_json)`)
+      .run({ ...row, created_at: Date.now(), raw_json: JSON.stringify(resp).slice(0, 20000) });
+    // Spätná kompatibilita: sf_invoices drží najnovší doklad (admin UI).
+    db.prepare(`INSERT OR REPLACE INTO sf_invoices (order_id, invoice_id, token, invoice_no, pdf_url, public_url, created_at, raw_json)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?)`)
+      .run(order.id, row.sf_invoice_id, row.token, number, row.pdf_url, row.public_url, Date.now(), '');
+    const mail = await sendInvoiceEmail(order, row);
+    db.prepare(`UPDATE invoices SET emailed_at = ? WHERE order_id = ? AND number = ?`).run(Date.now(), order.id, number);
+    console.log(`[INVOICE] ${kind} ${number} pre ${order.id} — mail: ${mail}`);
+    return { ...row, mail };
+  } catch (e) {
+    releaseInvoiceNumber(kind, number);
+    console.error(`[INVOICE] ${kind} pre ${order.id} zlyhala:`, e.message);
+    db.prepare(`INSERT INTO invoices (order_id, kind, number, created_at, error)
+                VALUES (?, ?, ?, ?, ?)`).run(order.id, kind, `FAILED-${number}`, Date.now(), e.message.slice(0, 500));
+    return { error: e.message };
+  }
 }
 
 async function sendEmails(order) {
@@ -812,42 +985,22 @@ app.post('/api/order', rateLimit({ windowMs: 60_000, max: 10 }), async (req, res
         .catch(e => console.warn('[ML] removeFromGroup Abandoned cart failed:', e.message));
     }
 
-    // SuperFaktura: create invoice asynchronously. We never block the order
-    // response on this — if SF is down or misconfigured, the order is still
-    // saved and the merchant can retry from the admin UI.
+    // ---- AUTOFAKTURÁCIA podľa spôsobu platby ----
+    // transfer  → ZÁLOHOVÁ faktúra (splatnosť 7 dní, VS + QR) hneď;
+    //             ostrá faktúra sa vystaví až keď admin označí "paid".
+    // cod/card  → OSTRÁ faktúra hneď (dobierka sa uhrádza pri prevzatí;
+    //             karta zatiaľ bez brány — admin označí paid po pripísaní).
+    // Číselník RRRRMMCCCC s mesačným resetom rieši issueInvoice().
+    // Ak je SF vypnutá/mŕtva, objednávka aj potvrdzovací mail fungujú
+    // ďalej — doklad sa dá vystaviť dodatočne.
     let sfResult = null;
     if (sf.isEnabled()) {
-      try {
-        const resp = await sf.createInvoice(order);
-        const inv = resp?.data?.Invoice || resp?.Invoice || {};
-        sfResult = {
-          invoice_id: inv.id || null,
-          token: inv.token || null,
-          invoice_no: inv.invoice_no_formatted || inv.invoice_no || null,
-          pdf_url: sf.publicPdfUrl(inv),
-          public_url: sf.publicHtmlUrl(inv),
-        };
-        db.prepare(`
-          INSERT INTO sf_invoices (order_id, invoice_id, token, invoice_no, pdf_url, public_url, created_at, raw_json)
-          VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-        `).run(
-          order.id,
-          sfResult.invoice_id,
-          sfResult.token,
-          sfResult.invoice_no,
-          sfResult.pdf_url,
-          sfResult.public_url,
-          Date.now(),
-          JSON.stringify(resp)
-        );
-        console.log(`[SF] Invoice ${sfResult.invoice_no} created for order ${order.id}`);
-      } catch (e) {
-        console.error(`[SF] createInvoice failed for ${order.id}:`, e.message);
-        db.prepare(`
-          INSERT INTO sf_invoices (order_id, created_at, error)
-          VALUES (?, ?, ?)
-        `).run(order.id, Date.now(), e.message);
-        sfResult = { error: e.message };
+      if (order.paymentId === 'transfer') {
+        sfResult = await issueInvoice(order, 'proforma', { dueDays: 7 });
+      } else {
+        sfResult = await issueInvoice(order, 'regular', {
+          dueDays: order.paymentId === 'cod' ? 14 : 7,
+        });
       }
     }
 
@@ -885,22 +1038,49 @@ app.patch('/api/admin/orders/:id', requireAuth(['admin','warehouse']), async (re
   const order = { ...JSON.parse(row.raw_json), status };
   db.prepare(`UPDATE orders SET status = ?, raw_json = ? WHERE id = ?`).run(status, JSON.stringify(order), req.params.id);
 
-  // SuperFaktura sync: marking pending → paid in the admin UI also records
-  // the payment against the linked SF invoice (so the SF dashboard reflects
-  // reality and the merchant doesn't have to mark it twice).
+  // SuperFaktura sync pri označení "paid":
+  //  - prevod: k zálohovej faktúre sa vystaví OSTRÁ faktúra (nové číslo
+  //    z ostrého číselníka), označí sa ako uhradená a zákazník dostane
+  //    email s PDF. Zálohovka sa už znova nefakturuje (idempotentné).
+  //  - karta/dobierka: existujúca ostrá faktúra sa označí ako uhradená.
   let sfSync = null;
   if (status === 'paid' && sf.isEnabled()) {
-    const inv = db.prepare(`SELECT invoice_id FROM sf_invoices WHERE order_id = ?`).get(req.params.id);
-    if (inv?.invoice_id) {
-      try {
-        await sf.markInvoicePaid(inv.invoice_id, { amount: order.total });
+    try {
+      const docs = db.prepare(`SELECT * FROM invoices WHERE order_id = ? AND error IS NULL ORDER BY id`).all(req.params.id);
+      const hasRegular = docs.find(d => d.kind === 'regular');
+      const proforma = docs.find(d => d.kind === 'proforma');
+      if (!hasRegular && proforma) {
+        // prevod → ostrá faktúra po úhrade
+        const issued = await issueInvoice(order, 'regular', {
+          dueDays: 0,
+          comment: `K zálohovej faktúre č. ${proforma.number} (uhradená).`,
+        });
+        if (!issued.error && issued.sf_invoice_id) {
+          await sf.markInvoicePaid(issued.sf_invoice_id, { amount: order.total });
+          db.prepare(`UPDATE invoices SET paid_at = ? WHERE order_id = ? AND number = ?`)
+            .run(Date.now(), req.params.id, issued.number);
+        }
+        sfSync = issued.error ? { ok: false, error: issued.error } : { ok: true, regular: issued.number };
+      } else if (hasRegular && hasRegular.sf_invoice_id && !hasRegular.paid_at) {
+        await sf.markInvoicePaid(hasRegular.sf_invoice_id, { amount: order.total });
+        db.prepare(`UPDATE invoices SET paid_at = ? WHERE id = ?`).run(Date.now(), hasRegular.id);
         db.prepare(`UPDATE sf_invoices SET paid_at = ? WHERE order_id = ?`).run(Date.now(), req.params.id);
-        sfSync = { ok: true, invoice_id: inv.invoice_id };
-        console.log(`[SF] Order ${req.params.id} marked paid in invoice ${inv.invoice_id}`);
-      } catch (e) {
-        console.error(`[SF] markInvoicePaid failed for ${req.params.id}:`, e.message);
-        sfSync = { ok: false, error: e.message };
+        sfSync = { ok: true, invoice: hasRegular.number };
+        console.log(`[SF] Order ${req.params.id} — faktúra ${hasRegular.number} označená ako uhradená`);
+      } else if (!docs.length) {
+        // objednávka spred nasadenia v2 — fallback na starú tabuľku
+        const legacy = db.prepare(`SELECT invoice_id FROM sf_invoices WHERE order_id = ?`).get(req.params.id);
+        if (legacy?.invoice_id) {
+          await sf.markInvoicePaid(legacy.invoice_id, { amount: order.total });
+          db.prepare(`UPDATE sf_invoices SET paid_at = ? WHERE order_id = ?`).run(Date.now(), req.params.id);
+          sfSync = { ok: true, invoice_id: legacy.invoice_id };
+        }
+      } else {
+        sfSync = { ok: true, note: 'already handled' };
       }
+    } catch (e) {
+      console.error(`[SF] paid-sync failed for ${req.params.id}:`, e.message);
+      sfSync = { ok: false, error: e.message };
     }
   }
   res.json({ ok: true, sfSync });
