@@ -489,7 +489,8 @@ function escape(s) {
 
 function invoiceEmailHTML(order, number, kind) {
   const proforma = kind === 'proforma';
-  const title = proforma ? 'ZÁLOHOVÁ FAKTÚRA' : 'FAKTÚRA';
+  const credit = kind === 'credit';
+  const title = credit ? 'DOBROPIS' : proforma ? 'ZÁLOHOVÁ FAKTÚRA' : 'FAKTÚRA';
   const bank = process.env.BANK_IBAN || '';
   const payBlock = proforma ? `
       <div style="margin:20px 0;padding:16px 20px;background:#f4f0ff;border:1px solid #ddd0ff;border-radius:10px;font-size:14px;line-height:1.7">
@@ -500,7 +501,9 @@ function invoiceEmailHTML(order, number, kind) {
         Splatnosť: 7 dní<br>
         <span style="color:#666">Všetky údaje vrátane QR kódu na platbu (PAY by square) nájdeš v priloženom PDF. Objednávku odošleme hneď po pripísaní platby.</span>
       </div>` : `
-      <p style="margin:16px 0;font-size:14px;line-height:1.6;color:#333">V prílohe posielame faktúru <strong>č. ${escape(number)}</strong> k tvojej objednávke <strong>${escape(order.id)}</strong>. Odlož si ju — je to daňový doklad.</p>`;
+      <p style="margin:16px 0;font-size:14px;line-height:1.6;color:#333">${credit
+        ? `V prílohe posielame dobropis <strong>č. ${escape(number)}</strong> k objednávke <strong>${escape(order.id)}</strong>. Sumu vrátime rovnakým spôsobom, akým bola uhradená, najneskôr do 14 dní.`
+        : `V prílohe posielame faktúru <strong>č. ${escape(number)}</strong> k tvojej objednávke <strong>${escape(order.id)}</strong>. Odlož si ju — je to daňový doklad.`}</p>`;
   return `<!doctype html><html><body style="font-family:system-ui,sans-serif;background:#f7f7f9;padding:24px;color:#111">
   <div style="max-width:600px;margin:0 auto;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.06)">
     <div style="background:#1a0c2e;color:#fff;padding:24px 28px;text-align:center">
@@ -519,10 +522,13 @@ function invoiceEmailHTML(order, number, kind) {
 // Pošle zákazníkovi doklad s PDF prílohou (buffer priamo z generátora).
 async function sendInvoiceEmail(order, inv, pdfBuffer) {
   const proforma = inv.kind === 'proforma';
-  const subject = proforma
-    ? `Veelyn — zálohová faktúra ${inv.number} + údaje na platbu (${order.id})`
-    : `Veelyn — faktúra ${inv.number} k objednávke ${order.id}`;
-  const filename = proforma ? `Zalohova-faktura-${inv.number}.pdf` : `Faktura-${inv.number}.pdf`;
+  const credit = inv.kind === 'credit';
+  const subject = credit
+    ? `Veelyn — dobropis ${inv.number} k objednávke ${order.id}`
+    : proforma
+      ? `Veelyn — zálohová faktúra ${inv.number} + údaje na platbu (${order.id})`
+      : `Veelyn — faktúra ${inv.number} k objednávke ${order.id}`;
+  const filename = credit ? `Dobropis-${inv.number}.pdf` : proforma ? `Zalohova-faktura-${inv.number}.pdf` : `Faktura-${inv.number}.pdf`;
   if (!resend) {
     console.log(`[INVOICE] Resend off — ${subject} (not sent)`);
     return 'logged';
@@ -563,6 +569,8 @@ async function issueInvoice(order, kind, extra = {}) {
       iban: BANK_IBAN || null,
       paidAt: extra.paidAt || null,
       refProforma: extra.refProforma || null,
+      refInvoice: extra.refInvoice || null,
+      reason: extra.reason || null,
     };
     const pdf = await generateInvoicePdf(order, meta);
     const filename = `${number}-${kind}.pdf`;
@@ -1083,6 +1091,25 @@ app.patch('/api/admin/orders/:id', requireAuth(['admin','warehouse']), async (re
       sfSync = { ok: false, error: e.message };
     }
   }
+  // Storno: ak má objednávka ostrú faktúru a ešte nemá dobropis,
+  // automaticky ho vystav (opravný doklad) a pošli zákazníkovi.
+  if (status === 'cancelled' && INVOICING_ENABLED) {
+    try {
+      const docs = db.prepare(`SELECT * FROM invoices WHERE order_id = ? AND error IS NULL ORDER BY id`).all(req.params.id);
+      const regular = docs.find(d => d.kind === 'regular');
+      const hasCredit = docs.some(d => d.kind === 'credit');
+      if (regular && !hasCredit) {
+        const cn = await issueInvoice(order, 'credit', {
+          dueDays: 14,
+          refInvoice: regular.number,
+          reason: 'storno objednávky',
+        });
+        sfSync = cn.error ? { ok: false, error: cn.error } : { ...(sfSync || {}), creditNote: cn.number };
+      }
+    } catch (e) {
+      console.error(`[INVOICE] credit-note on cancel failed for ${req.params.id}:`, e.message);
+    }
+  }
   res.json({ ok: true, sfSync });
 });
 
@@ -1121,6 +1148,26 @@ app.post('/api/admin/orders/:id/invoice/retry', requireAuth(['admin']), async (r
   res.json({ ok: true, invoice: issued });
 });
 
+// POST /api/admin/orders/:id/credit-note — ručné vystavenie dobropisu
+// (napr. reklamácia / čiastočné vrátenie riešené mimo statusu cancelled).
+app.post('/api/admin/orders/:id/credit-note', requireAuth(['admin']), async (req, res) => {
+  if (!INVOICING_ENABLED) return res.status(400).json({ error: 'invoicing disabled' });
+  const row = db.prepare(`SELECT raw_json FROM orders WHERE id = ?`).get(req.params.id);
+  if (!row) return res.status(404).json({ error: 'order not found' });
+  const order = JSON.parse(row.raw_json);
+  const docs = db.prepare(`SELECT * FROM invoices WHERE order_id = ? AND error IS NULL ORDER BY id`).all(req.params.id);
+  const regular = docs.find(d => d.kind === 'regular');
+  if (!regular) return res.status(400).json({ error: 'no regular invoice to credit' });
+  if (docs.some(d => d.kind === 'credit')) return res.status(409).json({ error: 'credit note already exists' });
+  const cn = await issueInvoice(order, 'credit', {
+    dueDays: 14,
+    refInvoice: regular.number,
+    reason: String((req.body || {}).reason || 'vrátenie tovaru').slice(0, 120),
+  });
+  if (cn.error) return res.status(502).json({ error: cn.error });
+  res.json({ ok: true, creditNote: cn });
+});
+
 // GET /api/admin/orders/:id/invoices — všetky doklady objednávky (v2)
 app.get('/api/admin/orders/:id/invoices', requireAuth(['admin','warehouse']), (req, res) => {
   const rows = db.prepare(`SELECT id, kind, number, pdf_url, paid_at, emailed_at, created_at, error FROM invoices WHERE order_id = ? ORDER BY id`).all(req.params.id);
@@ -1130,7 +1177,7 @@ app.get('/api/admin/orders/:id/invoices', requireAuth(['admin','warehouse']), (r
 // GET /api/admin/invoices/:number/:kind/pdf — stiahnutie PDF dokladu
 app.get('/api/admin/invoices/:number/:kind/pdf', requireAuth(['admin','warehouse']), (req, res) => {
   const number = String(req.params.number).replace(/[^0-9]/g, '');
-  const kind = req.params.kind === 'proforma' ? 'proforma' : 'regular';
+  const kind = ['proforma','regular','credit'].includes(req.params.kind) ? req.params.kind : 'regular';
   const inv = db.prepare(`SELECT * FROM invoices WHERE number = ? AND kind = ? AND error IS NULL`).get(number, kind);
   if (!inv) return res.status(404).json({ error: 'invoice not found' });
   const path = resolve(INVOICES_DIR, `${number}-${kind}.pdf`);

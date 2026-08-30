@@ -71,9 +71,11 @@ async function paymentQrPng(meta, amount) {
 
 export async function generateInvoicePdf(order, meta) {
   const proforma = meta.kind === 'proforma';
+  const credit = meta.kind === 'credit';
+  const sign = credit ? -1 : 1; // dobropis zobrazuje sumy so znamienkom mínus
   const c = order.customer || {};
-  const title = proforma ? 'ZÁLOHOVÁ FAKTÚRA' : 'FAKTÚRA';
-  const showQr = meta.iban && (proforma || !meta.paidAt);
+  const title = credit ? 'DOBROPIS' : proforma ? 'ZÁLOHOVÁ FAKTÚRA' : 'FAKTÚRA';
+  const showQr = meta.iban && !credit && (proforma || !meta.paidAt);
   const qrPng = showQr ? await paymentQrPng({ ...meta, orderId: order.id }, order.total) : null;
 
   const doc = new PDFDocument({ size: 'A4', margin: 50, info: { Title: `${title} ${meta.number}`, Author: SUPPLIER.name } });
@@ -146,12 +148,12 @@ export async function generateInvoicePdf(order, meta) {
 
   const rows = (order.items || []).map(i => ({
     name: `${i.name || i.veelyn_name}${i.originalName ? ` — dupé ${i.originalName}` : ''} (50 ml EDP)`,
-    qty: i.qty, unit: i.price, total: i.price * i.qty,
+    qty: i.qty, unit: sign * i.price, total: sign * i.price * i.qty,
   }));
-  if (Number(order.bundleDiscount) > 0) rows.push({ name: `Zľava 3+1 ZADARMO${order.freeQty ? ` (${order.freeQty}× vôňa zdarma)` : ''}`, qty: 1, unit: -order.bundleDiscount, total: -order.bundleDiscount, green: true });
-  if (Number(order.couponDiscount) > 0) rows.push({ name: `Zľavový kód ${order.couponCode || ''}`.trim(), qty: 1, unit: -order.couponDiscount, total: -order.couponDiscount, green: true });
-  rows.push({ name: `Doprava — ${order.shippingMethod || ''}`, qty: 1, unit: order.shipping, total: order.shipping });
-  if (Number(order.fee) > 0) rows.push({ name: `Poplatok — ${order.paymentMethod || ''}`, qty: 1, unit: order.fee, total: order.fee });
+  if (Number(order.bundleDiscount) > 0) rows.push({ name: `Zľava 3+1 ZADARMO${order.freeQty ? ` (${order.freeQty}× vôňa zdarma)` : ''}`, qty: 1, unit: -sign * order.bundleDiscount, total: -sign * order.bundleDiscount, green: true });
+  if (Number(order.couponDiscount) > 0) rows.push({ name: `Zľavový kód ${order.couponCode || ''}`.trim(), qty: 1, unit: -sign * order.couponDiscount, total: -sign * order.couponDiscount, green: true });
+  rows.push({ name: `Doprava — ${order.shippingMethod || ''}`, qty: 1, unit: sign * order.shipping, total: sign * order.shipping });
+  if (Number(order.fee) > 0) rows.push({ name: `Poplatok — ${order.paymentMethod || ''}`, qty: 1, unit: sign * order.fee, total: sign * order.fee });
 
   doc.font('R').fontSize(9);
   for (const r of rows) {
@@ -168,9 +170,9 @@ export async function generateInvoicePdf(order, meta) {
   // ---------- súčet ----------
   y += 12;
   doc.font('B').fontSize(13).fillColor(INK)
-    .text(meta.paidAt && !proforma ? 'SPOLU (UHRADENÉ)' : 'SPOLU NA ÚHRADU', L + 8, y)
-    .fontSize(16).fillColor(PURPLE)
-    .text(eur(order.total), L + 305, y - 2, { width: 182, align: 'right' });
+    .text(credit ? 'SPOLU NA VRÁTENIE' : (meta.paidAt && !proforma ? 'SPOLU (UHRADENÉ)' : 'SPOLU NA ÚHRADU'), L + 8, y)
+    .fontSize(16).fillColor(credit ? '#dc2626' : PURPLE)
+    .text(eur(sign * order.total), L + 305, y - 2, { width: 182, align: 'right' });
   y += 30;
 
   if (meta.paidAt && !proforma) {
@@ -180,6 +182,12 @@ export async function generateInvoicePdf(order, meta) {
   }
   if (meta.refProforma) {
     doc.font('R').fontSize(8.5).fillColor(DIM).text(`Vystavená k zálohovej faktúre č. ${meta.refProforma}. Záloha bola uhradená v plnej výške — na úhradu ostáva 0,00 €.`, L + 8, y, { width: W - 16 });
+    y += 24;
+  }
+  if (credit && meta.refInvoice) {
+    doc.font('R').fontSize(9).fillColor(INK).text(`Dobropis k faktúre č. ${meta.refInvoice}.${meta.reason ? ` Dôvod: ${meta.reason}.` : ''}`, L + 8, y, { width: W - 16 });
+    y += 14;
+    doc.font('R').fontSize(8.5).fillColor(DIM).text('Sumu vrátime rovnakým spôsobom, akým bola uhradená, najneskôr do 14 dní.', L + 8, y, { width: W - 16 });
     y += 24;
   }
 
@@ -197,6 +205,7 @@ export async function generateInvoicePdf(order, meta) {
   doc.moveTo(L, fy - 10).lineTo(L + W, fy - 10).strokeColor(LINE).lineWidth(0.7).stroke();
   const footerLines = [SUPPLIER.vatNote];
   if (proforma) footerLines.push('Zálohová faktúra nie je daňovým dokladom. Riadna faktúra bude vystavená po pripísaní úhrady.');
+  else if (credit) footerLines.push('Dobropis (opravný doklad) k pôvodnej faktúre — znižuje jej hodnotu v plnej výške.');
   else footerLines.push('Faktúra slúži zároveň ako dodací list.');
   footerLines.push(`${SUPPLIER.name} · ${SUPPLIER.register}`);
   doc.font('R').fontSize(7.5).fillColor(DIM).text(footerLines.join('\n'), L, fy, { width: W, align: 'center', lineGap: 2 });

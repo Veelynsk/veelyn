@@ -256,6 +256,7 @@ function setupTabs() {
       switchTab(tab);
     });
   });
+  $('#invoicesRefresh')?.addEventListener('click', renderInvoices);
 
   // hash routing
   const hash = location.hash.slice(1);
@@ -270,6 +271,56 @@ function switchTab(tab) {
   if (link) link.classList.add('is-active');
   $('#pageTitle').textContent = (link?.textContent.trim().split('\n')[0]) || 'Dashboard';
   history.replaceState(null, '', '#' + tab);
+  if (tab === 'invoices') renderInvoices();
+}
+
+// === FAKTÚRY ===
+const INVOICE_KIND_LABEL = { proforma: 'Zálohová', regular: 'Faktúra', credit: 'Dobropis' };
+async function renderInvoices() {
+  const tbody = $('#invoicesTable tbody');
+  if (!tbody) return;
+  tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;color:var(--text-mute);padding:1.5rem">Načítavam…</td></tr>`;
+  try {
+    const data = await apiGet('/api/admin/invoices');
+    const rows = (data.invoices || []).filter(i => !i.error);
+    if (!rows.length) {
+      tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;color:var(--text-mute);padding:1.5rem">Zatiaľ žiadne doklady.</td></tr>`;
+      return;
+    }
+    tbody.innerHTML = rows.map(i => `
+      <tr>
+        <td><strong>${i.number}</strong></td>
+        <td><span class="badge badge--${i.kind === 'credit' ? 'cancelled' : i.kind === 'proforma' ? 'pending' : 'paid'}">${INVOICE_KIND_LABEL[i.kind] || i.kind}</span></td>
+        <td><span class="order-id" data-order="${i.order_id}">${i.order_id}</span></td>
+        <td>${dateFmt(i.created_at)}</td>
+        <td>${i.paid_at ? dateFmt(i.paid_at) : '—'}</td>
+        <td>${i.emailed_at ? '✓ odoslaný' : '—'}</td>
+        <td style="white-space:nowrap"><button class="btn btn--ghost btn--small" data-inv-pdf="${i.number}" data-inv-kind="${i.kind}">⬇ PDF</button></td>
+      </tr>`).join('');
+    tbody.querySelectorAll('[data-inv-pdf]').forEach(btn => btn.addEventListener('click', () => downloadInvoicePdf(btn.dataset.invPdf, btn.dataset.invKind, btn)));
+    tbody.querySelectorAll('.order-id').forEach(el => el.addEventListener('click', () => { switchTab('orders'); }));
+  } catch (e) {
+    tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;color:#ef4444;padding:1.5rem">Chyba: ${e.message}</td></tr>`;
+  }
+}
+// Download cez fetch s auth hlavičkou (obyčajný <a href> Bearer neprenesie).
+async function downloadInvoicePdf(number, kind, btn) {
+  const orig = btn.textContent;
+  btn.disabled = true; btn.textContent = '…';
+  try {
+    const r = await fetch(`${VEELYN_API}/api/admin/invoices/${encodeURIComponent(number)}/${encodeURIComponent(kind)}/pdf`, { headers: authHeaders() });
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    const blob = await r.blob();
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = `${kind === 'proforma' ? 'Zalohova-faktura' : kind === 'credit' ? 'Dobropis' : 'Faktura'}-${number}.pdf`;
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(a.href), 5000);
+  } catch (e) {
+    alert('Stiahnutie PDF zlyhalo: ' + e.message);
+  } finally {
+    btn.disabled = false; btn.textContent = orig;
+  }
 }
 
 // === DASHBOARD ===
