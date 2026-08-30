@@ -7,7 +7,7 @@ import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
 import { writeFileSync, mkdirSync, existsSync } from 'node:fs';
-import * as sf from './superfaktura.js';
+import { generateInvoicePdf } from './invoice-pdf.js';
 import * as ml from './mailerlite.js';
 import * as pk from './packeta.js';
 
@@ -281,6 +281,15 @@ if (userCount === 0) {
 const LOG_DIR = resolve(__dirname, 'logs');
 if (!existsSync(LOG_DIR)) mkdirSync(LOG_DIR, { recursive: true });
 
+// ---- FAKTURÁCIA (vlastný systém, bez externej služby) ----
+const INVOICES_DIR = resolve(__dirname, 'invoices');
+if (!existsSync(INVOICES_DIR)) mkdirSync(INVOICES_DIR, { recursive: true });
+const INVOICING_ENABLED = process.env.INVOICING !== 'off';
+const BANK_IBAN = (process.env.BANK_IBAN || '').trim();
+if (INVOICING_ENABLED && !BANK_IBAN) {
+  console.warn('[INVOICE] BANK_IBAN nie je nastavený — zálohové faktúry pôjdu bez IBAN a QR kódu!');
+}
+
 // ---- ČÍSELNÍK FAKTÚR (RRRRMMCCCC, mesačný reset) ----
 // Obdobie sa berie podľa Europe/Bratislava, nie UTC — faktúra vystavená
 // 1. v mesiaci o 00:30 SK času musí patriť do nového mesiaca.
@@ -477,11 +486,6 @@ function escape(s) {
 }
 
 // ---- FAKTURAČNÉ EMAILY (s PDF prílohou) ----
-async function fetchPdfBase64(url) {
-  const r = await fetch(url);
-  if (!r.ok) throw new Error(`PDF fetch ${r.status}`);
-  return Buffer.from(await r.arrayBuffer()).toString('base64');
-}
 
 function invoiceEmailHTML(order, number, kind) {
   const proforma = kind === 'proforma';
@@ -512,8 +516,8 @@ function invoiceEmailHTML(order, number, kind) {
   </div></body></html>`;
 }
 
-// Pošle zákazníkovi doklad s PDF prílohou. inv = { number, kind, pdf_url }.
-async function sendInvoiceEmail(order, inv) {
+// Pošle zákazníkovi doklad s PDF prílohou (buffer priamo z generátora).
+async function sendInvoiceEmail(order, inv, pdfBuffer) {
   const proforma = inv.kind === 'proforma';
   const subject = proforma
     ? `Veelyn — zálohová faktúra ${inv.number} + údaje na platbu (${order.id})`
@@ -523,12 +527,9 @@ async function sendInvoiceEmail(order, inv) {
     console.log(`[INVOICE] Resend off — ${subject} (not sent)`);
     return 'logged';
   }
-  let attachments;
-  try {
-    if (inv.pdf_url) attachments = [{ filename, content: await fetchPdfBase64(inv.pdf_url) }];
-  } catch (e) {
-    console.warn(`[INVOICE] PDF attach failed for ${inv.number}: ${e.message} — sending without attachment`);
-  }
+  const attachments = pdfBuffer
+    ? [{ filename, content: pdfBuffer.toString('base64') }]
+    : undefined;
   try {
     const r = await resend.emails.send({
       from: FROM_EMAIL,
@@ -544,36 +545,45 @@ async function sendInvoiceEmail(order, inv) {
   }
 }
 
-// Vytvorí doklad v SF s naším číslom, uloží do DB a pošle email s PDF.
-// kind: 'proforma' | 'regular'. Vracia uložený riadok alebo { error }.
+// Vystaví doklad (vlastné PDF), uloží ho na disk + do DB a pošle email
+// s prílohou. kind: 'proforma' | 'regular'. extra: { dueDays, paidAt,
+// refProforma }. Vracia uložený riadok alebo { error }.
 async function issueInvoice(order, kind, extra = {}) {
   const number = nextInvoiceNumber(kind);
   try {
-    const resp = await sf.createInvoice(order, {
-      type: kind, number, dueDays: extra.dueDays, comment: extra.comment,
-    });
-    const inv = resp?.data?.Invoice || resp?.Invoice || {};
+    const today = new Date().toISOString().slice(0, 10);
+    const dueDays = Number(extra.dueDays ?? (kind === 'proforma' ? 7 : 14));
+    const meta = {
+      number,
+      kind,
+      issuedDate: today,
+      deliveryDate: today,
+      dueDate: new Date(Date.now() + dueDays * 86400 * 1000).toISOString().slice(0, 10),
+      paymentLabel: order.paymentMethod || '',
+      iban: BANK_IBAN || null,
+      paidAt: extra.paidAt || null,
+      refProforma: extra.refProforma || null,
+    };
+    const pdf = await generateInvoicePdf(order, meta);
+    const filename = `${number}-${kind}.pdf`;
+    writeFileSync(resolve(INVOICES_DIR, filename), pdf);
     const row = {
       order_id: order.id,
       kind,
       number,
-      sf_invoice_id: inv.id || null,
-      token: inv.token || null,
-      pdf_url: sf.publicPdfUrl(inv),
-      public_url: sf.publicHtmlUrl(inv),
+      sf_invoice_id: null,
+      token: null,
+      pdf_url: `/api/admin/invoices/${number}/${kind}/pdf`,
+      public_url: null,
     };
-    const sfNo = inv.invoice_no_formatted || inv.invoice_no || '';
-    if (sfNo && String(sfNo) !== String(number)) {
-      console.warn(`[INVOICE] SF si prečíslovala doklad: naše ${number}, SF ${sfNo} — párovanie drží VS=${number}`);
-    }
-    db.prepare(`INSERT INTO invoices (order_id, kind, number, sf_invoice_id, token, pdf_url, public_url, created_at, raw_json)
-                VALUES (@order_id, @kind, @number, @sf_invoice_id, @token, @pdf_url, @public_url, @created_at, @raw_json)`)
-      .run({ ...row, created_at: Date.now(), raw_json: JSON.stringify(resp).slice(0, 20000) });
+    db.prepare(`INSERT INTO invoices (order_id, kind, number, sf_invoice_id, token, pdf_url, public_url, paid_at, created_at, raw_json)
+                VALUES (@order_id, @kind, @number, @sf_invoice_id, @token, @pdf_url, @public_url, @paid_at, @created_at, @raw_json)`)
+      .run({ ...row, paid_at: extra.paidAt || null, created_at: Date.now(), raw_json: JSON.stringify(meta) });
     // Spätná kompatibilita: sf_invoices drží najnovší doklad (admin UI).
     db.prepare(`INSERT OR REPLACE INTO sf_invoices (order_id, invoice_id, token, invoice_no, pdf_url, public_url, created_at, raw_json)
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?)`)
-      .run(order.id, row.sf_invoice_id, row.token, number, row.pdf_url, row.public_url, Date.now(), '');
-    const mail = await sendInvoiceEmail(order, row);
+      .run(order.id, null, null, number, row.pdf_url, null, Date.now(), '');
+    const mail = await sendInvoiceEmail(order, row, pdf);
     db.prepare(`UPDATE invoices SET emailed_at = ? WHERE order_id = ? AND number = ?`).run(Date.now(), order.id, number);
     console.log(`[INVOICE] ${kind} ${number} pre ${order.id} — mail: ${mail}`);
     return { ...row, mail };
@@ -623,7 +633,8 @@ app.get('/api/health', (req, res) => {
     time: new Date().toISOString(),
     resendConfigured: !!resend,
     mailerliteConfigured: ml.isEnabled(),
-    superfakturaConfigured: sf.isEnabled(),
+    invoicing: INVOICING_ENABLED ? 'internal' : 'off',
+    invoicingIban: !!BANK_IBAN,
   });
 });
 
@@ -994,7 +1005,7 @@ app.post('/api/order', rateLimit({ windowMs: 60_000, max: 10 }), async (req, res
     // Ak je SF vypnutá/mŕtva, objednávka aj potvrdzovací mail fungujú
     // ďalej — doklad sa dá vystaviť dodatočne.
     let sfResult = null;
-    if (sf.isEnabled()) {
+    if (INVOICING_ENABLED) {
       if (order.paymentId === 'transfer') {
         sfResult = await issueInvoice(order, 'proforma', { dueDays: 7 });
       } else {
@@ -1044,42 +1055,31 @@ app.patch('/api/admin/orders/:id', requireAuth(['admin','warehouse']), async (re
   //    email s PDF. Zálohovka sa už znova nefakturuje (idempotentné).
   //  - karta/dobierka: existujúca ostrá faktúra sa označí ako uhradená.
   let sfSync = null;
-  if (status === 'paid' && sf.isEnabled()) {
+  if (status === 'paid' && INVOICING_ENABLED) {
     try {
       const docs = db.prepare(`SELECT * FROM invoices WHERE order_id = ? AND error IS NULL ORDER BY id`).all(req.params.id);
       const hasRegular = docs.find(d => d.kind === 'regular');
       const proforma = docs.find(d => d.kind === 'proforma');
       if (!hasRegular && proforma) {
-        // prevod → ostrá faktúra po úhrade
+        // prevod → ostrá faktúra po úhrade (v PDF rovno pečiatka UHRADENÉ
+        // + odkaz na zálohovku) + email zákazníkovi
+        db.prepare(`UPDATE invoices SET paid_at = ? WHERE id = ?`).run(Date.now(), proforma.id);
         const issued = await issueInvoice(order, 'regular', {
           dueDays: 0,
-          comment: `K zálohovej faktúre č. ${proforma.number} (uhradená).`,
+          paidAt: Date.now(),
+          refProforma: proforma.number,
         });
-        if (!issued.error && issued.sf_invoice_id) {
-          await sf.markInvoicePaid(issued.sf_invoice_id, { amount: order.total });
-          db.prepare(`UPDATE invoices SET paid_at = ? WHERE order_id = ? AND number = ?`)
-            .run(Date.now(), req.params.id, issued.number);
-        }
         sfSync = issued.error ? { ok: false, error: issued.error } : { ok: true, regular: issued.number };
-      } else if (hasRegular && hasRegular.sf_invoice_id && !hasRegular.paid_at) {
-        await sf.markInvoicePaid(hasRegular.sf_invoice_id, { amount: order.total });
+      } else if (hasRegular && !hasRegular.paid_at) {
         db.prepare(`UPDATE invoices SET paid_at = ? WHERE id = ?`).run(Date.now(), hasRegular.id);
         db.prepare(`UPDATE sf_invoices SET paid_at = ? WHERE order_id = ?`).run(Date.now(), req.params.id);
         sfSync = { ok: true, invoice: hasRegular.number };
-        console.log(`[SF] Order ${req.params.id} — faktúra ${hasRegular.number} označená ako uhradená`);
-      } else if (!docs.length) {
-        // objednávka spred nasadenia v2 — fallback na starú tabuľku
-        const legacy = db.prepare(`SELECT invoice_id FROM sf_invoices WHERE order_id = ?`).get(req.params.id);
-        if (legacy?.invoice_id) {
-          await sf.markInvoicePaid(legacy.invoice_id, { amount: order.total });
-          db.prepare(`UPDATE sf_invoices SET paid_at = ? WHERE order_id = ?`).run(Date.now(), req.params.id);
-          sfSync = { ok: true, invoice_id: legacy.invoice_id };
-        }
+        console.log(`[INVOICE] Order ${req.params.id} — faktúra ${hasRegular.number} označená ako uhradená`);
       } else {
-        sfSync = { ok: true, note: 'already handled' };
+        sfSync = { ok: true, note: docs.length ? 'already handled' : 'no invoice' };
       }
     } catch (e) {
-      console.error(`[SF] paid-sync failed for ${req.params.id}:`, e.message);
+      console.error(`[INVOICE] paid-sync failed for ${req.params.id}:`, e.message);
       sfSync = { ok: false, error: e.message };
     }
   }
@@ -1106,39 +1106,44 @@ app.get('/api/admin/orders/:id/invoice', requireAuth(['admin','warehouse']), (re
   });
 });
 
-// POST /api/admin/orders/:id/invoice/retry — retry creating an invoice in
-// SF for an order that previously failed (e.g. SF was down at order time).
+// POST /api/admin/orders/:id/invoice/retry — znovu vystaví doklad pre
+// objednávku, ktorej fakturácia predtým zlyhala (napr. chyba PDF/QR).
 app.post('/api/admin/orders/:id/invoice/retry', requireAuth(['admin']), async (req, res) => {
-  if (!sf.isEnabled()) return res.status(400).json({ error: 'SuperFaktura not configured' });
+  if (!INVOICING_ENABLED) return res.status(400).json({ error: 'invoicing disabled' });
   const row = db.prepare(`SELECT raw_json FROM orders WHERE id = ?`).get(req.params.id);
   if (!row) return res.status(404).json({ error: 'order not found' });
   const order = JSON.parse(row.raw_json);
-  try {
-    const resp = await sf.createInvoice(order);
-    const inv = resp?.data?.Invoice || resp?.Invoice || {};
-    const result = {
-      invoice_id: inv.id || null,
-      token: inv.token || null,
-      invoice_no: inv.invoice_no_formatted || inv.invoice_no || null,
-      pdf_url: sf.publicPdfUrl(inv),
-      public_url: sf.publicHtmlUrl(inv),
-    };
-    db.prepare(`
-      INSERT INTO sf_invoices (order_id, invoice_id, token, invoice_no, pdf_url, public_url, created_at, raw_json)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-      ON CONFLICT(order_id) DO UPDATE SET
-        invoice_id=excluded.invoice_id, token=excluded.token,
-        invoice_no=excluded.invoice_no, pdf_url=excluded.pdf_url,
-        public_url=excluded.public_url, error=NULL, raw_json=excluded.raw_json
-    `).run(
-      order.id, result.invoice_id, result.token, result.invoice_no,
-      result.pdf_url, result.public_url, Date.now(), JSON.stringify(resp)
-    );
-    res.json({ ok: true, invoice: result });
-  } catch (e) {
-    console.error('[SF] retry failed:', e.message);
-    res.status(502).json({ error: e.message });
-  }
+  const ok = db.prepare(`SELECT COUNT(*) c FROM invoices WHERE order_id = ? AND error IS NULL`).get(order.id).c;
+  if (ok > 0) return res.status(409).json({ error: 'invoice already exists' });
+  const kind = order.paymentId === 'transfer' ? 'proforma' : 'regular';
+  const issued = await issueInvoice(order, kind, { dueDays: kind === 'proforma' ? 7 : 14 });
+  if (issued.error) return res.status(502).json({ error: issued.error });
+  res.json({ ok: true, invoice: issued });
+});
+
+// GET /api/admin/orders/:id/invoices — všetky doklady objednávky (v2)
+app.get('/api/admin/orders/:id/invoices', requireAuth(['admin','warehouse']), (req, res) => {
+  const rows = db.prepare(`SELECT id, kind, number, pdf_url, paid_at, emailed_at, created_at, error FROM invoices WHERE order_id = ? ORDER BY id`).all(req.params.id);
+  res.json({ invoices: rows });
+});
+
+// GET /api/admin/invoices/:number/:kind/pdf — stiahnutie PDF dokladu
+app.get('/api/admin/invoices/:number/:kind/pdf', requireAuth(['admin','warehouse']), (req, res) => {
+  const number = String(req.params.number).replace(/[^0-9]/g, '');
+  const kind = req.params.kind === 'proforma' ? 'proforma' : 'regular';
+  const inv = db.prepare(`SELECT * FROM invoices WHERE number = ? AND kind = ? AND error IS NULL`).get(number, kind);
+  if (!inv) return res.status(404).json({ error: 'invoice not found' });
+  const path = resolve(INVOICES_DIR, `${number}-${kind}.pdf`);
+  if (!existsSync(path)) return res.status(404).json({ error: 'pdf file missing' });
+  res.setHeader('Content-Type', 'application/pdf');
+  res.setHeader('Content-Disposition', `attachment; filename="${kind === 'proforma' ? 'Zalohova-faktura' : 'Faktura'}-${number}.pdf"`);
+  res.sendFile(path);
+});
+
+// GET /api/admin/invoices — zoznam všetkých dokladov (novšie prvé)
+app.get('/api/admin/invoices', requireAuth(['admin','warehouse']), (req, res) => {
+  const rows = db.prepare(`SELECT id, order_id, kind, number, pdf_url, paid_at, emailed_at, created_at, error FROM invoices ORDER BY id DESC LIMIT 500`).all();
+  res.json({ invoices: rows });
 });
 
 // === PACKETA endpoints (admin) ===
@@ -1437,7 +1442,7 @@ app.listen(PORT, () => {
   console.log(`  POST /api/order              — create order`);
   console.log(`  GET  /api/admin/orders       — list (auth: Bearer ${ADMIN_PASSWORD === 'change-me' ? 'CHANGE-ME!' : '***'})`);
   console.log(`  Resend emaily: ${resend ? '✓ aktívne' : '✗ vypnuté (set RESEND_API_KEY)'}`);
-  console.log(`  SuperFaktura: ${sf.isEnabled() ? '✓ aktívna' : '✗ vypnutá (set SF_EMAIL + SF_APIKEY)'}`);
+  console.log(`  Fakturácia: ${INVOICING_ENABLED ? `✓ interná (číselník RRRRMMCCCC${BANK_IBAN ? ', IBAN + QR' : ', BEZ IBAN — set BANK_IBAN!'})` : '✗ vypnutá (INVOICING=off)'}`);
   console.log(`  MailerLite: ${ml.isEnabled() ? '✓ aktívna' : '✗ vypnutá (set MAILERLITE_TOKEN)'}`);
   console.log(`  Packeta REST: ${pk.isEnabled() ? '✓ aktívna' : '✗ vypnutá (set PACKETA_API_PASSWORD)'}`);
   console.log(`  DB: ${DB_PATH}\n`);

@@ -31,3 +31,5 @@ veelyn-originals-raw/
 # Build output (Cloudflare Pages generates this)
 public/
 node_modules/
+# Vygenerované faktúry (žijú na Railway volume)
+backend/invoices/
