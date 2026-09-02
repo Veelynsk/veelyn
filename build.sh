@@ -18,7 +18,7 @@ cp robots.txt sitemap.xml heureka.xml merchant.xml site.webmanifest public/
 # SEO / GEO / Cloudflare config
 cp _headers llms.txt llms-full.txt logo.png public/
 # IndexNow verifikačný kľúč (Bing/Seznam okamžitá indexácia)
-cp .txt public/
+cp 6bb7004150715c5b68e922611ac6d4c8.txt public/
 cp -r faq public/
 cp GTM_SETUP.md public/ 2>/dev/null || true
 
