@@ -40,8 +40,6 @@ const url = ({ loc, lastmod, changefreq, priority, images = [] }) => {
   for (const img of images) {
     lines.push('    <image:image>');
     lines.push(`      <image:loc>${xmlEscape(img.loc)}</image:loc>`);
-    if (img.title) lines.push(`      <image:title>${xmlEscape(img.title)}</image:title>`);
-    if (img.caption) lines.push(`      <image:caption>${xmlEscape(img.caption)}</image:caption>`);
     lines.push('    </image:image>');
   }
   lines.push('  </url>');
@@ -50,7 +48,7 @@ const url = ({ loc, lastmod, changefreq, priority, images = [] }) => {
 
 const urls = [
   url({ loc: `${SITE}/`, lastmod: mtime('index.html'), changefreq: 'daily', priority: '1.0',
-        images: [{ loc: `${SITE}/og-image.jpg`, title: 'Veelyn — dupé parfumy za 24,99 €' }] }),
+        images: [{ loc: `${SITE}/og-image.jpg` }] }),
   url({ loc: `${SITE}/produkt/`, lastmod: today, changefreq: 'weekly', priority: '0.9' }),
   url({ loc: `${SITE}/faq/`, lastmod: mtime('faq/index.html'), changefreq: 'monthly', priority: '0.7' }),
 ];
@@ -63,12 +61,8 @@ for (const f of fragrances) {
     changefreq: 'weekly',
     priority: '0.85',
     images: [
-      { loc: `${SITE}/images/veelyn/${f.id}.png`,
-        title: `VEELYN ${f.veelyn_name} — dupé ${f.brand} ${f.original_name}`,
-        caption: `Veelyn ${f.veelyn_name}, 50 ml eau de parfum, dupé na ${f.brand} ${f.original_name}` },
-      { loc: `${SITE}/images/originals/${slugify(f.original_name)}.png`,
-        title: `${f.brand} ${f.original_name}`,
-        caption: `Originál ${f.brand} ${f.original_name}, ku ktorému je Veelyn ${f.veelyn_name} dupé` },
+      { loc: `${SITE}/images/veelyn/${f.id}.png` },
+      { loc: `${SITE}/images/originals/${slugify(f.original_name)}.png` },
     ],
   }));
 }
@@ -79,7 +73,7 @@ for (const p of ['obchodne-podmienky', 'ochrana-osobnych-udajov', 'vratenie-tova
 
 const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:image="http://www.google.com/schemas/sitemap-image/0.9">
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 ${urls.join('\n')}
 </urlset>
 `;
