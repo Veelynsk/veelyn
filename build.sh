@@ -17,6 +17,8 @@ cp favicon-16.png favicon-32.png favicon.svg apple-touch-icon.png og-image.jpg p
 cp robots.txt sitemap.xml heureka.xml merchant.xml site.webmanifest public/
 # SEO / GEO / Cloudflare config
 cp _headers llms.txt llms-full.txt logo.png public/
+# IndexNow verifikačný kľúč (Bing/Seznam okamžitá indexácia)
+cp .txt public/
 cp -r faq public/
 cp GTM_SETUP.md public/ 2>/dev/null || true
 
