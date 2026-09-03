@@ -27,6 +27,7 @@ const SITE = 'https://www.veelyn.sk';
 const OUT_DIR = resolve(ROOT, 'produkt');
 const TODAY = new Date().toISOString().slice(0, 10);
 const PRICE_VALID_UNTIL = new Date(Date.now() + 365 * 864e5).toISOString().slice(0, 10);
+const OFFER_VALID_FROM = '2026-05-28'; // spustenie e-shopu — ceny platia od launchu
 
 const fragrances = JSON.parse(readFileSync(resolve(ROOT, 'fragrances.json'), 'utf8'));
 
@@ -179,6 +180,7 @@ function pageHtml(f) {
         url,
         priceCurrency: 'EUR',
         price: Number(f.veelyn_price).toFixed(2),
+        validFrom: OFFER_VALID_FROM,
         priceValidUntil: PRICE_VALID_UNTIL,
         availability: 'https://schema.org/InStock',
         itemCondition: 'https://schema.org/NewCondition',

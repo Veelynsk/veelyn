@@ -2927,6 +2927,8 @@ function injectProductSchemas() {
         url,
         priceCurrency: 'EUR',
         price: Number(f.veelyn_price || 0).toFixed(2),
+        validFrom: '2026-05-28',
+        priceValidUntil: new Date(Date.now() + 365 * 864e5).toISOString().slice(0, 10),
         availability: 'https://schema.org/InStock',
         itemCondition: 'https://schema.org/NewCondition',
         seller: { '@id': `${SITE}/#organization` },
