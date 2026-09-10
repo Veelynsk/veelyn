@@ -13,7 +13,7 @@ rm -rf public
 mkdir -p public/images
 
 cp index.html script.js styles.css data.js 404.html public/
-cp favicon-16.png favicon-32.png favicon.svg apple-touch-icon.png og-image.jpg public/
+cp favicon-16.png favicon-32.png favicon-48.png favicon-96.png favicon-192.png favicon.ico favicon.svg apple-touch-icon.png og-image.jpg public/
 cp robots.txt sitemap.xml heureka.xml merchant.xml site.webmanifest public/
 # SEO / GEO / Cloudflare config
 cp _headers llms.txt llms-full.txt logo.png public/
