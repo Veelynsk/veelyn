@@ -42,8 +42,16 @@ const IS_PROD = NODE_ENV === 'production';
 
 // Refuse to start in production with the default placeholder password.
 // Without this, anyone who has read the source on GitHub could log in.
-if (IS_PROD && (ADMIN_PASSWORD === 'change-me' || ADMIN_PASSWORD.length < 12)) {
-  console.error('[FATAL] ADMIN_PASSWORD is unset / too weak (<12 chars). Refusing to boot in production.');
+// Sila hesla: aspoň 12 znakov, ALEBO aspoň 10 znakov s 3 zo 4 tried
+// (malé, veľké, číslica, symbol). Placeholder 'change-me' nikdy neprejde.
+function isStrongPassword(p) {
+  if (!p || p === 'change-me') return false;
+  if (p.length >= 12) return true;
+  const classes = [/[a-z]/, /[A-Z]/, /\d/, /[^A-Za-z0-9]/].filter(rx => rx.test(p)).length;
+  return p.length >= 10 && classes >= 3;
+}
+if (IS_PROD && !isStrongPassword(ADMIN_PASSWORD)) {
+  console.error('[FATAL] ADMIN_PASSWORD is unset / too weak (min. 12 chars, or 10+ with 3 character classes). Refusing to boot in production.');
   process.exit(1);
 }
 
@@ -245,6 +253,23 @@ db.exec(`
     hidden INTEGER DEFAULT 0,
     updated_at INTEGER
   );
+
+  -- Anonymné behaviorálne eventy zo storefrontu (kliky, scroll, odchody,
+  -- funnel). Žiadne PII: bez IP a user-agentu, len náhodné session/visitor ID.
+  CREATE TABLE IF NOT EXISTS events (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    ts INTEGER NOT NULL,
+    sid TEXT,
+    uid TEXT,
+    type TEXT NOT NULL,
+    page TEXT,
+    label TEXT,
+    meta TEXT,
+    device TEXT,
+    ref TEXT
+  );
+  CREATE INDEX IF NOT EXISTS idx_events_ts ON events(ts);
+  CREATE INDEX IF NOT EXISTS idx_events_type_ts ON events(type, ts);
 
   CREATE TABLE IF NOT EXISTS finance_settings (
     id INTEGER PRIMARY KEY CHECK (id = 1),
@@ -1376,6 +1401,114 @@ app.patch('/api/admin/products/:id', requireAuth(['admin']), (req, res) => {
     db.prepare(`UPDATE products SET ${updates.join(', ')} WHERE id = ?`).run(...values);
   }
   res.json({ ok: true });
+});
+
+// === TRACKING — anonymné behaviorálne eventy zo storefrontu ===
+// Storefront (track.js) posiela dávky eventov: page_view, click, scroll,
+// exit (kde a ako hlboko odišiel), e-commerce funnel zrkadlený z dataLayer
+// (view_item → add_to_cart → begin_checkout → purchase), search, error.
+const TRACK_TYPES = new Set(['page_view', 'click', 'scroll', 'exit', 'view_item', 'add_to_cart',
+  'remove_from_cart', 'view_cart', 'begin_checkout', 'purchase', 'search', 'filter', 'error', 'sign_up']);
+const trackInsert = db.prepare(`INSERT INTO events (ts, sid, uid, type, page, label, meta, device, ref) VALUES (?,?,?,?,?,?,?,?,?)`);
+const trackInsertMany = db.transaction((rows) => { for (const r of rows) trackInsert.run(...r); });
+const clip = (v, n) => (v == null || v === '' ? null : String(v).slice(0, n));
+
+// sendBeacon posiela text/plain → route-level express.text (JSON parser ho
+// preskočí, keďže Content-Type nie je application/json).
+app.post('/api/track', rateLimit({ windowMs: 60_000, max: 120 }), express.text({ type: '*/*', limit: '64kb' }), (req, res) => {
+  let body = req.body;
+  if (typeof body === 'string') { try { body = JSON.parse(body); } catch { return res.status(400).end(); } }
+  const events = Array.isArray(body?.events) ? body.events.slice(0, 50) : [];
+  const now = Date.now();
+  const rows = [];
+  for (const e of events) {
+    if (!e || !TRACK_TYPES.has(e.type)) continue;
+    const ts = Number(e.ts);
+    rows.push([
+      Number.isFinite(ts) && Math.abs(now - ts) < 86_400_000 ? ts : now,
+      clip(e.sid, 40), clip(e.uid, 40), e.type, clip(e.page, 200), clip(e.label, 120),
+      e.meta && typeof e.meta === 'object' ? clip(JSON.stringify(e.meta), 1000) : null,
+      clip(e.device, 10), clip(e.ref, 120),
+    ]);
+  }
+  if (rows.length) trackInsertMany(rows);
+  res.status(204).end();
+});
+
+// Agregácie pre admin → Štatistiky → Správanie návštevníkov.
+app.get('/api/admin/analytics', requireAuth(['admin']), (req, res) => {
+  const days = Math.min(365, Math.max(1, parseInt(req.query.days, 10) || 30));
+  const since = Date.now() - days * 86_400_000;
+  const rows = db.prepare(`SELECT ts, sid, uid, type, page, label, meta, device, ref FROM events WHERE ts >= ? ORDER BY ts ASC`).all(since);
+  const metaOf = (r) => { try { return r.meta ? JSON.parse(r.meta) : {}; } catch { return {}; } };
+  const inc = (o, k, n = 1) => { if (k == null || k === '') return; o[k] = (o[k] || 0) + n; };
+  const top = (o, n = 10) => Object.entries(o).sort((a, b) => b[1] - a[1]).slice(0, n).map(([label, count]) => ({ label, count }));
+
+  const sessions = new Map();
+  const S = (r) => {
+    let s = sessions.get(r.sid || r.uid || 'anon');
+    if (!s) { s = { pv: 0, clicks: 0, view: 0, cart: 0, checkout: 0, purchase: 0, day: new Date(r.ts).toISOString().slice(0, 10) }; sessions.set(r.sid || r.uid || 'anon', s); }
+    return s;
+  };
+  const clicks = {}, cats = {}, exitsByPage = {}, exitsBySection = {}, searches = {}, zeroSearches = {};
+  const itemViews = {}, itemCarts = {}, sources = {}, devices = {}, errors = {}, pages = {}, daily = {};
+  const scrollBuckets = { '0–25 %': 0, '25–50 %': 0, '50–75 %': 0, '75–100 %': 0 };
+  const visitors = new Set();
+  let pageViews = 0, errorCount = 0, exitCount = 0, timeSum = 0, timeN = 0;
+
+  for (const r of rows) {
+    const s = S(r); const m = metaOf(r);
+    if (r.uid) visitors.add(r.uid);
+    switch (r.type) {
+      case 'page_view':
+        s.pv++; pageViews++; inc(pages, r.page);
+        if (s.pv === 1) { inc(daily, s.day); inc(sources, m.utm_source || r.ref || '(priamo / bez zdroja)'); inc(devices, r.device || '?'); }
+        break;
+      case 'click': s.clicks++; inc(clicks, r.label); if (m.cat) inc(cats, r.label); break;
+      case 'filter': inc(cats, r.label); break;
+      case 'exit': {
+        exitCount++;
+        const p = Number(m.scroll) || 0;
+        const b = p < 25 ? '0–25 %' : p < 50 ? '25–50 %' : p < 75 ? '50–75 %' : '75–100 %';
+        scrollBuckets[b]++;
+        inc(exitsByPage, r.page);
+        if (m.section) inc(exitsBySection, `${m.section} · scroll ${b}`);
+        if (m.time) { timeSum += Number(m.time); timeN++; }
+        break;
+      }
+      case 'view_item': s.view++; inc(itemViews, r.label); break;
+      case 'add_to_cart': s.cart++; inc(itemCarts, r.label); break;
+      case 'begin_checkout': s.checkout++; break;
+      case 'purchase': s.purchase++; break;
+      case 'search': { const t = (r.label || '').toLowerCase(); inc(searches, t); if (m.results === 0) inc(zeroSearches, t); break; }
+      case 'error': errorCount++; inc(errors, r.label); break;
+    }
+  }
+  const sess = [...sessions.values()];
+  const n = sess.length;
+  const cnt = (f) => sess.filter(f).length;
+  const bounce = cnt(s => s.pv <= 1 && s.clicks === 0);
+  const funnel = [
+    { step: 'Návšteva', count: n },
+    { step: 'Zobrazenie produktu', count: cnt(s => s.view > 0) },
+    { step: 'Pridanie do košíka', count: cnt(s => s.cart > 0) },
+    { step: 'Začatie objednávky', count: cnt(s => s.checkout > 0) },
+    { step: 'Objednávka', count: cnt(s => s.purchase > 0) },
+  ];
+  const products = Object.entries(itemViews).sort((a, b) => b[1] - a[1]).slice(0, 10)
+    .map(([id, views]) => ({ id, views, carts: itemCarts[id] || 0, rate: views ? Math.round((itemCarts[id] || 0) / views * 100) : 0 }));
+  const series = [];
+  for (let i = days - 1; i >= 0; i--) { const d = new Date(Date.now() - i * 86_400_000).toISOString().slice(0, 10); series.push({ day: d, sessions: daily[d] || 0 }); }
+
+  res.json({
+    days, sessions: n, visitors: visitors.size, pageViews, exits: exitCount, errors: errorCount,
+    bounceRate: n ? Math.round(bounce / n * 100) : 0,
+    conversion: n ? +(funnel[4].count / n * 100).toFixed(2) : 0,
+    avgTime: timeN ? Math.round(timeSum / timeN) : 0,
+    funnel, topClicks: top(clicks, 15), categories: top(cats), exitsByPage: top(exitsByPage),
+    exitsBySection: top(exitsBySection), scrollBuckets, searches: top(searches), zeroSearches: top(zeroSearches),
+    products, sources: top(sources), devices: top(devices, 5), topErrors: top(errors, 5), pages: top(pages), series,
+  });
 });
 
 // === FINANCIE (nákladové vstupy pre admin Financie tab) ===

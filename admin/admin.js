@@ -23,7 +23,7 @@ function resolveApiBase() {
     if (p) return /^https?:/.test(p) ? p : 'http://localhost:' + p;
     return 'http://localhost:3001';
   }
-  return 'https://veelyn-production.up.railway.app';
+  return 'https://veelyn-production-8876.up.railway.app';
 }
 const VEELYN_API = resolveApiBase();
 
@@ -299,6 +299,7 @@ function setupTabs() {
     });
   });
   $('#invoicesRefresh')?.addEventListener('click', renderInvoices);
+  $('#behDays')?.addEventListener('change', renderBehavior);
 
   // hash routing
   const hash = location.hash.slice(1);
@@ -315,6 +316,7 @@ function switchTab(tab) {
   history.replaceState(null, '', '#' + tab);
   if (tab === 'invoices') renderInvoices();
   if (tab === 'finance') renderFinance();
+  if (tab === 'analytics') renderBehavior();
 }
 
 // === FAKTÚRY ===
@@ -957,6 +959,14 @@ function exportOrdersCSV() {
 }
 
 // === PRODUCTS ===
+// Slug produktovej stránky — MUSÍ sedieť s build-product-pages.js / build-sitemap.js
+function fragSlug(f) {
+  return `${f.brand}-${f.original_name}`.toLowerCase()
+    .normalize('NFD').replace(/[̀-ͯ]/g, '')
+    .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+}
+const fragUrl = (f) => `https://www.veelyn.sk/produkt/${fragSlug(f)}/`;
+
 let productFilters = { search: '', brand: '' };
 let PRODUCTS_CACHE = []; // backend overrides: [{id, stock, price_override, hidden}]
 async function fetchProducts() {
@@ -987,14 +997,14 @@ async function renderProducts() {
     return `
     <tr data-product-id="${f.id}">
       <td><code>${f.id}</code></td>
-      <td><strong>${f.veelyn_name}</strong></td>
+      <td><a class="prod-link" href="${fragUrl(f)}" target="_blank" rel="noopener" title="Otvoriť na webe ↗">${f.veelyn_name}</a></td>
       <td>${f.original_name}</td>
       <td>${f.brand}</td>
-      <td>${sold[f.id] ? `<strong>${sold[f.id]}×</strong>` : '<span style="color:var(--text-mute)">—</span>'}</td>
+      <td>${sold[f.id] ? `<strong>${sold[f.id]}×</strong>` : '<span style="color:var(--text-mute)">0×</span>'}</td>
       <td><input type="number" class="inline-edit" data-field="price_override" min="0" step="0.01" value="${effectivePrice.toFixed(2)}" style="width:80px"></td>
       <td><input type="number" class="inline-edit" data-field="stock" min="0" value="${ov.stock ?? 999}" style="width:70px"></td>
       <td><input type="checkbox" class="inline-edit" data-field="hidden" ${ov.hidden ? 'checked' : ''}></td>
-      <td><a class="btn btn--ghost btn--small" href="../index.html" target="_blank">↗ Zobraziť</a></td>
+      <td><a class="btn btn--ghost btn--small" style="white-space:nowrap" href="${fragUrl(f)}" target="_blank" rel="noopener">↗ Zobraziť</a></td>
     </tr>`;
   }).join('');
   $('#productCount').textContent = list.length + ' produktov';
@@ -1248,6 +1258,55 @@ function renderHBars(selector, data, fallbackLabel) {
       <span class="chart-hbars__value">${count}</span>
     </li>
   `).join('');
+}
+
+// === SPRÁVANIE NÁVŠTEVNÍKOV (dáta z track.js cez /api/admin/analytics) ===
+async function renderBehavior() {
+  const days = $('#behDays')?.value || '30';
+  const set = (sel, v) => { const el = $(sel); if (el) el.textContent = v; };
+  const toObj = (arr) => Object.fromEntries((arr || []).map(x => [x.label, x.count]));
+  try {
+    const a = await apiGet('/api/admin/analytics?days=' + days);
+    set('#behSince', a.sessions ? '' : 'Zatiaľ žiadne dáta — meranie beží od nasadenia track.js');
+    set('#behSessions', a.sessions);
+    set('#behVisitors', `${a.visitors} unikátnych · ${a.pageViews} zobrazení stránok`);
+    set('#behBounce', a.bounceRate + ' %');
+    set('#behConv', a.conversion + ' %');
+    set('#behTime', `Ø čas na stránke ${a.avgTime} s`);
+    set('#behErrors', a.errors);
+    set('#behErrSub', a.errors ? '⚠️ niečo na webe padá — pozri zoznam dole' : 'nič nehlási');
+    const errCard = $('#behErrCard'); if (errCard) errCard.style.outline = a.errors ? '2px solid #d63638' : '';
+
+    // Funnel: % z návštev + pokles oproti predchádzajúcemu kroku
+    const f = a.funnel || []; const base = f[0]?.count || 0; const fmax = base || 1;
+    $('#behFunnel').innerHTML = f.map((s, i) => {
+      const prev = i ? f[i - 1].count : s.count;
+      const drop = prev ? Math.round((1 - s.count / prev) * 100) : 0;
+      return `<li>
+        <span class="chart-hbars__label">${s.step}</span>
+        <div class="chart-hbars__bar"><div class="chart-hbars__bar-fill" style="width:${s.count / fmax * 100}%"></div></div>
+        <span class="chart-hbars__value">${s.count} (${base ? Math.round(s.count / base * 100) : 0} %)${i && drop > 0 ? ` <span style="color:#d63638">−${drop} %</span>` : ''}</span>
+      </li>`;
+    }).join('') || '<li style="color:var(--text-mute)">Bez dát.</li>';
+
+    renderHBars('#behClicks', toObj(a.topClicks));
+    renderHBars('#behExits', toObj(a.exitsBySection));
+    renderHBars('#behScroll', a.scrollBuckets || {});
+    renderHBars('#behCats', toObj(a.categories));
+    const srch = toObj(a.searches);
+    (a.zeroSearches || []).forEach(z => { delete srch[z.label]; srch[z.label + ' — 0 výsledkov ⚠️'] = z.count; });
+    renderHBars('#behSearch', srch);
+    renderHBars('#behSources', toObj(a.sources));
+    renderHBars('#behDevices', toObj(a.devices));
+    renderHBars('#behExitPages', toObj(a.exitsByPage));
+    renderHBars('#behErrList', toObj(a.topErrors));
+    $('#behProducts tbody').innerHTML = (a.products || []).map(p => {
+      const fr = FRAGRANCES.find(x => x.id === p.id);
+      return `<tr><td><strong>${fr ? fr.veelyn_name : p.id}</strong></td><td>${p.views}</td><td>${p.carts}</td><td style="color:${p.rate < 10 ? '#d63638' : '#00a32a'}">${p.rate} %</td></tr>`;
+    }).join('') || '<tr><td colspan="4" style="color:var(--text-mute)">Bez dát.</td></tr>';
+  } catch (e) {
+    set('#behSince', 'Tracking API nedostupné: ' + e.message);
+  }
 }
 
 // === SETTINGS ===

@@ -417,6 +417,7 @@ function pageHtml(f) {
   </div>
 </footer>
 
+<script src="/track.js?v=20260912-001" defer data-cookieconsent="ignore"></script>
 </body>
 </html>
 `;
@@ -568,6 +569,7 @@ function hubHtml() {
   </div>
 </footer>
 
+<script src="/track.js?v=20260912-001" defer data-cookieconsent="ignore"></script>
 </body>
 </html>
 `;

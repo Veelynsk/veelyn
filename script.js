@@ -116,7 +116,7 @@ function trackSearch(query) {
 const VEELYN_API = (typeof window !== 'undefined' && window.VEELYN_API) ||
   (location.hostname === 'localhost' || location.hostname === '127.0.0.1'
     ? 'http://localhost:3001'
-    : 'https://veelyn-production.up.railway.app');
+    : 'https://veelyn-production-8876.up.railway.app');
 
 // --- Helpers ---
 const $ = (s, p=document) => p.querySelector(s);

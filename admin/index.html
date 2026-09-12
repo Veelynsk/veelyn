@@ -512,6 +512,44 @@
           <ul class="chart-hbars" id="shippingBars"></ul>
         </div>
       </div>
+
+      <!-- SPRÁVANIE NÁVŠTEVNÍKOV — dáta z track.js na webe -->
+      <div class="panel" style="margin-top:1.5rem">
+        <div class="panel__header">
+          <h2 class="panel__title">Správanie návštevníkov na webe</h2>
+          <div style="display:flex;gap:.6rem;align-items:center">
+            <span id="behSince" style="font-size:.78rem;color:var(--text-mute)"></span>
+            <select id="behDays" class="select">
+              <option value="7">Posledných 7 dní</option>
+              <option value="30" selected>Posledných 30 dní</option>
+              <option value="90">Posledných 90 dní</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="stats">
+        <div class="stat-card"><div class="stat-card__label">Návštevy</div><div class="stat-card__value" id="behSessions">0</div><div class="stat-card__sub" id="behVisitors">—</div></div>
+        <div class="stat-card"><div class="stat-card__label">Bounce rate</div><div class="stat-card__value" id="behBounce">0 %</div><div class="stat-card__sub">odišli bez jediného kliknutia</div></div>
+        <div class="stat-card"><div class="stat-card__label">Konverzia návštev</div><div class="stat-card__value" id="behConv">0 %</div><div class="stat-card__sub" id="behTime">Ø čas na stránke —</div></div>
+        <div class="stat-card" id="behErrCard"><div class="stat-card__label">JS chyby na webe</div><div class="stat-card__value" id="behErrors">0</div><div class="stat-card__sub" id="behErrSub">nič nehlási</div></div>
+      </div>
+      <div class="charts-grid">
+        <div class="panel"><div class="panel__header"><h2 class="panel__title">Funnel — kde ľudia vypadávajú</h2></div><div class="panel__body"><ul class="chart-hbars" id="behFunnel"></ul></div></div>
+        <div class="panel"><div class="panel__header"><h2 class="panel__title">Kde ľudia najviac klikajú</h2></div><div class="panel__body"><ul class="chart-hbars" id="behClicks"></ul></div></div>
+      </div>
+      <div class="charts-grid">
+        <div class="panel"><div class="panel__header"><h2 class="panel__title">Odkiaľ najviac odchádzajú (sekcia + hĺbka scrollu)</h2></div><div class="panel__body"><ul class="chart-hbars" id="behExits"></ul></div></div>
+        <div class="panel"><div class="panel__header"><h2 class="panel__title">Ako hlboko doscrollujú pred odchodom</h2></div><div class="panel__body"><ul class="chart-hbars" id="behScroll"></ul></div></div>
+      </div>
+      <div class="charts-grid">
+        <div class="panel"><div class="panel__header"><h2 class="panel__title">Kategórie a filtre</h2></div><div class="panel__body"><ul class="chart-hbars" id="behCats"></ul></div></div>
+        <div class="panel"><div class="panel__header"><h2 class="panel__title">Čo ľudia vyhľadávajú</h2></div><div class="panel__body"><ul class="chart-hbars" id="behSearch"></ul></div></div>
+      </div>
+      <div class="charts-grid">
+        <div class="panel"><div class="panel__header"><h2 class="panel__title">Produkty: zobrazenie → košík</h2></div><div class="panel__body"><table class="data-table" id="behProducts"><thead><tr><th>Vôňa</th><th>Zobrazení</th><th>Do košíka</th><th>Úspešnosť</th></tr></thead><tbody></tbody></table></div></div>
+        <div class="panel"><div class="panel__header"><h2 class="panel__title">Zdroje návštev a zariadenia</h2></div><div class="panel__body" style="display:grid;grid-template-columns:1fr 1fr;gap:1rem"><ul class="chart-hbars" id="behSources"></ul><ul class="chart-hbars" id="behDevices"></ul></div></div>
+      </div>
+      <div class="panel"><div class="panel__header"><h2 class="panel__title">Stránky s najviac odchodmi · JS chyby</h2></div><div class="panel__body" style="display:grid;grid-template-columns:1fr 1fr;gap:1rem"><ul class="chart-hbars" id="behExitPages"></ul><ul class="chart-hbars" id="behErrList"></ul></div></div>
     </section>
 
     <!-- SETTINGS -->

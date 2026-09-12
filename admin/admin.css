@@ -831,3 +831,7 @@ body.role-warehouse [data-admin-only] { display: none !important; }
 .fin-field__unit { font-size: .75rem; color: var(--text-mute); white-space: nowrap; min-width: 3.5rem; }
 .fin-row--strong td { border-top: 1px solid var(--border); font-weight: 700; }
 #finFragTable .fin-oil { width: 5.5rem; }
+
+/* === PRODUKTY — názov ako odkaz na web === */
+.prod-link { font-weight: 700; color: inherit; text-decoration: none; border-bottom: 1px dashed var(--border); transition: color .15s, border-color .15s; }
+.prod-link:hover { color: var(--accent-2); border-bottom-style: solid; border-color: var(--accent-2); }
