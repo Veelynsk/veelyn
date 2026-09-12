@@ -62,6 +62,10 @@
         <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
         Faktúry
       </a>
+      <a href="#finance" class="sidebar__link" data-tab="finance">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M15 8.5a3.5 3.5 0 0 0-6 2.5c0 3 6 2 6 5a3.5 3.5 0 0 1-6 1"/><line x1="12" y1="5" x2="12" y2="7"/><line x1="12" y1="17" x2="12" y2="19"/></svg>
+        Financie
+      </a>
       <a href="#analytics" class="sidebar__link" data-tab="analytics">
         <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
         Štatistiky
@@ -351,6 +355,105 @@
               <th>Rola</th>
               <th>Vytvorený</th>
               <th>Akcia</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- FINANCIE -->
+    <section class="tab" id="tab-finance" hidden>
+      <div class="toolbar">
+        <div class="toolbar__filters">
+          <select id="finPeriod" class="select">
+            <option value="all">Celkovo</option>
+            <option value="month">Tento mesiac</option>
+            <option value="prevmonth">Minulý mesiac</option>
+            <option value="30d">Posledných 30 dní</option>
+          </select>
+        </div>
+        <div class="toolbar__actions">
+          <span class="toolbar__counter" id="finOrdersCount">0 objednávok</span>
+        </div>
+      </div>
+
+      <div class="stats">
+        <div class="stat-card">
+          <div class="stat-card__label">Obrat</div>
+          <div class="stat-card__value" id="finRevenue">0 €</div>
+          <div class="stat-card__sub" id="finRevenueSub">tovar + doprava</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card__label">Náklady</div>
+          <div class="stat-card__value" id="finCosts">0 €</div>
+          <div class="stat-card__sub" id="finCostsSub">tovar, doprava, poplatky</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card__label">Zisk</div>
+          <div class="stat-card__value" id="finProfit">0 €</div>
+          <div class="stat-card__sub" id="finProfitSub">obrat − náklady</div>
+        </div>
+        <div class="stat-card stat-card--accent">
+          <div class="stat-card__label">Marža</div>
+          <div class="stat-card__value" id="finMargin">0 %</div>
+          <div class="stat-card__sub">zisk / obrat</div>
+        </div>
+      </div>
+
+      <div class="charts-grid">
+        <div class="panel">
+          <div class="panel__header"><h2 class="panel__title">Rozpad výnosov a nákladov</h2></div>
+          <div class="panel__body">
+            <table class="data-table" id="finBreakdownTable">
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="panel__header"><h2 class="panel__title">Ekonomika jednej fľaše (50 ml)</h2></div>
+          <div class="panel__body">
+            <table class="data-table" id="finUnitTable">
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel" style="margin-bottom:1.25rem">
+        <div class="panel__header">
+          <h2 class="panel__title">Nákladové vstupy — nákupné ceny</h2>
+          <div style="display:flex;gap:.5rem;align-items:center">
+            <span id="finSaveStatus" style="font-size:.8rem;color:var(--text-mute)"></span>
+            <button class="btn btn--primary btn--small" id="finSaveBtn">Uložiť</button>
+          </div>
+        </div>
+        <div class="panel__body">
+          <div class="fin-grid" id="finInputs"></div>
+          <p style="font-size:.78rem;color:var(--text-mute);margin:.75rem 0 0">
+            Prednastavené hodnoty sú odhady — prepíš ich reálnymi cenami z faktúr. Všetko sa prepočíta samo.
+            Olej sa dávkuje podľa „ml oleja na fľašu" (20 % z 50 ml = 10 ml), zvyšok objemu je lieh.
+          </p>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel__header">
+          <h2 class="panel__title">Náklady a marža podľa vône</h2>
+          <span class="toolbar__counter" id="finFragCount"></span>
+        </div>
+        <table class="data-table data-table--editable" id="finFragTable">
+          <thead>
+            <tr>
+              <th>Vôňa</th>
+              <th>Inšpirovaná</th>
+              <th>Olej €/l</th>
+              <th>Olej</th>
+              <th>Náklad/fľaša</th>
+              <th>Predaj</th>
+              <th>Zisk/fľaša</th>
+              <th>Marža</th>
+              <th>Predané ks</th>
             </tr>
           </thead>
           <tbody></tbody>

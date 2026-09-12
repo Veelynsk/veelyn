@@ -817,3 +817,17 @@ body.role-warehouse [data-admin-only] { display: none !important; }
   .toolbar { flex-direction: column; align-items: stretch; }
   .toolbar__filters .input { min-width: 0; flex: 1; }
 }
+
+/* === FINANCIE === */
+.fin-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: .75rem 1rem;
+}
+.fin-field { display: flex; flex-direction: column; gap: .3rem; }
+.fin-field__label { font-size: .78rem; color: var(--text-mute); }
+.fin-field__row { display: flex; align-items: center; gap: .5rem; }
+.fin-field__input { width: 100%; }
+.fin-field__unit { font-size: .75rem; color: var(--text-mute); white-space: nowrap; min-width: 3.5rem; }
+.fin-row--strong td { border-top: 1px solid var(--border); font-weight: 700; }
+#finFragTable .fin-oil { width: 5.5rem; }

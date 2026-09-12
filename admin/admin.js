@@ -53,6 +53,12 @@ async function apiPost(path, body) {
   if (!r.ok) { const e = await r.json().catch(()=>({})); throw new Error(e.error || `API ${r.status}`); }
   return r.json();
 }
+async function apiPut(path, body) {
+  const r = await fetch(VEELYN_API + path, { method: 'PUT', headers: authHeaders(), body: JSON.stringify(body) });
+  if (r.status === 401) { logout(); throw new Error('unauthorized'); }
+  if (!r.ok) { const e = await r.json().catch(()=>({})); throw new Error(e.error || `API ${r.status}`); }
+  return r.json();
+}
 async function apiDelete(path) {
   const r = await fetch(VEELYN_API + path, { method: 'DELETE', headers: authHeaders() });
   if (r.status === 401) { logout(); throw new Error('unauthorized'); }
@@ -169,7 +175,7 @@ async function showApp() {
   // Role-based UI: warehouse sees only Dashboard + Objednávky
   if (CURRENT_USER?.role === 'warehouse') {
     document.body.classList.add('role-warehouse');
-    ['products','customers','discounts','analytics','settings','users'].forEach(t => {
+    ['products','customers','discounts','finance','analytics','settings','users'].forEach(t => {
       const link = document.querySelector(`.sidebar__link[data-tab="${t}"]`);
       if (link) link.style.display = 'none';
     });
@@ -272,6 +278,7 @@ function switchTab(tab) {
   $('#pageTitle').textContent = (link?.textContent.trim().split('\n')[0]) || 'Dashboard';
   history.replaceState(null, '', '#' + tab);
   if (tab === 'invoices') renderInvoices();
+  if (tab === 'finance') renderFinance();
 }
 
 // === FAKTÚRY ===
@@ -321,6 +328,233 @@ async function downloadInvoicePdf(number, kind, btn) {
   } finally {
     btn.disabled = false; btn.textContent = orig;
   }
+}
+
+// === FINANCIE ===
+// Nákupné ceny + prepočet nákladov, obratu, zisku a marže.
+// Vstupy sa ukladajú na backend (finance_settings), fallback localStorage.
+const FIN_STORE_KEY = 'veelyn_finance_settings';
+const FIN_DEFAULTS = {
+  oilMl: 10,          // ml parfumového oleja na 50 ml fľašu (20 %)
+  oilDefault: 120,    // €/l — default nákupná cena oleja
+  alcohol: 6,         // €/l — lieh/báza
+  bottle: 1.10,       // €/ks — fľaša 50 ml
+  sprayer: 0.35,      // €/ks — rozprašovač + viečko
+  label: 0.18,        // €/ks — etiketa
+  box: 0.55,          // €/ks — krabička
+  otherPerBottle: 0.10, // €/fľaša — réžia, straty, testery
+  packOrder: 0.40,    // €/objednávka — kartón + výplň
+  shipPacketa: 2.60,  // €/objednávka — náš náklad Packeta/Z-Box
+  shipCourier: 4.20,  // €/objednávka — náš náklad kuriér
+  codFee: 1.20,       // €/objednávka — poplatok za dobierku
+  feePct: 1.5,        // % z objednávky — platobná brána (karta/Apple/Google Pay)
+  feeFix: 0.25,       // €/objednávka — fixný poplatok brány
+  oils: {},           // per-vôňa override ceny oleja €/l: { fragranceId: cena }
+};
+const FIN_FIELDS = [
+  ['oilDefault', 'Parfumový olej — default', '€/l'],
+  ['oilMl', 'Olej na fľašu', 'ml'],
+  ['alcohol', 'Lieh / báza', '€/l'],
+  ['bottle', 'Fľaša 50 ml', '€/ks'],
+  ['sprayer', 'Rozprašovač + viečko', '€/ks'],
+  ['label', 'Etiketa', '€/ks'],
+  ['box', 'Krabička', '€/ks'],
+  ['otherPerBottle', 'Iné / réžia', '€/fľaša'],
+  ['packOrder', 'Kartón + výplň', '€/obj.'],
+  ['shipPacketa', 'Packeta / Z-Box — náš náklad', '€/obj.'],
+  ['shipCourier', 'Kuriér — náš náklad', '€/obj.'],
+  ['codFee', 'Dobierka — poplatok', '€/obj.'],
+  ['feePct', 'Platobná brána', '% z obj.'],
+  ['feeFix', 'Platobná brána — fix', '€/obj.'],
+];
+let FIN = null;          // aktuálne nastavenia (merge defaults + uložené)
+let finLoaded = false;
+
+async function loadFinanceSettings() {
+  let saved = null;
+  try {
+    const r = await apiGet('/api/admin/finance-settings');
+    saved = r.data;
+  } catch (e) {
+    console.warn('Finance settings API nedostupné, čítam localStorage:', e.message);
+    try { saved = JSON.parse(localStorage.getItem(FIN_STORE_KEY) || 'null'); } catch {}
+  }
+  FIN = { ...FIN_DEFAULTS, ...(saved || {}), oils: { ...(saved?.oils || {}) } };
+  finLoaded = true;
+}
+async function saveFinanceSettings() {
+  localStorage.setItem(FIN_STORE_KEY, JSON.stringify(FIN));
+  const status = $('#finSaveStatus');
+  try {
+    await apiPut('/api/admin/finance-settings', FIN);
+    if (status) { status.textContent = '✓ uložené'; status.style.color = '#22c55e'; }
+  } catch (e) {
+    if (status) { status.textContent = 'uložené len lokálne (backend nedostupný)'; status.style.color = '#facc15'; }
+  }
+  setTimeout(() => { if (status) status.textContent = ''; }, 4000);
+}
+
+function finOilPrice(fragId) {
+  const o = Number(FIN.oils?.[fragId]);
+  return o > 0 ? o : Number(FIN.oilDefault) || 0;
+}
+// Výrobný náklad jednej 50 ml fľaše danej vône
+function finCostPerBottle(fragId) {
+  const oil = (Number(FIN.oilMl) || 0) / 1000 * finOilPrice(fragId);
+  const alc = Math.max(0, 50 - (Number(FIN.oilMl) || 0)) / 1000 * (Number(FIN.alcohol) || 0);
+  return oil + alc + (Number(FIN.bottle) || 0) + (Number(FIN.sprayer) || 0)
+    + (Number(FIN.label) || 0) + (Number(FIN.box) || 0) + (Number(FIN.otherPerBottle) || 0);
+}
+function finAvgCostPerBottle() {
+  if (!FRAGRANCES.length) return 0;
+  return FRAGRANCES.reduce((s, f) => s + finCostPerBottle(f.id), 0) / FRAGRANCES.length;
+}
+// Náklady jednej objednávky: tovar + balenie + doprava (náš náklad) + poplatky
+function finOrderCosts(order) {
+  let cogs = 0;
+  for (const it of (order.items || [])) {
+    const qty = Number(it.qty) || 0;
+    const known = FRAGRANCES.some(f => f.id === it.id);
+    cogs += qty * (known ? finCostPerBottle(it.id) : finAvgCostPerBottle());
+  }
+  const shipStr = String(order.shippingMethod || '').toLowerCase();
+  const ship = /kuri|dpd|gls|sps/.test(shipStr) ? (Number(FIN.shipCourier) || 0) : (Number(FIN.shipPacketa) || 0);
+  const payStr = String(order.paymentMethod || '').toLowerCase();
+  const total = Number(order.total) || 0;
+  let fees = 0;
+  if (/dobierka/.test(payStr)) fees = Number(FIN.codFee) || 0;
+  else if (/prevod/.test(payStr)) fees = 0;
+  else fees = total * (Number(FIN.feePct) || 0) / 100 + (Number(FIN.feeFix) || 0);
+  return { cogs, ship, fees, pack: Number(FIN.packOrder) || 0 };
+}
+
+function finFilterOrders() {
+  const period = $('#finPeriod')?.value || 'all';
+  const now = new Date();
+  const monthStart = new Date(now.getFullYear(), now.getMonth(), 1).getTime();
+  const prevStart = new Date(now.getFullYear(), now.getMonth() - 1, 1).getTime();
+  const cut30 = Date.now() - 30 * 86400000;
+  return loadOrders().filter(o => o.status !== 'cancelled').filter(o => {
+    if (period === 'month') return o.ts >= monthStart;
+    if (period === 'prevmonth') return o.ts >= prevStart && o.ts < monthStart;
+    if (period === '30d') return o.ts >= cut30;
+    return true;
+  });
+}
+
+const finPct = (n) => (Math.round(n * 10) / 10).toFixed(1).replace('.', ',') + ' %';
+
+function renderFinanceInputs() {
+  const wrap = $('#finInputs');
+  if (!wrap || wrap.dataset.built) return;
+  wrap.dataset.built = '1';
+  wrap.innerHTML = FIN_FIELDS.map(([key, label, unit]) => `
+    <label class="fin-field">
+      <span class="fin-field__label">${label}</span>
+      <span class="fin-field__row">
+        <input type="number" step="0.01" min="0" class="input fin-field__input" data-fin="${key}" value="${FIN[key]}">
+        <span class="fin-field__unit">${unit}</span>
+      </span>
+    </label>`).join('');
+  wrap.querySelectorAll('[data-fin]').forEach(inp => {
+    inp.addEventListener('input', () => {
+      FIN[inp.dataset.fin] = parseFloat(inp.value) || 0;
+      renderFinanceComputed();
+    });
+  });
+  $('#finSaveBtn')?.addEventListener('click', saveFinanceSettings);
+  $('#finPeriod')?.addEventListener('change', renderFinanceComputed);
+}
+
+function renderFinanceComputed() {
+  const orders = finFilterOrders();
+  // Predané kusy podľa vône (bez zrušených, zvolené obdobie)
+  const sold = {};
+  let revenue = 0, goods = 0, shipCharged = 0, cogs = 0, shipCost = 0, fees = 0, pack = 0;
+  for (const o of orders) {
+    revenue += Number(o.total) || 0;
+    goods += Number(o.subtotal) || 0;
+    shipCharged += Number(o.shipping) || 0;
+    const c = finOrderCosts(o);
+    cogs += c.cogs; shipCost += c.ship; fees += c.fees; pack += c.pack;
+    for (const it of (o.items || [])) sold[it.id] = (sold[it.id] || 0) + (Number(it.qty) || 0);
+  }
+  const costs = cogs + shipCost + fees + pack;
+  const profit = revenue - costs;
+  const margin = revenue > 0 ? profit / revenue * 100 : 0;
+
+  $('#finOrdersCount').textContent = `${orders.length} objednávok (bez zrušených)`;
+  $('#finRevenue').textContent = eur(revenue);
+  $('#finCosts').textContent = eur(costs);
+  $('#finProfit').textContent = eur(profit);
+  $('#finProfit').style.color = profit < 0 ? '#ef4444' : '';
+  $('#finMargin').textContent = finPct(margin);
+
+  // Rozpad
+  const row = (label, val, cls) => `<tr class="${cls || ''}"><td>${label}</td><td style="text-align:right;white-space:nowrap"><strong>${val}</strong></td></tr>`;
+  $('#finBreakdownTable tbody').innerHTML = [
+    row('Tovar (predajné ceny)', eur(goods)),
+    row('Doprava účtovaná zákazníkom', eur(shipCharged)),
+    row('= Obrat', eur(revenue), 'fin-row--strong'),
+    row('Výroba tovaru (COGS)', '−' + eur(cogs)),
+    row('Doprava — náš náklad', '−' + eur(shipCost)),
+    row('Balenie (kartón, výplň)', '−' + eur(pack)),
+    row('Poplatky (brána, dobierka)', '−' + eur(fees)),
+    row('= Zisk', eur(profit), 'fin-row--strong'),
+    row('Marža', finPct(margin)),
+    row('Ø zisk na objednávku', orders.length ? eur(profit / orders.length) : '—'),
+  ].join('');
+
+  // Ekonomika jednej fľaše (priemer cez všetky vône)
+  const oilAvg = FRAGRANCES.length ? FRAGRANCES.reduce((s, f) => s + (Number(FIN.oilMl) || 0) / 1000 * finOilPrice(f.id), 0) / FRAGRANCES.length : 0;
+  const alcCost = Math.max(0, 50 - (Number(FIN.oilMl) || 0)) / 1000 * (Number(FIN.alcohol) || 0);
+  const unitCost = finAvgCostPerBottle();
+  const price = 24.99;
+  const bundlePrice = price * 3 / 4; // 3+1 → Ø cena za fľašu
+  $('#finUnitTable tbody').innerHTML = [
+    row(`Olej (${FIN.oilMl} ml, Ø)`, eur(oilAvg)),
+    row('Lieh / báza', eur(alcCost)),
+    row('Fľaša + rozprašovač', eur((Number(FIN.bottle) || 0) + (Number(FIN.sprayer) || 0))),
+    row('Etiketa + krabička', eur((Number(FIN.label) || 0) + (Number(FIN.box) || 0))),
+    row('Iné / réžia', eur(Number(FIN.otherPerBottle) || 0)),
+    row('= Náklad na fľašu (Ø)', eur(unitCost), 'fin-row--strong'),
+    row('Predaj za 24,99 € → zisk', `${eur(price - unitCost)} (${finPct((price - unitCost) / price * 100)})`),
+    row('V akcii 3+1 (Ø 18,74 €/fľaša) → zisk', `${eur(bundlePrice - unitCost)} (${finPct((bundlePrice - unitCost) / bundlePrice * 100)})`, ''),
+  ].join('');
+
+  // Tabuľka podľa vône
+  const tbody = $('#finFragTable tbody');
+  const list = [...FRAGRANCES].sort((a, b) => (sold[b.id] || 0) - (sold[a.id] || 0) || a.veelyn_name.localeCompare(b.veelyn_name));
+  $('#finFragCount').textContent = `${list.length} vôní`;
+  tbody.innerHTML = list.map(f => {
+    const cost = finCostPerBottle(f.id);
+    const profit1 = price - cost;
+    const override = FIN.oils?.[f.id];
+    return `<tr>
+      <td><strong>${f.veelyn_name}</strong></td>
+      <td style="color:var(--text-mute)">${f.brand} ${f.original_name}</td>
+      <td><input type="number" step="1" min="0" class="inline-edit fin-oil" data-fid="${f.id}" value="${override ?? ''}" placeholder="${FIN.oilDefault}"></td>
+      <td>${eur((Number(FIN.oilMl) || 0) / 1000 * finOilPrice(f.id))}</td>
+      <td><strong>${eur(cost)}</strong></td>
+      <td>${eur(price)}</td>
+      <td style="color:${profit1 < 0 ? '#ef4444' : '#22c55e'}">${eur(profit1)}</td>
+      <td>${finPct(profit1 / price * 100)}</td>
+      <td>${sold[f.id] || 0}</td>
+    </tr>`;
+  }).join('');
+  tbody.querySelectorAll('.fin-oil').forEach(inp => {
+    inp.addEventListener('change', () => {
+      const v = parseFloat(inp.value);
+      if (v > 0) FIN.oils[inp.dataset.fid] = v; else delete FIN.oils[inp.dataset.fid];
+      renderFinanceComputed();
+    });
+  });
+}
+
+async function renderFinance() {
+  if (!finLoaded) await loadFinanceSettings();
+  renderFinanceInputs();
+  renderFinanceComputed();
 }
 
 // === DASHBOARD ===

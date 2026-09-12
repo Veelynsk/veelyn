@@ -244,6 +244,12 @@ db.exec(`
     updated_at INTEGER
   );
 
+  CREATE TABLE IF NOT EXISTS finance_settings (
+    id INTEGER PRIMARY KEY CHECK (id = 1),
+    data TEXT NOT NULL,
+    updated_at INTEGER NOT NULL
+  );
+
   CREATE TABLE IF NOT EXISTS discount_codes (
     code TEXT PRIMARY KEY,
     type TEXT DEFAULT 'percent',
@@ -1354,6 +1360,25 @@ app.patch('/api/admin/products/:id', requireAuth(['admin']), (req, res) => {
     values.push(req.params.id);
     db.prepare(`UPDATE products SET ${updates.join(', ')} WHERE id = ?`).run(...values);
   }
+  res.json({ ok: true });
+});
+
+// === FINANCIE (nákladové vstupy pre admin Financie tab) ===
+app.get('/api/admin/finance-settings', requireAuth(['admin']), (req, res) => {
+  const row = db.prepare(`SELECT data, updated_at FROM finance_settings WHERE id = 1`).get();
+  let data = null;
+  try { data = row ? JSON.parse(row.data) : null; } catch {}
+  res.json({ data, updated_at: row?.updated_at || null });
+});
+
+app.put('/api/admin/finance-settings', requireAuth(['admin']), (req, res) => {
+  const data = req.body;
+  if (!data || typeof data !== 'object' || Array.isArray(data)) {
+    return res.status(400).json({ error: 'Neplatné dáta' });
+  }
+  db.prepare(`INSERT INTO finance_settings (id, data, updated_at) VALUES (1, ?, ?)
+              ON CONFLICT(id) DO UPDATE SET data = excluded.data, updated_at = excluded.updated_at`)
+    .run(JSON.stringify(data), Date.now());
   res.json({ ok: true });
 });
 
