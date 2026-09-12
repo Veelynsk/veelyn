@@ -141,7 +141,9 @@ const PAYMENT_METHODS = {
 const FREE_SHIPPING_THRESHOLD = 40;
 
 // ---- DB ----
-const DB_PATH = resolve(__dirname, 'orders.sqlite');
+// DB_PATH sa dá prepísať env premennou → na Railway ukáž na mountnutý
+// volume (napr. /data/orders.sqlite), aby objednávky prežili redeploy.
+const DB_PATH = process.env.DB_PATH || resolve(__dirname, 'orders.sqlite');
 const db = new Database(DB_PATH);
 db.pragma('journal_mode = WAL');
 db.exec(`
@@ -730,13 +732,13 @@ function requireAuth(roles = null) {
 }
 
 app.post('/api/admin/login', rateLimit({ windowMs: 5 * 60_000, max: 10 }), async (req, res) => {
-  // DEV bypass: prihlásenie bez hesla, LEN keď backend nebeží v produkcii
-  // A spojenie prichádza fyzicky z loopbacku (req.socket, nie Host header —
-  // ten sa dá spoofnúť). Na Railway/produkcii je remoteAddress IP proxy,
-  // takže bypass nikdy neprejde ani keby NODE_ENV chýbal.
+  // DEV bypass: prihlásenie bez hesla. Vyžaduje EXPLICITNÝ opt-in cez
+  // env DEV_LOGIN=1 (nastavené len lokálne v backend/.env) A zároveň
+  // spojenie z loopbacku. Na Railway/produkcii sa DEV_LOGIN nenastaví,
+  // takže bypass je vždy vypnutý bez ohľadu na NODE_ENV či proxy.
   const sockAddr = req.socket?.remoteAddress || '';
   const isLoopback = sockAddr === '127.0.0.1' || sockAddr === '::1' || sockAddr === '::ffff:127.0.0.1';
-  if (!IS_PROD && isLoopback && req.body?.dev === true) {
+  if (process.env.DEV_LOGIN === '1' && isLoopback && req.body?.dev === true) {
     const token = randomToken();
     const user = { username: 'admin', role: 'admin', name: 'Dev (localhost)' };
     sessions.set(token, { ...user, expiresAt: Date.now() + SESSION_TTL_MS });
