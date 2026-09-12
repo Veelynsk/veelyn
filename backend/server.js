@@ -730,6 +730,19 @@ function requireAuth(roles = null) {
 }
 
 app.post('/api/admin/login', rateLimit({ windowMs: 5 * 60_000, max: 10 }), async (req, res) => {
+  // DEV bypass: prihlásenie bez hesla, LEN keď backend nebeží v produkcii
+  // A spojenie prichádza fyzicky z loopbacku (req.socket, nie Host header —
+  // ten sa dá spoofnúť). Na Railway/produkcii je remoteAddress IP proxy,
+  // takže bypass nikdy neprejde ani keby NODE_ENV chýbal.
+  const sockAddr = req.socket?.remoteAddress || '';
+  const isLoopback = sockAddr === '127.0.0.1' || sockAddr === '::1' || sockAddr === '::ffff:127.0.0.1';
+  if (!IS_PROD && isLoopback && req.body?.dev === true) {
+    const token = randomToken();
+    const user = { username: 'admin', role: 'admin', name: 'Dev (localhost)' };
+    sessions.set(token, { ...user, expiresAt: Date.now() + SESSION_TTL_MS });
+    console.log('[AUTH] DEV login bez hesla (loopback, non-prod).');
+    return res.json({ ok: true, token, expiresIn: SESSION_TTL_MS / 1000, user });
+  }
   const { username, password } = req.body || {};
   if (!username || !password) return res.status(400).json({ error: 'username + password required' });
   const u = db.prepare(`SELECT * FROM users WHERE username = ?`).get(String(username).toLowerCase());

@@ -136,6 +136,33 @@ function setupLogin() {
     showApp();
     return;
   }
+  // DEV: na localhoste bez hesla — skúsi dev login na lokálny backend,
+  // a keď backend nebeží, pustí ťa do offline režimu (localStorage dáta).
+  const IS_LOCAL = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+  if (IS_LOCAL) {
+    (async () => {
+      try {
+        const r = await fetch(VEELYN_API + '/api/admin/login', {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ dev: true }),
+        });
+        if (r.ok) {
+          const { token, user } = await r.json();
+          localStorage.setItem('veelyn_admin_token', token);
+          localStorage.setItem('veelyn_admin_user', JSON.stringify(user));
+          CURRENT_USER = user;
+          setSession();
+          showApp();
+          return;
+        }
+      } catch {}
+      CURRENT_USER = { username: 'admin', role: 'admin', name: 'Dev (offline)' };
+      localStorage.setItem('veelyn_admin_user', JSON.stringify(CURRENT_USER));
+      setSession();
+      showApp();
+    })();
+    return;
+  }
   $('#loginGate').hidden = false;
   $('#adminApp').hidden = true;
   const form = $('#loginForm');
