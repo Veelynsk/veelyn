@@ -13,10 +13,19 @@ const dateTimeFmt = (d) => {
 };
 
 // === BACKEND API ===
-const VEELYN_API = (typeof window !== 'undefined' && window.VEELYN_API) ||
-  (location.hostname === 'localhost' || location.hostname === '127.0.0.1'
-    ? 'http://localhost:3001'
-    : 'https://veelyn-production.up.railway.app');
+// Na localhoste sa dá backend prepnúť cez ?api=… (číslo portu alebo celá URL) —
+// keď default port 3001 obsadí iná appka. V produkcii sa ?api ignoruje.
+function resolveApiBase() {
+  if (typeof window !== 'undefined' && window.VEELYN_API) return window.VEELYN_API;
+  const isLocal = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+  if (isLocal) {
+    const p = new URLSearchParams(location.search).get('api');
+    if (p) return /^https?:/.test(p) ? p : 'http://localhost:' + p;
+    return 'http://localhost:3001';
+  }
+  return 'https://veelyn-production.up.railway.app';
+}
+const VEELYN_API = resolveApiBase();
 
 function authToken() { return localStorage.getItem('veelyn_admin_token') || ''; }
 function authHeaders() {
