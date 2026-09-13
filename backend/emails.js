@@ -112,8 +112,9 @@ function paymentCard(order, inv, ctx = {}) {
       <td valign="top">
         ${label('Platba prevodom')}
         <div class="ink" style="font-size:28px;font-weight:800;line-height:1;color:#16121f">${eur(order.total)}</div>
-        ${ctx.iban ? kv('IBAN', `<span style="font-size:13.5px;letter-spacing:0">${esc(fmtIban(ctx.iban))}</span>`) : ''}
+        ${ctx.iban ? kv('IBAN', `<span style="font-size:13.5px;letter-spacing:0">${esc(fmtIban(ctx.iban))}</span>`) + kv('Banka', 'Fio banka') : ''}
         ${kv('Variabilný symbol', esc(inv.number))}
+        ${kv('Správa pre prijímateľa', esc('Veelyn ' + order.id))}
         ${inv.meta?.dueDate ? kv('Splatnosť', esc(skDate(inv.meta.dueDate))) : ''}
       </td>${qr}</tr></table>
       <p class="dim" style="margin:14px 0 0;font-size:13px;line-height:1.5;color:#6b6478">Zálohová faktúra č. ${esc(inv.number)} s QR kódom je aj v prílohe. Objednávku odošleme hneď po pripísaní platby — zvyčajne do 1 pracovného dňa.</p>`);
@@ -152,7 +153,7 @@ export function customerEmailHTML(order, inv = null, ctx = {}) {
   const first = order.customer?.firstName || '';
   const transfer = order.paymentId === 'transfer';
   const intro = transfer
-    ? `Ahoj${first ? ' ' + esc(first) : ''}, objednávku <strong>${esc(order.id)}</strong> sme prijali. Po pripísaní platby ju zabalíme a odošleme do 1 pracovného dňa.`
+    ? `Ahoj${first ? ' ' + esc(first) : ''}, objednávku <strong>${esc(order.id)}</strong> sme prijali. Už ju len zaplatiť — údaje sú nižšie, ideálne ešte dnes. Hneď po pripísaní platby ju zabalíme a odošleme do 1 pracovného dňa.`
     : `Ahoj${first ? ' ' + esc(first) : ''}, objednávku <strong>${esc(order.id)}</strong> sme prijali. Zabalíme ju a odošleme do 1 pracovného dňa.`;
   const body = `
     ${h1('Ďakujeme za objednávku')}
