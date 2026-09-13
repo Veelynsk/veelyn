@@ -571,7 +571,7 @@ async function sendEmails(order, inv = null, pdf = null) {
   // Predmet je to prvé, čo zákazník vidí v mobilnej schránke — ľudský,
   // s jasnou výzvou a číslom objednávky na konci (v zozname sa oreže).
   const customerSubject = order.paymentId === 'transfer'
-    ? `Ďakujeme za objednávku — chýba posledný krok (${order.id})`
+    ? `Ďakujeme za objednávku — už stačí len zaplatiť (${order.id})`
     : order.paymentId === 'cod'
       ? `Ďakujeme za objednávku — platíš až pri prevzatí (${order.id})`
       : `Ďakujeme za objednávku — už balíme (${order.id})`;
