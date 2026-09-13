@@ -19,6 +19,9 @@ const eur = (n) => (Math.round(Number(n || 0) * 100) / 100).toFixed(2).replace('
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch]));
 const skDate = (iso) => { const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(String(iso || '')); return m ? `${m[3]}.${m[2]}.${m[1]}` : ''; };
 const fmtIban = (iban) => String(iban || '').replace(/\s+/g, '').replace(/(.{4})/g, '$1 ').trim();
+// Skrátenie dlhých názvov originálov, aby sa podnadpis položky zmestil na
+// jeden riadok aj na úzkom mobile (napr. „Vanilla Royale Sugared Patchouli 64“).
+const short = (s, n = 22) => { const t = String(s || ''); return t.length > n ? t.slice(0, n - 1).trimEnd() + '…' : t; };
 const FONT = "font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif";
 
 // ---------- spoločný obal ----------
@@ -26,6 +29,7 @@ function shell({ title, preheader = '', body, footerExtra = '' }) {
   return `<!doctype html>
 <html lang="sk"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="format-detection" content="telephone=no,address=no,email=no,date=no">
 <meta name="color-scheme" content="light dark"><meta name="supported-color-schemes" content="light dark">
 <title>${esc(title)}</title>
 <style>
@@ -77,9 +81,9 @@ function itemsTable(order) {
       <td class="rule" style="padding:10px 0;border-bottom:1px solid #eeebf3;width:52px">${img}</td>
       <td class="rule ink" style="padding:10px 12px;border-bottom:1px solid #eeebf3;font-size:14px;line-height:1.4;color:#16121f">
         <strong>${esc(i.name)}</strong>
-        <div class="dim" style="font-size:12px;color:#8a8399">${i.originalName ? `dupé ${esc(i.originalName)} · ` : ''}50 ml EDP · ${i.qty}×</div>
+        <div class="dim" style="font-size:12px;color:#8a8399;white-space:nowrap">${i.originalName ? `dupé ${esc(short(i.originalName))} · ` : ''}50 ml</div>
       </td>
-      <td class="rule ink" style="padding:10px 0;border-bottom:1px solid #eeebf3;text-align:right;font-size:14px;font-weight:700;white-space:nowrap;color:#16121f">${eur(i.price * i.qty)}</td>
+      <td class="rule ink" style="padding:10px 0;border-bottom:1px solid #eeebf3;text-align:right;font-size:14px;font-weight:700;white-space:nowrap;color:#16121f">${i.qty > 1 ? `<span class="dim" style="font-weight:400;color:#8a8399">${i.qty}× </span>` : ''}${eur(i.price * i.qty)}</td>
     </tr>`;
   }).join('');
   const line = (k, v, opts = {}) => `<tr><td colspan="2" class="${opts.cls || 'dim'}" style="padding:5px 12px 0 0;text-align:right;font-size:${opts.big ? 16 : 13}px;${opts.big ? 'font-weight:800;padding-top:10px;' : ''}color:${opts.color || '#8a8399'}">${esc(k)}</td><td class="${opts.cls || 'dim'}" style="padding:5px 0 0;text-align:right;font-size:${opts.big ? 20 : 13}px;white-space:nowrap;${opts.big ? 'font-weight:800;padding-top:10px;' : ''}color:${opts.color || '#8a8399'}">${v}</td></tr>`;
@@ -167,7 +171,7 @@ export function customerEmailHTML(order, inv = null, ctx = {}) {
     ${itemsTable(order)}
     ${paymentCard(order, inv, ctx)}
     ${deliveryCard(order)}
-    ${p(`Otázky? Stačí odpovedať na tento e-mail alebo napísať na <a href="mailto:${SUPPLIER.email}" style="color:${PURPLE}">${SUPPLIER.email}</a>.`, 'margin:22px 0 0;font-size:13px;color:#6b6478')}`;
+    ${p(`Otázky? Napíš nám na <a href="mailto:${SUPPLIER.email}" style="color:${PURPLE}">${SUPPLIER.email}</a>.`, 'margin:22px 0 0;font-size:13px;color:#6b6478')}`;
   return shell({
     title: `Objednávka ${order.id} prijatá`,
     // Náhľad v zozname schránky (mobil ukáže ~90 znakov) — pokračuje tam,
@@ -213,7 +217,7 @@ export function invoiceEmailHTML(order, number, kind, ctx = {}) {
       ${p(`${hi} ${ctx.paid ? `platbu za objednávku <strong>${esc(order.id)}</strong> sme prijali — balíme a posielame. ` : ''}V prílohe je faktúra <strong>č. ${esc(number)}</strong>${ctx.paid ? ' (daňový doklad, odlož si ju)' : ' — je to daňový doklad, odlož si ju'}.`)}
       ${itemsTable(order)}`;
   }
-  body += p(`Otázky? Stačí odpovedať na tento e-mail alebo napísať na <a href="mailto:${SUPPLIER.email}" style="color:${PURPLE}">${SUPPLIER.email}</a>.`, 'margin:22px 0 0;font-size:13px;color:#6b6478');
+  body += p(`Otázky? Napíš nám na <a href="mailto:${SUPPLIER.email}" style="color:${PURPLE}">${SUPPLIER.email}</a>.`, 'margin:22px 0 0;font-size:13px;color:#6b6478');
   return shell({ title, preheader: pre || `${title} · objednávka ${order.id}`, body });
 }
 
@@ -241,7 +245,8 @@ export function shippedEmailHTML(order, ctx = {}) {
     ${track}
     ${p('Čo je v balíku', 'margin:24px 0 6px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:#6b6478')}
     ${itemsTable(order)}
-    ${p(`Doručenie zvyčajne trvá 1–2 pracovné dni. Ak by sa niečo nepozdávalo, stačí odpovedať na tento e-mail alebo napísať na <a href="mailto:${SUPPLIER.email}" style="color:${PURPLE}">${SUPPLIER.email}</a>.`, 'margin:22px 0 0;font-size:13px;color:#6b6478')}`;
+    ${p('Doručenie zvyčajne trvá 1–2 pracovné dni.', 'margin:22px 0 0;font-size:13px;color:#6b6478')}
+    ${p(`Otázky? Napíš nám na <a href="mailto:${SUPPLIER.email}" style="color:${PURPLE}">${SUPPLIER.email}</a>.`, 'margin:4px 0 0;font-size:13px;color:#6b6478')}`;
   return shell({
     title: `Objednávka ${order.id} je na ceste`,
     preheader: ctx.barcode
