@@ -568,11 +568,13 @@ async function sendEmails(order, inv = null, pdf = null) {
     console.log(`[ORDER] ${order.id} — RESEND_API_KEY not set, saved to ${logFile}`);
     return { admin: 'logged', customer: 'logged' };
   }
+  // Predmet je to prvé, čo zákazník vidí v mobilnej schránke — ľudský,
+  // s jasnou výzvou a číslom objednávky na konci (v zozname sa oreže).
   const customerSubject = order.paymentId === 'transfer'
-    ? `Objednávka ${order.id} prijatá – platobné údaje (${eur(order.total)})`
+    ? `Ďakujeme za objednávku — už stačí len zaplatiť (${order.id})`
     : order.paymentId === 'cod'
-      ? `Objednávka ${order.id} prijatá – platba pri prevzatí`
-      : `Objednávka ${order.id} prijatá`;
+      ? `Ďakujeme za objednávku — platíte pri prevzatí (${order.id})`
+      : `Ďakujeme za objednávku (${order.id})`;
   const attachments = inv && pdf
     ? [{ filename: inv.kind === 'proforma' ? `Zalohova-faktura-${inv.number}.pdf` : `Faktura-${inv.number}.pdf`, content: pdf.toString('base64') }]
     : undefined;

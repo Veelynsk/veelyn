@@ -164,9 +164,13 @@ export function customerEmailHTML(order, inv = null, ctx = {}) {
     ${p(`Otázky? Stačí odpovedať na tento e-mail alebo napísať na <a href="mailto:${SUPPLIER.email}" style="color:${PURPLE}">${SUPPLIER.email}</a>.`, 'margin:22px 0 0;font-size:13px;color:#6b6478')}`;
   return shell({
     title: `Objednávka ${order.id} prijatá`,
+    // Náhľad v zozname schránky (mobil ukáže ~90 znakov) — pokračuje tam,
+    // kde končí predmet: koľko, kam a dokedy. Žiadne opakovanie predmetu.
     preheader: transfer
-      ? `Objednávka ${order.id} · ${eur(order.total)} · platba prevodom${inv?.meta?.dueDate ? ' do ' + skDate(inv.meta.dueDate) : ''}`
-      : `Objednávka ${order.id} · ${eur(order.total)} · ${order.paymentMethod || ''}`,
+      ? `Pošli ${eur(order.total)}, variabilný symbol ${inv ? inv.number : order.id}${inv?.meta?.dueDate ? `, splatnosť ${skDate(inv.meta.dueDate)}` : ''}. Balík odosielame hneď po pripísaní platby.`
+      : order.paymentId === 'cod'
+        ? `Zaplatíš ${eur(order.total)} pri prevzatí. Balík pripravujeme a odošleme do 1 pracovného dňa.`
+        : `Objednávku ${order.id} za ${eur(order.total)} sme prijali. Balík pripravujeme a odošleme do 1 pracovného dňa.`,
     body,
     footerExtra: `14 dní na vrátenie · doprava zadarmo nad 40 €<br>`,
   });
