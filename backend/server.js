@@ -570,11 +570,12 @@ async function sendEmails(order, inv = null, pdf = null) {
   }
   // Predmet je to prvé, čo zákazník vidí v mobilnej schránke — ľudský,
   // s jasnou výzvou a číslom objednávky na konci (v zozname sa oreže).
+  // Spôsob platby do predmetu nepatrí — mail ho deklaruje v tele, tak ako to
+  // bežne robia e-shopy. Výnimka je prevod: tam je platba akcia, ktorú musí
+  // zákazník ešte urobiť, takže výzva v predmete ostáva.
   const customerSubject = order.paymentId === 'transfer'
     ? `Ďakujeme za objednávku — už stačí len zaplatiť (${order.id})`
-    : order.paymentId === 'cod'
-      ? `Ďakujeme za objednávku — platíš až pri prevzatí (${order.id})`
-      : `Ďakujeme za objednávku — už balíme (${order.id})`;
+    : `Ďakujeme za objednávku — už balíme (${order.id})`;
   const attachments = inv && pdf
     ? [{ filename: inv.kind === 'proforma' ? `Zalohova-faktura-${inv.number}.pdf` : `Faktura-${inv.number}.pdf`, content: pdf.toString('base64') }]
     : undefined;

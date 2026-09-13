@@ -202,7 +202,7 @@ export function customerEmailHTML(order, inv = null, ctx = {}) {
     preheader: transfer
       ? `Pošli ${eur(order.total)}, variabilný symbol ${inv ? inv.number : order.id}${inv?.meta?.dueDate ? `, splatnosť ${skDate(inv.meta.dueDate)}` : ''}. Balík odosielame hneď po pripísaní platby.`
       : order.paymentId === 'cod'
-        ? `Zaplatíš ${eur(order.total)} pri prevzatí. Balík pripravujeme a odošleme do 1 pracovného dňa.`
+        ? `Objednávku ${order.id} za ${eur(order.total)} sme prijali. Balík odosielame do 1 pracovného dňa, platíš pri prevzatí.`
         : `Objednávku ${order.id} za ${eur(order.total)} sme prijali. Balík pripravujeme a odošleme do 1 pracovného dňa.`,
     body,
     footerExtra: `14 dní na vrátenie · doprava zadarmo nad 40 €<br>`,
