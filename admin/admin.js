@@ -3,6 +3,9 @@
 const $ = (s, p = document) => p.querySelector(s);
 const $$ = (s, p = document) => Array.from(p.querySelectorAll(s));
 const eur = (n) => (Math.round(n * 100) / 100).toFixed(2).replace('.', ',') + ' €';
+// Escapovanie pre innerHTML — všetko, čo pochádza od zákazníka alebo z verejného
+// trackingu (mená, e-maily, názvy, labely klikov, hľadané výrazy), inak stored XSS.
+const esc = (v) => String(v ?? '').replace(/[&<>"']/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch]));
 const dateFmt = (d) => {
   const dt = new Date(d);
   return dt.toLocaleDateString('sk-SK', { day: '2-digit', month: '2-digit', year: 'numeric' });
@@ -625,7 +628,7 @@ async function renderDashboard() {
   $('#recentOrdersTable tbody').innerHTML = recent.map(o => `
     <tr>
       <td><span class="order-id" data-order="${o.id}">${o.id}</span></td>
-      <td>${o.customer.firstName || ''} ${o.customer.lastName || ''}</td>
+      <td>${esc(o.customer.firstName || '')} ${esc(o.customer.lastName || '')}</td>
       <td><span class="badge badge--${o.status}">${STATUS_LABEL[o.status]}</span></td>
       <td><strong>${eur(o.total)}</strong></td>
     </tr>
@@ -728,8 +731,8 @@ function renderOrders() {
       <td><span class="order-id" data-order="${o.id}">${o.id}</span></td>
       <td>${dateFmt(o.ts)}</td>
       <td>
-        <div><strong>${o.customer.firstName} ${o.customer.lastName}</strong></div>
-        <div style="font-size:0.78rem; color:var(--text-mute);">${o.customer.email}</div>
+        <div><strong>${esc(o.customer.firstName)} ${esc(o.customer.lastName)}</strong></div>
+        <div style="font-size:0.78rem; color:var(--text-mute);">${esc(o.customer.email)}</div>
       </td>
       <td>${o.items.length} položiek<br><span style="font-size:0.78rem; color:var(--text-mute);">${o.items.reduce((s, it) => s + it.qty, 0)} ks</span></td>
       <td><strong>${eur(o.total)}</strong></td>
@@ -759,15 +762,15 @@ function openOrderDetail(orderId) {
       <div class="order-detail__grid">
         <div class="order-detail__section">
           <h3>Zákazník</h3>
-          <p><strong>${o.customer.firstName} ${o.customer.lastName}</strong></p>
-          <p>${o.customer.email}</p>
-          <p>${o.customer.phone}</p>
+          <p><strong>${esc(o.customer.firstName)} ${esc(o.customer.lastName)}</strong></p>
+          <p>${esc(o.customer.email)}</p>
+          <p>${esc(o.customer.phone)}</p>
         </div>
         <div class="order-detail__section">
           <h3>Doručenie</h3>
-          <p>${o.shippingMethod}</p>
-          <p>${o.customer.street}</p>
-          <p>${o.customer.zip} ${o.customer.city}</p>
+          <p>${esc(o.shippingMethod)}</p>
+          <p>${esc(o.customer.street)}</p>
+          <p>${esc(o.customer.zip)} ${esc(o.customer.city)}</p>
         </div>
       </div>
 
@@ -776,8 +779,8 @@ function openOrderDetail(orderId) {
         ${o.items.map(it => `
           <div class="order-items__row">
             <div>
-              <strong>${it.name}</strong>
-              <div style="font-size:0.78rem; color:var(--text-mute);">${it.originalName}</div>
+              <strong>${esc(it.name)}</strong>
+              <div style="font-size:0.78rem; color:var(--text-mute);">${esc(it.originalName)}</div>
             </div>
             <div>${it.qty}×</div>
             <div>${eur(it.price)}</div>
@@ -1048,9 +1051,9 @@ async function renderCustomers() {
   const tbody = $('#customersTable tbody');
   tbody.innerHTML = list.map(c => `
     <tr>
-      <td><strong>${c.email || '—'}</strong></td>
-      <td>${c.name || '—'}</td>
-      <td>${c.phone || '—'}</td>
+      <td><strong>${esc(c.email || '—')}</strong></td>
+      <td>${esc(c.name || '—')}</td>
+      <td>${esc(c.phone || '—')}</td>
       <td>${c.orderCount}</td>
       <td><strong>${eur(c.spent)}</strong></td>
       <td>${dateFmt(c.last)}</td>
@@ -1068,7 +1071,7 @@ async function renderDiscounts() {
   const fmtDate = (ts) => ts ? new Date(ts).toLocaleDateString('sk-SK', { day: 'numeric', month: 'numeric', year: 'numeric' }) : '∞';
   tbody.innerHTML = list.map(d => `
     <tr>
-      <td><code>${d.code}</code></td>
+      <td><code>${esc(d.code)}</code></td>
       <td>${d.type === 'percent' ? 'Percento' : 'Pevná suma'}</td>
       <td><strong>${d.type === 'percent' ? d.value + ' %' : eur(d.value)}</strong></td>
       <td>${fmtDate(d.valid_to)}</td>
@@ -1076,8 +1079,8 @@ async function renderDiscounts() {
       <td>${d.min_subtotal ? eur(d.min_subtotal) : '—'}</td>
       <td><span class="badge badge--${d.active ? 'on' : 'off'}">${d.active ? 'Aktívne' : 'Vypnuté'}</span></td>
       <td>
-        <button class="btn btn--ghost btn--small" data-toggle-discount="${d.code}" data-current="${d.active ? 1 : 0}">${d.active ? 'Vypnúť' : 'Zapnúť'}</button>
-        <button class="btn btn--danger btn--small" data-delete-discount="${d.code}">Vymazať</button>
+        <button class="btn btn--ghost btn--small" data-toggle-discount="${esc(d.code)}" data-current="${d.active ? 1 : 0}">${d.active ? 'Vypnúť' : 'Zapnúť'}</button>
+        <button class="btn btn--danger btn--small" data-delete-discount="${esc(d.code)}">Vymazať</button>
       </td>
     </tr>
   `).join('');
@@ -1112,12 +1115,12 @@ async function renderUsers() {
   const tbody = $('#usersTable tbody');
   tbody.innerHTML = list.map(u => `
     <tr>
-      <td><code>${u.username}</code></td>
-      <td>${u.name || '—'}</td>
+      <td><code>${esc(u.username)}</code></td>
+      <td>${esc(u.name || '—')}</td>
       <td><span class="badge badge--${u.role === 'admin' ? 'paid' : 'on'}">${u.role === 'admin' ? 'Admin' : 'Sklad'}</span></td>
       <td>${dateFmt(u.created_at)}</td>
       <td>
-        ${u.username !== 'admin' ? `<button class="btn btn--danger btn--small" data-delete-user="${u.username}">Vymazať</button>` : '<span style="color:var(--text-mute);">—</span>'}
+        ${u.username !== 'admin' ? `<button class="btn btn--danger btn--small" data-delete-user="${esc(u.username)}">Vymazať</button>` : '<span style="color:var(--text-mute);">—</span>'}
       </td>
     </tr>
   `).join('');
@@ -1253,7 +1256,7 @@ function renderHBars(selector, data, fallbackLabel) {
   const max = entries[0][1];
   el.innerHTML = entries.map(([key, count]) => `
     <li>
-      <span class="chart-hbars__label">${key}</span>
+      <span class="chart-hbars__label">${esc(key)}</span>
       <div class="chart-hbars__bar"><div class="chart-hbars__bar-fill" style="width:${(count / max) * 100}%"></div></div>
       <span class="chart-hbars__value">${count}</span>
     </li>
@@ -1302,7 +1305,7 @@ async function renderBehavior() {
     renderHBars('#behErrList', toObj(a.topErrors));
     $('#behProducts tbody').innerHTML = (a.products || []).map(p => {
       const fr = FRAGRANCES.find(x => x.id === p.id);
-      return `<tr><td><strong>${fr ? fr.veelyn_name : p.id}</strong></td><td>${p.views}</td><td>${p.carts}</td><td style="color:${p.rate < 10 ? '#d63638' : '#00a32a'}">${p.rate} %</td></tr>`;
+      return `<tr><td><strong>${fr ? fr.veelyn_name : esc(p.id)}</strong></td><td>${p.views}</td><td>${p.carts}</td><td style="color:${p.rate < 10 ? '#d63638' : '#00a32a'}">${p.rate} %</td></tr>`;
     }).join('') || '<tr><td colspan="4" style="color:var(--text-mute)">Bez dát.</td></tr>';
   } catch (e) {
     set('#behSince', 'Tracking API nedostupné: ' + e.message);

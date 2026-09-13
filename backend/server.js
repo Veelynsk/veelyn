@@ -371,7 +371,7 @@ const app = express();
 // tells Express to read the client's real IP from X-Forwarded-For so
 // the rate limiter actually buckets per real user instead of bucketing
 // every visitor under the same upstream proxy IP.
-app.set('trust proxy', 1);
+app.set('trust proxy', true);
 
 // CORS allowlist. Anonymous origins (file://, curl) still hit public
 // endpoints — they don't send an Origin header so the CORS check is
@@ -608,6 +608,7 @@ app.get('/api/health', (req, res) => {
     mailerliteConfigured: ml.isEnabled(),
     invoicing: INVOICING_ENABLED ? 'internal' : 'off',
     invoicingIban: !!BANK_IBAN,
+    ip: req.ip || null,
   });
 });
 
@@ -704,6 +705,17 @@ app.post('/api/admin/login', rateLimit({ windowMs: 5 * 60_000, max: 10 }), async
   }
   const { username, password } = req.body || {};
   if (!username || !password) return res.status(400).json({ error: 'username + password required' });
+  // Brute-force ochrana nezávislá od IP (za proxy môže byť IP nespoľahlivá):
+  // max 20 pokusov za 15 min na jedno používateľské meno.
+  const uKey = 'login-user:' + String(username).toLowerCase().slice(0, 64);
+  const uNow = Date.now();
+  let ub = rateBuckets.get(uKey);
+  if (!ub || uNow > ub.resetAt) { ub = { count: 0, resetAt: uNow + 15 * 60_000 }; rateBuckets.set(uKey, ub); }
+  if (++ub.count > 20) {
+    const retry = Math.max(1, Math.ceil((ub.resetAt - uNow) / 1000));
+    res.setHeader('Retry-After', String(retry));
+    return res.status(429).json({ error: 'Too many attempts', retryAfter: retry });
+  }
   const u = db.prepare(`SELECT * FROM users WHERE username = ?`).get(String(username).toLowerCase());
   // Always do a verify against SOMETHING so the response time is
   // identical for "user not found" vs "wrong password" — kills
@@ -811,6 +823,17 @@ function escapeHtml(s) {
   return String(s || '')
     .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+}
+
+// Očistenie textových polí zákazníka: bez < > (obrana pred stored XSS v admine
+// a v mailoch) a s rozumnou dĺžkou. Nevalidované polia sa zahodia.
+const CUSTOMER_FIELDS = { firstName: 80, lastName: 80, email: 160, phone: 40, street: 160, zip: 16, city: 80, company: 120, ico: 20, dic: 20, icdph: 20, note: 500, country: 60 };
+function cleanCustomer(raw) {
+  const out = {};
+  for (const [k, max] of Object.entries(CUSTOMER_FIELDS)) {
+    if (raw && raw[k] != null && raw[k] !== '') out[k] = String(raw[k]).replace(/[<>]/g, '').trim().slice(0, max);
+  }
+  return out;
 }
 
 app.post('/api/order', rateLimit({ windowMs: 60_000, max: 10 }), async (req, res) => {
@@ -921,7 +944,7 @@ app.post('/api/order', rateLimit({ windowMs: 60_000, max: 10 }), async (req, res
     const order = {
       id: nextOrderId(),
       ts: Date.now(),
-      customer: body.customer,
+      customer: cleanCustomer(body.customer),
       items: validatedItems,
       subtotal,
       bundleDiscount,
@@ -1361,7 +1384,7 @@ const TRACK_TYPES = new Set(['page_view', 'click', 'scroll', 'exit', 'view_item'
   'remove_from_cart', 'view_cart', 'begin_checkout', 'purchase', 'search', 'filter', 'error', 'sign_up']);
 const trackInsert = db.prepare(`INSERT INTO events (ts, sid, uid, type, page, label, meta, device, ref) VALUES (?,?,?,?,?,?,?,?,?)`);
 const trackInsertMany = db.transaction((rows) => { for (const r of rows) trackInsert.run(...r); });
-const clip = (v, n) => (v == null || v === '' ? null : String(v).slice(0, n));
+const clip = (v, n) => (v == null || v === '' ? null : String(v).replace(/[<>]/g, '').slice(0, n));
 
 // sendBeacon posiela text/plain → route-level express.text (JSON parser ho
 // preskočí, keďže Content-Type nie je application/json).
