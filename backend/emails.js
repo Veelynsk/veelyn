@@ -36,6 +36,9 @@ function shell({ title, preheader = '', body, footerExtra = '' }) {
   :root{color-scheme:light dark;supported-color-schemes:light dark}
   body{margin:0;padding:0}
   a{color:${PURPLE}}
+  /* Gmail/iOS si samé prelinkujú adresu a IČO — necháme ich vyzerať ako text */
+  .foot a[href^="http"],.foot a[href^="mailto"]{color:${PURPLE}!important;text-decoration:none!important}
+  .foot a:not([href^="http"]):not([href^="mailto"]),a[x-apple-data-detectors]{color:inherit!important;text-decoration:none!important;pointer-events:none}
   @media (prefers-color-scheme: dark){
     .bg{background:#15121c!important}
     .card{background:#1f1a2a!important}
@@ -58,11 +61,14 @@ function shell({ title, preheader = '', body, footerExtra = '' }) {
   <tr><td class="card ink" style="background:#ffffff;color:#16121f;padding:28px 28px 24px;border-radius:0 0 18px 18px">
     ${body}
   </td></tr>
-  <tr><td class="dim" style="padding:20px 10px 0;text-align:center;font-size:11px;line-height:1.7;color:#8a8399">
+  <tr><td class="dim foot" style="padding:24px 10px 0;text-align:center;font-size:11.5px;line-height:1.9;color:#8a8399">
     ${footerExtra}
-    ${esc(SUPPLIER.name)} · ${esc(SUPPLIER.address)}, ${esc(SUPPLIER.city)}<br>
-    IČO ${esc(SUPPLIER.ico)} · DIČ ${esc(SUPPLIER.dic)} · ${esc(SUPPLIER.vatNote)}<br>
-    <a href="${SITE}/" style="color:${PURPLE};text-decoration:none">www.veelyn.sk</a> · <a href="mailto:${SUPPLIER.email}" style="color:${PURPLE};text-decoration:none">${SUPPLIER.email}</a>
+    <span style="font-weight:700">${esc(SUPPLIER.name)}</span><br>
+    ${esc(SUPPLIER.address)}<br>
+    ${esc(String(SUPPLIER.city).split('—')[0].trim())}<br>
+    IČO ${esc(SUPPLIER.ico)} &nbsp;·&nbsp; DIČ ${esc(SUPPLIER.dic)}<br>
+    ${esc(SUPPLIER.vatNote)}<br>
+    <a href="${SITE}/" style="color:${PURPLE};text-decoration:none">www.veelyn.sk</a> &nbsp;·&nbsp; <a href="mailto:${SUPPLIER.email}" style="color:${PURPLE};text-decoration:none">${SUPPLIER.email}</a>
   </td></tr>
 </table>
 </td></tr></table>
@@ -214,7 +220,7 @@ export function invoiceEmailHTML(order, number, kind, ctx = {}) {
   } else {
     title = ctx.paid ? `Platba prijatá — faktúra č. ${number}` : `Faktúra č. ${number}`;
     body = `${h1(ctx.paid ? 'Platbu sme prijali, ďakujeme' : 'Faktúra k objednávke')}
-      ${p(`${hi} ${ctx.paid ? `platbu za objednávku <strong>${esc(order.id)}</strong> sme prijali — balíme a posielame. ` : ''}V prílohe je faktúra <strong>č. ${esc(number)}</strong>${ctx.paid ? ' (daňový doklad, odlož si ju)' : ' — je to daňový doklad, odlož si ju'}.`)}
+      ${p(`${hi} ${ctx.paid ? `platbu za objednávku <strong>${esc(order.id)}</strong> sme prijali — balíme a posielame. ` : ''}V prílohe je faktúra <strong>č. ${esc(number)}</strong>.`)}
       ${itemsTable(order)}`;
   }
   body += p(`Otázky? Napíš nám na <a href="mailto:${SUPPLIER.email}" style="color:${PURPLE}">${SUPPLIER.email}</a>.`, 'margin:22px 0 0;font-size:13px;color:#6b6478');
