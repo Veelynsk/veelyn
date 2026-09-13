@@ -211,7 +211,7 @@ export function invoiceEmailHTML(order, number, kind, ctx = {}) {
       ? `Peniaze ti vrátime — pošli nám číslo účtu a ${eur(order.total)} odošleme do 3 pracovných dní.`
       : `Peniaze ti vraciame — ${eur(order.total)} sa vráti na pôvodný spôsob platby, zvyčajne do 3 pracovných dní.`;
     body = `${h1('Objednávka zrušená')}
-      ${p(`${hi} objednávku <strong>${esc(order.id)}</strong> sme zrušili a peniaze ti vraciame.`)}
+      ${p(`${hi} objednávka <strong>${esc(order.id)}</strong> je zrušená — peniaze ti vraciame.`)}
       ${p(cod
         ? `Ide o <strong>${eur(order.total)}</strong>. Keďže si platil pri prevzatí, napíš nám prosím číslo účtu (IBAN) odpoveďou na tento e-mail — peniaze odošleme do 3 pracovných dní.`
         : `Sumu <strong>${eur(order.total)}</strong> posielame späť tou istou cestou, akou si platil${order.paymentMethod ? ` (${esc(String(order.paymentMethod).toLowerCase())})` : ''}. Na účte ju uvidíš zvyčajne do 3 pracovných dní, najneskôr do 14.`)}
