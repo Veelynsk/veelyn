@@ -217,7 +217,41 @@ export function invoiceEmailHTML(order, number, kind, ctx = {}) {
   return shell({ title, preheader: pre || `${title} · objednávka ${order.id}`, body });
 }
 
-// ---------- 3) notifikácia pre majiteľa ----------
+// ---------- 3) zásielka odoslaná + sledovanie ----------
+// ctx: { trackingUrl, barcode }  — bez trackingu sa blok so sledovaním vynechá
+export function shippedEmailHTML(order, ctx = {}) {
+  const first = order.customer?.firstName || '';
+  const c = order.customer || {};
+  const pickup = order.pickupPoint?.name;
+  const where = pickup
+    ? `Vyzdvihneš si ju na mieste <strong>${esc(pickup)}</strong>. Keď tam balík dorazí, Packeta ti pošle SMS s kódom na vyzdvihnutie.`
+    : `Kuriér ti ju doručí na adresu <strong>${esc([c.street || c.address, [c.zip || c.postalCode, c.city].filter(Boolean).join(' ')].filter(Boolean).join(', '))}</strong>. Ozve sa ti vopred, zvyčajne SMS-kou.`;
+  const track = ctx.trackingUrl ? `
+    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" class="soft" style="margin:22px 0 0;background:#f5f1ff;border:1px solid #e4dbff;border-radius:14px"><tr><td style="padding:18px 20px">
+      ${label('Sledovanie zásielky')}
+      ${ctx.barcode ? `<div class="ink" style="font-size:17px;font-weight:800;letter-spacing:.04em;color:#16121f">${esc(ctx.barcode)}</div>` : ''}
+      <div style="margin-top:14px">
+        <a href="${esc(ctx.trackingUrl)}" style="display:inline-block;background:${PURPLE};color:#ffffff;text-decoration:none;font-weight:700;font-size:15px;padding:13px 22px;border-radius:10px">Sledovať zásielku →</a>
+      </div>
+      <p class="dim" style="margin:12px 0 0;font-size:12.5px;line-height:1.5;color:#6b6478">Prvé záznamy sa v sledovaní objavia zvyčajne do pár hodín od odoslania.</p>
+    </td></tr></table>` : '';
+  const body = `
+    ${h1('Balík je na ceste k tebe')}
+    ${p(`Ahoj${first ? ' ' + esc(first) : ''}, objednávku <strong>${esc(order.id)}</strong> sme práve odoslali. ${where}`)}
+    ${track}
+    ${p('Čo je v balíku', 'margin:24px 0 6px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:#6b6478')}
+    ${itemsTable(order)}
+    ${p(`Doručenie zvyčajne trvá 1–2 pracovné dni. Ak by sa niečo nepozdávalo, stačí odpovedať na tento e-mail alebo napísať na <a href="mailto:${SUPPLIER.email}" style="color:${PURPLE}">${SUPPLIER.email}</a>.`, 'margin:22px 0 0;font-size:13px;color:#6b6478')}`;
+  return shell({
+    title: `Objednávka ${order.id} je na ceste`,
+    preheader: ctx.barcode
+      ? `Sledovacie číslo ${ctx.barcode} · ${pickup ? 'vyzdvihnutie na výdajnom mieste' : 'doručenie kuriérom'} do 1–2 pracovných dní.`
+      : `${pickup ? 'Vyzdvihneš si ju na výdajnom mieste' : 'Kuriér ti ju doručí'} do 1–2 pracovných dní.`,
+    body,
+  });
+}
+
+// ---------- 4) notifikácia pre majiteľa ----------
 export function adminEmailHTML(order, ctx = {}) {
   const c = order.customer || {};
   const row = (k, v) => `<tr><td class="dim" style="padding:4px 12px 4px 0;font-size:13px;color:#8a8399;white-space:nowrap;vertical-align:top">${esc(k)}</td><td class="ink" style="padding:4px 0;font-size:13px;color:#16121f">${v}</td></tr>`;

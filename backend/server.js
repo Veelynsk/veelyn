@@ -8,7 +8,7 @@ import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
 import { writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import { generateInvoicePdf, paymentQrPng } from './invoice-pdf.js';
-import { adminEmailHTML, customerEmailHTML, invoiceEmailHTML } from './emails.js';
+import { adminEmailHTML, customerEmailHTML, invoiceEmailHTML, shippedEmailHTML } from './emails.js';
 import * as ml from './mailerlite.js';
 import * as pk from './packeta.js';
 
@@ -1115,7 +1115,37 @@ app.patch('/api/admin/orders/:id', requireAuth(['admin','warehouse']), async (re
       console.error(`[INVOICE] credit-note on cancel failed for ${req.params.id}:`, e.message);
     }
   }
-  res.json({ ok: true, sfSync });
+  // Odoslanie zásielky: zákazníkovi ide mail „balík je na ceste“ so sledovacím
+  // číslom z Packety (ak admin zásielku vytvoril; inak mail odíde bez trackingu).
+  // Posiela sa LEN RAZ — príznak shippedEmailAt držíme v raw_json objednávky,
+  // aby prepínanie stavov sem-tam nespamovalo zákazníka.
+  let shippedMail = null;
+  if (status === 'shipped' && !JSON.parse(row.raw_json).shippedEmailAt) {
+    try {
+      const sh = db.prepare(`SELECT barcode, barcode_text FROM packeta_shipments WHERE order_id = ? AND error IS NULL`).get(req.params.id);
+      const barcode = sh?.barcode_text || sh?.barcode || null;
+      const trackingUrl = sh?.barcode ? `https://tracking.packeta.com/sk/?id=${encodeURIComponent(sh.barcode)}` : null;
+      if (resend && order.customer?.email) {
+        const r = await resend.emails.send({
+          from: FROM_EMAIL,
+          to: order.customer.email,
+          subject: `Objednávka ${order.id} je na ceste k tebe`,
+          html: shippedEmailHTML(order, { trackingUrl, barcode }),
+        });
+        shippedMail = r?.data?.id || r?.error?.message || 'ok';
+      } else {
+        shippedMail = 'resend off';
+      }
+      order.shippedEmailAt = Date.now();
+      db.prepare(`UPDATE orders SET raw_json = ? WHERE id = ?`).run(JSON.stringify(order), req.params.id);
+      console.log(`[SHIPPED] ${req.params.id} — mail: ${shippedMail}${barcode ? ` · tracking ${barcode}` : ' · bez trackingu'}`);
+    } catch (e) {
+      console.error(`[SHIPPED] mail failed for ${req.params.id}:`, e.message);
+      shippedMail = 'error: ' + e.message;
+    }
+  }
+
+  res.json({ ok: true, sfSync, shippedMail });
 });
 
 // === SUPERFAKTURA endpoints (admin) ===
