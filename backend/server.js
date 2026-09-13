@@ -7,7 +7,8 @@ import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
 import { writeFileSync, mkdirSync, existsSync } from 'node:fs';
-import { generateInvoicePdf } from './invoice-pdf.js';
+import { generateInvoicePdf, paymentQrPng } from './invoice-pdf.js';
+import { adminEmailHTML, customerEmailHTML, invoiceEmailHTML } from './emails.js';
 import * as ml from './mailerlite.js';
 import * as pk from './packeta.js';
 
@@ -319,6 +320,11 @@ const INVOICES_DIR = resolve(__dirname, 'invoices');
 if (!existsSync(INVOICES_DIR)) mkdirSync(INVOICES_DIR, { recursive: true });
 const INVOICING_ENABLED = process.env.INVOICING !== 'off';
 const BANK_IBAN = (process.env.BANK_IBAN || '').trim();
+// Verejná adresa backendu (QR obrázok v maile načítava Gmail cez proxy).
+const API_PUBLIC_URL = (process.env.PUBLIC_API_URL || 'https://veelyn-production-8876.up.railway.app').replace(/\/$/, '');
+// Podpísaná URL na PAY by square QR daného dokladu — bez platného podpisu 404.
+const qrSig = (number) => crypto.createHmac('sha256', 'veelyn-qr|' + ADMIN_PASSWORD).update(String(number)).digest('hex').slice(0, 24);
+const qrUrlFor = (number) => `${API_PUBLIC_URL}/api/invoices/${encodeURIComponent(number)}/qr.png?s=${qrSig(number)}`;
 if (INVOICING_ENABLED && !BANK_IBAN) {
   console.warn('[INVOICE] BANK_IBAN nie je nastavený — zálohové faktúry pôjdu bez IBAN a QR kódu!');
 }
@@ -451,149 +457,22 @@ function nextOrderId() {
 }
 
 // Helper: build admin email HTML
-function adminEmailHTML(order) {
-  const itemRows = order.items.map(i =>
-    `<tr><td style="padding:6px 12px;border-bottom:1px solid #eee">${i.qty}× ${escape(i.name)}</td><td style="padding:6px 12px;border-bottom:1px solid #eee;text-align:right;font-variant:tabular-nums">${eur(i.price * i.qty)}</td></tr>`
-  ).join('');
-  const c = order.customer || {};
-  const pp = order.pickupPoint;
-  return `<!doctype html><html><body style="font-family:system-ui,sans-serif;background:#f7f7f9;padding:24px;color:#111">
-  <div style="max-width:600px;margin:0 auto;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.06)">
-    <div style="background:#1a0c2e;color:#fff;padding:24px 28px">
-      <h1 style="margin:0;font-size:22px;letter-spacing:.04em">NOVÁ OBJEDNÁVKA · ${order.id}</h1>
-      <p style="margin:8px 0 0;color:#a78bfa;font-size:14px">${new Date(order.ts).toLocaleString('sk-SK')}</p>
-    </div>
-    <div style="padding:24px 28px">
-      <h2 style="margin:0 0 12px;font-size:16px">Zákazník</h2>
-      <p style="margin:0 0 16px;line-height:1.6;font-size:14px">
-        <strong>${escape(c.firstName)} ${escape(c.lastName)}</strong><br>
-        ${escape(c.email)}<br>
-        ${escape(c.phone)}
-      </p>
-      <h2 style="margin:0 0 12px;font-size:16px">Doručenie</h2>
-      <p style="margin:0 0 16px;line-height:1.6;font-size:14px">
-        ${escape(order.shippingMethod || '')}<br>
-        ${pp ? escape(pp.name) + '<br>' + escape(pp.street || '') + ', ' + escape(pp.zip || '') + ' ' + escape(pp.city || '') : ''}
-      </p>
-      <h2 style="margin:0 0 12px;font-size:16px">Platba</h2>
-      <p style="margin:0 0 16px;font-size:14px">${escape(order.paymentMethod || '')}</p>
-      <h2 style="margin:0 0 12px;font-size:16px">Položky</h2>
-      <table style="width:100%;border-collapse:collapse;font-size:14px;margin-bottom:16px">${itemRows}</table>
-      <div style="border-top:2px solid #111;padding-top:12px;text-align:right;font-size:14px">
-        <div>Medzisúčet: <strong>${eur(order.subtotal)}</strong></div>
-        ${order.bundleDiscount > 0 ? `<div style="color:#16a34a">3+1 ZADARMO: −${eur(order.bundleDiscount)}</div>` : ''}
-        <div>Doprava: <strong>${eur(order.shipping)}</strong></div>
-        ${order.fee ? `<div>Poplatok: <strong>${eur(order.fee)}</strong></div>` : ''}
-        <div style="font-size:18px;margin-top:8px"><strong>SPOLU: ${eur(order.total)}</strong></div>
-      </div>
-    </div>
-  </div></body></html>`;
-}
-
-// Jeden zákaznícky mail: potvrdenie objednávky + platobné údaje. `inv` je
-// vystavený doklad (proforma pri prevode, faktúra pri dobierke) — jeho PDF
-// ide do prílohy; keď doklad zlyhal, mail odíde aj tak a doklad dopošle retry.
-function customerEmailHTML(order, inv = null) {
-  const itemRows = order.items.map(i =>
-    `<tr><td style="padding:6px 0;border-bottom:1px solid #eee">${i.qty}× ${escape(i.name)}</td><td style="padding:6px 0;border-bottom:1px solid #eee;text-align:right;font-variant:tabular-nums">${eur(i.price * i.qty)}</td></tr>`
-  ).join('');
-  const skDate = (iso) => { const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(iso || ''); return m ? `${m[3]}.${m[2]}.${m[1]}` : ''; };
-  const boxStyle = 'margin:20px 0 0;padding:16px 20px;background:#f4f0ff;border:1px solid #ddd0ff;border-radius:10px;font-size:14px;line-height:1.7';
-  let payBlock = '';
-  if (order.paymentId === 'transfer') {
-    const due = skDate(inv?.meta?.dueDate);
-    payBlock = inv
-      ? `<div style="${boxStyle}">
-        <strong style="letter-spacing:.06em">ÚDAJE NA PLATBU PREVODOM</strong><br>
-        Suma: <strong>${eur(order.total)}</strong><br>
-        Variabilný symbol: <strong>${escape(inv.number)}</strong><br>
-        ${BANK_IBAN ? `IBAN: <strong>${escape(BANK_IBAN)}</strong><br>` : ''}
-        ${due ? `Splatnosť: <strong>${due}</strong><br>` : ''}
-        <span style="color:#666">Zálohová faktúra s QR kódom na platbu (PAY by square) je v prílohe — stačí ho naskenovať v bankovej aplikácii. Objednávku odošleme hneď po pripísaní platby.</span>
-      </div>`
-      : `<div style="${boxStyle}">
-        <strong style="letter-spacing:.06em">PLATBA PREVODOM</strong><br>
-        Suma: <strong>${eur(order.total)}</strong><br>
-        ${BANK_IBAN ? `IBAN: <strong>${escape(BANK_IBAN)}</strong><br>` : ''}
-        <span style="color:#666">Zálohovú faktúru s variabilným symbolom a QR kódom ti pošleme v samostatnom e-maile o chvíľu.</span>
-      </div>`;
-  } else if (order.paymentId === 'cod') {
-    payBlock = `<div style="${boxStyle}">
-        <strong style="letter-spacing:.06em">PLATBA PRI PREVZATÍ (DOBIERKA)</strong><br>
-        K úhrade kuriérovi / vo výdajnom mieste: <strong>${eur(order.total)}</strong><br>
-        <span style="color:#666">${inv ? `Faktúra č. ${escape(inv.number)} je v prílohe — odlož si ju, je to daňový doklad.` : 'Faktúru ti pošleme v samostatnom e-maile.'}</span>
-      </div>`;
-  } else if (inv) {
-    payBlock = `<p style="margin:20px 0 0;font-size:14px;line-height:1.6;color:#333">Faktúra č. <strong>${escape(inv.number)}</strong> je v prílohe — odlož si ju, je to daňový doklad.</p>`;
-  }
-  return `<!doctype html><html><body style="font-family:system-ui,sans-serif;background:#f7f7f9;padding:24px;color:#111">
-  <div style="max-width:600px;margin:0 auto;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.06)">
-    <div style="background:#1a0c2e;color:#fff;padding:24px 28px;text-align:center">
-      <div style="font-family:Georgia,serif;font-style:italic;font-size:28px;letter-spacing:.06em">VEELYN</div>
-      <h1 style="margin:14px 0 0;font-size:18px;letter-spacing:.08em;font-weight:800">ĎAKUJEME ZA OBJEDNÁVKU</h1>
-    </div>
-    <div style="padding:24px 28px">
-      <p style="margin:0 0 16px;font-size:15px;line-height:1.5">Ahoj ${escape(order.customer?.firstName || '')}, tvoja objednávka <strong>${order.id}</strong> bola prijatá. Pripravíme ti ju a odošleme do 1 pracovného dňa.</p>
-      <h2 style="margin:24px 0 12px;font-size:15px;letter-spacing:.08em">POLOŽKY</h2>
-      <table style="width:100%;border-collapse:collapse;font-size:14px">${itemRows}</table>
-      <div style="margin-top:12px;text-align:right;font-size:14px">
-        ${order.bundleDiscount > 0 ? `<div style="color:#16a34a">3+1 ZADARMO: −${eur(order.bundleDiscount)}</div>` : ''}
-        <div>Doprava: ${eur(order.shipping)}</div>
-        <div style="font-size:18px;margin-top:6px"><strong>SPOLU: ${eur(order.total)}</strong></div>
-      </div>
-      ${payBlock}
-      <p style="margin:24px 0 0;font-size:13px;color:#666;line-height:1.5">Otázky? Napíš nám na <a href="mailto:info@veelyn.sk" style="color:#7c3aed">info@veelyn.sk</a>.</p>
-    </div>
-  </div></body></html>`;
-}
-
 function escape(s) {
   return String(s ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
 }
 
 // ---- FAKTURAČNÉ EMAILY (s PDF prílohou) ----
 
-function invoiceEmailHTML(order, number, kind) {
-  const proforma = kind === 'proforma';
-  const credit = kind === 'credit';
-  const title = credit ? 'DOBROPIS' : proforma ? 'ZÁLOHOVÁ FAKTÚRA' : 'FAKTÚRA';
-  const bank = process.env.BANK_IBAN || '';
-  const payBlock = proforma ? `
-      <div style="margin:20px 0;padding:16px 20px;background:#f4f0ff;border:1px solid #ddd0ff;border-radius:10px;font-size:14px;line-height:1.7">
-        <strong style="letter-spacing:.06em">ÚDAJE NA PLATBU PREVODOM</strong><br>
-        Suma: <strong>${eur(order.total)}</strong><br>
-        Variabilný symbol: <strong>${escape(number)}</strong><br>
-        ${bank ? `IBAN: <strong>${escape(bank)}</strong><br>` : ''}
-        Splatnosť: 7 dní<br>
-        <span style="color:#666">Všetky údaje vrátane QR kódu na platbu (PAY by square) nájdeš v priloženom PDF. Objednávku odošleme hneď po pripísaní platby.</span>
-      </div>` : `
-      <p style="margin:16px 0;font-size:14px;line-height:1.6;color:#333">${credit
-        ? `V prílohe posielame dobropis <strong>č. ${escape(number)}</strong> k objednávke <strong>${escape(order.id)}</strong>. Sumu vrátime rovnakým spôsobom, akým bola uhradená, najneskôr do 14 dní.`
-        : `V prílohe posielame faktúru <strong>č. ${escape(number)}</strong> k tvojej objednávke <strong>${escape(order.id)}</strong>. Odlož si ju — je to daňový doklad.`}</p>`;
-  return `<!doctype html><html><body style="font-family:system-ui,sans-serif;background:#f7f7f9;padding:24px;color:#111">
-  <div style="max-width:600px;margin:0 auto;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.06)">
-    <div style="background:#1a0c2e;color:#fff;padding:24px 28px;text-align:center">
-      <div style="font-family:Georgia,serif;font-style:italic;font-size:28px;letter-spacing:.06em">VEELYN</div>
-      <h1 style="margin:14px 0 0;font-size:18px;letter-spacing:.08em;font-weight:800">${title} ${escape(number)}</h1>
-    </div>
-    <div style="padding:24px 28px">
-      <p style="margin:0;font-size:15px;line-height:1.5">Ahoj ${escape(order.customer?.firstName || '')},</p>
-      ${payBlock}
-      <div style="text-align:right;font-size:16px;margin-top:8px"><strong>Spolu: ${eur(order.total)}</strong></div>
-      <p style="margin:24px 0 0;font-size:13px;color:#666;line-height:1.5">Otázky? Napíš nám na <a href="mailto:info@veelyn.sk" style="color:#7c3aed">info@veelyn.sk</a>.</p>
-    </div>
-  </div></body></html>`;
-}
-
-// Pošle zákazníkovi doklad s PDF prílohou (buffer priamo z generátora).
 async function sendInvoiceEmail(order, inv, pdfBuffer) {
   const proforma = inv.kind === 'proforma';
   const credit = inv.kind === 'credit';
   const subject = credit
-    ? `Veelyn — dobropis ${inv.number} k objednávke ${order.id}`
+    ? `Dobropis č. ${inv.number} k objednávke ${order.id}`
     : proforma
-      ? `Veelyn — zálohová faktúra ${inv.number} + údaje na platbu (${order.id})`
-      : `Veelyn — faktúra ${inv.number} k objednávke ${order.id}`;
+      ? `Objednávka ${order.id} – zálohová faktúra č. ${inv.number} a platobné údaje`
+      : order.paymentId === 'transfer'
+        ? `Platba prijatá – faktúra č. ${inv.number} (objednávka ${order.id})`
+        : `Faktúra č. ${inv.number} k objednávke ${order.id}`;
   const filename = credit ? `Dobropis-${inv.number}.pdf` : proforma ? `Zalohova-faktura-${inv.number}.pdf` : `Faktura-${inv.number}.pdf`;
   if (!resend) {
     console.log(`[INVOICE] Resend off — ${subject} (not sent)`);
@@ -607,7 +486,7 @@ async function sendInvoiceEmail(order, inv, pdfBuffer) {
       from: FROM_EMAIL,
       to: order.customer.email,
       subject,
-      html: invoiceEmailHTML(order, inv.number, inv.kind),
+      html: invoiceEmailHTML(order, inv.number, inv.kind, { iban: BANK_IBAN, qrUrl: proforma ? qrUrlFor(inv.number) : null, paid: !proforma && order.paymentId === 'transfer', dueDays: 7 }),
       ...(attachments ? { attachments } : {}),
     });
     return r?.data?.id || 'ok';
@@ -687,8 +566,10 @@ async function sendEmails(order, inv = null, pdf = null) {
     return { admin: 'logged', customer: 'logged' };
   }
   const customerSubject = order.paymentId === 'transfer'
-    ? `Veelyn — potvrdenie objednávky ${order.id} + platobné údaje`
-    : `Veelyn — potvrdenie objednávky ${order.id}`;
+    ? `Objednávka ${order.id} prijatá – platobné údaje (${eur(order.total)})`
+    : order.paymentId === 'cod'
+      ? `Objednávka ${order.id} prijatá – platba pri prevzatí`
+      : `Objednávka ${order.id} prijatá`;
   const attachments = inv && pdf
     ? [{ filename: inv.kind === 'proforma' ? `Zalohova-faktura-${inv.number}.pdf` : `Faktura-${inv.number}.pdf`, content: pdf.toString('base64') }]
     : undefined;
@@ -697,8 +578,8 @@ async function sendEmails(order, inv = null, pdf = null) {
     const r1 = await resend.emails.send({
       from: FROM_EMAIL,
       to: SELLER_EMAIL,
-      subject: `🔔 Veelyn — nová objednávka ${order.id} (${eur(order.total)})`,
-      html: adminEmailHTML(order),
+      subject: `Nová objednávka ${order.id} · ${eur(order.total)} · ${order.paymentMethod || ''}`,
+      html: adminEmailHTML(order, { adminUrl: 'https://www.veelyn.sk/admin/' }),
     });
     results.admin = r1?.data?.id || r1?.error?.message || 'ok';
   } catch (e) { results.admin = 'error: ' + e.message; }
@@ -707,7 +588,7 @@ async function sendEmails(order, inv = null, pdf = null) {
       from: FROM_EMAIL,
       to: order.customer.email,
       subject: customerSubject,
-      html: customerEmailHTML(order, inv),
+      html: customerEmailHTML(order, inv, { iban: BANK_IBAN, qrUrl: inv && inv.kind === 'proforma' ? qrUrlFor(inv.number) : null }),
       ...(attachments ? { attachments } : {}),
     });
     results.customer = r2?.data?.id || r2?.error?.message || 'ok';
@@ -1451,6 +1332,22 @@ app.patch('/api/admin/products/:id', requireAuth(['admin']), (req, res) => {
     db.prepare(`UPDATE products SET ${updates.join(', ')} WHERE id = ?`).run(...values);
   }
   res.json({ ok: true });
+});
+
+// === QR KÓD NA PLATBU (obrázok do e-mailu) ===
+// Verejné, ale len s platným HMAC podpisom čísla dokladu (qrUrlFor).
+app.get('/api/invoices/:number/qr.png', rateLimit({ windowMs: 60_000, max: 60 }), async (req, res) => {
+  const { number } = req.params;
+  if (!/^\d{10}$/.test(number) || String(req.query.s || '') !== qrSig(number)) return res.status(404).end();
+  const inv = db.prepare(`SELECT order_id, kind FROM invoices WHERE number = ? AND error IS NULL`).get(number);
+  if (!inv || inv.kind === 'credit' || !BANK_IBAN) return res.status(404).end();
+  const ord = db.prepare(`SELECT total FROM orders WHERE id = ?`).get(inv.order_id);
+  if (!ord) return res.status(404).end();
+  const png = await paymentQrPng({ number, iban: BANK_IBAN, orderId: inv.order_id }, ord.total);
+  if (!png) return res.status(404).end();
+  res.set('Content-Type', 'image/png');
+  res.set('Cache-Control', 'public, max-age=86400');
+  res.send(png);
 });
 
 // === TRACKING — anonymné behaviorálne eventy zo storefrontu ===

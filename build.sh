@@ -12,7 +12,7 @@ node scripts/build-llms.js
 rm -rf public
 mkdir -p public/images
 
-cp index.html script.js track.js styles.css data.js 404.html public/
+cp index.html script.js track.js styles.css data.js 404.html email-header.png public/
 cp favicon-16.png favicon-32.png favicon-48.png favicon-96.png favicon-192.png favicon.ico favicon.svg apple-touch-icon.png og-image.jpg public/
 cp robots.txt sitemap.xml heureka.xml merchant.xml site.webmanifest public/
 # SEO / GEO / Cloudflare config
