@@ -1607,7 +1607,7 @@ app.delete('/api/admin/users/:username', requireAuth(['admin']), (req, res) => {
   res.json({ ok: true });
 });
 
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.log(`\nVeelyn backend running on http://localhost:${PORT}`);
   console.log(`  POST /api/order              — create order`);
   console.log(`  GET  /api/admin/orders       — list (auth: Bearer ${ADMIN_PASSWORD === 'change-me' ? 'CHANGE-ME!' : '***'})`);
@@ -1617,3 +1617,19 @@ app.listen(PORT, () => {
   console.log(`  Packeta REST: ${pk.isEnabled() ? '✓ aktívna' : '✗ vypnutá (set PACKETA_API_PASSWORD)'}`);
   console.log(`  DB: ${DB_PATH}\n`);
 });
+
+// Elegantné ukončenie: Railway pri každom novom nasadení pošle starej
+// inštancii SIGTERM. Bez ošetrenia proces skončí nenulovým kódom a Railway
+// to hlási ako „Deployment crashed" (falošný poplach + e-mail). Tu dobehnú
+// rozpracované requesty, zavrie sa DB a proces skončí kódom 0.
+function shutdown(signal) {
+  console.log(`[SHUTDOWN] ${signal} — zatváram server…`);
+  server.close(() => {
+    try { db.close(); } catch {}
+    console.log('[SHUTDOWN] hotovo.');
+    process.exit(0);
+  });
+  setTimeout(() => process.exit(0), 8000).unref();
+}
+process.on('SIGTERM', () => shutdown('SIGTERM'));
+process.on('SIGINT', () => shutdown('SIGINT'));
