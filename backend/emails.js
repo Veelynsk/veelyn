@@ -141,7 +141,9 @@ function paymentCard(order, inv, ctx = {}) {
       <div class="ink" style="font-size:26px;font-weight:800;color:#16121f">${eur(order.total)}</div>
       <p class="dim" style="margin:10px 0 0;font-size:13px;line-height:1.5;color:#6b6478">Zaplatíš kuriérovi alebo vo výdajnom mieste pri prevzatí. ${inv ? `V prílohe nájdeš faktúru č. ${esc(inv.number)}.` : 'Faktúru ti pošleme v samostatnom e-maile.'}</p>`);
   }
-  return inv ? box(`${label('Doklad')}<p class="dim" style="margin:0;font-size:13px;line-height:1.5;color:#6b6478">V prílohe nájdeš faktúru č. ${esc(inv.number)}.</p>`) : '';
+  // Platba kartou: zákazník už nič nerieši. Žiadna dlaždica o doklade —
+  // faktúru vidí ako prílohu a „daňový doklad“ súkromného človeka nezaujíma.
+  return '';
 }
 
 // ---------- doručenie ----------
