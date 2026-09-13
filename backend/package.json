@@ -17,5 +17,8 @@
     "pdfkit": "^0.17.2",
     "qrcode": "^1.5.4",
     "bysquare": "^4.0.0"
+  },
+  "engines": {
+    "node": "22.x"
   }
 }
