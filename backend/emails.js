@@ -15,7 +15,9 @@ const SITE = 'https://www.veelyn.sk';
 const PURPLE = '#6d28d9';
 const PURPLE_DARK = '#4c1d95';
 
-const eur = (n) => (Math.round(Number(n || 0) * 100) / 100).toFixed(2).replace('.', ',') + ' €';
+// Pevná medzera pred € — Gmail na mobile inak zalomí sumu medzi číslo a menu
+// („74,97“ / „€“ na dvoch riadkoch) a žiadne CSS white-space to nezachráni.
+const eur = (n) => (Math.round(Number(n || 0) * 100) / 100).toFixed(2).replace('.', ',') + ' €';
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch]));
 const skDate = (iso) => { const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(String(iso || '')); return m ? `${m[3]}.${m[2]}.${m[1]}` : ''; };
 const fmtIban = (iban) => String(iban || '').replace(/\s+/g, '').replace(/(.{4})/g, '$1 ').trim();
@@ -38,7 +40,8 @@ function shell({ title, preheader = '', body, footerExtra = '' }) {
   a{color:${PURPLE}}
   /* Gmail/iOS si samé prelinkujú adresu a IČO — necháme ich vyzerať ako text */
   .foot a[href^="http"],.foot a[href^="mailto"]{color:${PURPLE}!important;text-decoration:none!important}
-  .foot a:not([href^="http"]):not([href^="mailto"]),a[x-apple-data-detectors]{color:inherit!important;text-decoration:none!important;pointer-events:none}
+  /* Gmail/iOS si samé prelinkujú adresu na mapy — nech to vyzerá ako text */
+  a[href*="google.com/maps"]:not(.maplink),a[href*="maps.apple"]:not(.maplink),a[x-apple-data-detectors],.foot a:not([href^="http"]):not([href^="mailto"]){color:inherit!important;text-decoration:none!important;font-weight:inherit!important;pointer-events:none}
   @media (prefers-color-scheme: dark){
     .bg{background:#15121c!important}
     .card{background:#1f1a2a!important}
@@ -89,7 +92,7 @@ function itemsTable(order) {
         <strong>${esc(i.name)}</strong>
         <div class="dim" style="font-size:12px;color:#8a8399;white-space:nowrap">${i.originalName ? `dupé ${esc(short(i.originalName))} · ` : ''}50 ml</div>
       </td>
-      <td class="rule ink" style="padding:10px 0;border-bottom:1px solid #eeebf3;text-align:right;font-size:14px;font-weight:700;white-space:nowrap;color:#16121f">${i.qty > 1 ? `<span class="dim" style="font-weight:400;color:#8a8399">${i.qty}× </span>` : ''}${eur(i.price * i.qty)}</td>
+      <td class="rule ink" style="padding:10px 0;border-bottom:1px solid #eeebf3;text-align:right;font-size:14px;font-weight:700;white-space:nowrap;color:#16121f">${i.qty > 1 ? `<span class="dim" style="font-weight:400;color:#8a8399">${i.qty}× </span>` : ''}${eur(i.price * i.qty)}</td>
     </tr>`;
   }).join('');
   const line = (k, v, opts = {}) => `<tr><td colspan="2" class="${opts.cls || 'dim'}" style="padding:5px 12px 0 0;text-align:right;font-size:${opts.big ? 16 : 13}px;${opts.big ? 'font-weight:800;padding-top:10px;' : ''}color:${opts.color || '#8a8399'}">${esc(k)}</td><td class="${opts.cls || 'dim'}" style="padding:5px 0 0;text-align:right;font-size:${opts.big ? 20 : 13}px;white-space:nowrap;${opts.big ? 'font-weight:800;padding-top:10px;' : ''}color:${opts.color || '#8a8399'}">${v}</td></tr>`;
@@ -232,10 +235,22 @@ export function invoiceEmailHTML(order, number, kind, ctx = {}) {
 export function shippedEmailHTML(order, ctx = {}) {
   const first = order.customer?.firstName || '';
   const c = order.customer || {};
-  const pickup = order.pickupPoint?.name;
+  // Výdajné miesto dostane vlastný blok s odkazom do máp — zámerne bez mena
+  // dopravcu, nech text sedí aj keď pribudne iný kuriér.
+  const pp = order.pickupPoint || null;
+  const pickup = pp?.name;
+  const ppAddr = pp ? [pp.street, [pp.zip, pp.city].filter(Boolean).join(' ').trim()].filter(Boolean).join(', ') : '';
+  const mapQ = pp ? encodeURIComponent([pp.name, pp.street, pp.zip, pp.city].filter(Boolean).join(', ')) : '';
   const where = pickup
-    ? `Vyzdvihneš si ju na mieste <strong>${esc(pickup)}</strong>. Keď tam balík dorazí, Packeta ti pošle SMS s kódom na vyzdvihnutie.`
-    : `Kuriér ti ju doručí na adresu <strong>${esc([c.street || c.address, [c.zip || c.postalCode, c.city].filter(Boolean).join(' ')].filter(Boolean).join(', '))}</strong>. Ozve sa ti vopred, zvyčajne SMS-kou.`;
+    ? ''
+    : `Kuriér ti ju doručí na tvoju adresu v meste <strong>${esc(c.city || '')}</strong> — ozve sa ti vopred, zvyčajne SMS-kou.`;
+  const pickupBlock = pp ? `
+    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" class="soft" style="margin:22px 0 0;background:#f5f1ff;border:1px solid #e4dbff;border-radius:14px"><tr><td style="padding:18px 20px">
+      ${label('Vyzdvihneš si ju na')}
+      <a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=${mapQ}" style="display:block;font-size:16px;font-weight:800;line-height:1.35;color:${PURPLE};text-decoration:none">${esc(pp.name)} →</a>
+      ${ppAddr ? `<div class="dim" style="margin-top:5px;font-size:13px;color:#6b6478">${esc(ppAddr)}</div>` : ''}
+      <p class="dim" style="margin:12px 0 0;font-size:13px;line-height:1.5;color:#6b6478">Keď tam balík dorazí, príde ti kód na vyzdvihnutie. Odkaz vyššie ti miesto ukáže na mape.</p>
+    </td></tr></table>` : '';
   const track = ctx.trackingUrl ? `
     <table role="presentation" width="100%" cellspacing="0" cellpadding="0" class="soft" style="margin:22px 0 0;background:#f5f1ff;border:1px solid #e4dbff;border-radius:14px"><tr><td style="padding:18px 20px">
       ${label('Sledovanie zásielky')}
@@ -247,7 +262,8 @@ export function shippedEmailHTML(order, ctx = {}) {
     </td></tr></table>` : '';
   const body = `
     ${h1('Balík je na ceste k tebe')}
-    ${p(`Ahoj${first ? ' ' + esc(first) : ''}, objednávku <strong>${esc(order.id)}</strong> sme práve odoslali. ${where}`)}
+    ${p(`Ahoj${first ? ' ' + esc(first) : ''}, objednávku <strong>${esc(order.id)}</strong> sme práve odoslali.${where ? ' ' + where : ''}`)}
+    ${pickupBlock}
     ${track}
     ${p('Čo je v balíku', 'margin:24px 0 6px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:#6b6478')}
     ${itemsTable(order)}
