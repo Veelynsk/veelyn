@@ -100,7 +100,7 @@ function itemsTable(order) {
     ${Number(order.bundleDiscount) > 0 ? line('Akcia 3+1 zadarmo', '−' + eur(order.bundleDiscount), { color: '#15803d', cls: '' }) : ''}
     ${Number(order.couponDiscount) > 0 ? line(`Zľavový kód ${order.couponCode || ''}`, '−' + eur(order.couponDiscount), { color: '#15803d', cls: '' }) : ''}
     ${line('Doprava', Number(order.shipping) > 0 ? eur(order.shipping) : 'zadarmo')}
-    ${Number(order.fee) > 0 ? line(`Poplatok — ${order.paymentMethod || ''}`, eur(order.fee)) : ''}
+    ${Number(order.fee) > 0 ? line(String(order.paymentMethod || 'Dobierka'), eur(order.fee)) : ''}
     ${line('Spolu', eur(order.total), { big: true, color: '#16121f', cls: 'ink' })}
   </table>`;
 }
