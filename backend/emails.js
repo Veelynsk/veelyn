@@ -47,7 +47,7 @@ function shell({ title, preheader = '', body, footerExtra = '' }) {
 <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="max-width:580px">
   <tr><td style="background:${PURPLE_DARK};border-radius:18px 18px 0 0;padding:0;text-align:center;line-height:0">
     <!-- hlavička ako obrázok: Gmail v dark mode obrázky neinvertuje, takže ostane fialová -->
-    <img src="${SITE}/email-header.png" width="580" height="128" alt="VEELYN — ${esc(SUPPLIER.tagline)}" style="display:block;width:100%;max-width:580px;height:auto;border:0;border-radius:18px 18px 0 0;font-family:Georgia,serif;font-style:italic;font-size:28px;line-height:128px;color:#ffffff">
+    <img src="${SITE}/email-header-v2.png" width="580" height="128" alt="Veelyn.sk — ${esc(SUPPLIER.tagline)}" style="display:block;width:100%;max-width:580px;height:auto;border:0;border-radius:18px 18px 0 0;font-family:Georgia,serif;font-style:italic;font-size:28px;line-height:128px;color:#ffffff">
   </td></tr>
   <tr><td class="card ink" style="background:#ffffff;color:#16121f;padding:28px 28px 24px;border-radius:0 0 18px 18px">
     ${body}
@@ -153,7 +153,7 @@ export function customerEmailHTML(order, inv = null, ctx = {}) {
   const first = order.customer?.firstName || '';
   const transfer = order.paymentId === 'transfer';
   const intro = transfer
-    ? `Ahoj${first ? ' ' + esc(first) : ''}, objednávku <strong>${esc(order.id)}</strong> sme prijali. Už ju len zaplatiť — údaje sú nižšie, ideálne ešte dnes. Hneď po pripísaní platby ju zabalíme a odošleme do 1 pracovného dňa.`
+    ? `Ahoj${first ? ' ' + esc(first) : ''}, ďakujeme za objednávku <strong>${esc(order.id)}</strong>. <strong>Už stačí len zaplatiť</strong> — pošli <strong>${eur(order.total)}</strong> na účet nižšie, najlepšie ešte dnes. Hneď po pripísaní platby ju zabalíme a odošleme do 1 pracovného dňa.`
     : `Ahoj${first ? ' ' + esc(first) : ''}, objednávku <strong>${esc(order.id)}</strong> sme prijali. Zabalíme ju a odošleme do 1 pracovného dňa.`;
   const body = `
     ${h1('Ďakujeme za objednávku')}

@@ -12,7 +12,10 @@ node scripts/build-llms.js
 rm -rf public
 mkdir -p public/images
 
-cp index.html script.js track.js styles.css data.js 404.html email-header.png public/
+# email-header-v2.png: pri zmene hlavičky VŽDY nový názov (v3, v4…) — Gmail si
+# obrázky kešuje podľa URL a starú verziu by servíroval donekonečna.
+# Staršie verzie ostávajú, aby sa nerozbili už odoslané maily.
+cp index.html script.js track.js styles.css data.js 404.html email-header.png email-header-v2.png public/
 cp favicon-16.png favicon-32.png favicon-48.png favicon-96.png favicon-192.png favicon.ico favicon.svg apple-touch-icon.png og-image.jpg public/
 cp robots.txt sitemap.xml heureka.xml merchant.xml site.webmanifest public/
 # SEO / GEO / Cloudflare config
