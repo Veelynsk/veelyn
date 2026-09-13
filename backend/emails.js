@@ -148,7 +148,7 @@ function paymentCard(order, inv, ctx = {}) {
 }
 
 // ---------- doručenie ----------
-function deliveryCard(order) {
+function deliveryCard(order, opts = {}) {
   const c = order.customer || {};
   const lines = [];
   if (order.pickupPoint?.name) {
@@ -162,20 +162,19 @@ function deliveryCard(order) {
     if (zc) lines.push(esc(zc));
   }
   if (c.phone) lines.push(esc(c.phone));
-  // Spôsob platby musí byť vidieť v KAŽDOM potvrdení — pri karte sa platobná
-  // karta nevykresľuje, takže bez tohto riadku by v maili o platbe nebolo nič.
-  const pay = order.paymentId === 'transfer'
-    ? { how: 'Bankový prevod', state: 'Čaká na tvoju platbu' }
-    : order.paymentId === 'cod'
-      ? { how: 'Dobierka', state: `Zaplatíš pri prevzatí — ${eur(order.total)}` }
-      : { how: String(order.paymentMethod || 'Karta'), state: `Zaplatené — ${eur(order.total)}` };
+  // Spôsob platby musí byť vidieť v KAŽDOM potvrdení. Pri prevode a dobierke to
+  // už povie platobná karta vyššie — tam by tento riadok tú istú vec opakoval
+  // druhýkrát, takže ho pridávame len keď karta nie je (platba kartou).
+  const pay = opts.showPayment
+    ? { how: String(order.paymentMethod || 'Karta'), state: `Zaplatené — ${eur(order.total)}` }
+    : null;
   const cell = (l, inner) => `<tr><td class="rule" style="padding:16px 0 0;border-top:1px solid #eeebf3">
     ${label(l)}
     <div class="ink" style="font-size:14px;line-height:1.55;color:#16121f">${inner}</div>
   </td></tr>`;
   return `<table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="margin:16px 0 0">
     ${cell('Doručenie', `${esc(order.shippingMethod || '')}${lines.length ? '<br>' + lines.join('<br>') : ''}`)}
-    ${cell('Platba', `${esc(pay.how)}<br><span class="dim" style="color:#8a8399">${pay.state}</span>`)}
+    ${pay ? cell('Platba', `${esc(pay.how)}<br><span class="dim" style="color:#8a8399">${pay.state}</span>`) : ''}
   </table>`;
 }
 
@@ -188,12 +187,13 @@ export function customerEmailHTML(order, inv = null, ctx = {}) {
     : order.paymentId === 'cod'
       ? `Ahoj${first ? ' ' + esc(first) : ''}, ďakujeme za objednávku <strong>${esc(order.id)}</strong>. Od teba teraz netreba nič — <strong>zaplatíš až pri prevzatí</strong>. My medzitým balíme a do 1 pracovného dňa posielame.`
       : `Ahoj${first ? ' ' + esc(first) : ''}, ďakujeme za objednávku <strong>${esc(order.id)}</strong>. Zaplatené, vybavené — <strong>balíme a posielame do 1 pracovného dňa</strong>.`;
+  const payCard = paymentCard(order, inv, ctx);
   const body = `
     ${h1('Ďakujeme za objednávku')}
     ${p(intro)}
     ${itemsTable(order)}
-    ${paymentCard(order, inv, ctx)}
-    ${deliveryCard(order)}
+    ${payCard}
+    ${deliveryCard(order, { showPayment: !payCard })}
     ${p(`Otázky? Napíš nám na <a href="mailto:${SUPPLIER.email}" style="color:${PURPLE}">${SUPPLIER.email}</a>.`, 'margin:22px 0 0;font-size:13px;color:#6b6478')}`;
   return shell({
     title: `Objednávka ${order.id} prijatá`,
