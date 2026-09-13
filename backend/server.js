@@ -470,7 +470,7 @@ async function sendInvoiceEmail(order, inv, pdfBuffer) {
   const proforma = inv.kind === 'proforma';
   const credit = inv.kind === 'credit';
   const subject = credit
-    ? `Dobropis č. ${inv.number} k objednávke ${order.id}`
+    ? `Objednávka ${order.id} zrušená — peniaze ti vraciame`
     : proforma
       ? `Objednávka ${order.id} – zálohová faktúra č. ${inv.number} a platobné údaje`
       : order.paymentId === 'transfer'

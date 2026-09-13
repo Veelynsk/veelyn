@@ -186,12 +186,21 @@ export function customerEmailHTML(order, inv = null, ctx = {}) {
 export function invoiceEmailHTML(order, number, kind, ctx = {}) {
   const first = order.customer?.firstName || '';
   const hi = `Ahoj${first ? ' ' + esc(first) : ''},`;
-  let title, body;
+  let title, body, pre;
   if (kind === 'credit') {
-    title = `Dobropis č. ${number}`;
-    body = `${h1('Dobropis k objednávke')}
-      ${p(`${hi} k objednávke <strong>${esc(order.id)}</strong> sme vystavili dobropis <strong>č. ${esc(number)}</strong> — nájdeš ho v prílohe.`)}
-      ${p(`Sumu <strong>${eur(order.total)}</strong> vrátime rovnakým spôsobom, akým bola uhradená, najneskôr do 14 dní.`)}`;
+    // Píšeme človeku, nie firme: žiadny „dobropis“ v nadpise ani v prvej vete.
+    const cod = order.paymentId === 'cod';
+    title = `Objednávka ${order.id} zrušená`;
+    pre = cod
+      ? `Peniaze ti vrátime — pošli nám číslo účtu a ${eur(order.total)} odošleme do 3 pracovných dní.`
+      : `Peniaze ti vraciame — ${eur(order.total)} sa vráti na pôvodný spôsob platby, zvyčajne do 3 pracovných dní.`;
+    body = `${h1('Objednávka zrušená')}
+      ${p(`${hi} objednávku <strong>${esc(order.id)}</strong> sme zrušili a peniaze ti vraciame.`)}
+      ${p(cod
+        ? `Ide o <strong>${eur(order.total)}</strong>. Keďže si platil pri prevzatí, napíš nám prosím číslo účtu (IBAN) odpoveďou na tento e-mail — peniaze odošleme do 3 pracovných dní.`
+        : `Sumu <strong>${eur(order.total)}</strong> posielame späť tou istou cestou, akou si platil${order.paymentMethod ? ` (${esc(String(order.paymentMethod).toLowerCase())})` : ''}. Na účte ju uvidíš zvyčajne do 3 pracovných dní, najneskôr do 14.`)}
+      ${p('V prílohe je doklad o vrátení peňazí — potrebuje ho len účtovníctvo, ty s ním nemusíš robiť nič.', 'font-size:13px;color:#6b6478')}
+      ${p('Mrzí nás, že to nevyšlo. Ak sa niečo pokazilo alebo si chceš vybrať inú vôňu, napíš nám — radi pomôžeme.', 'font-size:13px;color:#6b6478')}`;
   } else if (kind === 'proforma') {
     const inv = { number, kind, meta: { dueDate: ctx.dueDate } };
     title = `Zálohová faktúra č. ${number}`;
@@ -205,7 +214,7 @@ export function invoiceEmailHTML(order, number, kind, ctx = {}) {
       ${itemsTable(order)}`;
   }
   body += p(`Otázky? Stačí odpovedať na tento e-mail alebo napísať na <a href="mailto:${SUPPLIER.email}" style="color:${PURPLE}">${SUPPLIER.email}</a>.`, 'margin:22px 0 0;font-size:13px;color:#6b6478');
-  return shell({ title, preheader: `${title} · objednávka ${order.id}`, body });
+  return shell({ title, preheader: pre || `${title} · objednávka ${order.id}`, body });
 }
 
 // ---------- 3) notifikácia pre majiteľa ----------
