@@ -39,6 +39,8 @@ function shell({ title, preheader = '', body, footerExtra = '' }) {
     .dim{color:#b9b1c9!important}
     .soft{background:#2a2140!important;border-color:#4a3a78!important}
     .rule{border-color:#352d45!important}
+    .warn{background:#3b2a10!important;border-color:#f59e0b!important;color:#fde68a!important}
+    .warn strong{color:#fef3c7!important}
   }
 </style></head>
 <body class="bg" style="margin:0;padding:0;background:#f4f2f9;${FONT}">
@@ -117,6 +119,10 @@ function paymentCard(order, inv, ctx = {}) {
         ${kv('Správa pre prijímateľa', esc('Veelyn ' + order.id))}
         ${inv.meta?.dueDate ? kv('Splatnosť', esc(skDate(inv.meta.dueDate))) : ''}
       </td>${qr}</tr></table>
+      <table role="presentation" width="100%" cellspacing="0" cellpadding="0" class="warn" style="margin:16px 0 0;background:#fff7ed;border:1px solid #fdba74;border-radius:10px;color:#7c2d12"><tr><td style="padding:12px 14px;font-size:13.5px;line-height:1.5">
+        <strong style="color:#9a3412">Dôležité: uveď variabilný symbol ${esc(inv.number)}</strong><br>
+        Bez neho platbu nevieme priradiť k tvojej objednávke a odoslanie sa zdrží. Ak zaplatíš cez QR kód, vyplní sa sám.
+      </td></tr></table>
       <p class="dim" style="margin:14px 0 0;font-size:13px;line-height:1.5;color:#6b6478">Zálohová faktúra č. ${esc(inv.number)} s QR kódom je aj v prílohe. Objednávku odošleme hneď po pripísaní platby — zvyčajne do 1 pracovného dňa.</p>`);
   }
   if (order.paymentId === 'cod') {
@@ -153,7 +159,7 @@ export function customerEmailHTML(order, inv = null, ctx = {}) {
   const first = order.customer?.firstName || '';
   const transfer = order.paymentId === 'transfer';
   const intro = transfer
-    ? `Ahoj${first ? ' ' + esc(first) : ''}, ďakujeme za objednávku <strong>${esc(order.id)}</strong>. <strong>Už stačí len zaplatiť</strong> — pošli <strong>${eur(order.total)}</strong> na účet nižšie, najlepšie ešte dnes. Hneď po pripísaní platby ju zabalíme a odošleme do 1 pracovného dňa.`
+    ? `Ahoj${first ? ' ' + esc(first) : ''}, ďakujeme za objednávku <strong>${esc(order.id)}</strong>. <strong>Už stačí len zaplatiť</strong> — pošli <strong>${eur(order.total)}</strong> na účet nižšie${inv ? ` a nezabudni uviesť variabilný symbol <strong>${esc(inv.number)}</strong>` : ''}, najlepšie ešte dnes. Hneď po pripísaní platby ju zabalíme a odošleme do 1 pracovného dňa.`
     : `Ahoj${first ? ' ' + esc(first) : ''}, objednávku <strong>${esc(order.id)}</strong> sme prijali. Zabalíme ju a odošleme do 1 pracovného dňa.`;
   const body = `
     ${h1('Ďakujeme za objednávku')}
