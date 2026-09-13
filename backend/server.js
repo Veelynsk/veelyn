@@ -606,6 +606,10 @@ app.get('/api/health', (req, res) => {
   res.json({
     ok: true,
     time: new Date().toISOString(),
+    // SHA nasadeného buildu (Railway ho vstrekuje sám) + čas štartu procesu —
+    // bez toho sa po pushi nedá overiť, či už beží nový kód, alebo ešte starý.
+    commit: (process.env.RAILWAY_GIT_COMMIT_SHA || '').slice(0, 7) || null,
+    startedAt: new Date(Date.now() - Math.round(process.uptime() * 1000)).toISOString(),
     resendConfigured: !!resend,
     mailerliteConfigured: ml.isEnabled(),
     invoicing: INVOICING_ENABLED ? 'internal' : 'off',
