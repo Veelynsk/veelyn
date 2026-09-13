@@ -24,7 +24,7 @@ const SELLER_EMAIL = process.env.SELLER_EMAIL || 'info@veelyn.sk';
 // info@ je reálny Google Workspace účet → Gmail pri ňom zobrazí profilovú
 // fotku (logo) ako avatar odosielateľa a odpovede zákazníkov nespadnú do
 // neexistujúcej schránky.
-const FROM_EMAIL_DEFAULT = 'Veelyn <info@veelyn.sk>';
+const FROM_EMAIL_DEFAULT = 'Veelyn.sk <info@veelyn.sk>';
 function sanitizeFromEmail(raw) {
   if (!raw) return FROM_EMAIL_DEFAULT;
   // Strip wrapping quotes (single + double) and whitespace
