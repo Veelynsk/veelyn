@@ -72,6 +72,7 @@ function shell({ title, preheader = '', body, footerExtra = '' }) {
     IČO ${esc(SUPPLIER.ico)} &nbsp;·&nbsp; DIČ ${esc(SUPPLIER.dic)}<br>
     ${esc(SUPPLIER.vatNote)}<br>
     <a href="${SITE}/" style="color:${PURPLE};text-decoration:none">www.veelyn.sk</a> &nbsp;·&nbsp; <a href="mailto:${SUPPLIER.email}" style="color:${PURPLE};text-decoration:none">${SUPPLIER.email}</a>
+    <div style="margin-top:14px;font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;color:${PURPLE}">Made in Slovakia &nbsp;✦&nbsp; Hated in Paris</div>
   </td></tr>
 </table>
 </td></tr></table>
@@ -131,15 +132,15 @@ function paymentCard(order, inv, ctx = {}) {
         ${kv('Variabilný symbol', esc(inv.number))}
       </td>${qr}</tr></table>
       <table role="presentation" width="100%" cellspacing="0" cellpadding="0" class="warn" style="margin:16px 0 0;background:#fff7ed;border:1px solid #fdba74;border-radius:10px;color:#7c2d12"><tr><td style="padding:12px 14px;font-size:13.5px;line-height:1.5">
-        <strong style="color:#9a3412">Dôležité: uveď variabilný symbol ${esc(inv.number)}</strong><br>
-        Bez neho platbu nevieme priradiť k tvojej objednávke a odoslanie sa zdrží. Ak zaplatíš cez QR kód, vyplní sa sám.
+        <strong style="color:#9a3412">Nezabudni na variabilný symbol ${esc(inv.number)}</strong><br>
+        Bez neho platbu nespárujeme s tvojou objednávkou a tvoja vôňa bude smutne čakať v regáli. Cez QR kód sa vyplní sám.
       </td></tr></table>
-      <p class="dim" style="margin:14px 0 0;font-size:13px;line-height:1.5;color:#6b6478">Zálohová faktúra č. ${esc(inv.number)} s QR kódom je aj v prílohe. Objednávku odošleme hneď po pripísaní platby — zvyčajne do 1 pracovného dňa.</p>`);
+      <p class="dim" style="margin:14px 0 0;font-size:13px;line-height:1.5;color:#6b6478">Zálohovú faktúru s QR kódom nájdeš aj v prílohe. Len čo platba dorazí, vôňa vyráža — zvyčajne do 1 pracovného dňa.</p>`);
   }
   if (order.paymentId === 'cod') {
     return box(`${label('Platba pri prevzatí')}
       <div class="ink" style="font-size:26px;font-weight:800;color:#16121f">${eur(order.total)}</div>
-      <p class="dim" style="margin:10px 0 0;font-size:13px;line-height:1.5;color:#6b6478">Zaplatíš kuriérovi alebo vo výdajnom mieste pri prevzatí. ${inv ? `V prílohe nájdeš faktúru č. ${esc(inv.number)}.` : 'Faktúru ti pošleme v samostatnom e-maile.'}</p>`);
+      <p class="dim" style="margin:10px 0 0;font-size:13px;line-height:1.5;color:#6b6478">Peniaze si nachystaj až k prevzatiu — kuriérovi alebo vo výdajni. ${inv ? `V prílohe nájdeš faktúru č. ${esc(inv.number)}.` : 'Faktúru ti pošleme v samostatnom e-maile.'}</p>`);
   }
   // Platba kartou: zákazník už nič nerieši. Žiadna dlaždica o doklade —
   // faktúru vidí ako prílohu a „daňový doklad“ súkromného človeka nezaujíma.
@@ -172,8 +173,10 @@ export function customerEmailHTML(order, inv = null, ctx = {}) {
   const first = order.customer?.firstName || '';
   const transfer = order.paymentId === 'transfer';
   const intro = transfer
-    ? `Ahoj${first ? ' ' + esc(first) : ''}, ďakujeme za objednávku <strong>${esc(order.id)}</strong>. <strong>Už stačí len zaplatiť</strong> — pošli <strong>${eur(order.total)}</strong> na účet nižšie${inv ? ` a nezabudni uviesť variabilný symbol <strong>${esc(inv.number)}</strong>` : ''}, najlepšie ešte dnes. Hneď po pripísaní platby ju zabalíme a odošleme do 1 pracovného dňa.`
-    : `Ahoj${first ? ' ' + esc(first) : ''}, objednávku <strong>${esc(order.id)}</strong> sme prijali. Zabalíme ju a odošleme do 1 pracovného dňa.`;
+    ? `Ahoj${first ? ' ' + esc(first) : ''}, ďakujeme za objednávku <strong>${esc(order.id)}</strong>. Fľaštičku sme ti odložili nabok a už pokukuje po dverách. <strong>Chýba posledný krok</strong> — pošli <strong>${eur(order.total)}</strong> na účet nižšie${inv ? ` a nezabudni na variabilný symbol <strong>${esc(inv.number)}</strong>` : ''}. Len čo platba dorazí, balíme a posielame.`
+    : order.paymentId === 'cod'
+      ? `Ahoj${first ? ' ' + esc(first) : ''}, ďakujeme za objednávku <strong>${esc(order.id)}</strong>. Od teba teraz netreba vôbec nič — <strong>zaplatíš až vtedy, keď ju budeš držať v ruke</strong>. My medzitým balíme a do 1 pracovného dňa posielame.`
+      : `Ahoj${first ? ' ' + esc(first) : ''}, ďakujeme za objednávku <strong>${esc(order.id)}</strong>. Zaplatené, vybavené — <strong>balíme a posielame do 1 pracovného dňa</strong>. Ty už len čakaj na poštára.`;
   const body = `
     ${h1('Ďakujeme za objednávku')}
     ${p(intro)}
@@ -213,7 +216,7 @@ export function invoiceEmailHTML(order, number, kind, ctx = {}) {
         ? `Ide o <strong>${eur(order.total)}</strong>. Keďže si platil pri prevzatí, napíš nám prosím číslo účtu (IBAN) odpoveďou na tento e-mail — peniaze odošleme do 3 pracovných dní.`
         : `Sumu <strong>${eur(order.total)}</strong> posielame späť tou istou cestou, akou si platil${order.paymentMethod ? ` (${esc(String(order.paymentMethod).toLowerCase())})` : ''}. Na účte ju uvidíš zvyčajne do 3 pracovných dní, najneskôr do 14.`)}
       ${p('V prílohe nájdeš doklad o vrátení peňazí — potrebuje ho len účtovníctvo, ty s ním nemusíš robiť nič.', 'font-size:13px;color:#6b6478')}
-      ${p('Mrzí nás, že to nevyšlo. Ak sa niečo pokazilo alebo si chceš vybrať inú vôňu, napíš nám — radi pomôžeme.', 'font-size:13px;color:#6b6478')}`;
+      ${p('Mrzí nás, že to nevyšlo. Ak si to len rozmyslel alebo ťa láka iná vôňa, napíš — vyberieme spolu.', 'font-size:13px;color:#6b6478')}`;
   } else if (kind === 'proforma') {
     // Aj keď je v prílohe zálohová faktúra, pre zákazníka je to stále
     // potvrdenie objednávky — nie „posielame vám doklad“.
@@ -225,9 +228,9 @@ export function invoiceEmailHTML(order, number, kind, ctx = {}) {
       ${paymentCard(order, inv, ctx)}`;
   } else {
     title = ctx.paid ? `Platba prijatá — faktúra č. ${number}` : `Faktúra č. ${number}`;
-    body = `${h1(ctx.paid ? 'Platbu sme prijali, ďakujeme' : 'Faktúra k objednávke')}
+    body = `${h1(ctx.paid ? 'Peniaze dorazili' : 'Faktúra k objednávke')}
       ${p(ctx.paid
-        ? `${hi} platbu za objednávku <strong>${esc(order.id)}</strong> sme prijali — balíme a posielame. V prílohe nájdeš faktúru <strong>č. ${esc(number)}</strong>.`
+        ? `${hi} platbu vidíme na účte — ďakujeme. <strong>Fľaštičku práve balíme</strong> a posielame na cestu. V prílohe nájdeš faktúru <strong>č. ${esc(number)}</strong>.`
         : `${hi} v prílohe nájdeš faktúru <strong>č. ${esc(number)}</strong> k objednávke <strong>${esc(order.id)}</strong> — posielame ti ju dodatočne, aby si mal doklady kompletné.`)}
       ${itemsTable(order)}`;
   }
@@ -258,21 +261,21 @@ export function shippedEmailHTML(order, ctx = {}) {
     </td></tr></table>` : '';
   const track = ctx.trackingUrl ? `
     <table role="presentation" width="100%" cellspacing="0" cellpadding="0" class="soft" style="margin:22px 0 0;background:#f5f1ff;border:1px solid #e4dbff;border-radius:14px"><tr><td style="padding:18px 20px">
-      ${label('Sledovanie zásielky')}
+      ${label('Kde je práve teraz')}
       ${ctx.barcode ? `<div class="ink" style="font-size:17px;font-weight:800;letter-spacing:.04em;color:#16121f">${esc(ctx.barcode)}</div>` : ''}
       <div style="margin-top:14px">
-        <a href="${esc(ctx.trackingUrl)}" style="display:inline-block;background:${PURPLE};color:#ffffff;text-decoration:none;font-weight:700;font-size:15px;padding:13px 22px;border-radius:10px">Sledovať zásielku →</a>
+        <a href="${esc(ctx.trackingUrl)}" style="display:inline-block;background:${PURPLE};color:#ffffff;text-decoration:none;font-weight:700;font-size:15px;padding:13px 22px;border-radius:10px">Pozri, kde je →</a>
       </div>
       <p class="dim" style="margin:12px 0 0;font-size:12.5px;line-height:1.5;color:#6b6478">Prvé záznamy sa v sledovaní objavia zvyčajne do pár hodín od odoslania.</p>
     </td></tr></table>` : '';
   const body = `
-    ${h1('Balík je na ceste k tebe')}
-    ${p(`Ahoj${first ? ' ' + esc(first) : ''}, objednávku <strong>${esc(order.id)}</strong> sme práve odoslali.${where ? ' ' + where : ''}`)}
+    ${h1('Vôňa je na ceste')}
+    ${p(`Ahoj${first ? ' ' + esc(first) : ''}, objednávku <strong>${esc(order.id)}</strong> sme práve poslali na cestu.${where ? ' ' + where : ''}`)}
     ${pickupBlock}
     ${track}
     ${p('Čo je v balíku', 'margin:24px 0 6px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:#6b6478')}
     ${itemsTable(order)}
-    ${p('Doručenie zvyčajne trvá 1–2 pracovné dni.', 'margin:22px 0 0;font-size:13px;color:#6b6478')}
+    ${p('Do 1–2 pracovných dní ti zavonia doma.', 'margin:22px 0 0;font-size:13px;color:#6b6478')}
     ${p(`Otázky? Napíš nám na <a href="mailto:${SUPPLIER.email}" style="color:${PURPLE}">${SUPPLIER.email}</a>.`, 'margin:4px 0 0;font-size:13px;color:#6b6478')}`;
   return shell({
     title: `Objednávka ${order.id} je na ceste`,

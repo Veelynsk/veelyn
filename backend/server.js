@@ -474,7 +474,7 @@ async function sendInvoiceEmail(order, inv, pdfBuffer) {
     : proforma
       ? `Ďakujeme za objednávku — platobné údaje (${order.id})`
       : order.paymentId === 'transfer'
-        ? `Platba prijatá – faktúra č. ${inv.number} (objednávka ${order.id})`
+        ? `Peniaze dorazili — už balíme (${order.id})`
         : `Faktúra č. ${inv.number} k objednávke ${order.id}`;
   const filename = credit ? `Dobropis-${inv.number}.pdf` : proforma ? `Zalohova-faktura-${inv.number}.pdf` : `Faktura-${inv.number}.pdf`;
   if (!resend) {
@@ -571,10 +571,10 @@ async function sendEmails(order, inv = null, pdf = null) {
   // Predmet je to prvé, čo zákazník vidí v mobilnej schránke — ľudský,
   // s jasnou výzvou a číslom objednávky na konci (v zozname sa oreže).
   const customerSubject = order.paymentId === 'transfer'
-    ? `Ďakujeme za objednávku — už stačí len zaplatiť (${order.id})`
+    ? `Ďakujeme za objednávku — chýba posledný krok (${order.id})`
     : order.paymentId === 'cod'
-      ? `Ďakujeme za objednávku — platíte pri prevzatí (${order.id})`
-      : `Ďakujeme za objednávku (${order.id})`;
+      ? `Ďakujeme za objednávku — platíš až pri prevzatí (${order.id})`
+      : `Ďakujeme za objednávku — už balíme (${order.id})`;
   const attachments = inv && pdf
     ? [{ filename: inv.kind === 'proforma' ? `Zalohova-faktura-${inv.number}.pdf` : `Faktura-${inv.number}.pdf`, content: pdf.toString('base64') }]
     : undefined;
@@ -1129,7 +1129,7 @@ app.patch('/api/admin/orders/:id', requireAuth(['admin','warehouse']), async (re
         const r = await resend.emails.send({
           from: FROM_EMAIL,
           to: order.customer.email,
-          subject: `Objednávka ${order.id} je na ceste k tebe`,
+          subject: `Vôňa je na ceste k tebe (${order.id})`,
           html: shippedEmailHTML(order, { trackingUrl, barcode }),
         });
         shippedMail = r?.data?.id || r?.error?.message || 'ok';
