@@ -21,7 +21,10 @@ const SELLER_EMAIL = process.env.SELLER_EMAIL || 'info@veelyn.sk';
 // missing, empty, or in a format Resend rejects. We've had recurring
 // "Invalid `from` field" failures because Railway env var values get
 // wrapped in quotes / contain stray chars.
-const FROM_EMAIL_DEFAULT = 'Veelyn <objednavky@veelyn.sk>';
+// info@ je reálny Google Workspace účet → Gmail pri ňom zobrazí profilovú
+// fotku (logo) ako avatar odosielateľa a odpovede zákazníkov nespadnú do
+// neexistujúcej schránky.
+const FROM_EMAIL_DEFAULT = 'Veelyn <info@veelyn.sk>';
 function sanitizeFromEmail(raw) {
   if (!raw) return FROM_EMAIL_DEFAULT;
   // Strip wrapping quotes (single + double) and whitespace
