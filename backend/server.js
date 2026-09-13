@@ -490,10 +490,42 @@ function adminEmailHTML(order) {
   </div></body></html>`;
 }
 
-function customerEmailHTML(order) {
+// Jeden zákaznícky mail: potvrdenie objednávky + platobné údaje. `inv` je
+// vystavený doklad (proforma pri prevode, faktúra pri dobierke) — jeho PDF
+// ide do prílohy; keď doklad zlyhal, mail odíde aj tak a doklad dopošle retry.
+function customerEmailHTML(order, inv = null) {
   const itemRows = order.items.map(i =>
     `<tr><td style="padding:6px 0;border-bottom:1px solid #eee">${i.qty}× ${escape(i.name)}</td><td style="padding:6px 0;border-bottom:1px solid #eee;text-align:right;font-variant:tabular-nums">${eur(i.price * i.qty)}</td></tr>`
   ).join('');
+  const skDate = (iso) => { const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(iso || ''); return m ? `${m[3]}.${m[2]}.${m[1]}` : ''; };
+  const boxStyle = 'margin:20px 0 0;padding:16px 20px;background:#f4f0ff;border:1px solid #ddd0ff;border-radius:10px;font-size:14px;line-height:1.7';
+  let payBlock = '';
+  if (order.paymentId === 'transfer') {
+    const due = skDate(inv?.meta?.dueDate);
+    payBlock = inv
+      ? `<div style="${boxStyle}">
+        <strong style="letter-spacing:.06em">ÚDAJE NA PLATBU PREVODOM</strong><br>
+        Suma: <strong>${eur(order.total)}</strong><br>
+        Variabilný symbol: <strong>${escape(inv.number)}</strong><br>
+        ${BANK_IBAN ? `IBAN: <strong>${escape(BANK_IBAN)}</strong><br>` : ''}
+        ${due ? `Splatnosť: <strong>${due}</strong><br>` : ''}
+        <span style="color:#666">Zálohová faktúra s QR kódom na platbu (PAY by square) je v prílohe — stačí ho naskenovať v bankovej aplikácii. Objednávku odošleme hneď po pripísaní platby.</span>
+      </div>`
+      : `<div style="${boxStyle}">
+        <strong style="letter-spacing:.06em">PLATBA PREVODOM</strong><br>
+        Suma: <strong>${eur(order.total)}</strong><br>
+        ${BANK_IBAN ? `IBAN: <strong>${escape(BANK_IBAN)}</strong><br>` : ''}
+        <span style="color:#666">Zálohovú faktúru s variabilným symbolom a QR kódom ti pošleme v samostatnom e-maile o chvíľu.</span>
+      </div>`;
+  } else if (order.paymentId === 'cod') {
+    payBlock = `<div style="${boxStyle}">
+        <strong style="letter-spacing:.06em">PLATBA PRI PREVZATÍ (DOBIERKA)</strong><br>
+        K úhrade kuriérovi / vo výdajnom mieste: <strong>${eur(order.total)}</strong><br>
+        <span style="color:#666">${inv ? `Faktúra č. ${escape(inv.number)} je v prílohe — odlož si ju, je to daňový doklad.` : 'Faktúru ti pošleme v samostatnom e-maile.'}</span>
+      </div>`;
+  } else if (inv) {
+    payBlock = `<p style="margin:20px 0 0;font-size:14px;line-height:1.6;color:#333">Faktúra č. <strong>${escape(inv.number)}</strong> je v prílohe — odlož si ju, je to daňový doklad.</p>`;
+  }
   return `<!doctype html><html><body style="font-family:system-ui,sans-serif;background:#f7f7f9;padding:24px;color:#111">
   <div style="max-width:600px;margin:0 auto;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.06)">
     <div style="background:#1a0c2e;color:#fff;padding:24px 28px;text-align:center">
@@ -509,6 +541,7 @@ function customerEmailHTML(order) {
         <div>Doprava: ${eur(order.shipping)}</div>
         <div style="font-size:18px;margin-top:6px"><strong>SPOLU: ${eur(order.total)}</strong></div>
       </div>
+      ${payBlock}
       <p style="margin:24px 0 0;font-size:13px;color:#666;line-height:1.5">Otázky? Napíš nám na <a href="mailto:info@veelyn.sk" style="color:#7c3aed">info@veelyn.sk</a>.</p>
     </div>
   </div></body></html>`;
@@ -624,6 +657,12 @@ async function issueInvoice(order, kind, extra = {}) {
     db.prepare(`INSERT OR REPLACE INTO sf_invoices (order_id, invoice_id, token, invoice_no, pdf_url, public_url, created_at, raw_json)
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?)`)
       .run(order.id, null, null, number, row.pdf_url, null, Date.now(), '');
+    // sendEmail:false → doklad ide ako príloha jedného potvrdzovacieho mailu
+    // (/api/order); emailed_at nastaví volajúci po úspešnom odoslaní.
+    if (extra.sendEmail === false) {
+      console.log(`[INVOICE] ${kind} ${number} pre ${order.id} — vystavená (príloha potvrdenia objednávky)`);
+      return { ...row, meta, pdf };
+    }
     const mail = await sendInvoiceEmail(order, row, pdf);
     db.prepare(`UPDATE invoices SET emailed_at = ? WHERE order_id = ? AND number = ?`).run(Date.now(), order.id, number);
     console.log(`[INVOICE] ${kind} ${number} pre ${order.id} — mail: ${mail}`);
@@ -637,7 +676,9 @@ async function issueInvoice(order, kind, extra = {}) {
   }
 }
 
-async function sendEmails(order) {
+// inv/pdf: vystavený doklad k objednávke → jediný zákaznícky mail
+// „potvrdenie + platobné údaje" s PDF v prílohe.
+async function sendEmails(order, inv = null, pdf = null) {
   if (!resend) {
     // Fallback: log to file
     const logFile = resolve(LOG_DIR, `${order.id}.json`);
@@ -645,6 +686,12 @@ async function sendEmails(order) {
     console.log(`[ORDER] ${order.id} — RESEND_API_KEY not set, saved to ${logFile}`);
     return { admin: 'logged', customer: 'logged' };
   }
+  const customerSubject = order.paymentId === 'transfer'
+    ? `Veelyn — potvrdenie objednávky ${order.id} + platobné údaje`
+    : `Veelyn — potvrdenie objednávky ${order.id}`;
+  const attachments = inv && pdf
+    ? [{ filename: inv.kind === 'proforma' ? `Zalohova-faktura-${inv.number}.pdf` : `Faktura-${inv.number}.pdf`, content: pdf.toString('base64') }]
+    : undefined;
   const results = { admin: null, customer: null };
   try {
     const r1 = await resend.emails.send({
@@ -659,8 +706,9 @@ async function sendEmails(order) {
     const r2 = await resend.emails.send({
       from: FROM_EMAIL,
       to: order.customer.email,
-      subject: `Veelyn — potvrdenie objednávky ${order.id}`,
-      html: customerEmailHTML(order),
+      subject: customerSubject,
+      html: customerEmailHTML(order, inv),
+      ...(attachments ? { attachments } : {}),
     });
     results.customer = r2?.data?.id || r2?.error?.message || 'ok';
   } catch (e) { results.customer = 'error: ' + e.message; }
@@ -1032,7 +1080,28 @@ app.post('/api/order', rateLimit({ windowMs: 60_000, max: 10 }), async (req, res
       raw_json: JSON.stringify(order),
     });
 
-    const mail = await sendEmails(order).catch(e => ({ error: e.message }));
+    // ---- AUTOFAKTURÁCIA podľa spôsobu platby (PRED mailom) ----
+    // transfer  → ZÁLOHOVÁ faktúra (splatnosť 7 dní, VS + QR);
+    //             ostrá faktúra sa vystaví až keď admin označí "paid".
+    // cod/card  → OSTRÁ faktúra hneď (dobierka sa uhrádza pri prevzatí).
+    // Doklad ide ako príloha JEDNÉHO potvrdzovacieho mailu nižšie. Keď
+    // vystavenie zlyhá, potvrdenie odíde bez prílohy a doklad dopošle
+    // retry z adminu. Číselník RRRRMMCCCC s mesačným resetom rieši issueInvoice().
+    let sfResult = null, invPdf = null;
+    if (INVOICING_ENABLED) {
+      const kind = order.paymentId === 'transfer' ? 'proforma' : 'regular';
+      const dueDays = kind === 'proforma' ? 7 : (order.paymentId === 'cod' ? 14 : 7);
+      const r = await issueInvoice(order, kind, { dueDays, sendEmail: false });
+      if (r && !r.error) { invPdf = r.pdf; sfResult = { ...r, pdf: undefined }; }
+      else sfResult = r;
+    }
+
+    // JEDEN zákaznícky mail: potvrdenie objednávky + platobné údaje (+ doklad v prílohe)
+    const inv = sfResult && !sfResult.error ? sfResult : null;
+    const mail = await sendEmails(order, inv, invPdf).catch(e => ({ error: e.message }));
+    if (inv && mail?.customer && !String(mail.customer).startsWith('error')) {
+      db.prepare(`UPDATE invoices SET emailed_at = ? WHERE order_id = ? AND number = ?`).run(Date.now(), order.id, inv.number);
+    }
     console.log(`[ORDER] ${order.id} created — total ${eur(order.total)} — mail:`, mail);
 
     // MailerLite: move customer from "Abandoned cart" → "Customers" so
@@ -1050,26 +1119,7 @@ app.post('/api/order', rateLimit({ windowMs: 60_000, max: 10 }), async (req, res
         .catch(e => console.warn('[ML] removeFromGroup Abandoned cart failed:', e.message));
     }
 
-    // ---- AUTOFAKTURÁCIA podľa spôsobu platby ----
-    // transfer  → ZÁLOHOVÁ faktúra (splatnosť 7 dní, VS + QR) hneď;
-    //             ostrá faktúra sa vystaví až keď admin označí "paid".
-    // cod/card  → OSTRÁ faktúra hneď (dobierka sa uhrádza pri prevzatí;
-    //             karta zatiaľ bez brány — admin označí paid po pripísaní).
-    // Číselník RRRRMMCCCC s mesačným resetom rieši issueInvoice().
-    // Ak je SF vypnutá/mŕtva, objednávka aj potvrdzovací mail fungujú
-    // ďalej — doklad sa dá vystaviť dodatočne.
-    let sfResult = null;
-    if (INVOICING_ENABLED) {
-      if (order.paymentId === 'transfer') {
-        sfResult = await issueInvoice(order, 'proforma', { dueDays: 7 });
-      } else {
-        sfResult = await issueInvoice(order, 'regular', {
-          dueDays: order.paymentId === 'cod' ? 14 : 7,
-        });
-      }
-    }
-
-    res.json({ ok: true, orderId: order.id, mail, invoice: sfResult });
+    res.json({ ok: true, orderId: order.id, mail, invoice: sfResult ? { ...sfResult, meta: undefined } : null });
   } catch (e) {
     console.error('Order error:', e);
     // Don't leak internal error details (SQLite constraints, file paths,
